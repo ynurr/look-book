@@ -1,14 +1,26 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
+
 export default function Home() {
   return (
     <div className="container">
-      <h1>CSS 테스트 페이지</h1>
-      <p>이 텍스트의 스타일이 적용되었는지 확인해보세요.</p>
-      <a href="#">이것은 링크입니다</a>
-      <div className="image-container">
-        <img src="https://via.placeholder.com/300x200" alt="테스트 이미지" />
+      {/* <h1>LOOK-BOOK</h1> */}
+      <h1 className="logo">
+        <span className="logo-top">LOOK</span>
+        <span className="logo-bottom">BOOK</span>
+      </h1>
+      <p className="sub-title">나만의 독서 경험을 기록하고<br/>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</p>
+      <div className="search-container">
+        <FontAwesomeIcon icon={faSearch} className="search-icon" />
+        <input className="search-input" type="text" placeholder="제목 또는 작가를 입력하세요" />
       </div>
-      <div className="box-test">
-        이 박스의 크기가 어떻게 계산되는지 확인해보세요.
+      <div>
+        <h1>dx</h1>
+        <h1>dx</h1>
+        <h1>dx</h1>
+        <h1>dx</h1>
+        <h1>dx</h1>
+        <h1>dx</h1>
       </div>
     </div>
   );
