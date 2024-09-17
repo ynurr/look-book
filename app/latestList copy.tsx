@@ -3,7 +3,6 @@
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons'
-import Slider from 'react-slick';
 
 interface Book {
   id: number;
@@ -38,49 +37,44 @@ const books: Book[] = [
 
 export default function LatestList() {
 
-    const settings = {
-        dots: false,
-        arrows: true,
-        draggable: false,
-        infinite: false,
-        speed: 500,
-        slidesToShow: 5,
-        slidesToScroll: 5,
-        responsive: [
-            {
-                breakpoint: 1023,
-                settings: {
-                slidesToShow: 5,
-                slidesToScroll: 5,
-                arrows: false,
-                draggable: true
-                }
-            },
-            {
-                breakpoint: 700,
-                settings: {
-                slidesToShow: 3,
-                slidesToScroll: 3,
-                initialSlide: 3,
-                arrows: false,
-                draggable: true
-                }
-            }
-        ]
-    }
+    const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태 관리
+    const booksPerPage = 5; // 한 페이지에 표시할 책의 수
+    const totalPages = Math.ceil(books.length / booksPerPage); // 총 페이지 수 계산
+    const isLastPage = currentPage === totalPages; // 마지막 페이지인지 확인
+    
+    // 다음 페이지 이동 함수
+    const handleNextPage = () => {
+        setCurrentPage((currentPage) => currentPage < totalPages ? currentPage + 1 : currentPage);
+    };
+
+    // 이전 페이지 이동 함수
+    const handlePrevPage = () => {
+        setCurrentPage((currentPage) => currentPage > 1 ? currentPage - 1 : currentPage);
+    };
+
+    const startIndex = (currentPage - 1) * booksPerPage; // 현재 페이지에 해당하는 책 목록 계산
+    const endIndex = startIndex + booksPerPage; // 시작 인덱스에 한 페이지당 책 수를 더하여 끝 인덱스 계산
+    const currentBooks = books.slice(startIndex, endIndex); // books 배열에서 startIndex부터 endIndex 전까지의 책들을 선택
 
     return (
-        <div className='slider-wrapper'>
+        <div className='latest-book-list-container'>
             <h1>새로 나온 책</h1>
-            <Slider {...settings}>
-                {books.map((book) => (
-                    <div key={book.id} className='slider-item'>
-                        <div className='book-cover'></div>
+            <ul className='book-list'>
+                {currentBooks.map((book, i) => (
+                    <li className='book-list-item' key={book.id}>
+                        <div className='book-cover'>
+                            {i === 4 && !isLastPage && (
+                                <FontAwesomeIcon icon={faAngleRight} className="next-button" onClick={handleNextPage}/>
+                            )}
+                            {i === 0 && currentPage > 1 && (
+                                <FontAwesomeIcon icon={faAngleLeft} className="prev-button" onClick={handlePrevPage}/>
+                            )}
+                        </div>
                         <h3 className='book-title'>{book.title}</h3>
                         <p className='book-author'>{book.author}</p>
-                    </div>
+                    </li>
                 ))}
-            </Slider>
+            </ul>
         </div>
     )
 }

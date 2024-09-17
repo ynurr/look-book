@@ -23,23 +23,23 @@ export default function Home() {
             <input className="search-input" type="text" placeholder="제목 또는 작가를 입력하세요" />
           </div>
         </section>
-        <section className='popular-book-list-section'>
+        {/* <section className='popular-book-list-section'>
           <PopularList />
         </section>
         <section className='rating-book-list-section'>
           <RatingList />
-        </section>
+        </section> */}
         <section className='latest-book-list-section'>
           <LatestList />
         </section>
-        <div className="side-by-side-sections">
+        {/* <div className="side-by-side-sections">
           <section className='user-ranking-section'>
             <UserRanking />
           </section>
           <section className='book-recommendations-section'>
             <Recommendations />
           </section>
-        </div>
+        </div> */}
       </main>
     </div>
   );

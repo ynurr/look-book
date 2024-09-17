@@ -14,6 +14,7 @@ body {
   flex-direction: column;
   padding: 80px 20px 20px; /* 상단 패딩 조정 */
   overflow-x: hidden;
+  width: 100%;
 }
 
 html {
@@ -48,21 +49,27 @@ a:hover {
   border-radius: 99999px;
   margin: 0 auto;  /* 상하 마진 0, 좌우 자동으로 중앙 정렬 */
   align-items: center;  /* 자식 요소들을 수직 중앙 정렬 */
-  width: fit-content;  /* 내용물에 맞게 너비 조정 */
   font-weight: bold;
   z-index: 1000;  /* 다른 요소들 위에 표시되도록 z-index 설정 */
   position: fixed;
   top: 20px; /* 상단에서의 거리 */
   left: 50%; /* 왼쪽에서 50% 위치에 배치 */
   transform: translateX(-50%); /* 자신의 너비의 절반만큼 왼쪽으로 이동 */
+  overflow-x: auto; /* 가로 스크롤 허용 */
+  max-width: 90vw;
+  white-space: nowrap;
 }
 
 .header-nav.scrolled {
-  background-color: rgba(255, 255, 255, 0.925);
+  background-color: rgba(253, 253, 253, 0.925);
 }
 
 .header-nav a {
   color: #5353539f;
+}
+
+.header-nav::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera에서 스크롤바 숨기기 */
 }
 
 /* 메인 페이지 : 타이틀 */
@@ -78,17 +85,11 @@ a:hover {
 }
 
 .logo-top {
-  transform: translateX(-10vw);
+  margin-left: clamp(-30%, -15vw, -40px);
 }
 
 .logo-bottom {
-  transform: translateX(10vw);
-}
-
-@media (max-width: 500px) {
-  .logo-top, .logo-bottom {
-    transform: translateX(0);
-  }
+  margin-left: clamp(40px, 15vw, 30%);
 }
 
 /* 메인 페이지 : 검색 창 */
@@ -132,29 +133,49 @@ a:hover {
 }
 
 /* 메인 페이지 : 책 리스트 섹션 */
-.popular-book-list-section, .rating-book-list-section, .latest-book-list-section, 
+/* .popular-book-list-section, .rating-book-list-section, .latest-book-list-section, 
 .side-by-side-sections {
   margin: 80px auto 0;
   max-width: 1000px;
-}
+} */
 
 .popular-book-list-section, .rating-book-list-section, .latest-book-list-section {
-  height: 360px;
+  /* height: 360px; */
 }
 
-/* 메인 페이지 : 인기 있는 책, 별점 높은 책 */
-.book-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-  list-style: none;
-  padding: 0;
+/* 메인 페이지 : 책 리스트 슬라이더 */
+.slider-wrapper {
+  margin: 80px auto 0;
+  max-width: 1000px;
+  box-sizing: border-box;
 }
 
-.book-list-item {
-  flex: 0 0 calc(20% - 24px); /* 5개 항목을 위한 설정 */
-  min-width: 150px; /* 최소 너비 */
-  max-width: 170px;
+.slider-wrapper .slick-slide {
+  padding: 0 10px;
+}
+
+.slider-wrapper .slick-list {
+  margin: 0 -10px;
+}
+
+.slick-prev, .slick-next {
+  z-index: 9999; /* 매우 높은 z-index 값 */
+}
+
+.slick-prev::before, .slick-next::before  {
+  position: absolute;
+  padding: 10px;
+  background-color: #000000;
+  bottom: 0;
+  transform: translateY(-50%); 
+}
+
+.slick-prev::before {
+  left: 5px;
+}
+
+.slick-next::before {
+  left: -25px;
 }
 
 .book-title {
@@ -167,6 +188,15 @@ a:hover {
   color: #666;
   font-size: 14px;
 } 
+
+.book-cover {
+  background-color: #ebdce0;
+  width: 100%;
+  padding-top: 150%;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
 
 /* 메인 페이지 : 유저 랭킹, 추천 책 */
 .side-by-side-sections {
@@ -259,6 +289,7 @@ margin: 0;
   position: relative; /* 상대 위치 설정 */
 }
 
+/* 메인 페이지 : 페이지네이션 */
 .next-button, .prev-button {
   cursor: pointer;
   background-color: #ffffffd5; /* 배경색 */
