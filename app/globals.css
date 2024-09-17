@@ -138,6 +138,10 @@ a:hover {
   max-width: 1000px;
 }
 
+.popular-book-list-section, .rating-book-list-section, .latest-book-list-section {
+  height: 360px;
+}
+
 /* 메인 페이지 : 인기 있는 책, 별점 높은 책 */
 .book-list {
   display: flex;
@@ -249,4 +253,37 @@ margin: 0;
 
 .recommendations-book-summary {
   font-size: 16px;
+}
+
+.book-cover {
+  position: relative; /* 상대 위치 설정 */
+}
+
+.next-button, .prev-button {
+  cursor: pointer;
+  background-color: #ffffffd5; /* 배경색 */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-radius: 50%; /* 동그란 모양 */
+  padding: 10px; /* 아이콘 주변 여백 */
+  display: inline-flex; /* 내부 컨텐츠 정렬을 위해 */
+  justify-content: center; /* 가로 중앙 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+  width: 20px; /* 전체 너비 */
+  height: 40px; /* 전체 높이 */
+  font-size: 20px; /* 아이콘 크기 */
+  color: #4e4e4e; /* 아이콘 색상 */
+}
+
+.next-button {
+  position: absolute; /* 절대 위치 */
+  right: -20px; /* 오른쪽으로 이동 */
+  top: 50%; /* 상단에서 50% 위치 */
+  transform: translateY(-50%); /* 세로 중앙 정렬 */
+}
+
+.prev-button {
+  position: absolute; /* 절대 위치 */
+  left: -20px; /* 왼쪽으로 이동 */
+  top: 50%; /* 상단에서 50% 위치 */
+  transform: translateY(-50%); /* 세로 중앙 정렬 */
 }
