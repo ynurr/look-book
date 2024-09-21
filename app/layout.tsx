@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Providers } from "./provider";
+import { Providers } from "./(components)/provider";
 import "./globals.css";
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
-import Navbar from "./navbar";
+import Navbar from "./(components)/navbar";
 config.autoAddCss = false
 import localFont from "next/font/local";
 import 'slick-carousel/slick/slick.css';

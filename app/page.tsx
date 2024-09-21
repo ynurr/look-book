@@ -1,10 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import PopularList from './popularList'
-import RatingList from './ratingList'
-import UserRanking from './userRanking';
-import Recommendations from './recommendations';
-import LatestList from './latestList';
+import PopularList from './(components)/bestList'
+import RatingList from './(components)/ratingList'
+import UserRanking from './(components)/userRanking';
+import Recommendations from './(components)/recommendations';
+import LatestList from './(components)/latestList';
 
 export default function Home() {
   return (
@@ -23,23 +23,23 @@ export default function Home() {
             <input className="search-input" type="text" placeholder="제목 또는 작가를 입력하세요" />
           </div>
         </section>
-        {/* <section className='popular-book-list-section'>
+        <section className='best-book-list-section'>
           <PopularList />
         </section>
-        <section className='rating-book-list-section'>
+        {/* <section className='rating-book-list-section'>
           <RatingList />
         </section> */}
         <section className='latest-book-list-section'>
           <LatestList />
         </section>
-        {/* <div className="side-by-side-sections">
-          <section className='user-ranking-section'>
+        <section className='ranking-and-recommendations-section'>
+          <div>
             <UserRanking />
-          </section>
-          <section className='book-recommendations-section'>
+          </div>
+          <div>
             <Recommendations />
-          </section>
-        </div> */}
+          </div>
+        </section>
       </main>
     </div>
   );
