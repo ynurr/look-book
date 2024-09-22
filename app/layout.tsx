@@ -8,6 +8,7 @@ config.autoAddCss = false
 import localFont from "next/font/local";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import Footer from "./(components)/footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -39,7 +40,9 @@ export default function RootLayout({
             <Navbar />
           </header>
           {children}
-          <footer></footer>
+          <footer>
+            <Footer />
+          </footer>
         </Providers>
       </body>
     </html>

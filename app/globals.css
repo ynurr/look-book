@@ -219,8 +219,9 @@ a:hover {
 
 /* 메인 페이지 : 유저 랭킹, 추천 책 */
 .ranking-and-recommendations-section {
-  gap:50px;
-  align-items: stretch;  /* 자식 요소들의 높이를 동일하게 */
+  gap: 120px;
+  display: flex;
+  align-items: stretch;
 }
 
 .ranking-and-recommendations-section > div {
@@ -228,14 +229,12 @@ a:hover {
 }
 
 .user-ranking-box, .recommendations-box {
-  background-color: rgba(247, 247, 247, 0.856);
-  border-radius: 40px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 10px 30px;
+  display: flex;
+  flex-direction: column;
 }
 
 .user-ranking-box {
-  width: 270px;
+  width: 230px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -297,7 +296,9 @@ a:hover {
 .recommendations-info {
   display: flex;
   flex-direction: column;
-  margin: 10px 0;
+  padding: 20px 0;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .recommendations-book-title {
@@ -306,12 +307,12 @@ a:hover {
 }
 
 .recommendations-book-author {
-  font-size: 16px;
+  font-size: 15px;
   margin: 5px 0;
 }
 
 .recommendations-book-summary {
-  font-size: 16px;
+  font-size: 15px;
   display: -webkit-box;
   -webkit-line-clamp: 6; /* 웹킷 브라우저용 */
   line-clamp: 6; /* 표준 속성 */
@@ -325,12 +326,11 @@ a:hover {
 }
 
 .recommendations-book-cover {
-  min-width: 200px;
-  height: 300px;
+  min-width: 210px;
+  height: 310px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 15px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
@@ -358,4 +358,77 @@ a:hover {
 .liked-button:active {
   transform: translateY(0);
   box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+
+
+
+/* footer */
+.site-footer {
+  border-top: 1px solid #e9ecef;
+  padding: 40px 0 30px 0;
+  margin-top: 150px;
+  font-family: Arial, sans-serif;
+}
+
+.footer-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.site-name {
+  font-size: 14px;
+  color: #6c757d;
+  margin: 0;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.copyright {
+  font-size: 12px;
+  color: #6c757d;
+  margin: 0;
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+}
+
+.contact-button {
+  background-color: white;
+  color: #bdbdbd;
+  border: 1px solid #bdbdbd;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.3s ease;
+}
+
+.contact-button:hover {
+  border: 1px solid #9b9b9b;
+  color: #9b9b9b;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-left {
+    margin-bottom: 20px;
+  }
 }
