@@ -23,10 +23,10 @@ export default function Navbar() {
     
     return (
         <nav className={`header-nav ${isScrolled ? 'scrolled' : ''}`}>
-            <Link href="/">전체보기</Link>
-            <Link href="/">검색</Link>
+            <Link href="/">홈</Link>
+            <Link href="/">카테고리</Link>
             <Link href="/">내 서재</Link>
-            <Link href="/">로그인?</Link>
+            <Link href="/">로그인</Link>
         </nav>
     )
 }

@@ -1,14 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Providers } from "./(components)/provider";
 import "./globals.css";
+import { Providers } from "./(components)/Provider";
 import { config } from '@fortawesome/fontawesome-svg-core'
+import Navbar from "./(components)/Navbar";
+import Footer from "./(components)/Footer";
 import '@fortawesome/fontawesome-svg-core/styles.css'
-import Navbar from "./(components)/navbar";
 config.autoAddCss = false
 import localFont from "next/font/local";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Footer from "./(components)/footer";
+
 
 export const metadata: Metadata = {
   title: "Create Next App",

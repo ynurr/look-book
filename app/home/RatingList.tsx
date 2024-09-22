@@ -17,22 +17,22 @@ export default function RatingList() {
   const [currentSlide, setcurrentSlide] = useState(0);
   const totalSlides = books.length;
 
-  useEffect(() => {
+  useEffect(()=>{
     const fetchBooks = async () => {
-      try {
-        const response = await fetch('/api/latest-list');
-        if (!response.ok) {
-          throw new Error('API 요청 실패');
+        try {
+          const response = await fetch('/api/list?queryType=BlogBest'); // 별점 순 수정 필요!
+          if (!response.ok) {
+            throw new Error('API 요청 실패');
+          }
+          const data = await response.json();
+          setBooks(data.item || []);
+        } catch (error) {
+          console.log('에러 발생:', error);
         }
-        const data = await response.json();
-        setBooks(data.item || []);
-      } catch (error) {
-        console.log('에러 발생:', error);
-      }
     }
 
     fetchBooks();
-  }, [])
+  },[])
 
   const PrevArrow = (props: any) => {
       const { onClick, currentSlide } = props;
