@@ -1,0 +1,72 @@
+.box {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    display: flex;
+    gap: 30px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.title {
+    font-size: 22px;
+    margin: 0;
+}
+
+.author {
+    font-size: 15px;
+    margin: 5px 0;
+}
+
+.summary {
+    font-size: 15px;
+    display: -webkit-box;
+    -webkit-line-clamp: 6; /* 웹킷 브라우저용 */
+    line-clamp: 6; /* 표준 속성 */
+    -webkit-box-orient: vertical; /* 텍스트를 6줄로 제한하고 넘치는 부분 숨김 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cover {
+    min-width: 210px;
+    height: 310px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.button {
+    margin: 0;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 6px 14px;
+    background-color: #fae6e9;
+    color: rgb(54, 54, 54);
+    border: none;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    width: 87px;
+}
+
+.button:hover {
+    background-color: #ff9bb0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.button:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}

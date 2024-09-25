@@ -1,0 +1,58 @@
+.box {
+    display: flex;
+    flex-direction: column;
+    width: 230px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.list {
+    display: table;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    counter-reset: ranking;
+}
+
+.list li {
+    display: table-row;
+    counter-increment: ranking;
+    font-size: 15px;
+    border-bottom: 1px solid #000000;
+}
+
+.list li::before {
+    display: table-cell;
+    content: counter(ranking) "위";
+    margin-right: 15px;
+    font-weight: bold;
+    color: rgb(228, 112, 112);
+}
+
+.list li::before,
+.name,
+.count {
+    display: table-cell;
+    border-bottom: 1px solid #bbbbbb;
+}
+
+.list li:last-child::before,
+.list li:last-child .name,
+.list li:last-child .count {
+    border-bottom: none; /* 마지막 항목의 가로선 제거 (선택적) */
+}
+
+.name,
+.count {
+    display: table-cell;
+    padding: 4px 0;
+}
+
+.name {
+    padding-left: 10px;
+}
+
+.count {
+    text-align: right; /* 책 수를 오른쪽 정렬 */
+}

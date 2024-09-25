@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { useEffect, useState } from "react"
+import styles from './../(styles)/Navbar.module.css'
 
 export default function Navbar() {
 
@@ -22,7 +23,7 @@ export default function Navbar() {
     }, [])
     
     return (
-        <nav className={`header-nav ${isScrolled ? 'scrolled' : ''}`}>
+        <nav className={`${styles.nav} ${isScrolled ? styles.scrolled : ''}`}>
             <Link href="/">홈</Link>
             <Link href="/">카테고리</Link>
             <Link href="/">내 서재</Link>

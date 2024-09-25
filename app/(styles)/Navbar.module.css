@@ -1,0 +1,32 @@
+.nav {
+    display: flex;
+    gap: 25px;
+    /* 패딩 설정: clamp()를 사용해 반응형으로 조정 
+       최소 10px, 선호 1.2rem, 최대 14px (상하)
+       최소 23px, 선호 2.5rem, 최대 27px (좌우) */
+    padding: clamp(10px, 1.2rem, 14px) clamp(23px, 2.5rem, 27px);
+    border-radius: 99999px;
+    margin: 0 auto; /* 상하 마진 0, 좌우 자동으로 중앙 정렬 */
+    align-items: center; /* 자식 요소들을 수직 중앙 정렬 */
+    font-weight: bold;
+    z-index: 1000; /* 다른 요소들 위에 표시되도록 z-index 설정 */
+    position: fixed;
+    top: 20px; /* 상단에서의 거리 */
+    left: 50%; /* 왼쪽에서 50% 위치에 배치 */
+    transform: translateX(-50%); /* 자신의 너비의 절반만큼 왼쪽으로 이동 */
+    overflow-x: auto; /* 가로 스크롤 허용 */
+    max-width: 90vw;
+    white-space: nowrap;
+}
+
+.nav.scrolled {
+    background-color: rgba(253, 253, 253, 0.925);
+}
+
+.nav a {
+    color: #5353539f;
+}
+
+.nav::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera에서 스크롤바 숨기기 */
+}

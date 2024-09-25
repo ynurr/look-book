@@ -38,40 +38,6 @@ a:hover {
   flex-direction: column;
 }
 
-/* 메인 페이지 : 헤더 */
-.header-nav {
-  display: flex;  /* 자식 요소들을 가로로 배열 */
-  gap: 25px;  /* 자식 요소들 사이의 간격 */
-  /* 패딩 설정: clamp()를 사용해 반응형으로 조정 
-     최소 10px, 선호 1.2rem, 최대 14px (상하)
-     최소 23px, 선호 2.5rem, 최대 27px (좌우) */
-  padding: clamp(10px, 1.2rem, 14px) clamp(23px, 2.5rem, 27px);
-  border-radius: 99999px;
-  margin: 0 auto;  /* 상하 마진 0, 좌우 자동으로 중앙 정렬 */
-  align-items: center;  /* 자식 요소들을 수직 중앙 정렬 */
-  font-weight: bold;
-  z-index: 1000;  /* 다른 요소들 위에 표시되도록 z-index 설정 */
-  position: fixed;
-  top: 20px; /* 상단에서의 거리 */
-  left: 50%; /* 왼쪽에서 50% 위치에 배치 */
-  transform: translateX(-50%); /* 자신의 너비의 절반만큼 왼쪽으로 이동 */
-  overflow-x: auto; /* 가로 스크롤 허용 */
-  max-width: 90vw;
-  white-space: nowrap;
-}
-
-.header-nav.scrolled {
-  background-color: rgba(253, 253, 253, 0.925);
-}
-
-.header-nav a {
-  color: #5353539f;
-}
-
-.header-nav::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera에서 스크롤바 숨기기 */
-}
-
 /* 메인 페이지 : 타이틀 */
 .logo {
   display: flex;
@@ -148,6 +114,16 @@ a:hover {
   margin-bottom: 80px;
 }
 
+.ranking-and-recommendations-section {
+  gap: 120px;
+  display: flex;
+  align-items: stretch;
+}
+
+.ranking-and-recommendations-section>div {
+  display: flex; /* 내부 컴포넌트가 div의 전체 높이를 차지 */
+}
+
 /* 메인 페이지 : 책 리스트 슬라이더 */
 .slider-wrapper {
   max-width: 1000px;
@@ -189,253 +165,15 @@ a:hover {
 
 .next-button {
   right: -20px; /* 오른쪽으로 이동 */
-  top: 25%; /* 상단에서 50% 위치 */
+  top: 27%; /* 상단에서 50% 위치 */
 }
 
 .prev-button {
   left: -20px; /* 왼쪽으로 이동 */
-  top: 25%; /* 상단에서 50% 위치 */
+  top: 27%; /* 상단에서 50% 위치 */
 }
 
 .prev-button.hidden, .next-button.hidden {
   opacity: 0;
   pointer-events: none; /* 클릭 이벤트 비활성화 */
-}
-
-.book-title {
-  margin: 0;
-  font-size: 16px;
-}
-
-.book-author {
-  margin: 0;
-  color: #666;
-  font-size: 13px;
-  white-space: nowrap; /* 한 줄로 유지 */
-  overflow: hidden; 
-  text-overflow: ellipsis; /* 숨겨진 텍스트 말줄임표로 표시 */
-} 
-
-.book-cover {
-  width: 100%; /* 원하는 너비 */
-  height: 210px; /* 원하는 높이 (2:3 비율 유지) */
-  margin-bottom: 10px;
-  /* border-radius: 5px; */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-/* 메인 페이지 : 유저 랭킹, 추천 책 */
-.ranking-and-recommendations-section {
-  gap: 120px;
-  display: flex;
-  align-items: stretch;
-}
-
-.ranking-and-recommendations-section > div {
-  display: flex; /* 내부 컴포넌트가 div의 전체 높이를 차지 */
-}
-
-.user-ranking-box, .recommendations-box {
-  display: flex;
-  flex-direction: column;
-}
-
-.user-ranking-box {
-  width: 230px;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-}
-
-.user-ranking-list {
-  display: table;
-  padding: 0;
-  margin: 0;
-  width: 100%; /* 너비를 100%로 설정 */
-  counter-reset: ranking;
-}
-
-.user-ranking-list li {
-  display: table-row;
-  counter-increment: ranking;
-  font-size: 15px;
-  border-bottom: 1px solid #000000; /* 가로선 추가 */
-}
-
-.user-ranking-list li::before {
-  display: table-cell;
-  content: counter(ranking) "위";
-  margin-right: 15px;
-  font-weight: bold;
-  color: rgb(228, 112, 112);
-}
-
-.user-ranking-list li::before,
-.user-name, .book-count {
-  display: table-cell;
-  border-bottom: 1px solid #bbbbbb; /* 가로선 추가 */
-}
-
-.user-ranking-list li:last-child::before,
-.user-ranking-list li:last-child .user-name,
-.user-ranking-list li:last-child .book-count {
-  border-bottom: none; /* 마지막 항목의 가로선 제거 (선택적) */
-}
-
-.user-name, .book-count {
-  display: table-cell;
-  padding: 4px 0;
-}
-
-.user-name {
-  padding-left: 10px;
-}
-
-.book-count {
-  text-align: right; /* 책 수를 오른쪽 정렬 */
-}
-
-.recommendations-book-container {
-  display: flex;
-  gap: 30px;
-}
-
-.recommendations-info {
-  display: flex;
-  flex-direction: column;
-  padding: 20px 0;
-  height: 100%;
-  box-sizing: border-box;
-}
-
-.recommendations-book-title {
-  font-size: 22px;
-  margin: 0;
-}
-
-.recommendations-book-author {
-  font-size: 15px;
-  margin: 5px 0;
-}
-
-.recommendations-book-summary {
-  font-size: 15px;
-  display: -webkit-box;
-  -webkit-line-clamp: 6; /* 웹킷 브라우저용 */
-  line-clamp: 6; /* 표준 속성 */
-  -webkit-box-orient: vertical; /* 텍스트를 6줄로 제한하고 넘치는 부분 숨김 */
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.ranking-recommendations-title {
-  margin: 15px 0;
-}
-
-.recommendations-book-cover {
-  min-width: 210px;
-  height: 310px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.liked-button {
-  margin: 0;
-  font-weight: bold;
-  font-size: 14px;
-  cursor: pointer;
-  padding: 6px 14px;
-  background-color: #fae6e9;
-  color: rgb(54, 54, 54);
-  border: none;
-  border-radius: 20px;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  width: 87px;
-}
-
-.liked-button:hover {
-  background-color: #ff9bb0;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-}
-
-.liked-button:active {
-  transform: translateY(0);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-}
-
-
-
-
-/* footer */
-.site-footer {
-  border-top: 1px solid #e9ecef;
-  padding: 40px 0 30px 0;
-  margin-top: 150px;
-  font-family: Arial, sans-serif;
-}
-
-.footer-content {
-  max-width: 1000px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
-}
-
-.footer-left {
-  display: flex;
-  flex-direction: column;
-}
-
-.site-name {
-  font-size: 14px;
-  color: #6c757d;
-  margin: 0;
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-
-.copyright {
-  font-size: 12px;
-  color: #6c757d;
-  margin: 0;
-}
-
-.footer-right {
-  display: flex;
-  align-items: center;
-}
-
-.contact-button {
-  background-color: white;
-  color: #bdbdbd;
-  border: 1px solid #bdbdbd;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 13px;
-  transition: all 0.3s ease;
-}
-
-.contact-button:hover {
-  border: 1px solid #9b9b9b;
-  color: #9b9b9b;
-  transform: translateY(-2px);
-}
-
-@media (max-width: 768px) {
-  .footer-content {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .footer-left {
-    margin-bottom: 20px;
-  }
 }

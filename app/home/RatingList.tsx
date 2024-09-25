@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import Slider from 'react-slick';
+import styles from './../(styles)/common.module.css'
 
 interface Book {
   title: string;
@@ -89,9 +90,9 @@ export default function RatingList() {
           <Slider {...settings}>
               {books.map((book : Book, index : number) => (
                   <div key={index} className='slider-item'>
-                      <img className='book-cover' src={book.cover} alt={book.title}></img>
-                      <h3 className='book-title'>{book.title}</h3>
-                      <p className='book-author'>{book.author}</p>
+                      <img className={styles.cover} src={book.cover} alt={book.title}></img>
+                      <h3 className={styles.title}>{book.title}</h3>
+                      <p className={styles.author}>{book.author}</p>
                   </div>
               ))}
           </Slider>
