@@ -34,8 +34,8 @@ export default function Recommendations() {
     return (
         <div>
             <h1>이런 책은 어때요?</h1>
-            <div className={styles.box}>
-                <div className={styles.container}>
+            <div className={styles.wrapper}>
+                <div className={styles.box}>
                     <img className={styles.cover} src={book.cover} alt={book.title}></img>
                     <div className={styles.info}>
                         <h3 className={styles.title}>{book.title}</h3>

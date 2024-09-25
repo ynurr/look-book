@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import Slider from 'react-slick';
-import styles from './../(styles)/common.module.css'
+import styles from './../(styles)/Common.module.css'
 
 interface Book {
   title: string;
@@ -85,7 +85,7 @@ export default function BestList() {
   }
 
   return (
-      <div className='slider-wrapper'>
+      <div className='slider-wrapper best-slider'>
           <h1>인기 있는 책</h1>
           <Slider {...settings}>
               {books.map((book : Book, index : number) => (

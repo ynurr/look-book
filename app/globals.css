@@ -33,99 +33,9 @@ a:hover {
   transform: scale(1.05);
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-}
-
-/* 메인 페이지 : 타이틀 */
-.logo {
-  display: flex;
-  margin: 40px 0;
-  flex-direction: column;
-  text-align: center;
-  font-size: clamp(4.5rem, 10vw + 1rem, 10rem); /* 반응형 크기 */
-  line-height: 1.0;
-  letter-spacing: 0.1em; /* 글자 간격 */
-  font-weight: 900;
-}
-
-.logo-top {
-  margin-left: clamp(-30%, -15vw, -40px);
-}
-
-.logo-bottom {
-  margin-left: clamp(40px, 15vw, 30%);
-}
-
-/* 메인 페이지 : 검색 창 */
-.search-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  max-width: 350px;
-  position: relative;
-  width: 100%;
-}
-
-.search-icon {
-  position: absolute;
-  left: 20px;
-  color: #9ca3af;
-  z-index: 2;
-  background-color: white;
-  padding-right: 15px;
-}
-
-.search-input {
-  flex-grow: 1;
-  padding: 0.8rem 1.2rem;
-  border: 2px solid #ddd;
-  outline: none;
-  transition: border-color 0.3s ease;
-  text-indent: 30px;
-  border-radius: 10px;
-  caret-color: #a8a8a8;
-}
-
-.search-input::placeholder {
-  color: #a7a7a7;
-  padding-left: 3px;
-}
-
-/* 메인 페이지 : 서브 타이틀 */
-.sub-title {
-  text-align: center;
-  margin: 20px 0;
-  color: #4b4b4b;
-}
-
-/* 메인 페이지 : 섹션 */
-.best-book-list-section, .rating-book-list-section, .latest-book-list-section, .ranking-and-recommendations-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-width: 1000px;
-  margin: 40px auto 0;
-}
-
-.search-section {
-  margin-bottom: 80px;
-}
-
-.ranking-and-recommendations-section {
-  gap: 120px;
-  display: flex;
-  align-items: stretch;
-}
-
-.ranking-and-recommendations-section>div {
-  display: flex; /* 내부 컴포넌트가 div의 전체 높이를 차지 */
-}
-
 /* 메인 페이지 : 책 리스트 슬라이더 */
 .slider-wrapper {
+  position: relative;
   max-width: 1000px;
   box-sizing: border-box;
 }
@@ -165,15 +75,41 @@ a:hover {
 
 .next-button {
   right: -20px; /* 오른쪽으로 이동 */
-  top: 27%; /* 상단에서 50% 위치 */
+  top: 50%; /* 상단에서 50% 위치 */
 }
 
 .prev-button {
   left: -20px; /* 왼쪽으로 이동 */
-  top: 27%; /* 상단에서 50% 위치 */
+  top: 50%; /* 상단에서 50% 위치 */
 }
 
 .prev-button.hidden, .next-button.hidden {
   opacity: 0;
   pointer-events: none; /* 클릭 이벤트 비활성화 */
+}
+
+.best-slider .next-button {
+  right: -20px; /* 오른쪽으로 이동 */
+  top: 31%; /* 1번 슬라이더 버튼 위치 */
+  transform: translateY(-50%); /* 중앙 정렬 */
+}
+
+.best-slider .prev-button {
+  left: -20px; /* 왼쪽으로 이동 */
+  top: 31%; /* 1번 슬라이더 버튼 위치 */
+  transform: translateY(-50%); /* 중앙 정렬 */
+}
+
+.rating-slider .next-button,
+.latest-slider .next-button {
+  right: -20px; /* 오른쪽으로 이동 */
+  top: 32%; /* 2, 3번 슬라이더 버튼 위치 */
+  transform: translateY(-50%); /* 중앙 정렬 */
+}
+
+.rating-slider .prev-button,
+.latest-slider .prev-button {
+  left: -20px; /* 왼쪽으로 이동 */
+  top: 32%; /* 2, 3번 슬라이더 버튼 위치 */
+  transform: translateY(-50%); /* 중앙 정렬 */
 }

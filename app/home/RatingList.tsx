@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import Slider from 'react-slick';
-import styles from './../(styles)/common.module.css'
+import styles from './../(styles)/Common.module.css'
 
 interface Book {
   title: string;
@@ -36,19 +36,19 @@ export default function RatingList() {
   },[])
 
   const PrevArrow = (props: any) => {
-      const { onClick, currentSlide } = props;
-      return (
-        <FontAwesomeIcon icon={faAngleLeft} className={`prev-button ${currentSlide === 0 ? 'hidden' : ''}`} onClick={onClick}/>
-      );
-    };
+    const { onClick, currentSlide } = props;
+    return (
+      <FontAwesomeIcon icon={faAngleLeft} className={`prev-button ${currentSlide === 0 ? 'hidden' : ''}`} onClick={onClick}/>
+    );
+  };
     
-    const NextArrow = (props: any) => {
-      const { onClick } = props;
-      const isLastSlide = currentSlide >= totalSlides - settings.slidesToShow;
-      return (
-        <FontAwesomeIcon icon={faAngleRight} className={`next-button ${isLastSlide ? 'hidden' : ''}`} onClick={onClick}/>
-      );
-    };
+  const NextArrow = (props: any) => {
+    const { onClick } = props;
+    const isLastSlide = currentSlide >= totalSlides - settings.slidesToShow;
+    return (
+      <FontAwesomeIcon icon={faAngleRight} className={`next-button ${isLastSlide ? 'hidden' : ''}`} onClick={onClick}/>
+    );
+  };
 
   const settings = {
       dots: false,
@@ -85,7 +85,7 @@ export default function RatingList() {
   }
 
   return (
-      <div className='slider-wrapper'>
+      <div className='slider-wrapper rating-slider'>
           <h1>별점 높은 책</h1>
           <Slider {...settings}>
               {books.map((book : Book, index : number) => (

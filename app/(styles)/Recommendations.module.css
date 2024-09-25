@@ -1,9 +1,9 @@
-.box {
+.wrapper {
     display: flex;
     flex-direction: column;
 }
 
-.container {
+.box {
     display: flex;
     gap: 30px;
 }
