@@ -55,6 +55,12 @@
     transform: translateY(-2px);
 }
 
+@media (max-width: 1023px) {
+    .content {
+        max-width: 900px;
+    }
+}
+
 @media (max-width: 768px) {
     .content {
         flex-direction: column;

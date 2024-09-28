@@ -93,3 +93,14 @@
     margin: 20px 0;
     color: #4b4b4b;
 }
+
+
+@media (max-width: 1023px) {
+    .best-book-list-section, .rating-book-list-section, .latest-book-list-section, .ranking-and-recommendations-section {
+        max-width: 900px;
+    }
+
+    .ranking-and-recommendations-section {
+        gap: 100px;
+    }
+}

@@ -19,3 +19,16 @@
     margin-bottom: 10px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
+
+@media (max-width: 1023px) {
+    .cover {
+        /* height: 195px; */
+        height: calc((100% / 6) * (210 / 150)); /* 150x210 비율 유지 */
+    }
+}
+
+@media (max-width: 767px) {
+    .cover {
+        height: calc((100% / 3) * (210 / 150)); /* 150x210 비율 유지 */
+    }
+}

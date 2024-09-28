@@ -113,3 +113,9 @@ a:hover {
   top: 32%; /* 2, 3번 슬라이더 버튼 위치 */
   transform: translateY(-50%); /* 중앙 정렬 */
 }
+
+@media (max-width: 1023px) {
+  .slider-wrapper {
+      max-width: 900px;
+  }
+}
