@@ -1,0 +1,111 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.form {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+}
+
+.title {
+    text-align: center;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.formGroup input {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.formGroup input:focus {
+    outline: 1px solid #bbbbbb; 
+}
+
+.inputGroup {
+    position: relative;  
+}
+
+.inputField {
+    width: 100%;
+    padding-right: 70px !important;
+}
+
+.checkBtn {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    border-radius: 5px;
+    background-color: #e2e2e2;
+    color: #555;
+    cursor: pointer;
+    padding: 6px;
+    font-size: 12px;
+}
+
+.formGroup label {
+    font-weight: bold;
+    color:#555;
+    margin-bottom: 8px;
+}
+
+.agreementGroup {
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    padding: 14px;
+    margin: 10px 0;
+}
+
+.checkboxGroup {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.checkboxGroup.all {
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 6px;
+}
+
+.checkboxGroup.privacy {
+    margin-bottom: 0px;
+}
+
+.signupBtn {
+    width: 100%;
+    padding: 10px;
+    background-color: #272727;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.links {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 16px;
+}
+
+.links a {
+    color: #858585;
+    text-decoration: none;
+}
+
+.links a:hover {
+    text-decoration: underline;
+}
