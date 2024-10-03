@@ -1,8 +1,18 @@
 'use client'
 
+import { useState } from 'react';
 import styles from './Detail.module.css'
+import Pagination from './Pagination'
 
 export default function Review() {
+
+    const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태 관리
+
+    const handlePageChange = (selected: { selected: number }) => {
+        setCurrentPage(selected.selected + 1); // 페이지 번호 업데이트
+        console.log(`Current Page: ${selected.selected + 1}`); // 현재 페이지 확인
+    };
+
     return (
         <div className={styles.section4}>
             <div className={styles.reviewHeader}>
@@ -23,7 +33,7 @@ export default function Review() {
                         <span className={styles.reviewDate}>2024.10.02</span>
                     </div>
                     <div className={styles.review}>
-                        <span>ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</span>
+                        <span>ㅇㅇ안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요ㅇㅇ</span>
                     </div>
                     <div className={styles.reviewActions}>
                         <span className={styles.like}>👍 0</span>
@@ -31,6 +41,11 @@ export default function Review() {
                     </div>
                 </div>
             ))}
+            <Pagination 
+                pageCount={5}
+                onPageChange={handlePageChange}
+                currentPage={currentPage}
+            />
         </div>
     )
 }
