@@ -1,4 +1,5 @@
 import styles from './Detail.module.css'
+import Review from './Review'
 
 export default function Detail() {
     return (
@@ -55,18 +56,7 @@ export default function Detail() {
                     </div>
                     <div className={styles.hrLine}></div>
                 </div>
-                <div className={styles.section4}>
-                    <div className={styles.reviewHeader}>
-                        <span className={styles.reviewTitle}>리뷰</span>
-                        <div className={styles.align}>
-                            <span>최신순</span>
-                            <span className={styles.separator}>|</span>
-                            <span>별점높은순</span>
-                            <span className={styles.separator}>|</span>
-                            <span>별점낮은순</span>
-                        </div>
-                    </div>
-                </div>
+                <Review />
             </div>
         </div>
     )

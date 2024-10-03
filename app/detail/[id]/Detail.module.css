@@ -183,6 +183,7 @@
     padding: 20px;
 }
 
+/* 리뷰 */
 .reviewHeader {
     border-bottom: 2px solid #a1a1a1;
 }
@@ -199,4 +200,43 @@
     color: #a0a0a0;
     margin-top: 10px;
     margin-right: 4px;
+}
+
+.reviewList {
+    display: flex;
+    margin: 20px 0;
+    align-items: center;
+    border-bottom: 1px solid #bbbbbb;
+    padding-bottom: 20px;
+}
+
+.reviewMeta {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.reviewMeta > span {
+    font-size: 12px;
+    margin: 0 40px 0 4px;
+}
+
+.review {
+    font-size: 14px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 430px;
+}
+
+.reviewActions {
+    display: flex;
+    position: relative;
+    align-self: flex-end;
+    font-size: 13px;
+    margin: 0 4px 0 40px;
+    gap: 20px;
 }
