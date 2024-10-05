@@ -2,6 +2,8 @@
 .title {
     margin: 0;
     font-size: 16px;
+    color: black;
+    font-weight: bold;
 }
   
 .author {

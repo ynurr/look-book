@@ -26,7 +26,7 @@ export default function Review() {
                 </div>
             </div>
             {[...Array(5)].map((_, index) => (
-                <div className={styles.reviewList}>
+                <div className={styles.reviewList} key={index}>
                     <div className={styles.reviewMeta}>
                         <span className={styles.score}>⭐⭐⭐⭐⭐</span>
                         <span className={styles.nickname}>닉네임</span>
