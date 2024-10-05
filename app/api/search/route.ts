@@ -2,18 +2,22 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
-    const queryParam = searchParams.get('id') || '';
+    const id = searchParams.get('id') || '';
+    const type = searchParams.get('type') || '';
+    const max = searchParams.get('max') || '';
 
     const params = new URLSearchParams({
         ttbkey: process.env.TTBKEY || '',
-        ItemIdType: 'ISBN13',
-        ItemId: queryParam,
+        Query: id,
+        QueryType: type,
+        MaxResults: max,
+        outofStockfilter: '1',
         Cover: 'big',
         output: 'js',
         Version: '20131101'
     });
 
-    const url = `http://www.aladin.co.kr/ttb/api/ItemLookUp.aspx?${params}`;
+    const url = `http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?${params}`;
 
     try {
         const response = await fetch(url);

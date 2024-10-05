@@ -92,10 +92,10 @@ export default function BestList() {
 			<Slider {...settings}>
 				{books.map((book: Book, index: number) => (
 					<div key={index} className='slider-item'>
-						<Link href={`/detail?queryParam=${book.isbn13}`}>
+						<Link href={`/detail?id=${book.isbn13}`}>
 							<img className={styles.cover} src={book.cover} alt={book.title} />
 						</Link>
-						<Link href={`/detail?queryParam=${book.isbn13}`}>
+						<Link href={`/detail?id=${book.isbn13}`}>
 							<span className={styles.title}>{book.title}</span>
 						</Link>
 						<p className={styles.author}>{book.author}</p>

@@ -29,10 +29,6 @@ a {
   text-decoration: none;
 }
 
-a:hover {
-  transform: scale(1.05);
-}
-
 /* 메인 페이지 : 책 리스트 슬라이더 */
 .slider-wrapper {
   position: relative;

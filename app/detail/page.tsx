@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import styles from './Detail.module.css'
 import Review from './Review'
 import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
 interface Book {
     title: string;
@@ -14,19 +15,22 @@ interface Book {
     pubDate: string;
     categoryName: string;
     cleanAuthor: string;
+    isbn13: string;
 }
 
 export default function Detail() {
 
     const [book, setBook] = useState<Book>({} as Book);
+    const [book2, setBook2] = useState<Book[]>([]);
+    const [currentIsbn, setCurrentIsbn] = useState<string>(''); 
     const param = useSearchParams();
-    const id = param.get('queryParam');
+    const id = param.get('id');
     
     useEffect(()=>{
         const fetchBooks = async () => {
             if (!id) return; 
             try {
-                const response = await fetch(`/api/detail?queryParam=${id}`)
+                const response = await fetch(`/api/detail?id=${id}`)
                 if (!response.ok) {
                     throw new Error('API 요청 실패');
                 }
@@ -35,15 +39,39 @@ export default function Detail() {
                 copy.description = data.item[0].description
                                 .replace(/&lt;/g, '<')
                                 .replace(/&gt;/g, '>');
-                const cleanAuthor = data.item[0].author.replace(/\s*\(지은이\).*/, '');
-                setBook({ ...copy, cleanAuthor });
+                const [year, month, day] = copy.pubDate.split('-');
+                copy.pubDate = `${year}년 ${month}월 ${day}일`;
+                setBook(copy);
+                setCurrentIsbn(copy.isbn13); 
             } catch (error) {
                 console.log('에러 발생:', error);
             }
         }
 
         fetchBooks();
-    },[])
+    }, [id])
+
+    const cleanAuthor = book?.author?.replace(/\s*\(지은이\).*/, '') || '';
+
+    useEffect(() => {
+        const fetchBooksByAuthor = async () => {
+            if (!id) return; 
+            try {
+                const response = await fetch(`/api/search?id=${cleanAuthor}`);
+                if (!response.ok) {
+                    throw new Error('API 요청 실패');
+                }
+                const data = await response.json();
+                const allBooks = data.item || [];
+                const filteredBooks = allBooks.filter((item: Book) => item.isbn13 !== book.isbn13);
+                setBook2(filteredBooks.slice(0, 5) || []);
+            } catch (error) {
+                console.log('에러 발생:', error);
+            }
+        }
+    
+        fetchBooksByAuthor();
+    }, [currentIsbn]); 
 
     return (
         <div className={styles.container}>
@@ -96,7 +124,16 @@ export default function Detail() {
                     <div>
                         <p>작가의 다른 책</p>
                         <div className={styles.bookList}>
-                            <p>{book.cleanAuthor}</p>
+                            {book2.map((book: Book, index: number) => (
+                                <div className={styles.bookItem} key={index}>
+                                    <Link href={`/detail?id=${book.isbn13}&type=Author&max=6`}>
+                                        <img className={styles.cover2} src={book.cover} alt={book.title}></img>
+                                    </Link>
+                                    <Link href={`/detail?id=${book.isbn13}&type=Author&max=6`}>
+                                        <span className={styles.title2}>{book.title}</span>
+                                    </Link>
+                                </div>
+                            ))}
                         </div>
                     </div>
                     <div className={styles.hrLine}></div>

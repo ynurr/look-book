@@ -21,7 +21,7 @@ export default function Main() {
           <p className={styles['sub-title']}>나만의 독서 경험을 기록하고<br/>다양한 독자들의 감상을 살펴보세요</p>
           <div className={styles['search-container']}>
             <FontAwesomeIcon icon={faSearch} className={styles['search-icon']} />
-            <input className={styles['search-input']} type="text" placeholder="제목 또는 작가를 입력하세요" />
+            <input className={styles['search-input']} type="text" placeholder="책 제목을 입력하세요" />
           </div>
         </section>
         <section className={styles['best-book-list-section']}>
