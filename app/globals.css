@@ -73,11 +73,13 @@ a {
 .next-button {
   right: -20px; /* 오른쪽으로 이동 */
   top: 50%; /* 상단에서 50% 위치 */
+  transform: translateY(-50%); /* 중앙 정렬 */
 }
 
 .prev-button {
   left: -20px; /* 왼쪽으로 이동 */
   top: 50%; /* 상단에서 50% 위치 */
+  transform: translateY(-50%); /* 중앙 정렬 */
 }
 
 .prev-button.hidden, .next-button.hidden {
@@ -86,27 +88,25 @@ a {
 }
 
 .best-slider .next-button {
-  right: -20px; /* 오른쪽으로 이동 */
   top: 31%; /* 1번 슬라이더 버튼 위치 */
-  transform: translateY(-50%); /* 중앙 정렬 */
 }
 
 .best-slider .prev-button {
-  left: -20px; /* 왼쪽으로 이동 */
   top: 31%; /* 1번 슬라이더 버튼 위치 */
-  transform: translateY(-50%); /* 중앙 정렬 */
 }
 
-.rating-slider .next-button,
+.rating-slider .next-button {
+  top: 30%; /* 2, 3번 슬라이더 버튼 위치 */
+}
+
+.rating-slider .prev-button {
+  top: 30%; /* 2, 3번 슬라이더 버튼 위치 */
+}
+
 .latest-slider .next-button {
-  right: -20px; /* 오른쪽으로 이동 */
-  top: 32%; /* 2, 3번 슬라이더 버튼 위치 */
-  transform: translateY(-50%); /* 중앙 정렬 */
+  top: 28%; /* 2, 3번 슬라이더 버튼 위치 */
 }
 
-.rating-slider .prev-button,
 .latest-slider .prev-button {
-  left: -20px; /* 왼쪽으로 이동 */
-  top: 32%; /* 2, 3번 슬라이더 버튼 위치 */
-  transform: translateY(-50%); /* 중앙 정렬 */
+  top: 28%; /* 2, 3번 슬라이더 버튼 위치 */
 }
