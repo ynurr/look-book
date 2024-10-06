@@ -21,6 +21,7 @@ html {
   box-sizing: border-box;
 }
 
+
 *, *:before, *:after {
   box-sizing: inherit;
 }
@@ -32,40 +33,40 @@ a {
 /* 메인 페이지 : 책 리스트 슬라이더 */
 .slider-wrapper {
   position: relative;
-  max-width: 1000px;
+  max-width: 800px;
   box-sizing: border-box;
 }
 
 .slider-wrapper .slick-slide {
-  padding: 0 10px;
+  padding: 0 8px;
 }
 
 .slider-wrapper .slick-list {
-  margin: 0 -10px;
+  margin: 0 -8px;
 }
 
 /* 메인 페이지 : 슬라이더 버튼 */
 .next-button, .prev-button {
-  position: absolute; /* 절대 위치 */
+  position: absolute;
   cursor: pointer;
   z-index: 9999;
-  background-color: #ffffff94; /* 배경색 */
+  background-color: #ffffff94;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  border-radius: 50%; /* 동그란 모양 */
-  padding: 8px; /* 아이콘 주변 여백 */
-  display: inline-flex; /* 내부 컨텐츠 정렬을 위해 */
-  justify-content: center; /* 가로 중앙 정렬 */
-  align-items: center; /* 세로 중앙 정렬 */
-  width: 20px; /* 전체 너비 */
-  height: 40px; /* 전체 높이 */
-  font-size: 20px; /* 아이콘 크기 */
-  color: #4e4e4e80; /* 아이콘 색상 */
+  border-radius: 50%; 
+  padding: 8px; 
+  display: inline-flex;
+  justify-content: center; 
+  align-items: center;
+  width: 20px; 
+  height: 40px; 
+  font-size: 20px; 
+  color: #4e4e4e80; 
 }
 
 .next-button:hover, .prev-button:hover {
-  background-color: rgba(255, 255, 255, 0.9); /* 더 불투명한 흰색 배경 */
-  color: #2e2e2e; /* 더 진한 색상 */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* 그림자 강화 */
+  background-color: rgba(255, 255, 255, 0.9); 
+  color: #2e2e2e;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
   color: #4e4e4ee8;
 }
 
@@ -108,10 +109,4 @@ a {
   left: -20px; /* 왼쪽으로 이동 */
   top: 32%; /* 2, 3번 슬라이더 버튼 위치 */
   transform: translateY(-50%); /* 중앙 정렬 */
-}
-
-@media (max-width: 1023px) {
-  .slider-wrapper {
-      max-width: 900px;
-  }
 }

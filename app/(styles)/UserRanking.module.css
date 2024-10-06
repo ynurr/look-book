@@ -18,7 +18,7 @@
 .list li {
     display: table-row;
     counter-increment: ranking;
-    font-size: 15px;
+    font-size: 14px;
     border-bottom: 1px solid #000000;
 }
 

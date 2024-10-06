@@ -11,7 +11,7 @@
 .info {
     display: flex;
     flex-direction: column;
-    padding: 20px 0;
+    padding: 10px 0;
     height: 100%;
     box-sizing: border-box;
 }
@@ -34,11 +34,12 @@
     -webkit-box-orient: vertical; /* 텍스트를 6줄로 제한하고 넘치는 부분 숨김 */
     overflow: hidden;
     text-overflow: ellipsis;
+    margin: 6px 0;
 }
 
 .cover {
-    min-width: 210px;
-    height: 310px;
+    min-width: 190px;
+    height: 290px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -47,6 +48,7 @@
 
 .button {
     margin: 0;
+    margin-top: 10px;
     font-weight: bold;
     font-size: 14px;
     cursor: pointer;
