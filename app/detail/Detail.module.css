@@ -6,7 +6,7 @@
 
 .inner {
     width: 100%;
-    max-width: 900px;
+    max-width: 800px;
     padding: 20px;
 }
 
@@ -190,7 +190,7 @@
 
 .bookList {
     display: flex;
-    gap: 27px;
+    gap: 15px;
     background-color: #f5f5f5;
     border-radius: 20px;
     padding: 20px;
@@ -199,13 +199,13 @@
 .bookItem {
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    width: 130px;
+    gap: 10px;
+    width: 120px;
 }
 
 .cover2 {
-    width: 130px;
-    height: 191px;
+    width: 120px;
+    height: 180px;
     transition: transform 0.3s ease;
 }
 
@@ -284,4 +284,34 @@
     font-size: 13px;
     margin: 0 4px 0 40px;
     gap: 16px;
+}
+
+@media (max-width: 860px) {
+    .inner {
+        padding: 0;
+    }
+    .section3, .section4 {
+        margin: 0;
+    }
+    .section1 {
+        flex-direction: column;
+        padding: 0;
+    }
+    .cover {
+        margin: 0 auto;
+        width: 180px;
+        height: 270px;
+    }
+    .bookList {
+        overflow: hidden;
+    }
+}
+
+@media (max-width: 530px) {
+    .wishlistBox {
+        flex-direction: column;
+    }
+    .btnBox {
+        margin-top: 8px;
+    }
 }
