@@ -16,26 +16,44 @@ interface Book {
 
 export default function RatingList() {
 
-	const [books, setBooks] = useState([]);
+	const [books, setBooks] = useState<Book[]>([]);
 	const [currentSlide, setcurrentSlide] = useState(0);
+	const [isSliderReady, setIsSliderReady] = useState(false); // 추가
 	const totalSlides = books.length;
 
 	useEffect(() => {
 		const fetchBooks = async () => {
 			try {
-				const response = await fetch('/api/list?queryType=BlogBest'); // 별점 순 수정 필요!
+				const response = await fetch('/api/list?queryType=BlogBest'); // 별점 순
 				if (!response.ok) {
 					throw new Error('API 요청 실패');
 				}
 				const data = await response.json();
 				setBooks(data.item || []);
+				setIsSliderReady(true); // 슬라이더 렌더링 준비 완료
 			} catch (error) {
 				console.log('에러 발생:', error);
 			}
 		}
 
 		fetchBooks();
-	}, [])
+	}, []);
+
+	// 화면 크기 변경 시 슬라이더 재렌더링
+	useEffect(() => {
+		const handleResize = () => {
+			setIsSliderReady(false);
+			setTimeout(() => {
+				setIsSliderReady(true);
+			}, 100);
+		};
+
+		window.addEventListener('resize', handleResize);
+
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, []);
 
 	const PrevArrow = (props: any) => {
 		const { onClick, currentSlide } = props;
@@ -73,35 +91,36 @@ export default function RatingList() {
 					draggable: true
 				}
 			},
-			{
-				breakpoint: 767,
-				settings: {
-					slidesToShow: 3,
-					slidesToScroll: 3,
-					initialSlide: 3,
-					arrows: false,
-					draggable: true
-				}
-			}
+            {
+                breakpoint: 767,
+                settings: {
+                    slidesToShow: 5,
+                    slidesToScroll: 5,
+                    arrows: false,
+                    draggable: true
+                }
+            }
 		]
-	}
+	};
 
 	return (
 		<div className='slider-wrapper rating-slider'>
 			<h1>별점 높은 책</h1>
-			<Slider {...settings}>
-				{books.map((book: Book, index: number) => (
-					<div key={index} className='slider-item'>
-						<Link href={`/detail?id=${book.isbn13}`}>
-							<img className={styles.cover} src={book.cover} alt={book.title} />
-						</Link>
-						<Link href={`/detail?id=${book.isbn13}`}>
-							<span className={styles.title}>{book.title}</span>
-						</Link>
-						<p className={styles.author}>{book.author}</p>
-					</div>
-				))}
-			</Slider>
+			{isSliderReady && (
+				<Slider {...settings}>
+					{books.map((book: Book, index: number) => (
+						<div key={index} className='slider-item'>
+							<Link href={`/detail?id=${book.isbn13}`}>
+								<img className={styles.cover} src={book.cover} alt={book.title} />
+							</Link>
+							<Link href={`/detail?id=${book.isbn13}`}>
+								<span className={styles.title}>{book.title}</span>
+							</Link>
+							<p className={styles.author}>{book.author}</p>
+						</div>
+					))}
+				</Slider>
+			)}
 		</div>
 	)
 }
