@@ -1,91 +1,52 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import styles from './Detail.module.css'
-import Review from './Review'
+import { useEffect, useState } from 'react';
+import styles from './Detail.module.css';
+import Review from './Review';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-
-interface Book {
-    title: string;
-    author: string;
-    publisher: string;
-    cover: string;
-    description: string;
-    pubDate: string;
-    categoryName: string;
-    cleanAuthor: string;
-    isbn13: string;
-}
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchBookDetails } from '@/store/slices/detailSlice';
+import { fetchSearchBooks, Books } from '@/store/slices/searchSlice';
+import { RootState } from '@/store/store';
 
 export default function Detail() {
-
-    const [book, setBook] = useState<Book>({} as Book);
-    const [book2, setBook2] = useState<Book[]>([]);
-    const [currentIsbn, setCurrentIsbn] = useState<string>(''); 
+    const dispatch = useDispatch();
     const param = useSearchParams();
     const id = param.get('id');
-    
-    useEffect(()=>{
-        const fetchBooks = async () => {
-            if (!id) return; 
-            try {
-                const response = await fetch(`/api/detail?id=${id}`)
-                if (!response.ok) {
-                    throw new Error('API 요청 실패');
-                }
-                const data = await response.json();
-                const copy = {...data.item[0]};
-                copy.description = data.item[0].description
-                                .replace(/&lt;/g, '<')
-                                .replace(/&gt;/g, '>');
-                const [year, month, day] = copy.pubDate.split('-');
-                copy.pubDate = `${year}년 ${month}월 ${day}일`;
-                setBook(copy);
-                setCurrentIsbn(copy.isbn13); 
-            } catch (error) {
-                console.log('에러 발생:', error);
-            }
-        }
 
-        fetchBooks();
-    }, [id])
+    const book = useSelector((state: RootState) => state.detail.book); 
+    const authorBooks = useSelector((state: RootState) => state.search.books || []); 
+
+    useEffect(() => {
+        if (id) {
+            dispatch<any>(fetchBookDetails(id));
+        }
+    }, [id, dispatch]);
 
     const cleanAuthor = book?.author?.replace(/\s*\(지은이\).*/, '') || '';
 
     useEffect(() => {
-        const fetchBooksByAuthor = async () => {
-            if (!id) return; 
-            try {
-                const response = await fetch(`/api/search?id=${cleanAuthor}`);
-                if (!response.ok) {
-                    throw new Error('API 요청 실패');
-                }
-                const data = await response.json();
-                const allBooks = data.item || [];
-                const filteredBooks = allBooks.filter((item: Book) => item.isbn13 !== book.isbn13);
-                setBook2(filteredBooks.slice(0, 5) || []);
-            } catch (error) {
-                console.log('에러 발생:', error);
-            }
+        if (cleanAuthor) {
+            dispatch<any>(fetchSearchBooks({ author: cleanAuthor, type: 'Author', max: '6' }));
         }
-    
-        fetchBooksByAuthor();
-    }, [currentIsbn]); 
+    }, [cleanAuthor, book?.isbn13, dispatch])
+
+    const filteredBooks = authorBooks.filter((item: Books) => item.isbn13 !== book?.isbn13).slice(0, 5); 
 
     return (
         <div className={styles.container}>
             <div className={styles.inner}>
                 <div className={styles.section1}>
-                    <img className={styles.cover} src={book.cover} alt={book.title}></img>
+                    <img className={styles.cover} src={book?.cover} alt={book?.title}></img>
                     <div className={styles.info}>
-                        <h1 className={styles.title}>{book.title}</h1>
+                        <h1 className={styles.title}>{book?.title}</h1>
                         <div className={styles.subInfo}>
-                            <span className={styles.author}>{book.author}</span>
+                            <span className={styles.author}>{book?.author}</span>
                             <span className={styles.separator}>|</span>
-                            <span className={styles.publisher}>{book.publisher}</span>
+                            <span className={styles.publisher}>{book?.publisher}</span>
                         </div>
-                        <p className={styles.date}>{book.pubDate}</p>
+                        <p className={styles.date}>{book?.pubDate}</p>
                         <div className={styles.rating}>
                             <div>⭐⭐⭐⭐⭐</div>
                             <span className={styles.ratingAverage}>9.1</span>
@@ -113,23 +74,23 @@ export default function Detail() {
                 <div className={styles.section3}>
                     <div>
                         <p>분야</p>
-                        <span>{book.categoryName}</span>
+                        <span>{book?.categoryName}</span>
                     </div>
                     <div className={styles.hrLine}></div>
                     <div>
                         <p>소개글</p>
-                        <span>{book.description}</span>
+                        <span>{book?.description}</span>
                     </div>
                     <div className={styles.hrLine}></div>
                     <div>
                         <p>작가의 다른 책</p>
                         <div className={styles.bookList}>
-                            {book2.map((book: Book, index: number) => (
+                            {filteredBooks.map((book: Books, index: number) => (
                                 <div className={styles.bookItem} key={index}>
-                                    <Link href={`/detail?id=${book.isbn13}&type=Author&max=6`}>
+                                    <Link href={`/detail?id=${book.isbn13}`}>
                                         <img className={styles.cover2} src={book.cover} alt={book.title}></img>
                                     </Link>
-                                    <Link href={`/detail?id=${book.isbn13}&type=Author&max=6`}>
+                                    <Link href={`/detail?id=${book.isbn13}`}>
                                         <span className={styles.title2}>{book.title}</span>
                                     </Link>
                                 </div>
@@ -141,5 +102,5 @@ export default function Detail() {
                 <Review />
             </div>
         </div>
-    )
+    );
 }
