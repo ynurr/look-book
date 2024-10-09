@@ -6,7 +6,7 @@ import Review from './Review';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchBookDetails } from '@/store/slices/detailSlice';
+import { fetchBookDetails, clearBook } from '@/store/slices/detailSlice';
 import { fetchSearchBooks, Books } from '@/store/slices/searchSlice';
 import { RootState } from '@/store/store';
 
@@ -18,21 +18,32 @@ export default function Detail() {
     const book = useSelector((state: RootState) => state.detail.book); 
     const authorBooks = useSelector((state: RootState) => state.search.books || []); 
 
+    const [filteredBooks, setFilteredBooks] = useState<Books[]>([]);
+    const [isReady, setIsReady] = useState(false);
+    
     useEffect(() => {
+        dispatch(clearBook());
         if (id) {
             dispatch<any>(fetchBookDetails(id));
+            setIsReady(true);
         }
     }, [id, dispatch]);
 
-    const cleanAuthor = book?.author?.replace(/\s*\(지은이\).*/, '') || '';
+    useEffect(() => {
+        if (book && book.cleanAuthor && isReady) {
+            console.log('현재 author:', book?.cleanAuthor);
+            dispatch<any>(fetchSearchBooks({ author: book.cleanAuthor, type: 'Author', max: '6' }));
+        }
+    }, [book, dispatch, isReady]);
 
     useEffect(() => {
-        if (cleanAuthor) {
-            dispatch<any>(fetchSearchBooks({ author: cleanAuthor, type: 'Author', max: '6' }));
+        if (authorBooks.length > 0) {
+            const newFilteredBooks = authorBooks.filter((item: Books) => item.isbn13 !== book?.isbn13).slice(0, 5);
+            setFilteredBooks(newFilteredBooks);
+        } else {
+            setFilteredBooks([]);
         }
-    }, [cleanAuthor, book?.isbn13, dispatch])
-
-    const filteredBooks = authorBooks.filter((item: Books) => item.isbn13 !== book?.isbn13).slice(0, 5); 
+    }, [authorBooks, book?.isbn13]);
 
     return (
         <div className={styles.container}>
@@ -79,7 +90,7 @@ export default function Detail() {
                     <div className={styles.hrLine}></div>
                     <div>
                         <p>소개글</p>
-                        <span>{book?.description}</span>
+                        <span>{book?.description  || '소개글이 등록되어 있지 않습니다.'}</span>
                     </div>
                     <div className={styles.hrLine}></div>
                     <div>

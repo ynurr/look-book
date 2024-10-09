@@ -36,6 +36,7 @@ export const fetchBookDetails = createAsyncThunk(
         copy.description = data.item[0].description
                         .replace(/&lt;/g, '<')
                         .replace(/&gt;/g, '>');
+        copy.cleanAuthor = copy.author.replace(/\s*\(지은이\).*/, '');
         const [year, month, day] = copy.pubDate.split('-');
         copy.pubDate = `${year}년 ${month}월 ${day}일`;
         return copy;
@@ -45,7 +46,11 @@ export const fetchBookDetails = createAsyncThunk(
 const detailSlice = createSlice({
     name: 'detail',
     initialState,
-    reducers: {},
+    reducers: {
+        clearBook(state) {
+            state.book = null; // book 상태 초기화
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchBookDetails.pending, (state) => {
@@ -55,6 +60,7 @@ const detailSlice = createSlice({
             .addCase(fetchBookDetails.fulfilled, (state, action) => {
                 state.loading = false;
                 state.book = action.payload;
+                console.log('book 상태 업데이트:', action.payload);
             })
             .addCase(fetchBookDetails.rejected, (state, action) => {
                 state.loading = false;
@@ -62,5 +68,7 @@ const detailSlice = createSlice({
             });
     }
 })
+
+export const { clearBook } = detailSlice.actions;
 
 export default detailSlice.reducer;
