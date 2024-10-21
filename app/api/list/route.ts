@@ -2,14 +2,15 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
-  const queryType = searchParams.get('queryType') || '';
+  const type = searchParams.get('type') || '';
+  const max = searchParams.get('max') || '';
 
   const params = new URLSearchParams({
     ttbkey: process.env.TTBKEY || '',
-    Cover: 'big',
-    QueryType: queryType,
+    QueryType: type,
+    MaxResults: max,
     CategoryId: '1',
-    MaxResults: '24',
+    Cover: 'big',
     start: '1',
     SearchTarget: 'Book',
     output: 'js',
