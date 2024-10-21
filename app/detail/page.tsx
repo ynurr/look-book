@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react';
-import styles from './Detail.module.css';
+import styles from './../(styles)/Detail.module.css';
 import Review from './Review';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactPaginate from "react-paginate";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import styles from './Pagination.module.css'
+import styles from './../(styles)/Pagination.module.css'
 
 interface PaginationProps {
     pageCount: number; // 총 페이지 수

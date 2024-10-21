@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react';
-import styles from './Detail.module.css'
+import styles from './../(styles)/Detail.module.css'
 import Pagination from './Pagination'
 
 export default function Review() {
