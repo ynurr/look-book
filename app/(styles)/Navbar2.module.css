@@ -53,7 +53,7 @@
 
 .search {
     flex-grow: 1;
-    padding: 8px 6px;
+    padding: 8px 12px 8px 6px;
     border: none;
     outline: none;
     transition: border-color 0.3s ease;
