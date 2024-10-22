@@ -1,0 +1,55 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+}
+
+.inner {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.content {
+    display: flex;
+    gap: 40px;
+}
+
+.cover {
+    width: 120px;
+    height: 180px;
+    background-color: rgb(182, 192, 192);
+}
+
+.title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 20px 0 6px;
+}
+
+.author {
+    margin: 6px 0;
+    font-size: 14px;
+}
+
+.info {
+    display: flex;
+    margin: 6px 0;
+    font-size: 14px;
+}
+
+.separator {
+    margin: 0 8px;
+    color: #d3d3d3;
+}
+
+.hr {
+    margin: 0;
+}
