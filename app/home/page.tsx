@@ -1,13 +1,28 @@
+'use client'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { useRouter } from 'next/navigation'
 import RatingList from './RatingList'
 import UserRanking from './UserRanking';
 import Recommendations from './Recommendations';
 import LatestList from './LatestList';
 import BestList from './BestList';
 import styles from './../(styles)/HomePage.module.css'
+import { useState } from 'react';
 
 export default function Main() {
+
+  const [keyword, setKeyword] = useState<string>('');
+  const router = useRouter();
+
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (keyword.trim()) {
+      router.push(`/find?q=${encodeURIComponent(keyword.trim())}`)
+    }
+  }
+
   return (
     <div className={styles['container']}>
       <main>
@@ -19,10 +34,18 @@ export default function Main() {
         </section>
         <section className={styles['search-section']}>
           <p className={styles['sub-title']}>나만의 독서 경험을 기록하고<br/>다양한 독자들의 감상을 살펴보세요</p>
-          <div className={styles['search-container']}>
-            <FontAwesomeIcon icon={faSearch} className={styles['search-icon']} />
-            <input className={styles['search-input']} type="text" placeholder="책 제목을 입력하세요" />
-          </div>
+          <form onSubmit={handleSearch}>
+            <div className={styles['search-container']}>
+              <FontAwesomeIcon icon={faSearch} className={styles['search-icon']} />
+                <input 
+                  className={styles['search-input']} 
+                  type="text" 
+                  placeholder="책 제목 또는 작가를 입력하세요" 
+                  value={keyword}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setKeyword(e.target.value)}
+                />
+            </div>
+          </form>
         </section>
         <section className={styles['best-book-list-section']}>
           <BestList />

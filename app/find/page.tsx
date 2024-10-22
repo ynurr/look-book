@@ -1,12 +1,16 @@
 import styles from './Find.module.css'
 
-export default function Find() {
+export default function Find({searchParams}: {searchParams: { q: string }}) {
+
+    const query = searchParams.q
+    console.log('검색어:'+query)
+
     return (
         <div className={styles.container}>
             <div className={styles.wrapper}>
                 <h2>'해리포터' 검색 결과</h2>
                 <hr className={styles.hr}/>
-                {[1,2,3,4,5].map((_, index) => (
+                {[...Array(5)].map((_, index) => (
                     <div key={index} className={styles.inner}>
                         <div className={styles.content}>
                             <div className={styles.cover}>표지</div>
