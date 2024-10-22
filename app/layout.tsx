@@ -2,13 +2,13 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Providers } from "./(components)/Provider";
 import { config } from '@fortawesome/fontawesome-svg-core'
-import Navbar from "./(components)/Navbar";
 import Footer from "./(components)/Footer";
 import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false
 import localFont from "next/font/local";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import NavbarManager from "./(components)/NavbarManager";
 
 
 export const metadata: Metadata = {
@@ -33,12 +33,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="kr" className={pretendard.variable}>
       <body className={pretendard.className}>
         <Providers>
           <header>
-            <Navbar />
+            <NavbarManager />
           </header>
           {children}
           <footer>
