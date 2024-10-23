@@ -7,7 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBookDetails, clearBook } from '@/store/slices/detailSlice';
-import { fetchSearchBooks, Books } from '@/store/slices/searchSlice';
+import { fetchAuthorBooks, Books } from '@/store/slices/authorBooksSlice';
 import { RootState, AppDispatch } from '@/store/store';
 
 export default function Detail() {
@@ -16,7 +16,7 @@ export default function Detail() {
     const id = param.get('id');
 
     const book = useSelector((state: RootState) => state.detail.book); 
-    const authorBooks = useSelector((state: RootState) => state.search.books || []); 
+    const authorBooks = useSelector((state: RootState) => state.authorBooks.books || []); 
 
     const [filteredBooks, setFilteredBooks] = useState<Books[]>([]);
     const [isReady, setIsReady] = useState(false);
@@ -32,7 +32,7 @@ export default function Detail() {
     useEffect(() => {
         if (book && book.cleanAuthor && isReady) {
             console.log('현재 author:', book?.cleanAuthor);
-            dispatch(fetchSearchBooks({ author: book.cleanAuthor, type: 'Author', max: '6' }));
+            dispatch(fetchAuthorBooks({ keyword: book.cleanAuthor }));
         }
     }, [book, dispatch, isReady]);
 
