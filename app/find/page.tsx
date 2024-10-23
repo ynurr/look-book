@@ -1,31 +1,66 @@
+'use client'
+
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './Find.module.css'
+import { useSearchParams } from 'next/navigation';
+import { AppDispatch, RootState } from '@/store/store';
+import { useEffect, useState } from 'react';
+import { fetchSearchBooks } from '@/store/slices/searchSlice';
+import Pagination from '../(components)/Pagination';
 
-export default function Find({searchParams}: {searchParams: { q: string }}) {
+export default function Find() {
 
-    const query = searchParams.q
-    console.log('검색어:'+query)
+    const keyword = useSearchParams().get('q');
+    const dispatch = useDispatch<AppDispatch>();
+    const books = useSelector((state: RootState) => state.search.books || []);
+
+    const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태 관리
+    const ItemsPerPage = 10; 
+
+    useEffect(() => {
+        if (keyword) {
+            dispatch(fetchSearchBooks({ keyword: keyword }));
+        }
+    }, [keyword])
+
+    useEffect(() => {
+        console.log('Fetched books:', books);
+    }, [books]);
+
+    const pageCount = Math.ceil(books.length / ItemsPerPage); // 총 페이지 수
+    const currentItems = books.slice((currentPage - 1) * ItemsPerPage, currentPage * ItemsPerPage);
+
+    const handlePageChange = (selected: { selected: number }) => {
+        setCurrentPage(selected.selected + 1);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
     return (
         <div className={styles.container}>
             <div className={styles.wrapper}>
-                <h2>'해리포터' 검색 결과</h2>
+                <h2>'{keyword}' 검색 결과</h2>
                 <hr className={styles.hr}/>
-                {[...Array(5)].map((_, index) => (
+                {currentItems.map((book, index) => (
                     <div key={index} className={styles.inner}>
                         <div className={styles.content}>
-                            <div className={styles.cover}>표지</div>
+                            <img className={styles.cover} src={book.cover} alt={book.title}></img>
                             <div className={styles.item}>
-                                <p className={styles.title}>해리 포터와 마법사의 돌</p>
-                                <p className={styles.author}>J.K. 롤링 (지은이)</p>
+                                <p className={styles.title}>{book.title}</p>
+                                <p className={styles.author}>{book.author}</p>
                                 <div className={styles.info}>
-                                    <span className={styles.publisher}>문학수첩</span>
+                                    <span className={styles.publisher}>{book.publisher}</span>
                                     <span className={styles.separator}>|</span>
-                                    <span className={styles.pubDate}>2019년 11월 19일</span>
+                                    <span className={styles.pubDate}>{book.pubDate}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 ))}
+                <Pagination
+                    pageCount={pageCount}
+                    onPageChange={handlePageChange}
+                    currentPage={currentPage}
+                />
             </div>
         </div>
     )

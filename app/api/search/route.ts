@@ -2,13 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
-    const id = searchParams.get('id') || '';
+    const keyword = searchParams.get('keyword') || '';
     const type = searchParams.get('type') || '';
     const max = searchParams.get('max') || '';
 
     const params = new URLSearchParams({
         ttbkey: process.env.TTBKEY || '',
-        Query: id,
+        Query: keyword,
         QueryType: type,
         MaxResults: max,
         outofStockfilter: '1',
