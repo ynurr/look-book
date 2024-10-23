@@ -7,15 +7,15 @@ import Slider from 'react-slick';
 import styles from './../(styles)/Common.module.css'
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store/store';
+import { RootState, AppDispatch } from '@/store/store';
 import { fetchBookList, Books } from '@/store/slices/listSlice';
 
 export default function LatestList() {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const books = useSelector((state: RootState) => state.list.latestList);
 
     useEffect(() => {
-        dispatch<any>(fetchBookList({ type: 'ItemNewSpecial', max: '24' }));
+        dispatch(fetchBookList({ type: 'ItemNewSpecial', max: '24' }));
     }, [])
 
     const PrevArrow = (props: any) => {
