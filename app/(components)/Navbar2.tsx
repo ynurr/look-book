@@ -9,7 +9,7 @@ export default function Navbar2() {
             <div className={styles.content}>
                 <div className={styles.container}>
                     <div className={styles.leftSection}>
-                        <Link href="/" className={styles.homeLink}>LookBook</Link>
+                        <Link href="/" className={styles.homeLink}>LOOKBOOK</Link>
                         <ul className={styles.navList}>
                             <li>
                                 <Link href="/popular">인기</Link>
