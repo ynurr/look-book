@@ -7,6 +7,7 @@ import { AppDispatch, RootState } from '@/store/store';
 import { useEffect, useState } from 'react';
 import { fetchSearchBooks } from '@/store/slices/searchSlice';
 import Pagination from '../(components)/Pagination';
+import Link from 'next/link';
 
 export default function Find() {
 
@@ -43,9 +44,13 @@ export default function Find() {
                 {currentItems.map((book, index) => (
                     <div key={index} className={styles.inner}>
                         <div className={styles.content}>
-                            <img className={styles.cover} src={book.cover} alt={book.title}></img>
+                            <Link href={`/detail?id=${book.isbn13}`}>
+                                <img className={styles.cover} src={book.cover} alt={book.title}></img>
+                            </Link>
                             <div className={styles.item}>
-                                <p className={styles.title}>{book.title}</p>
+                                <Link href={`/detail?id=${book.isbn13}`}>
+                                    <p className={styles.title}>{book.title}</p>
+                                </Link>
                                 <p className={styles.author}>{book.author}</p>
                                 <div className={styles.info}>
                                     <span className={styles.publisher}>{book.publisher}</span>
