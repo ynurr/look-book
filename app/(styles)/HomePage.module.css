@@ -38,7 +38,7 @@
     margin: 40px 0;
     flex-direction: column;
     text-align: center;
-    font-size: clamp(4.5rem, 10vw + 1rem, 10rem); /* 반응형 크기 */
+    font-size: clamp(4rem, 10vw + 1rem, 8rem); 
     line-height: 1.0;
     letter-spacing: 0.1em; /* 글자 간격 */
     font-weight: 900;
