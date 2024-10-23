@@ -37,6 +37,8 @@
     margin: 0;
     display: block;
     line-height: 1.1;
+    font-weight: bold;
+    font-size: 26px;
 }
 
 .subInfo {

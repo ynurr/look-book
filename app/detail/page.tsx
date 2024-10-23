@@ -51,7 +51,7 @@ export default function Detail() {
                 <div className={styles.section1}>
                     <img className={styles.cover} src={book?.cover} alt={book?.title}></img>
                     <div className={styles.info}>
-                        <h1 className={styles.title}>{book?.title}</h1>
+                        <p className={styles.title}>{book?.title}</p>
                         <div className={styles.subInfo}>
                             <span className={styles.author}>{book?.author}</span>
                             <span className={styles.separator}>|</span>
