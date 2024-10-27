@@ -4,6 +4,11 @@
     font-size: 15px;
     color: black;
     font-weight: bold;
+    display: -webkit-box; 
+    -webkit-box-orient: vertical; 
+    overflow: hidden;
+    -webkit-line-clamp: 3; 
+    line-clamp: 3;
 }
   
 .author {
