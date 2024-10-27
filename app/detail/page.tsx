@@ -65,7 +65,7 @@ export default function Detail() {
                         </div>
                         <div className={styles.wishlistBox}>
                             <div className={styles.wishlistContent}>
-                                <p>아직 책제목을 읽어보지 않으셨나요?</p>
+                                <p>아직 이 책을 읽어보지 않으셨나요?</p>
                                 <p>지금 읽고 싶은 책으로 찜해보세요.</p>
                             </div>
                             <div className={styles.btnBox}>
