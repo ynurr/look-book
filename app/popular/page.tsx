@@ -13,7 +13,7 @@ export default function Popular() {
     const books = useSelector((state: RootState) => state.list.bestList);
 
     useEffect(() => {
-        dispatch(fetchBookList({ type: 'Bestseller', max: '100' }));
+        dispatch(fetchBookList({ type: 'Bestseller', max: '100', page: 'all' }));
     }, [])
 
     return (

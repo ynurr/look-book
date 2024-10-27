@@ -13,7 +13,7 @@ export default function New() {
     const books = useSelector((state: RootState) => state.list.latestList);
 
     useEffect(() => {
-        dispatch(fetchBookList({ type: 'ItemNewSpecial', max: '100' }));
+        dispatch(fetchBookList({ type: 'ItemNewSpecial', max: '100', page: 'all' }));
     }, [])
 
     return (

@@ -9,13 +9,13 @@ export interface Books {
 
 export const fetchBookList = createAsyncThunk(
     'list/fetchBookList',
-    async( { type, max }: { type: string, max: string } ) => {
-        const response = await fetch(`/api/list?type=${type}&max=${max}`);
+    async( { type, max, page }: { type: string, max: string, page: string } ) => {
+        const response = await fetch(`/api/list?type=${type}&max=${max}&page=${page}`);
         if (!response.ok) {
             throw new Error('API 요청 실패');
         }
         const data = await response.json();
-        return data.item || [];
+        return data || [];
     }
 )
 

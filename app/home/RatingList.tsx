@@ -15,7 +15,7 @@ export default function RatingList() {
     const books = useSelector((state: RootState) => state.list.ratingList);
 
     useEffect(() => {
-        dispatch(fetchBookList({ type: 'BlogBest', max: '24' }));
+        dispatch(fetchBookList({ type: 'BlogBest', max: '24', page: '1' }));
     }, [])
 
     const PrevArrow = (props: any) => {

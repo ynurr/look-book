@@ -17,7 +17,7 @@ export default function List({items}: ListProps) {
         <div className={styles.container}>
             <div className={styles.contents}>
                 {items.map((item, index) => (
-                    <div className={styles.item}>
+                    <div className={styles.item} key={item.isbn13}>
                         <Link href={`/detail?id=${item.isbn13}`}>
                             <img className={styles.cover} src={item.cover} alt={item.title}></img>
                             <div className={styles.title}>{item.title}</div>

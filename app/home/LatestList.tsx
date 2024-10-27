@@ -15,7 +15,7 @@ export default function LatestList() {
     const books = useSelector((state: RootState) => state.list.latestList);
 
     useEffect(() => {
-        dispatch(fetchBookList({ type: 'ItemNewSpecial', max: '24' }));
+        dispatch(fetchBookList({ type: 'ItemNewSpecial', max: '24', page: '1' }));
     }, [])
 
     const PrevArrow = (props: any) => {
