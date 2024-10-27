@@ -36,7 +36,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 20px;
     gap: 18px;
 }
 
@@ -78,7 +77,7 @@
     font-weight: bold;
     text-decoration: none;
     color: #444444;
-    margin: 0 20px;
+    margin-right: 20px;
 }
 
 .navList {
@@ -96,6 +95,12 @@
 .navList a {
     text-decoration: none;
     color: #a7a7a7;
+}
+
+.navList a.active { 
+    color: #333;
+    border-bottom: 3px solid #333;
+    padding-bottom: 29px;
 }
 
 .searchInput {

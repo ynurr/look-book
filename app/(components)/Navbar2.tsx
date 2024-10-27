@@ -4,13 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
 import styles from './../(styles)/Navbar2.module.css'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
 export default function Navbar2() {
 
     const [keyword, setKeyword] = useState<string>('');
     const router = useRouter();
+    const currentPath = usePathname();
 
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -27,13 +28,13 @@ export default function Navbar2() {
                         <Link href="/" className={styles.homeLink}>LOOKBOOK</Link>
                         <ul className={styles.navList}>
                             <li>
-                                <Link href="/popular">인기</Link>
+                                <Link href="/popular" className={`${styles.navItem} ${currentPath === '/popular' ? styles.active : ''}`}>인기</Link> 
                             </li>
                             <li>
-                                <Link href="/new">신규</Link>
+                                <Link href="/new" className={`${styles.navItem} ${currentPath === '/new' ? styles.active : ''}`}>신규</Link> 
                             </li>
                             <li>
-                                <Link href="/mylibrary">내서재</Link>
+                                <Link href="/mylibrary" className={`${styles.navItem} ${currentPath === '/mylibrary' ? styles.active : ''}`}>내서재</Link> 
                             </li>
                         </ul>
                     </div>
