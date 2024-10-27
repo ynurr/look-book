@@ -1,7 +1,7 @@
 'use client'
 
 import { useDispatch, useSelector } from 'react-redux';
-import styles from './Find.module.css'
+import styles from '../(styles)/Find.module.css'
 import { useSearchParams } from 'next/navigation';
 import { AppDispatch, RootState } from '@/store/store';
 import { useEffect, useState } from 'react';
@@ -43,7 +43,7 @@ export default function Find() {
                 <hr className={styles.hr}/>
                 {currentItems.map((book, index) => (
                     <div key={index} className={styles.inner}>
-                        <div className={styles.content}>
+                        <div className={styles.contents}>
                             <Link href={`/detail?id=${book.isbn13}`}>
                                 <img className={styles.cover} src={book.cover} alt={book.title}></img>
                             </Link>
@@ -57,6 +57,10 @@ export default function Find() {
                                     <span className={styles.separator}>|</span>
                                     <span className={styles.pubDate}>{book.pubDate}</span>
                                 </div>
+                            </div>
+                            <div className={styles.btnBox}>
+                                <button className={styles.reviewBtn}>리뷰쓰기</button>
+                                <button className={styles.wishBtn}>찜하기</button>
                             </div>
                         </div>
                     </div>
