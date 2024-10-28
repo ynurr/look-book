@@ -1,7 +1,7 @@
 'use client'
 
 import { useDispatch, useSelector } from 'react-redux';
-import styles from '../(styles)/Find.module.css'
+import styles from '../(styles)/Search.module.css'
 import { useSearchParams } from 'next/navigation';
 import { AppDispatch, RootState } from '@/store/store';
 import { useEffect, useState } from 'react';
@@ -9,7 +9,7 @@ import { fetchSearchBooks } from '@/store/slices/searchSlice';
 import Pagination from '../(components)/Pagination';
 import Link from 'next/link';
 
-export default function Find() {
+export default function Search() {
 
     const keyword = useSearchParams().get('q');
     const dispatch = useDispatch<AppDispatch>();

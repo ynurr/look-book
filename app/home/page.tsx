@@ -19,7 +19,7 @@ export default function Main() {
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (keyword.trim()) {
-      router.push(`/find?q=${encodeURIComponent(keyword.trim())}`)
+      router.push(`/search?q=${encodeURIComponent(keyword.trim())}`)
     }
   }
 
