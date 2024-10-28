@@ -2,12 +2,14 @@
 
 import React, { useEffect, useState } from 'react'
 import styles from './../(styles)/Recommendations.module.css'
+import Link from 'next/link';
 
 interface Book {
     title: string;
     author: string;
     cover: string;
     description: string;
+    isbn13: string;
 }
 
 export default function Recommendations() {
@@ -22,6 +24,7 @@ export default function Recommendations() {
                     throw new Error('API 요청 실패');
                 }
                 const data= await response.json();
+                
                 setBook(data.item[0]);
             } catch (error) {
                 console.log('에러 발생:', error);
@@ -36,9 +39,13 @@ export default function Recommendations() {
             <h1>이런 책은 어때요?</h1>
             <div className={styles.wrapper}>
                 <div className={styles.box}>
-                    <img className={styles.cover} src={book.cover} alt={book.title}></img>
+                    <Link href={`/detail?id=${book.isbn13}`}>
+                        <img className={styles.cover} src={book.cover} alt={book.title}></img>
+                    </Link>
                     <div className={styles.info}>
-                        <h3 className={styles.title}>{book.title}</h3>
+                        <Link href={`/detail?id=${book.isbn13}`}>
+                            <h3 className={styles.title}>{book.title}</h3>
+                        </Link>
                         <p className={styles.author}>{book.author}</p>
                         <p className={styles.summary}>{book.description}</p>
                         <p className={styles.button}>찜하기 💗</p>
