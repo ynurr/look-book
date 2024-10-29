@@ -1,0 +1,121 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    margin: 0 auto;
+}
+
+.inputWrapper {
+    display: flex;
+    gap: 10px;
+}
+
+.inputPw {
+    padding: 6px 8px;
+    border-radius: 4px;
+    border: 1px solid #acacac;
+    width: 240px;
+    font-size: 18px;
+    outline: none;
+    letter-spacing: 5px; 
+    
+}
+
+.btnPw {
+    padding: 0 16px;
+    border-radius: 4px;
+    border: 1px solid #797979;
+    background-color: #969696;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s; 
+}
+
+.btnPw:hover {
+    background-color: #333; 
+}
+
+.table {
+    border-collapse: collapse;
+    margin-bottom: 2px;
+}
+
+.table > tr > th {
+    text-align: left;
+    padding: 10px;
+    color: #333;
+    font-size: 15px;
+    padding-right: 100px;
+}
+
+.table > tr > td {
+    padding: 10px;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+}
+
+.pwLabel {
+    vertical-align: top; 
+}
+
+.checkInput {
+    width: 260px;
+    padding: 6px;
+    border: 1px solid #acacac;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+    margin-bottom: 6px;
+}
+
+.checkInput:focus {
+    border-color: #222; 
+    outline: none;
+}
+
+.pwInfo {
+    font-size: 12px;
+    color: #808080;
+}
+
+.leaveWrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+}
+
+.leaveInfo {
+    display: block;
+    font-size: 14px;
+    color: #777;
+}
+
+.leaveBtn {
+    height: 24px;
+    font-size: 12px;
+    border-radius: 4px;
+    border: 1px solid #acacac;
+    background-color: white;
+    cursor: pointer;
+}
+
+.btnWrapper {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.cancelBtn, .submitBtn {
+    padding: 8px 30px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+
+.submitBtn {
+    background-color: #b8b9e7;
+}
