@@ -1,0 +1,102 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    margin: 0 auto;
+}
+
+.reasonForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.warning {
+    display: flex;
+    flex-direction: column;
+}
+
+.warningInfo {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.redText {
+    color: rgb(252, 63, 63);
+}
+
+.warningMsg {
+    color: #6e6e6e;
+}
+
+.reasonWrapper {
+    margin: 20px 0; 
+}
+
+.reasonForm label {
+    margin: 5px 0; 
+}
+
+.notice {
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.noticeList {
+    list-style-type: none;
+    padding-left: 4px;
+    margin: 4px 0;
+    color: #636363;
+    font-size: 14px;
+}
+
+.noticeTitle {
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-top: 4px;
+    color: #444;
+}
+
+.agreeWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 18px 0;
+    font-size: 14px;
+}
+
+.checkboxWrapper {
+    display: flex; 
+    align-items: center;
+}
+
+.agreeMsg {
+    margin-left: 4px;
+}
+
+.errorMsg {
+    color: rgb(243, 20, 20);
+    font-size: 13px;
+    margin: 0;
+    min-height: 20px;
+}
+
+.btnWrapper {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.cancelBtn, .submitBtn {
+    padding: 8px 30px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+
+.cancelBtn {
+    background-color: #ee9494;
+}
