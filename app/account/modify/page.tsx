@@ -8,13 +8,15 @@ export default function Modify() {
 
     const [isVerified, setIsVerified] = useState<boolean>(false);
     const [password, setPassword] = useState<string>('');
+    const [error, setError] = useState<string>('');
 
     const handleVerify = () => {
-        //비번검증로직
-        if (password === '1234') {
+        if (!password) {
+            setError('비밀번호를 입력해주세요.')
+        } else if (password === '1234') {
             setIsVerified(true)
         } else {
-            alert('비밀번호가 일치하지 않습니다.')
+            setError('비밀번호가 일치하지 않습니다.')
             setPassword('')
         }
     }
@@ -35,14 +37,14 @@ export default function Modify() {
                                 <tr>
                                     <th className={styles.pwLabel}>새 비밀번호</th>
                                     <td className={styles.pwInput}>
-                                        <input className={styles.checkInput} placeholder="새 비밀번호"></input>
+                                        <input type="password" className={styles.checkInput} placeholder="새 비밀번호"></input>
                                         <span className={styles.pwInfo}>영문, 숫자, 특수문자 3가지 조합 8자리 이상</span>
                                         <span className={styles.pwInfo}>공백 및 3글자 이상의 연속 문자 불가</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>새 비밀번호 확인</th>
-                                    <td><input className={styles.checkInput} placeholder="새 비밀번호 확인"></input></td>
+                                    <td><input type="password" className={styles.checkInput} placeholder="새 비밀번호 확인"></input></td>
                                 </tr>
                                 <tr>
                                     <th>닉네임</th>
@@ -72,10 +74,14 @@ export default function Modify() {
                                 className={styles.inputPw}
                                 type="password"
                                 value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                onChange={(e) => {
+                                    setPassword(e.target.value);
+                                    setError(''); // 입력 중일 때 에러 메시지 초기화
+                                }}
                             ></input>
                             <button className={styles.btnPw} onClick={handleVerify}>확인</button>
                         </div>
+                        <p className={styles.errorMsg}>{error}</p>
                     </div>
                 )
             }

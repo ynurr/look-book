@@ -119,3 +119,10 @@
 .submitBtn {
     background-color: #b8b9e7;
 }
+
+.errorMsg {
+    color: rgb(243, 20, 20);
+    font-size: 13px;
+    margin-top: 6px;
+    min-height: 30px;
+}
