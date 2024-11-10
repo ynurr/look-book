@@ -68,7 +68,7 @@ export default function Modify() {
                     <div className={styles.contents}>
                         <h2>비밀번호 확인</h2>
                         <hr/>
-                        <p>안전한 개인정보를 위해 비밀번호를 한번 더 입력해주세요.</p>
+                        <p className={styles.info}>안전한 개인정보를 위해 비밀번호를 한번 더 입력해주세요.</p>
                         <div className={styles.inputWrapper}>
                             <input
                                 className={styles.inputPw}
