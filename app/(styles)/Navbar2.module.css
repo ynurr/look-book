@@ -52,7 +52,7 @@
     left: 4px;
     color: #505050;
     z-index: 2;
-    background-color: rgb(241, 241, 241);
+    background-color: #f1f3f5;
     padding: 0 10px;
 }
 
@@ -65,7 +65,7 @@
     text-indent: 36px;
     border-radius: 6px;
     caret-color: #a8a8a8;
-    background-color: rgb(241, 241, 241);
+    background-color: #f1f3f5;
 }
 
 .iconUser {
