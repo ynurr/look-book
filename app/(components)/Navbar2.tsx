@@ -50,7 +50,7 @@ export default function Navbar2() {
                                 />
                             </div>
                         </form>
-                        <Link href="/my-info" className={styles.userIconLink}>
+                        <Link href="/account/modify" className={styles.userIconLink}>
                             <FontAwesomeIcon icon={faUser} className={styles.iconUser}/>
                         </Link>
                     </div>
