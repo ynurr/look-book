@@ -26,7 +26,7 @@ export default function Navbar() {
         <nav className={`${styles.nav} ${isScrolled ? styles.scrolled : ''}`}>
             <Link href="/home">홈</Link>
             <Link href="/">카테고리</Link>
-            <Link href="/">내 서재</Link>
+            <Link href="/library">내 서재</Link>
             <Link href="/login">로그인</Link>
         </nav>
     )

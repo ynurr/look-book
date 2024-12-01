@@ -34,7 +34,7 @@ export default function Navbar2() {
                                 <Link href="/new" className={`${styles.navItem} ${currentPath === '/new' ? styles.active : ''}`}>신규</Link> 
                             </li>
                             <li>
-                                <Link href="/mylibrary" className={`${styles.navItem} ${currentPath === '/mylibrary' ? styles.active : ''}`}>내서재</Link> 
+                                <Link href="/library" className={`${styles.navItem} ${currentPath === '/library' ? styles.active : ''}`}>내서재</Link> 
                             </li>
                         </ul>
                     </div>
