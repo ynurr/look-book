@@ -1,101 +1,23 @@
 .container {
-    width: 1000px;
+    display: flex;
+    gap: 40px;
     margin: 60px auto;
 }
 
-.gridContainer {
-    /* 전체 레이아웃 구조를 정의하는 메인 그리드 컨테이너 */
-    display: grid;
-    
-    /* 두 개의 열을 정의:
-       - 첫 번째 열은 사용 가능한 공간의 1 비율(frac)을 차지
-       - 두 번째 열은 2 비율을 차지하여 첫 번째 열보다 두 배 넓음 */
-    grid-template-columns: 0.5fr 2fr;
-    
-    /* 첫 번째 행의 높이를 100px로 설정하고 나머지 행은 자동으로 조정 */
-    grid-template-rows: 200px 1fr 1fr; 
-    
-    gap: 30px 60px;
-} 
-
-.item1 {
-    /* item1을 첫 번째 열과 첫 번째 행에 위치시킴 */
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-    
-    box-shadow: 0 0 6px rgba(139, 139, 139, 0.2); 
-    border-radius: 20px;
+.wrapper {
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    gap: 50px;
+    width: 760px;
 }
 
-.item2Container {
-    /* item2Container를 두 번째 열과 첫 번째 행에 위치시킴 */
-    grid-column: 2 / 3;
-    grid-row: 1 / 2;
-    
-    /* 내부 그리드를 생성하여 item2를 두 개의 열로 나눔 */
-    display: grid;
-    grid-template-columns: 1fr 0.5fr 1fr;
-    gap: 30px;
+.statSection {
+    display: flex;
+    gap: 20px;
 }
 
-.item2 {
-    border-radius: 20px;
+.statItem {
     padding-top: 20px;
-}
-
-.item3Container {
-    /* item3을 두 번째 열과 두 번째 행에 위치시킴 */
-    grid-column: 2 / 3;
-    grid-row: 2 / 3;
-    display: flex;
-    flex-direction: column;
-}
-
-.item3 {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    border-radius: 20px;
-    gap: 30px;
-}
-
-.item4 {
-    /* item4를 첫 번째 열의 두 번째부터 세 번째 행까지 확장하여 위치시킴 */
-    grid-column: 1 / 2;
-    grid-row: 2 / 4;
-    
-    box-shadow: 0 0 6px rgba(139, 139, 139, 0.2); 
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    gap: 10px;
-    font-size: 15px;
-}
-
-.item5Container {
-    /* item2Container를 두 번째 열과 첫 번째 행에 위치시킴 */
-    grid-column: 2 / 3;
-    grid-row: 3 / 4;
-    
-    /* 내부 그리드를 생성하여 item2를 3개의 열로 나눔 */
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 30px;
-}
-
-.nickname {
-    font-weight: bold;
-    font-size: 24px;
-    margin-bottom: 22px;
-}
-
-.stat {
-    font-weight: bold;
-    font-size: 15px;
-    margin: 2px 0;
 }
 
 .graphStat {
@@ -103,33 +25,48 @@
     font-size: 24px;
 }
 
-.menu1, .menu2 {
-    font-weight: bold;
-    font-size: 16px;
-}
-
-.menu2 {
-    margin-top: 30px;
-}
-
 .redText {
     color: rgb(248, 74, 74); 
+}
+
+.doughnutChart {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.progressBar {
+    width: 110px;
+    margin-top: 10px;
+    margin-left: 20px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.progressBar > span {
+    font-weight: 500;
+    font-size: 14px;
+    color: #a5a5a5;
+    margin-bottom: 10px;
+}
+
+.reviewSection {
+    display: flex;
+    flex-direction: column;
+}
+
+.reviewsList {
+    display: flex;
+    gap: 30px;
 }
 
 .menuTitle {
     font-weight: bold;
     font-size: 24px;
     margin-bottom: 14px;
-}
-
-.reviewList {
-    display: flex;
-    justify-content: space-between;
-    flex: 1;
-    gap: 18px;
-    box-shadow: 0 0 6px rgba(139, 139, 139, 0.2); 
-    border-radius: 20px;
-    padding: 20px;
 }
 
 .reviewItem {
@@ -139,8 +76,8 @@
     height: 230px;
     display: flex;
     flex-direction: column;
-    
     gap: 4px;
+    flex: 1;
 }
 
 .bookTitle {
@@ -164,6 +101,17 @@
     line-clamp: 6;
     overflow: hidden; 
     text-overflow: ellipsis; 
+}
+
+.summarySection {
+    display: flex;
+    gap: 30px;
+}
+
+.summary {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
 .content {
@@ -216,28 +164,4 @@
     line-clamp: 2;
     overflow: hidden; 
     text-overflow: ellipsis; 
-}
-
-.doughnutChart {
-    margin-top: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.progressBar {
-    width: 110px;
-    margin-top: 10px;
-    margin-left: 20px;
-    font-weight: bold;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.progressBar > span {
-    font-weight: 500;
-    font-size: 14px;
-    color: #a5a5a5;
-    margin-bottom: 10px;
 }
