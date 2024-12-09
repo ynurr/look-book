@@ -1,0 +1,67 @@
+.container {
+    display: flex;
+    gap: 40px;
+    margin: 60px auto;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 760px;
+}
+
+.menuTitle {
+    margin-bottom: 0;
+}
+
+.line {
+    border-bottom: 3px solid #333;
+    margin-top: 14px;
+    margin-bottom: 30px;
+}
+
+.formGroup {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.title, .content {
+    width: 100%; 
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.content {
+    height: 300px;
+    resize: none;
+}
+
+.formGroup label {
+    font-weight: bold;
+    color:#333;
+    margin-bottom: 8px;
+    width: 50px;
+}
+
+.title:focus, .content:focus {
+    outline: 1px solid #727272; 
+}
+
+.btnBox {
+    display: flex; 
+    justify-content: center; 
+    margin-top: 20px; 
+}
+
+.btn {
+    width: 100px; 
+    padding: 10px;
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-weight: bold;
+    background-color: #e9ecef;
+}

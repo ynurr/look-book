@@ -1,0 +1,57 @@
+.container {
+    display: flex;
+    gap: 40px;
+    margin: 60px auto;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 760px;
+}
+
+.menuTitle {
+    margin-bottom: 0;
+}
+
+.line {
+    border-bottom: 3px solid #333;
+    margin-top: 14px;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    margin: 30px 10px;
+    gap: 4px;
+}
+
+.hrLine {
+    border-bottom: 1px solid #ddd;
+    margin: 30px 0;
+} 
+
+.inquiryTitle {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.inquiryDate, .replyDate {
+    font-size: 13px;
+    color: #858585;
+}
+
+.inquiryContent, .replyContent {
+    font-size: 15px;
+}
+
+.reply {
+    font-weight: bold;
+    text-align: center;
+}
+
+.responder {
+    font-size: 14px;
+    font-weight: bold;
+}
+
