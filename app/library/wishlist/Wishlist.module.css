@@ -1,0 +1,82 @@
+.container {
+    display: flex;
+    gap: 40px;
+    margin: 60px auto;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 760px;
+}
+
+.menuTitle {
+    margin-bottom: 0;
+}
+
+.line {
+    border-bottom: 3px solid #333;
+    margin-top: 14px;
+}
+
+.topBox {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+    font-size: 14px;
+}
+
+.selectAll {
+    display: flex;
+    align-items: center; 
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 10px;
+}
+
+.item {
+    display: flex;
+    flex: 1 1 calc(33.333% - 10px);
+    margin: 10px 0;
+    margin-bottom: 40px;
+    gap: 10px;
+    align-items: center;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+}
+
+.cover {
+    background-color: rgb(188, 214, 180);
+    width: 100px;
+    height: 140px;
+}
+
+.title {
+    font-size: 15px;
+}
+
+.author {
+    font-size: 13px;
+}
+
+.btnBox {
+    display: flex;
+    gap: 6px;
+}
+
+.deleteBtn, .finishBtn, .readingBtn {
+    background: none; 
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #b9b9b9;
+}
+
+.finishBtn, .readingBtn {
+    color: rgb(243, 76, 76);
+}
