@@ -37,6 +37,8 @@
 .title {
     font-weight: bold;
     cursor: pointer;
+    text-decoration: none;
+    color: #333;
 }
 
 .date {

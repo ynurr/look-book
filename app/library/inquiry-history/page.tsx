@@ -1,3 +1,4 @@
+import Link from "next/link";
 import LeftMenu from "../LeftMenu";
 import styles from './InquiryHistory.module.css';
 
@@ -17,7 +18,9 @@ export default function Inquiry() {
                 {inquiries.map((inquiry) => (
                     <div key={inquiry.id} className={styles.list}>
                         <div className={styles.item}>
-                            <span className={styles.title}>{inquiry.title}</span>
+                            <Link href={`/library/inquiry-history/${inquiry.id}`}>
+                                <span className={styles.title}>{inquiry.title}</span>
+                            </Link>
                             <span className={styles.date}>{inquiry.date}</span>
                         </div>
                         <span
