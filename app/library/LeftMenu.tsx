@@ -13,14 +13,14 @@ export default function LeftMenu() {
             </div>
             <div className={styles.menu}>
                 <span className={styles.menuTitle}>내 서재</span>
-                <Link href="/library/reading" className={styles.reading}>읽고 있는/다 읽은 책</Link>
-                <Link href="/library/wishlist" className={styles.wishlist}>찜 목록</Link>
-                <Link href="/library/report" className={styles.report}>독서 리포트</Link>
+                <Link href="/library/reading" className={styles.reading}>독서 현황</Link>
+                <Link href="/library/wishlist" className={styles.wishlist}>위시리스트</Link>
                 <span className={styles.menuTitle}>활동</span>
-                <Link href="/library/review" className={styles.review}>리뷰</Link>
+                <Link href="/library/my-review" className={styles.myReview}>나의 리뷰</Link>
                 <Link href="/library/comment" className={styles.comment}>코멘트</Link>
                 <span className={styles.menuTitle}>고객센터</span>
-                <Link href="/library/inquiry" className={styles.inquiry}>1:1 문의내역</Link>
+                <Link href="/library/inquiry" className={styles.inquiry}>문의하기</Link>
+                <Link href="/library/inquiry-history" className={styles.inquiryHistory}>1:1 문의내역</Link>
             </div>
         </div>
     )
