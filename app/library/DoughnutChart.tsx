@@ -45,7 +45,7 @@ export default function DoughnutChart() {
             data={data} 
             options={options}
             height={110}
-            width={100}
+            width={280}
         />
     );
 }
