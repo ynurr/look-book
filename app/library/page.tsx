@@ -1,3 +1,4 @@
+import { isToday, isYesterday, differenceInHours, format } from 'date-fns';
 import BarChart from "./BarChart";
 import DoughnutChart from "./DoughnutChart";
 import ProgressBar from "./ProgressBar";
@@ -5,6 +6,27 @@ import LeftMenu from "./LeftMenu";
 import styles from './Library.module.css'
 
 export default function Library() {
+
+    const comments = [
+        { commenter: "김도훈", commentTime: "2024-12-04 16:01:18", commentContent: "너무 재밌어요" },
+        { commenter: "박지훈", commentTime: "2024-12-03 15:45:18", commentContent: "재밌게 봤습니다" },
+        { commenter: "최유정", commentTime: "2024-11-30 12:30:18", commentContent: "감동적이에요" },
+    ];
+
+    const formatCommentTime = (commentTime: string) => {
+        const commentDate = new Date(commentTime);
+        const now = new Date();
+
+        if (isToday(commentDate)) {
+            const hour = differenceInHours(now, commentDate);
+            return `${hour}시간 전`;
+        } else if (isYesterday(commentDate)) {
+            return "어제";
+        } else {
+            return format(commentDate, "yyyy-MM-dd");
+        }
+    };
+
     return (
         <div className={styles.container}>
             <LeftMenu />
@@ -59,21 +81,21 @@ export default function Library() {
                         </div>
                     </div>
                     <div className={styles.summary}>
-                        <div className={styles.menuTitle}>최근 코멘트</div>
+                        <div className={styles.menuTitle}>최근 댓글</div>
                         <div className={styles.content}>
                             <div className={styles.commentList}>
-                                <div className={styles.commentItem}>
-                                    <span className={styles.commenter}>김ㅁㅁ</span>
-                                    <span className={styles.commentContent}>댓글 내용 댓글 내용 댓글 내용 댓글 내용 댓글 내용 </span>
-                                </div>
-                                <div className={styles.commentItem}>
-                                    <span className={styles.commenter}>김ㅁㅁ</span>
-                                    <span className={styles.commentContent}>댓글 내용 댓글 내용 댓글 내용 댓글 내용 댓글 내용 </span>
-                                </div>
-                                <div className={styles.commentItem}>
-                                    <span className={styles.commenter}>김ㅁㅁ</span>
-                                    <span className={styles.commentContent}>댓글 내용 댓글 내용 댓글 내용 댓글 내용 댓글 내용 댓글 내용 댓글 내용 댓글 내용 </span>
-                                </div>
+                                {comments.map((comment, index) => (
+                                    <div className={styles.commentItem} key={index}>
+                                        <div className={styles.commentInfo}>
+                                            <span className={styles.commenter}>김도훈</span>
+                                            <span className={styles.commentTime}>{formatCommentTime(comment.commentTime)}</span>
+                                        </div>
+                                        <span className={styles.commentContent}>너무 재밌어요</span>
+                                        {
+                                            index < 2 && <div className={styles.hrLine}></div>
+                                        }
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>
