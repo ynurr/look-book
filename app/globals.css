@@ -8,6 +8,10 @@ html, body {
   box-sizing: border-box;
 }
 
+html, body, textarea, input, button {
+  font-family: var(--font-pretendard), sans-serif; 
+}
+
 body {
   min-height: 100vh;
   display: flex;
