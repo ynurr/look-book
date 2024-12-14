@@ -1,0 +1,99 @@
+.container {
+    display: flex;
+    gap: 40px;
+    margin: 60px auto;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 760px;
+}
+
+.menuTitle {
+    margin-bottom: 0;
+}
+
+.line {
+    border-bottom: 3px solid #333;
+    margin-top: 14px;
+}
+
+
+.bookInfo {
+    display: flex;
+    gap: 20px;
+    padding: 20px 10px;
+}
+
+.bookDetail {
+    display: flex;
+    flex-direction: column;
+}
+
+.cover {
+    width: 100px;
+    height: 140px;
+    background-color: bisque;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.author {
+    font-size: 14px;
+}
+
+.star {
+    font-size: 20px;
+    cursor: pointer;
+    columns: #e0e0e0;
+}
+
+.selected {
+    color: rgb(253, 109, 109);
+}
+
+.reviewBox {
+    display: flex;
+    gap: 20px;
+    margin: 0 10px 20px;
+}
+
+.review {
+    margin: 10px;
+    resize: none;
+    height: 300px;
+    width: 100%; 
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    line-height: 1.6;
+}
+
+.review:focus {
+    outline: 1px solid #727272; 
+}
+
+.btnBox {
+    display: flex; 
+    justify-content: center; 
+    margin-top: 20px; 
+}
+
+.btn {
+    width: 100px; 
+    padding: 10px;
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-weight: bold;
+    background-color: #f1f1f1;
+}
+
+.btn:hover {
+    background-color: #d3d3d3;
+}

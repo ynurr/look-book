@@ -17,6 +17,7 @@ export default function LeftMenu() {
                 <Link href="/library/wishlist" className={styles.wishlist}>위시리스트</Link>
                 <span className={styles.menuTitle}>활동</span>
                 <Link href="/library/my-review" className={styles.myReview}>나의 리뷰</Link>
+                <Link href="/library/write-review" className={styles.writeReview}>리뷰 쓰기</Link>
                 <Link href="/library/comment" className={styles.comment}>코멘트</Link>
                 <span className={styles.menuTitle}>고객센터</span>
                 <Link href="/library/inquiry" className={styles.inquiry}>문의하기</Link>
