@@ -73,7 +73,7 @@
     box-shadow: 0 0 6px rgba(139, 139, 139, 0.2); 
     border-radius: 20px;
     padding: 20px;
-    height: 230px;
+    height: 210px;
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -118,10 +118,9 @@
     box-shadow: 0 0 6px rgba(139, 139, 139, 0.2); 
     border-radius: 20px;
     padding: 20px;
-    height: 230px;
+    height: 210px;
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 20px;
 }
 
@@ -129,6 +128,7 @@
     background-color: rgb(148, 147, 214);
     height: 160px;
     width: 120px;
+    margin-left: 6px;
 }
 
 .count {
@@ -142,7 +142,6 @@
 .commentList {
     display: flex;
     flex-direction: column;
-    gap: 20px;
 }
 
 .commentItem {
@@ -152,16 +151,33 @@
     font-size: 14px;
 }
 
+.commentInfo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.commentTime {
+    font-size: 11px;
+    color: #a5a5a5;
+}
+
 .commenter {
-    font-weight: bold;
     font-size: 13px;
+    font-weight: bold;
 }
 
 .commentContent {
     display: -webkit-box;
     -webkit-box-orient: vertical; 
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
     overflow: hidden; 
     text-overflow: ellipsis; 
+}
+
+.hrLine {
+    width: 193px;
+    border-bottom: 1px solid #e2e2e2;
+    margin: 12px 0;
 }
