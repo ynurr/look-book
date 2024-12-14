@@ -1,0 +1,154 @@
+.container {
+    display: flex;
+    gap: 40px;
+    margin: 60px auto;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 760px;
+}
+
+.menuTitle {
+    margin-bottom: 0;
+}
+
+.tab {
+    margin-top: 20px;
+}
+
+.navTab {
+    display: flex; 
+    text-align: center;
+    align-items: center;
+    gap: 10px;
+    padding: 0;
+    margin: 0;
+    list-style: none; 
+}
+
+.navItem {
+    background-color: #f2f2f7;
+    color: #949494;
+    font-weight: 600;
+    padding: 10px 60px;
+    width: 260px;
+    border: 1px solid transparent;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    cursor: pointer;
+}
+
+.navItem.active {
+    background-color: #444;
+}
+
+.navLink.active {
+    color: #fff;
+}
+
+.input {
+    padding: 6px 18px;
+    margin: 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #eef0f1;
+}
+
+.input:focus {
+    outline-color: #d6d6d6;
+}
+
+.content { 
+    border-radius: 0px 0px 4px 4px;
+    padding: 10px;
+    border: 2px solid #f5f5f5;
+}
+
+.tabPane {
+    display: none;
+}
+
+.tabPane.active {
+    display: block;
+}
+
+.topBox {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.selectAll {
+    display: flex;
+    align-items: center; 
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.item {
+    display: flex;
+    flex: 1 1 calc(33.333% - 10px);
+    margin: 10px 0;
+    margin-bottom: 40px;
+    gap: 10px;
+    align-items: center;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+}
+
+.cover {
+    background-color: rgb(188, 214, 180);
+    width: 100px;
+    height: 140px;
+}
+
+.title {
+    font-size: 15px;
+}
+
+.author {
+    font-size: 13px;
+}
+
+.btnBox {
+    display: flex;
+    gap: 6px;
+}
+
+.deleteBtn, .finishBtn {
+    background: none; 
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #b9b9b9;
+}
+
+.finishBtn {
+    color: rgb(243, 76, 76);
+}
+
+.hrLine {
+    border-bottom: 1px solid #ddd;
+    margin: 10px 0;
+}
+
+.star {
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.isRead, .reviewBtn {
+    font-size: 13px;
+    font-weight: 500;
+    color: #f77676;
+    text-decoration: underline;
+    text-underline-offset: 4px; 
+    cursor: pointer;
+}
