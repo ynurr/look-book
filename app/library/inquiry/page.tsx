@@ -15,7 +15,7 @@ export default function Inquiry() {
                 </div>
                 <div className={styles.formGroup}>
                     <label>내용</label>
-                    <textarea className={styles.content}></textarea>
+                    <textarea className={styles.content} maxLength={500}></textarea>
                 </div>
 
                 <div className={styles.btnBox}>

@@ -37,6 +37,7 @@
 .content {
     height: 300px;
     resize: none;
+    line-height: 1.6;
 }
 
 .formGroup label {
@@ -63,5 +64,5 @@
     border-radius: 5px; 
     cursor: pointer; 
     font-weight: bold;
-    background-color: #e9ecef;
+    background-color: #f1f1f1;
 }
