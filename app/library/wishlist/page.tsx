@@ -49,6 +49,7 @@ export default function Comment() {
                         <button className={styles.readingBtn}>읽는중</button>
                     </div>
                 </div>
+                <div className={styles.hrLine}></div>
 
                 <div className={styles.list}>
                     {items.map((item) => (

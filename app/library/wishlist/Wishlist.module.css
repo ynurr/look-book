@@ -80,3 +80,8 @@
 .finishBtn, .readingBtn {
     color: rgb(243, 76, 76);
 }
+
+.hrLine {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 8px;
+}
