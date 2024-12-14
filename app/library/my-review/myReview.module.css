@@ -1,0 +1,82 @@
+.container {
+    display: flex;
+    gap: 40px;
+    margin: 60px auto;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 760px;
+}
+
+.menuTitle {
+    margin-bottom: 0;
+}
+
+.line {
+    border-bottom: 3px solid #333;
+    margin-top: 14px;
+}
+
+.bookInfo {
+    display: flex;
+    gap: 20px;
+    padding: 20px 10px;
+    cursor: pointer;
+}
+
+.bookDetail {
+    display: flex;
+    flex-direction: column;
+}
+
+.cover {
+    width: 60px;
+    height: 80px;
+    background-color: bisque;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.date {
+    font-size: 13px;
+}
+
+.star {
+    font-size: 13px;
+}
+
+.reviewBox {
+    padding: 0 10px;
+}
+
+.review {
+    font-size: 14px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.hrLine {
+    border-bottom: 1px solid #ddd;
+    margin: 10px 0;
+}
+
+.reactionBox {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+}
+
+.likeCnt, .commentCnt {
+    font-size: 13px;
+    cursor: pointer;
+}
