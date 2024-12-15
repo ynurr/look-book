@@ -28,19 +28,23 @@
 }
 
 .inputField:focus {
-    outline: none; /* 기본 아웃라인 제거 */
+    outline: none; 
     border: 1px solid #4c4fd8;
 }
 
 .loginBtn {
     width: 100%;
     padding: 10px;
-    background-color: rgb(82, 102, 158);
+    background-color: #829fec;
     border: none;
-    color: white;
+    color: #ffffff;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
+}
+
+.loginBtn:hover {
+    background-color: #748dd1;
 }
 
 .links {

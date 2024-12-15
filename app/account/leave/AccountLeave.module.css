@@ -8,6 +8,7 @@
 .reasonForm {
     display: flex;
     flex-direction: column;
+    font-size: 15px;
 }
 
 .warning {
@@ -21,7 +22,7 @@
 }
 
 .redText {
-    color: rgb(252, 63, 63);
+    color: #ff5b4f;
 }
 
 .warningMsg {
@@ -97,6 +98,20 @@
     cursor: pointer;
 }
 
+.submitBtn {
+    background-color: #f3f3f3;
+    color: #aaaaaa;
+}
+
+.submitBtn:hover {
+    background-color: #e9e9e9;
+}
+
 .cancelBtn {
-    background-color: #ee9494;
+    background-color: #829fec;
+    color: white;
+}
+
+.cancelBtn:hover {
+    background-color: #748dd1;
 }

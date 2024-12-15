@@ -6,10 +6,7 @@ export default function Footer() {
       <div className={styles.content}>
         <div className={styles.left}>
           <p className={styles.name}> (주) LookBook </p>
-          <p className={styles.copyright}> © 2023 LookBook. All rights reserved. </p>
-        </div>
-        <div className={styles.right}>
-          <button className={styles.button}>문의하기</button>
+          <p className={styles.copyright}> © 2024 LookBook. All rights reserved. </p>
         </div>
       </div>
     </footer>

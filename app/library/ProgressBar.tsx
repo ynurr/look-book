@@ -15,8 +15,8 @@ export default function ProgressBar() {
             styles={buildStyles({
                 strokeLinecap: 'round',
                 textSize: '26px',
-                pathColor: '#d5abff',
-                textColor: '#f84a4a',
+                pathColor: '#d9c2ff',
+                textColor: '#ff5b4f',
                 trailColor: '#f0f0f0',
             })}
         />

@@ -8,7 +8,8 @@
     border-radius: 99999px;
     margin: 0 auto; /* 상하 마진 0, 좌우 자동으로 중앙 정렬 */
     align-items: center; /* 자식 요소들을 수직 중앙 정렬 */
-    font-weight: bold;
+    font-weight: 600;
+    font-size: 14px;
     z-index: 1000; /* 다른 요소들 위에 표시되도록 z-index 설정 */
     position: fixed;
     top: 20px; /* 상단에서의 거리 */
@@ -17,14 +18,15 @@
     overflow-x: auto; /* 가로 스크롤 허용 */
     max-width: 90vw;
     white-space: nowrap;
+    background-color: rgba(250, 250, 250, 0.712);
 }
 
 .nav.scrolled {
-    background-color: rgba(253, 253, 253, 0.925);
+    background-color: rgba(250, 250, 250, 0.712);
 }
 
 .nav a {
-    color: #5353539f;
+    color: #555;
 }
 
 .nav::-webkit-scrollbar {

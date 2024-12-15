@@ -90,10 +90,10 @@
     border: none; 
     border-radius: 5px; 
     cursor: pointer; 
-    font-weight: bold;
-    background-color: #f1f1f1;
+    background-color: #829fec;
+    color: white;
 }
 
 .btn:hover {
-    background-color: #d3d3d3;
+    background-color: #748dd1;
 }

@@ -27,7 +27,7 @@
     content: counter(ranking) "위";
     margin-right: 15px;
     font-weight: bold;
-    color: rgb(228, 112, 112);
+    color: #ff5b4f;
 }
 
 .list li::before,

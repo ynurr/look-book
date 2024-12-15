@@ -85,7 +85,7 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
-    font-weight: bold;
+    font-weight: 600;
 }
 
 .navList li {
@@ -94,7 +94,7 @@
 
 .navList a {
     text-decoration: none;
-    color: #a7a7a7;
+    color: #969696;
 }
 
 .navList a.active { 
