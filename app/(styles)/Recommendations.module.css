@@ -51,22 +51,21 @@
     margin: 0;
     margin-top: 10px;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 13px;
     cursor: pointer;
-    padding: 6px 14px;
-    background-color: #fae6e9;
+    padding: 4px 10px;
     color: rgb(54, 54, 54);
-    border: none;
+    border: 1px solid #888;
     border-radius: 20px;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    width: 87px;
+    width: 80px;
+    text-align: center;
 }
 
 .button:hover {
-    background-color: #ff9bb0;
+    background-color: rgb(255, 255, 255);
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 4px rgba(233, 233, 233, 0.671);
 }
 
 .button:active {

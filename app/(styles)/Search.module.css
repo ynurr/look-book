@@ -76,9 +76,18 @@
 }
 
 .reviewBtn {
-    background-color: rgb(211, 211, 211);
+    background-color: #333333;
+    color: white;
+}
+
+.reviewBtn:hover {
+    background-color: #17171b;
 }
 
 .wishBtn {
     background-color: white;
+}
+
+.wishBtn:hover {
+    background-color: rgb(252, 252, 252);
 }

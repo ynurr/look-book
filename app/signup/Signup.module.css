@@ -47,8 +47,8 @@
     transform: translateY(-50%);
     border: none;
     border-radius: 5px;
-    background-color: #e2e2e2;
-    color: #555;
+    background-color: #eeeeee;
+    color: #333;
     cursor: pointer;
     padding: 6px;
     font-size: 12px;
@@ -56,7 +56,6 @@
 
 .formGroup label {
     font-weight: bold;
-    color:#555;
     margin-bottom: 8px;
 }
 
@@ -87,12 +86,16 @@
 .signupBtn {
     width: 100%;
     padding: 10px;
-    background-color: #272727;
+    background-color: #333333;
     border: none;
     color: white;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
+}
+
+.signupBtn:hover {
+    background-color: #17171b;
 }
 
 .links {

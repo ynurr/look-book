@@ -75,7 +75,7 @@
 }
 
 .review:focus {
-    outline: 1px solid #727272; 
+    outline: 1px solid #d3d3d3; 
 }
 
 .btnBox {
@@ -90,10 +90,10 @@
     border: none; 
     border-radius: 5px; 
     cursor: pointer; 
-    background-color: #829fec;
+    background-color: #333333;
     color: white;
 }
 
 .btn:hover {
-    background-color: #748dd1;
+    background-color: #17171b;
 }

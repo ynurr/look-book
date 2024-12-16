@@ -16,7 +16,7 @@ export default function ProgressBar() {
                 strokeLinecap: 'round',
                 textSize: '26px',
                 pathColor: '#d9c2ff',
-                textColor: '#ff5b4f',
+                textColor: '#f75e5e',
                 trailColor: '#f0f0f0',
             })}
         />

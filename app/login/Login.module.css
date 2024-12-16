@@ -29,13 +29,13 @@
 
 .inputField:focus {
     outline: none; 
-    border: 1px solid #4c4fd8;
+    border: 1px solid #333333;
 }
 
 .loginBtn {
     width: 100%;
     padding: 10px;
-    background-color: #829fec;
+    background-color: #333333;
     border: none;
     color: #ffffff;
     border-radius: 5px;
@@ -44,7 +44,7 @@
 }
 
 .loginBtn:hover {
-    background-color: #748dd1;
+    background-color: #17171b;
 }
 
 .links {

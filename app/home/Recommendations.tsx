@@ -48,7 +48,7 @@ export default function Recommendations() {
                         </Link>
                         <p className={styles.author}>{book.author}</p>
                         <p className={styles.summary}>{book.description}</p>
-                        <p className={styles.button}>찜하기 💗</p>
+                        <p className={styles.button}>위시리스트</p>
                     </div>
                 </div>
             </div>

@@ -29,19 +29,20 @@
 }
 
 .navItem {
-    background-color: #f2f2f7;
-    color: #949494;
+    background-color: white;
+    color: #b8b8b8;
     font-weight: 600;
     padding: 10px 60px;
     width: 260px;
-    border: 1px solid transparent;
+    border: 1px solid #e2e2e2;
+    border-bottom: none;
     border-top-left-radius: .25rem;
     border-top-right-radius: .25rem;
     cursor: pointer;
 }
 
 .navItem.active {
-    background-color: #444;
+    background-color: #333333;
 }
 
 .navLink.active {
