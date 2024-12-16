@@ -6,7 +6,7 @@ import Pagination from '../(components)/Pagination'
 
 export default function Review() {
 
-    const comments = [
+    const reivews = [
         { id: 1, content: "리뷰1", nickname: "User1", date: "2024.12.14" },
         { id: 2, content: "리뷰리뷰", nickname: "User2", date: "2024.12.20" },
         { id: 3, content: "재밌어요", nickname: "닉넴", date: "2024.12.25" },
@@ -16,29 +16,33 @@ export default function Review() {
         { id: 7, content: "꿀잼", nickname: "사용자", date: "2025.02.26" },
     ];
 
+    const comments = [
+        { id: 1, reviewId: 1, content: "첫 번째 댓글 내용", nickname: "User1", date: "2024.11.01" },
+        { id: 2, reviewId: 2, content: "두 번째 댓글 내용", nickname: "zjql", date: "2024.11.06" },
+        { id: 3, reviewId: 2, content: "두 번째 댓글 내용22", nickname: "ddww", date: "2024.11.06" },
+        { id: 4, reviewId: 4, content: "세 번째 댓글 내용", nickname: "닌텐도", date: "2024.11.12" },
+    ];
+        
+    const replys = [
+        { id: 1, commentId: 1, content: "댓글 1등", nickname: "xxxxx", date: "2024.11.26" },
+        { id: 2, commentId: 3, content: "두번째댓글", nickname: "유저99", date: "2024.11.30" },
+        { id: 3, commentId: 3, content: "333 공감", nickname: "시계", date: "2025.01.10" },
+    ];
+
     const [isCommentVisible, setIsCommentVisible] = useState<{ [key: number]: boolean }>({});
-    const [isReplyVisible, setIsReplyVisible] = useState<{ [key: number]: boolean}>({});
 
     const toggleCommentText = (id: number) => {
         setIsCommentVisible(prevState => ({ ...prevState, [id]: !prevState[id] }))
     };
 
-    const toggleReplyText = (id: number) => {
-        setIsReplyVisible(prevState => ({ ...prevState, [id]: !prevState[id] }))
-    };
-    
     const handleCommentCancel = (id: number) => {
         setIsCommentVisible(prevState => ({ ...prevState, [id]: false }))
     };
 
-    const handleReplyCancel = (id: number) => (
-        setIsReplyVisible(prevState => ({ ...prevState, [id]: false }))
-    );
-
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태 관리
     const ItemsPerPage = 5;
-    const pageCount = Math.ceil(comments.length / ItemsPerPage);
-    const currentItems = comments.slice((currentPage - 1) * ItemsPerPage, currentPage * ItemsPerPage);
+    const pageCount = Math.ceil(reivews.length / ItemsPerPage);
+    const currentItems = reivews.slice((currentPage - 1) * ItemsPerPage, currentPage * ItemsPerPage);
 
     const handlePageChange = (selected: { selected: number }) => {
         setCurrentPage(selected.selected + 1);
@@ -56,24 +60,25 @@ export default function Review() {
                     <span>별점낮은순</span>
                 </div>
             </div>
-            {currentItems.map((comment) => (
-                <div className={styles.reviewBox}>
-                    <div className={styles.reviewList} key={comment.id}>
+            {currentItems.map((review) => (
+                <div className={styles.reviewBox} key={review.id}>
+                    <div className={styles.reviewList}>
                         <div className={styles.reviewMeta}>
                             <span className={styles.score}>⭐⭐⭐⭐⭐</span>
-                            <span className={styles.nickname}>{comment.nickname}</span>
-                            <span className={styles.reviewDate}>{comment.date}</span>
+                            <span className={styles.nickname}>{review.nickname}</span>
+                            <span className={styles.reviewDate}>{review.date}</span>
                         </div>
                         <div className={styles.review}>
-                            <span>{comment.content}</span>
+                            <span>{review.content}</span>
                         </div>
                         <div className={styles.reviewActions}>
                             <span className={styles.like}>💙 0</span>
-                            <span className={styles.reply} onClick={() => toggleCommentText(comment.id)}>댓글 0</span>
+                            <span className={styles.reply} onClick={() => toggleCommentText(review.id)}>댓글 0</span>
                         </div>
                     </div>
 
-                    {isCommentVisible[comment.id] && (
+                    {isCommentVisible[review.id] && (
+                    <>
                         <div className={styles.textAreaBox}>
                             <textarea 
                                 className={styles.textarea} 
@@ -81,12 +86,55 @@ export default function Review() {
                                 maxLength={200}
                                 ></textarea>
                             <div className={styles.textAreaBtn}>
-                                <button onClick={() => handleCommentCancel(comment.id)}>취소</button>
+                                <button onClick={() => handleCommentCancel(review.id)}>취소</button>
                                 <button>등록</button>
                             </div>
                         </div>
+                   
+                        <div className={styles.commentSection}>
+                            {comments.filter(comment => comment.reviewId === review.id).map((comment) => (
+                                <div className={styles.commentBox} key={comment.id}>
+                                    <div className={styles.commentContent}>
+                                        <div className={styles.commentInfo}>
+                                            <span className={styles.nickname}>{comment.nickname}</span>
+                                            <span className={styles.commentDate}>{comment.date}</span>
+                                            {/* 댓글 작성자 본인만 표기 
+                                            <span className={styles.commentEditBtn}>수정</span>
+                                            <span className={styles.commentDeleteBtn}>삭제</span> 
+                                            */}
+                                        </div>
+                                        <div className={styles.commentLine}>
+                                            <span className={styles.comment}>{comment.content}</span>
+                                            <span className={styles.commentBtn} onClick={() => toggleCommentText(comment.id)}>💬</span>
+                                        </div>
+                                    </div>
+                                    
+                                    {replys.filter(reply => reply.commentId === comment.id).map((reply) => (
+                                        <div className={styles.reply}>
+                                            <div className={styles.replyBox}>
+                                                <div className={styles.arrowBox}><span className={styles.arrow}>↳</span></div>
+                                                <div className={styles.replyContent}>
+                                                    <div className={styles.commentInfo}>
+                                                        <span className={styles.nickname}>{reply.nickname}</span>
+                                                        <span className={styles.commentDate}>{reply.date}</span>
+                                                        {/* 댓글 작성자 본인만 표기 
+                                                        <span className={styles.commentEditBtn}>수정</span>
+                                                        <span className={styles.commentDeleteBtn}>삭제</span> 
+                                                        */}
+                                                    </div>
+                                                    <div className={styles.commentLine}>
+                                                        <span className={styles.comment}>{reply.content}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            ))}
+                            <div className={styles.line}></div>
+                        </div>
+                    </>
                     )}
-
                 </div>
             ))}
             <Pagination 

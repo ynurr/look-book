@@ -308,7 +308,7 @@
     border-radius: 10px;
     border: 1px solid #ddd;
     gap: 10px;
-    margin-top: 8px;
+    margin-top: 10px;
 }
 
 .textarea {
@@ -360,6 +360,89 @@
 
 .replyTextArea {
     margin-left: 94px;
+}
+
+.commentSection {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.commentBox {
+    display: flex;
+    flex-direction: column;
+}
+
+.commentContent {
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+}
+
+.commentInfo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nickname {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.commentDate, .commentEditBtn, .commentDeleteBtn {
+    font-size: 13px;
+    color: rgb(139, 139, 139);
+}
+
+.comment {
+    font-size: 14px;
+}
+
+.reply {
+    display: flex;
+    flex-direction: column;
+}
+
+.replyBox {
+    display: flex;
+}
+
+.arrowBox {
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+}
+
+.arrow {
+    color: #bebebe;
+    font-weight: 100;
+}
+
+.replyContent {
+    margin-top: 10px;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.commentLine {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.commentBtn {
+    align-self: flex-end;
+    cursor: pointer;
+}
+
+.line {
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+    padding: 0;
 }
 
 @media (max-width: 860px) {
