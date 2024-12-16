@@ -248,13 +248,18 @@
     margin-right: 4px;
 }
 
+.reviewBox {
+    display: flex;
+    flex-direction: column;
+}
+
 .reviewList {
     display: flex;
     justify-content: space-between;
-    margin: 20px 0;
+    margin-top: 10px;
     align-items: center;
     border-bottom: 1px solid #ddd;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     min-height: 84px;
 }
 
@@ -267,6 +272,10 @@
 .reviewMeta > span {
     font-size: 12px;
     margin: 0 40px 0 4px;
+}
+
+.nickname {
+    font-weight: bold;
 }
 
 .review {
@@ -286,6 +295,71 @@
     font-size: 13px;
     margin: 0 4px 0 40px;
     gap: 16px;
+}
+
+.like, .reply {
+    cursor: pointer;
+}
+
+.textAreaBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.textarea {
+    height: 80px;
+    width: 100%;
+    resize: none;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    line-height: 1.5;
+}
+
+.textarea:focus {
+    outline: none;
+}
+
+.textAreaBtn {
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
+    width: 100%;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
+.textAreaBtn button {
+    border: none;
+    background-color: #333333;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 13px;
+    color: white;
+}
+
+.textAreaBtn button:first-child {
+    background-color: rgb(238, 238, 238);
+    color: #444;
+}
+
+.textAreaBtn button:hover {
+    background-color: #17171b;
+}
+
+.textAreaBtn button:hover:first-child {
+    background-color: rgb(233, 233, 233);
+}
+
+.replyTextArea {
+    margin-left: 94px;
 }
 
 @media (max-width: 860px) {

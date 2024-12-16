@@ -188,7 +188,7 @@
 
 .textAreaBtn button {
     border: none;
-    background-color: #777777;
+    background-color: #333333;
     border-radius: 5px;
     padding: 5px 10px;
     cursor: pointer;
@@ -196,8 +196,17 @@
     color: white;
 }
 
+.textAreaBtn button:first-child {
+    background-color: rgb(238, 238, 238);
+    color: #444;
+}
+
 .textAreaBtn button:hover {
-    background-color: #333;
+    background-color: #17171b;
+}
+
+.textAreaBtn button:hover:first-child {
+    background-color: rgb(233, 233, 233);
 }
 
 .replyTextArea {
