@@ -208,7 +208,3 @@
 .textAreaBtn button:hover:first-child {
     background-color: rgb(233, 233, 233);
 }
-
-.replyTextArea {
-    margin-left: 94px;
-}

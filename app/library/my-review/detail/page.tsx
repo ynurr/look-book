@@ -19,23 +19,14 @@ export default function ReviewDetail() {
     ];
 
     const [isCommentVisible, setIsCommentVisible] = useState<{ [key: number]: boolean }>({});
-    const [isReplyVisible, setIsReplyVisible] = useState<{ [key: number]: boolean}>({});
 
     const toggleCommentText = (id: number) => {
         setIsCommentVisible(prevState => ({ ...prevState, [id]: !prevState[id] }))
     };
 
-    const toggleReplyText = (id: number) => {
-        setIsReplyVisible(prevState => ({ ...prevState, [id]: !prevState[id] }))
-    };
-    
     const handleCommentCancel = (id: number) => {
         setIsCommentVisible(prevState => ({ ...prevState, [id]: false }))
     };
-
-    const handleReplyCancel = (id: number) => (
-        setIsReplyVisible(prevState => ({ ...prevState, [id]: false }))
-    );
 
     return (
         <div className={styles.container}>
@@ -109,25 +100,9 @@ export default function ReviewDetail() {
                                                 </div>
                                                 <div className={styles.commentLine}>
                                                     <span className={styles.comment}>{reply.content}</span>
-                                                    <span className={styles.commentBtn} onClick={() => toggleReplyText(reply.id)}>💬</span>
                                                 </div>
                                             </div>
                                         </div>
-
-                                        {/* 대댓글 작성 입력창 */}
-                                        {isReplyVisible[reply.id] && (
-                                            <div className={`${styles.textAreaBox} ${styles.replyTextArea}`}>
-                                                <textarea 
-                                                    className={styles.textarea} 
-                                                    placeholder='200자 이내로 입력해주세요'
-                                                    maxLength={200}
-                                                    ></textarea>
-                                                <div className={styles.textAreaBtn}>
-                                                    <button onClick={() => handleReplyCancel(reply.id)}>취소</button>
-                                                    <button>등록</button>
-                                                </div>
-                                            </div>
-                                        )}
                                     </div>
                                 ))}
                             </div>
