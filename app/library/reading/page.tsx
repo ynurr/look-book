@@ -3,14 +3,15 @@
 import { useState } from 'react'
 import LeftMenu from '../LeftMenu'
 import styles from './Reading.module.css'
+import { PiStarFill } from "react-icons/pi";
 
 export default function Reading() {
 
     const items = [
-        { id: 1, cover: 'cover1', title: '책 제목 1', author: '작가 1', isReview: 'Y' },
-        { id: 2, cover: 'cover2', title: '책 제목 2', author: '작가 2', isReview: 'Y' },
-        { id: 3, cover: 'cover3', title: '책 제목 3', author: '작가 3', isReview: 'N' },
-        { id: 4, cover: 'cover3', title: '책 제목 3', author: '작가 3', isReview: 'N' },
+        { id: 1, cover: 'cover1', title: '책 제목 1', author: '작가 1', isReview: 'Y', rating: 3 },
+        { id: 2, cover: 'cover2', title: '책 제목 2', author: '작가 2', isReview: 'Y', rating: 5 },
+        { id: 3, cover: 'cover3', title: '책 제목 3', author: '작가 3', isReview: 'N', rating: 0 },
+        { id: 4, cover: 'cover3', title: '책 제목 3', author: '작가 3', isReview: 'N', rating: 0 },
     ];
 
     const [activeTab, setActiveTab] = useState(0)
@@ -97,7 +98,14 @@ export default function Reading() {
                                         <span className={styles.author}>{item.author}</span>
                                         {
                                             item.isReview === 'Y' ? (
-                                                <span className={styles.star}>⭐⭐⭐⭐⭐</span>
+                                                <span className={styles.star}>
+                                                    {[...Array(5)].map((_, index) => (
+                                                        <PiStarFill 
+                                                            key={index}
+                                                            className={index < item.rating ? styles.starFill : styles.star}
+                                                        />
+                                                    ))}
+                                                </span>
                                             ) : (
                                                 <span className={styles.reviewBtn}>리뷰쓰기</span>
                                             )

@@ -28,6 +28,7 @@
 .bookDetail {
     display: flex;
     flex-direction: column;
+    gap: 2px;
 }
 
 .cover {
@@ -49,8 +50,8 @@
     font-size: 13px;
 }
 
-.star {
-    font-size: 13px;
+.rating {
+    font-size: 17px;
 }
 
 .reviewBox {
@@ -207,4 +208,12 @@
 
 .textAreaBtn button:hover:first-child {
     background-color: rgb(233, 233, 233);
+}
+
+.starFill {
+    color: #ffe16f;
+}
+
+.star {
+    color: #eeeeee;
 }

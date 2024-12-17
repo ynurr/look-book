@@ -140,16 +140,21 @@
     margin: 10px 0;
 }
 
-.star {
-    font-size: 12px;
-    cursor: pointer;
-}
-
 .isRead, .reviewBtn {
     font-size: 13px;
     font-weight: 500;
     color: #f77676;
     text-decoration: underline;
     text-underline-offset: 4px; 
+    cursor: pointer;
+}
+
+.starFill {
+    color: #ffe16f;
+    cursor: pointer;
+}
+
+.star {
+    color: #eeeeee;
     cursor: pointer;
 }

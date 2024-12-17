@@ -46,12 +46,6 @@
     font-size: 14px;
 }
 
-.star {
-    font-size: 20px;
-    cursor: pointer;
-    columns: #e0e0e0;
-}
-
 .selected {
     color: rgb(253, 109, 109);
 }
@@ -96,4 +90,16 @@
 
 .btn:hover {
     background-color: #17171b;
+}
+
+.rating {
+    font-size: 20px;
+}
+
+.starFill {
+    color: #ffe16f;
+}
+
+.star {
+    color: #eeeeee;
 }

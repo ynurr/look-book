@@ -3,19 +3,16 @@
 import { useState } from 'react';
 import LeftMenu from '../LeftMenu';
 import styles from './WriteReview.module.css'
+import { PiStarFill } from "react-icons/pi";
 
 export default function WriteReview() {
 
     const [rating, setRating] = useState(0);
 
-    const handleRating = (star: number) => {
-        setRating(star)
-    };
-
     return (
         <div className={styles.container}>
             <LeftMenu />
-
+            
             <div className={styles.wrapper}>
                 <h2 className={styles.menuTitle}>리뷰 쓰기</h2>
                 <div className={styles.line}></div>
@@ -24,16 +21,21 @@ export default function WriteReview() {
                     <div className={styles.bookDetail}>
                         <span className={styles.title}>제목</span>
                         <span className={styles.author}>작가</span>
-                        {/* 별점 선택 */}
+
                         <div className={styles.rating}>
-                            {[1,2,3,4,5].map((star) => (
-                                <span
-                                    key={star}
-                                    className={`${styles.star} ${star <= rating ? styles.selected : ''}`}
-                                    onClick={() => handleRating(star)}
-                                >★</span>
-                            ))}
+                            {
+                                [...Array(rating)].map((a,i) => (
+                                    <PiStarFill className={styles.starFill} key={i} onClick={() => setRating(i + 1)} />
+                                ))
+                            }
+
+                            {
+                                [...Array(5 - rating)].map((a,i) => (
+                                    <PiStarFill className={styles.star} key={i} onClick={() => setRating(rating + i + 1)}/>
+                                ))
+                            }
                         </div>
+
                     </div>
                 </div>
                 <textarea className={styles.review} maxLength={1000}></textarea>

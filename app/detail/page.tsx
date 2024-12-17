@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchBookDetails, clearBook } from '@/store/slices/detailSlice';
 import { fetchAuthorBooks, Books } from '@/store/slices/authorBooksSlice';
 import { RootState, AppDispatch } from '@/store/store';
+import { PiStarFill } from "react-icons/pi";
 
 export default function Detail() {
     const dispatch = useDispatch<AppDispatch>();
@@ -59,7 +60,11 @@ export default function Detail() {
                         </div>
                         <p className={styles.date}>{book?.pubDate}</p>
                         <div className={styles.rating}>
-                            <div>⭐⭐⭐⭐⭐</div>
+                            <div>
+                                {[...Array(5)].map((_, index) => (
+                                    <PiStarFill className={styles.starFill} key={index}/>
+                                ))}
+                            </div>
                             <span className={styles.ratingAverage}>9.1</span>
                             <span className={styles.reviewCount}>(3,460)</span>
                         </div>

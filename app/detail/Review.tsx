@@ -3,17 +3,18 @@
 import { useState } from 'react';
 import styles from './../(styles)/Detail.module.css'
 import Pagination from '../(components)/Pagination'
+import { PiStarFill } from "react-icons/pi";
 
 export default function Review() {
 
     const reivews = [
-        { id: 1, content: "리뷰1", nickname: "User1", date: "2024.12.14" },
-        { id: 2, content: "리뷰리뷰", nickname: "User2", date: "2024.12.20" },
-        { id: 3, content: "재밌어요", nickname: "닉넴", date: "2024.12.25" },
-        { id: 4, content: "노잼이에요..", nickname: "vdvdd", date: "2024.12.26" },
-        { id: 5, content: "강추", nickname: "하이", date: "2025.01.26" },
-        { id: 6, content: "인생책 인생책", nickname: "유저", date: "2025.02.26" },
-        { id: 7, content: "꿀잼", nickname: "사용자", date: "2025.02.26" },
+        { id: 1, content: "리뷰1", nickname: "User1", date: "2024.12.14", rating: 2 },
+        { id: 2, content: "리뷰리뷰", nickname: "User2", date: "2024.12.20", rating: 5 },
+        { id: 3, content: "재밌어요", nickname: "닉넴", date: "2024.12.25", rating: 4 },
+        { id: 4, content: "노잼이에요..", nickname: "vdvdd", date: "2024.12.26", rating: 4 },
+        { id: 5, content: "강추", nickname: "하이", date: "2025.01.26", rating: 1 },
+        { id: 6, content: "인생책 인생책", nickname: "유저", date: "2025.02.26", rating: 5 },
+        { id: 7, content: "꿀잼", nickname: "사용자", date: "2025.02.26", rating: 3 },
     ];
 
     const comments = [
@@ -64,7 +65,14 @@ export default function Review() {
                 <div className={styles.reviewBox} key={review.id}>
                     <div className={styles.reviewList}>
                         <div className={styles.reviewMeta}>
-                            <span className={styles.score}>⭐⭐⭐⭐⭐</span>
+                            <span className={styles.score}>
+                                {[...Array(5)].map((_, index) => (
+                                    <PiStarFill 
+                                        key={index}
+                                        className={index < review.rating ? styles.starFill : styles.star}
+                                    />
+                                ))}
+                            </span>
                             <span className={styles.nickname}>{review.nickname}</span>
                             <span className={styles.reviewDate}>{review.date}</span>
                         </div>

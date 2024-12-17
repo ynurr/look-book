@@ -46,10 +46,6 @@
     font-size: 13px;
 }
 
-.star {
-    font-size: 13px;
-}
-
 .reviewBox {
     padding: 0 10px;
 }
@@ -79,4 +75,16 @@
 .likeCnt, .commentCnt {
     font-size: 13px;
     cursor: pointer;
+}
+
+.rating {
+    font-size: 16px;
+}
+
+.starFill {
+    color: #ffe16f;
+}
+
+.star {
+    color: #eeeeee;
 }

@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import LeftMenu from '../../LeftMenu'
 import styles from './ReviewDetail.module.css'
+import { PiStarFill } from "react-icons/pi";
 
 export default function ReviewDetail() {
 
@@ -42,7 +43,14 @@ export default function ReviewDetail() {
                             <span className={styles.title}>제목</span>
                             <span className={styles.author}>작가</span>
                             <span className={styles.date}>2025.01.01</span>
-                            <span className={styles.star}>⭐⭐⭐⭐⭐</span>
+                            <span className={styles.rating}>
+                                {[...Array(5)].map((_, index) => (
+                                    <PiStarFill 
+                                        key={index}
+                                        className={ styles.starFill}
+                                    />
+                                ))}
+                            </span>
                         </div>
                     </div>
                     <div className={styles.reviewBox}>
