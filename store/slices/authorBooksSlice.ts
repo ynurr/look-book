@@ -26,7 +26,7 @@ const initialState: AuthorBooksState = {
 export const fetchAuthorBooks = createAsyncThunk(
     'search/fetchAuthorBooks',
     async ({ keyword }: { keyword: string; }) => {
-        const response = await fetch(`/api/search?keyword=${keyword}&type=Author&max=6`);
+        const response = await fetch(`/pages/api/external/search?keyword=${keyword}&type=Author&max=6`);
         if (!response.ok) {
             throw new Error('API 요청 실패');
         }

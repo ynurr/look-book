@@ -27,7 +27,7 @@ const initialState: DetailState = {
 export const fetchBookDetails = createAsyncThunk(
     'detail/fetchBookDetails',
     async (id: string) => {
-        const response = await fetch(`/api/detail?id=${id}`);
+        const response = await fetch(`/pages/api/external/detail?id=${id}`);
         if (!response.ok) {
             throw new Error('API 요청 실패');
         }
