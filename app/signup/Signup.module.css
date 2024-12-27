@@ -18,7 +18,6 @@
 .formGroup {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
 }
 
 .formGroup input {
@@ -57,6 +56,7 @@
 .formGroup label {
     font-weight: bold;
     margin-bottom: 8px;
+    margin-top: 20px;
 }
 
 .agreementGroup {
@@ -64,11 +64,11 @@
     border-radius: 6px;
     border: 1px solid #e0e0e0;
     padding: 14px;
-    margin: 10px 0;
+    margin: 30px 0 20px;
 }
 
 .checkboxGroup {
-    font-size: 14px;
+    font-size: 13px;
     display: flex;
     align-items: center;
     margin-bottom: 6px;
@@ -111,4 +111,20 @@
 
 .links a:hover {
     text-decoration: underline;
+}
+
+.pwInfo {
+    margin-left: 5px;
+    font-size: 12px;
+    color: #808080;
+}
+
+.pwInfo:first-of-type {
+    margin-top: 6px;
+}
+
+.error {
+    color: rgb(243, 20, 20);
+    font-size: 12px;
+    margin: 6px 0 0 6px;
 }
