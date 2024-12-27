@@ -8,12 +8,78 @@ export default function SignUp() {
     const [nickname, setNickname] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const [idError, setIdError] = useState(false)
+    const [passwordError, setPasswordError] = useState(false)
+    const [passwordCheckError, setPasswordCheckError] = useState(false)
+    const [nicknameError, setNickNameError] = useState(false)
+    const [isError, setIsError] = useState(false)
+    const [isAllChecked, setIsAllChecked] = useState(false)
+    const [isTermsChecked, setIsTermsChecked] = useState(false)
+    const [isPrivacyChecked, setIsPrivacyChecked] = useState(false)
+    const [passwordValidError, setPasswordValidError] = useState(false)
+
+    const validatePassword = (password: string) => {
+        const minLength = 8
+        const hasUpperCase = /[A-Z]/.test(password)
+        const hasLowerCase = /[a-z]/.test(password)
+        const hasNumber = /\d/.test(password)
+        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password)
+        const hasNoSpaces = !/\s/.test(password)
+        const hasNoConsecutiveChars = !/(.)\1{3,}/.test(password)
+
+        return (
+            password.length >= minLength &&
+            (hasUpperCase || hasLowerCase) &&
+            hasNumber &&
+            hasSpecialChar &&
+            hasNoSpaces &&
+            hasNoConsecutiveChars
+        );
+    }
+
+    const handleAllChecked = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const checked = e.target.checked
+        setIsAllChecked(checked)
+        setIsTermsChecked(checked)
+        setIsPrivacyChecked(checked)
+    }
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
 
+        setIdError(false)
+        setPasswordError(false)
+        setPasswordCheckError(false)
+        setNickNameError(false)
+        setIsError(false)
+        setPasswordValidError(false)
+
+        let hasError = false
+
+        if (!id) {
+            setIdError(true)
+            hasError = true
+        }
+        if (!password) {
+            setPasswordError(true)
+            hasError = true
+        }
         if (password !== confirmPassword) {
-            alert('비밀번호가 일치하지 않습니다.')
+            setPasswordCheckError(true)
+            hasError = true
+        }
+        if (!nickname) {
+            setNickNameError(true)
+            hasError = true
+        }
+    
+        if (!validatePassword(password)) {
+            setPasswordValidError(true)
+            hasError = true
+        }
+
+        if (hasError) {
+            setIsError(true)
             return
         }
 
@@ -24,7 +90,7 @@ export default function SignUp() {
         }
 
         try {
-            const response = await fetch('/pages/api/db/register', {
+            const response = await fetch('/api/db/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -36,6 +102,7 @@ export default function SignUp() {
 
             if (response.status === 200) {
                 alert('회원가입 성공')
+                window.location.href = '/login'
             } else {
                 alert(result.message || '회원가입 실패')
             }
@@ -61,6 +128,9 @@ export default function SignUp() {
                             <button className={styles.checkBtn}>중복확인</button>
                         </div>
                     </div>
+                    {
+                        idError && isError && <p className={styles.error}>ID를 입력해주세요.</p>
+                    }
                     <div className={styles.formGroup}>
                         <label>닉네임</label>
                         <div className={styles.inputGroup}>
@@ -73,34 +143,62 @@ export default function SignUp() {
                             <button className={styles.checkBtn}>중복확인</button>
                         </div>
                     </div>
+                    {
+                        nicknameError && isError && <p className={styles.error}>닉네임을 입력해주세요.</p>
+                    }
                     <div className={styles.formGroup}>
                         <label>비밀번호</label>
                         <input 
                             placeholder='비밀번호를 입력하세요'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                        ></input>
+                            type='password'
+                            ></input>
+                        <span className={styles.pwInfo}>영문, 숫자, 특수문자 3가지 조합 8자리 이상</span>
+                        <span className={styles.pwInfo}>공백 및 4글자 이상의 연속 문자 불가</span>
                     </div>
+                    {
+                        passwordError && isError && <p className={styles.error}>비밀번호를 입력해주세요.</p>
+                    }
+                    {
+                        !passwordError && passwordValidError && isError && <p className={styles.error}>비밀번호를 확인해주세요.</p>
+                    }
                     <div className={styles.formGroup}>
                         <label>비밀번호 확인</label>
                         <input
                             placeholder='비밀번호를 다시 입력하세요'
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
+                            type='password'
                         ></input>
                     </div>
+                    {
+                        passwordCheckError && isError && <p className={styles.error}>비밀번호가 일치하지 않습니다.</p>
+                    }
                     <div className={styles.formGroup}>
                         <div className={styles.agreementGroup}>
                             <div className={`${styles.checkboxGroup} ${styles.all}`}>
-                                <input type='checkbox'/>
+                                <input 
+                                    type='checkbox'
+                                    checked={isAllChecked} 
+                                    onChange={handleAllChecked}
+                                />
                                 <span>전체 동의</span>
                             </div>
                             <div className={styles.checkboxGroup}>
-                                <input type='checkbox'/>
+                                <input 
+                                    type='checkbox'
+                                    checked={isTermsChecked}
+                                    onChange={(e) => setIsTermsChecked(e.target.checked)}
+                                />
                                 <span>서비스 이용약관 동의 (필수)</span>
                             </div>
                             <div className={`${styles.checkboxGroup} ${styles.privacy}`}>
-                                <input type='checkbox'/>
+                                <input 
+                                    type='checkbox'
+                                    checked={isPrivacyChecked} 
+                                    onChange={(e) => setIsPrivacyChecked(e.target.checked)} 
+                                />
                                 <span>개인정보 처리방짐 동의 (필수)</span>
                             </div>
                         </div>
