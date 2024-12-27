@@ -10,7 +10,7 @@ export interface Books {
 export const fetchBookList = createAsyncThunk(
     'list/fetchBookList',
     async( { type, max, page }: { type: string, max: string, page: string } ) => {
-        const response = await fetch(`/pages/api/external/list?type=${type}&max=${max}&page=${page}`);
+        const response = await fetch(`/api/external/list?type=${type}&max=${max}&page=${page}`);
         if (!response.ok) {
             throw new Error('API 요청 실패');
         }

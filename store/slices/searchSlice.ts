@@ -26,7 +26,7 @@ const initialState: SearchState = {
 export const fetchSearchBooks = createAsyncThunk(
     'search/fetchSearchBooks',
     async ({ keyword }: { keyword: string; }) => {
-        const response = await fetch(`/pages/api/external/search?keyword=${keyword}&type=&max=100`);
+        const response = await fetch(`/api/external/search?keyword=${keyword}&type=&max=100`);
         if (!response.ok) {
             throw new Error('API 요청 실패');
         }
