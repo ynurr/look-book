@@ -1,11 +1,11 @@
 import Link from 'next/link'
 import styles from './LeftMenu.module.css'
 
-export default function LeftMenu() {
+export default function LeftMenu({nickname}: {nickname: string}) {
     return (
         <div className={styles.container}>
             <div className={styles.userInfo}>
-                <span className={styles.nickname}>신유 님</span>
+                <span className={styles.nickname}>{nickname} 님</span>
                 <span className={styles.stat}>현재 내 랭킹 <span className={styles.redText}>0권</span></span>
                 <span className={styles.stat}>리뷰 작성 <span className={styles.redText}>0권</span></span>
                 <span className={styles.stat}>지금까지 읽은 책 <span className={styles.redText}>0권</span></span> 

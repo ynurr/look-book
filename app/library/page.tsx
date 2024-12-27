@@ -1,11 +1,23 @@
+'use client'
+
 import { isToday, isYesterday, differenceInHours, format } from 'date-fns';
 import BarChart from "./BarChart";
 import DoughnutChart from "./DoughnutChart";
 import ProgressBar from "./ProgressBar";
 import LeftMenu from "./LeftMenu";
 import styles from './Library.module.css'
+import { redirect } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 export default function Library() {
+    
+    const { data: session, status } = useSession();
+
+    if (!session && status !== "loading") {
+        redirect('/login');
+    }
+
+    const nickname = session?.user.nickname;
 
     const comments = [
         { commenter: "김도훈", commentTime: "2024-12-04 16:01:18", commentContent: "너무 재밌어요" },
@@ -29,7 +41,7 @@ export default function Library() {
 
     return (
         <div className={styles.container}>
-            <LeftMenu />
+            <LeftMenu nickname={nickname || ''}/>
 
             <div className={styles.wrapper}>
                 <div className={styles.statSection}>
