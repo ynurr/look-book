@@ -1,23 +1,139 @@
 'use client'
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import styles from './AccountModify.module.css'
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 export default function Modify() {
 
-    const [isVerified, setIsVerified] = useState<boolean>(false);
-    const [password, setPassword] = useState<string>('');
-    const [error, setError] = useState<string>('');
+    const { data: session } = useSession();
+    
+    const [isVerified, setIsVerified] = useState<boolean>(false)
+    const [password, setPassword] = useState<string>('')
+    const [error, setError] = useState<string>('')
+    const [newPassword, setNewPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [nickname, setNickname] = useState('')
+    const [passwordError, setPasswordError] = useState(false)
+    const [passwordCheckError, setPasswordCheckError] = useState(false)
+    const [passwordValidError, setPasswordValidError] = useState(false)
+    const [nicknameError, setNickNameError] = useState(false)
+    const [isError, setIsError] = useState(false)
+    const [userId, setUserId] = useState('')
+        
+    const handleVerify = async (e: React.FormEvent) => {
+        e.preventDefault(); 
 
-    const handleVerify = () => {
         if (!password) {
             setError('비밀번호를 입력해주세요.')
-        } else if (password === '1234') {
-            setIsVerified(true)
-        } else {
-            setError('비밀번호가 일치하지 않습니다.')
-            setPassword('')
+            return
+        }
+
+        const data = {
+            sub: session?.user.sub,
+            password
+        }
+
+        try {
+            const response = await fetch('/api/db/account/search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+
+            const result = await response.json()
+
+            if (response.status === 200) {
+                setIsVerified(true)
+                console.log("isVerified 상태:", true);
+                setUserId(result.id)
+                setNickname(result.nickname)
+            } else {
+                setError(result.message)
+            }
+        } catch (error) {
+            alert("사용자 정보 조회 중 오류가 발생했습니다.")
+            console.error(error)
+        }
+    }
+
+    const validatePassword = (password: string) => {
+        const minLength = 8
+        const hasUpperCase = /[A-Z]/.test(password)
+        const hasLowerCase = /[a-z]/.test(password)
+        const hasNumber = /\d/.test(password)
+        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password)
+        const hasNoSpaces = !/\s/.test(password)
+        const hasNoConsecutiveChars = !/(.)\1{3,}/.test(password)
+
+        return (
+            password.length >= minLength &&
+            (hasUpperCase || hasLowerCase) &&
+            hasNumber &&
+            hasSpecialChar &&
+            hasNoSpaces &&
+            hasNoConsecutiveChars
+        );
+    }
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+
+        setPasswordError(false)
+        setPasswordCheckError(false)
+        setNickNameError(false)
+        setIsError(false)
+        setPasswordValidError(false)
+
+        let hasError = false
+
+        if (!newPassword) {
+            setPasswordError(true)
+            hasError = true
+        }
+
+        if (newPassword !== confirmPassword) {
+            setPasswordCheckError(true)
+            hasError = true
+        }
+    
+        if (!validatePassword(newPassword)) {
+            setPasswordValidError(true)
+            hasError = true
+        }
+
+        if (hasError) {
+            setIsError(true)
+            return
+        }
+
+        const data = {
+            sub: session?.user.sub,
+            nickname,
+            password
+        }
+
+        try {
+            const response = await fetch('/api/db/account/modify', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+
+            const result = await response.json()
+
+            if (response.status === 200) {
+                alert('회원정보수정 성공')
+            } else {
+                alert(result.message || '회원정보수정 실패')
+            }
+        } catch (error) {
+            alert('회원정보수정 중 오류가 발생했습니다.')
         }
     }
     
@@ -28,41 +144,79 @@ export default function Modify() {
                     <div className={styles.contents}>
                         <h2>회원정보 수정</h2>
                         <hr/>
-                        <div>
-                            <table className={styles.table}>
-                                <tr>
-                                    <th>아이디</th>
-                                    <td>xxx</td>
-                                </tr>
-                                <tr>
-                                    <th className={styles.pwLabel}>새 비밀번호</th>
-                                    <td className={styles.pwInput}>
-                                        <input type="password" className={styles.checkInput} placeholder="새 비밀번호"></input>
-                                        <span className={styles.pwInfo}>영문, 숫자, 특수문자 3가지 조합 8자리 이상</span>
-                                        <span className={styles.pwInfo}>공백 및 3글자 이상의 연속 문자 불가</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>새 비밀번호 확인</th>
-                                    <td><input type="password" className={styles.checkInput} placeholder="새 비밀번호 확인"></input></td>
-                                </tr>
-                                <tr>
-                                    <th>닉네임</th>
-                                    <td>신유</td>
-                                </tr>
-                            </table>
-                            <hr/>
-                            <div className={styles.leaveWrapper}>
-                                <span className={styles.leaveInfo}>회원탈퇴 후 동일한 아이디로 재가입이 불가합니다.</span>
-                                <Link href="/account/leave">
-                                    <button className={styles.leaveBtn}>회원탈퇴</button>
-                                </Link>
+                        <form onSubmit={handleSubmit}>
+                            <div>
+                                <table className={styles.table}>
+                                    <tr>
+                                        <th>아이디</th>
+                                        <td>{userId}</td>
+                                    </tr>
+                                    <tr>
+                                        <th className={styles.pwLabel}>새 비밀번호</th>
+                                        <td className={styles.pwInput}>
+                                            <input 
+                                                type="password" 
+                                                className={styles.checkInput}
+                                                placeholder="새 비밀번호"
+                                                value={newPassword}
+                                                onChange={(e) => {setNewPassword(e.target.value)}}
+                                                >
+                                            </input>
+                                            <span className={styles.pwInfo}>영문, 숫자, 특수문자 3가지 조합 8자리 이상</span>
+                                            <span className={styles.pwInfo}>공백 및 4글자 이상의 연속 문자 불가</span>
+                                            {
+                                                passwordError && isError && <p className={styles.error}>비밀번호를 입력해주세요.</p>
+                                            }
+                                            {
+                                                !passwordError && passwordValidError && isError && <p className={styles.error}>비밀번호를 확인해주세요.</p>
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>새 비밀번호 확인</th>
+                                        <td>
+                                            <input 
+                                                type="password" 
+                                                className={styles.checkInput} 
+                                                placeholder="새 비밀번호 확인"
+                                                value={confirmPassword}
+                                                onChange={(e) => {setConfirmPassword(e.target.value)}}>
+                                            </input>
+                                            {
+                                                passwordCheckError && isError && <p className={styles.error}>비밀번호가 일치하지 않습니다.</p>
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>닉네임</th>
+                                        <td className={styles.inputGroup}>
+                                            <input 
+                                                className={`${styles.checkInput} ${styles.nicknameInput}`} 
+                                                value={nickname}
+                                                onChange={(e) => setNickname(e.target.value)}
+                                            ></input>
+                                            <button className={styles.checkBtn}>중복확인</button>
+                                            {
+                                                nicknameError && isError && <p className={styles.error}>닉네임을 입력해주세요.</p>
+                                            }
+                                        </td>
+                                    </tr>
+                                </table>
+                                <hr/>
+                                <div className={styles.leaveWrapper}>
+                                    <span className={styles.leaveInfo}>회원탈퇴 후 동일한 아이디로 재가입이 불가합니다.</span>
+                                    <Link href="/account/leave">
+                                        <button className={styles.leaveBtn}>회원탈퇴</button>
+                                    </Link>
+                                </div>
+                                <div className={styles.btnWrapper}>
+                                    <Link href="/home">
+                                        <button className={styles.cancelBtn}>취소</button>
+                                    </Link>
+                                    <button type="submit" className={styles.submitBtn}>확인</button>
+                                </div>
                             </div>
-                            <div className={styles.btnWrapper}>
-                                <button className={styles.cancelBtn}>취소</button>
-                                <button className={styles.submitBtn}>확인</button>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 ) : (
                     <div className={styles.contents}>

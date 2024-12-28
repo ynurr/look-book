@@ -17,8 +17,6 @@
     width: 240px;
     font-size: 18px;
     outline: none;
-    letter-spacing: 5px; 
-    
 }
 
 .btnPw {
@@ -141,6 +139,38 @@
     min-height: 30px;
 }
 
+.error {
+    color: rgb(243, 20, 20);
+    font-size: 12px;
+    margin: 0;
+}
+
 .info {
     font-size: 15px;
+}
+
+.inputGroup {
+    position: relative;  
+}
+
+.checkBtn {
+    position: absolute;
+    right: 15px;
+    top: 44%;
+    transform: translateY(-50%);
+    border: none;
+    border-radius: 5px;
+    background-color: #eeeeee;
+    color: #333;
+    cursor: pointer;
+    padding: 4px;
+    font-size: 11px;
+}
+
+.checkInput::placeholder {
+    font-size: 12px;
+}
+
+.nicknameInput {
+    padding-right: 55px;
 }
