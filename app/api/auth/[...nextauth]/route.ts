@@ -39,7 +39,8 @@ export const authOptions: AuthOptions = {
 
     session: {
         strategy: 'jwt' as SessionStrategy,
-        maxAge: 24 * 60 * 60 // 만료일 1일
+        maxAge: 12 * 60 * 60, // 만료일 12시간
+        updateAge: 0,
     },
 
     callbacks: {
@@ -51,6 +52,7 @@ export const authOptions: AuthOptions = {
                 token.sub = user.sub;
                 console.log("[JWT Callback]: Token created", token);
             }
+            console.log("[JWT Callback]: Using existing Token", token);
             return token;
         },
         // 유저 세션이 조회될 때마다 실행
