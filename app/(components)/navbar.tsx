@@ -31,7 +31,7 @@ export default function Navbar() {
             <Link href="/">카테고리</Link>
             <Link href="/library">내 서재</Link>
             {session ? (
-                <Link href="/account/modify">회원정보</Link>
+                <Link href="/account/modify">프로필</Link>
             ) : (
                 <Link href="/login">로그인</Link>
             )}
