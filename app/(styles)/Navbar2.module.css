@@ -109,3 +109,40 @@
     border-radius: 4px;
     margin-left: auto;
 }
+
+.userIconWrapper {
+    position: relative;
+    cursor: pointer;
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: 140%;
+    right: 6px;
+    width: 100px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(75, 75, 75, 0.15);
+    z-index: 1000;
+}
+
+.dropdownItem {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 10px;
+}
+
+.dropdownItem:hover {
+    background-color: #f0f0f0;
+}
+
+.dropdownMenu button {
+    border: none;
+    background: none;
+    width: 100%;
+}

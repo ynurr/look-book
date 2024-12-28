@@ -6,13 +6,21 @@ import styles from './../(styles)/Navbar2.module.css'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useState } from 'react';
+import { signOut, useSession } from 'next-auth/react';
 
 export default function Navbar2() {
+
+    const { data: session } = useSession();
 
     const [keyword, setKeyword] = useState<string>('');
     const router = useRouter();
     const currentPath = usePathname();
+    const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 
+    const toggleDropdown = () => {
+        setIsDropdownOpen((prev) => !prev); 
+    };
+    
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if (keyword.trim()) {
@@ -50,9 +58,25 @@ export default function Navbar2() {
                                 />
                             </div>
                         </form>
-                        <Link href="/account/modify" className={styles.userIconLink}>
-                            <FontAwesomeIcon icon={faUser} className={styles.iconUser}/>
-                        </Link>
+                        <div className={styles.userIconWrapper} onClick={toggleDropdown}>
+                            <FontAwesomeIcon icon={faUser} className={styles.iconUser} />
+                            {isDropdownOpen && (
+                                session ? (
+                                    <div className={styles.dropdownMenu}>
+                                        <Link href="/account/modify" className={styles.dropdownItem}>회원정보 수정</Link>
+                                        <button 
+                                            onClick={() => signOut({ callbackUrl: '/home' })} 
+                                            className={styles.dropdownItem}>
+                                            로그아웃
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <div className={styles.dropdownMenu}>
+                                        <Link href="/login" className={styles.dropdownItem}>로그인</Link>
+                                    </div>
+                                )
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
