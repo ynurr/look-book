@@ -79,6 +79,28 @@ export default function Modify() {
         );
     }
 
+    const checkNickname = async (nickname: string) => {
+        try {
+            const response = await fetch('/api/db/check/nickname', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ nickname })
+            })
+
+            const data = await response.json()
+
+            if (response.ok) {
+                alert(data.message)
+            } else {
+                alert(data.message)
+            }
+        } catch (error) {
+            alert(error)
+        }
+    }
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
 
@@ -113,7 +135,7 @@ export default function Modify() {
         const data = {
             sub: session?.user.sub,
             nickname,
-            password
+            password: newPassword
         }
 
         try {
@@ -195,7 +217,11 @@ export default function Modify() {
                                                 value={nickname}
                                                 onChange={(e) => setNickname(e.target.value)}
                                             ></input>
-                                            <button className={styles.checkBtn}>중복확인</button>
+                                            <button 
+                                                className={styles.checkBtn}
+                                                onClick={() => checkNickname(nickname)}
+                                                type="button"
+                                            >중복확인</button>
                                             {
                                                 nicknameError && isError && <p className={styles.error}>닉네임을 입력해주세요.</p>
                                             }
