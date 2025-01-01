@@ -17,6 +17,8 @@ export default function SignUp() {
     const [isTermsChecked, setIsTermsChecked] = useState(false)
     const [isPrivacyChecked, setIsPrivacyChecked] = useState(false)
     const [passwordValidError, setPasswordValidError] = useState(false)
+    const [isIdChecked, setIsIdChecked] = useState(false)
+    const [isNicknameChecked, setIsNicknameChecked] = useState(false)
 
     const validatePassword = (password: string) => {
         const minLength = 8
@@ -51,11 +53,39 @@ export default function SignUp() {
 
             if (response.ok) {
                 alert(data.message)
+                setIsNicknameChecked(true)
             } else {
                 alert(data.message)
+                setIsNicknameChecked(false)
             }
         } catch (error) {
             alert(error)
+            setIsNicknameChecked(false)
+        }
+    }
+
+    const checkId = async (id: string) => {
+        try {
+            const response = await fetch('/api/db/check/id', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id })
+            })
+
+            const data = await response.json()
+
+            if (response.ok) {
+                alert(data.message)
+                setIsIdChecked(true)
+            } else {
+                alert(data.message)
+                setIsIdChecked(false)
+            }
+        } catch (error) {
+            alert(error)
+            setIsIdChecked(false)
         }
     }
     
@@ -68,6 +98,15 @@ export default function SignUp() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
+
+        if (!isIdChecked) {
+            alert('아이디 중복 확인을 완료해주세요.')
+            return
+        }
+        if (!isNicknameChecked) {
+            alert('닉네임 중복 확인을 완료해주세요.')
+            return
+        }
 
         setIdError(false)
         setPasswordError(false)
@@ -147,7 +186,11 @@ export default function SignUp() {
                                 value={id}
                                 onChange={(e) => setId(e.target.value)}
                             ></input>
-                            <button className={styles.checkBtn}>중복확인</button>
+                            <button 
+                                className={styles.checkBtn}
+                                onClick={() => checkId(id)}
+                                type="button"
+                            >중복확인</button>
                         </div>
                     </div>
                     {
