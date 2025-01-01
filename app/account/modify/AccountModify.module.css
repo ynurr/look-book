@@ -160,8 +160,8 @@
     transform: translateY(-50%);
     border: none;
     border-radius: 5px;
-    background-color: #eeeeee;
-    color: #333;
+    background-color: #333333;
+    color: white;
     cursor: pointer;
     padding: 4px;
     font-size: 11px;
