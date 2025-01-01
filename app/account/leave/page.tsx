@@ -60,8 +60,8 @@ export default function Leave() {
             <div className={styles.notice}>
                 <span className={styles.noticeTitle}>회원탈퇴 유의사항</span>
                 <ul className={styles.noticeList}>
-                    <li>· 탈퇴 시, 모든 데이터가 삭제되며 계정은 복구할 수 없습니다.</li>
-                    <li>· 탈퇴 후 동일한 아이디로 재가입이 불가합니다.</li>
+                    <li>· 탈퇴 시, 사용한 계정 정보가 삭제되며 복구할 수 없습니다.</li>
+                    <li>· 작성한 리뷰와 댓글은 자동으로 삭제되지 않습니다.</li>
                 </ul>
             </div>
             <div className={styles.agreeWrapper}>
