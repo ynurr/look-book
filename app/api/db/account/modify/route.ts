@@ -18,8 +18,6 @@ export async function PUT(req: NextRequest) {
         const db = (await connectDB).db("lookbook")
         
         const hashedPassword = await bcrypt.hash(body.password, 10)
-        console.log("Hashed Password:", hashedPassword);
-        console.log("body.password:", body.password);
 
         const result = await db.collection("user").updateOne(
             { _id: new ObjectId(body.sub) },
