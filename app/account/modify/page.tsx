@@ -21,6 +21,7 @@ export default function Modify() {
     const [nicknameError, setNickNameError] = useState(false)
     const [isError, setIsError] = useState(false)
     const [userId, setUserId] = useState('')
+    const [isNicknameChecked, setIsNicknameChecked] = useState(false)
         
     const handleVerify = async (e: React.FormEvent) => {
         e.preventDefault(); 
@@ -93,11 +94,14 @@ export default function Modify() {
 
             if (response.ok) {
                 alert(data.message)
+                setIsNicknameChecked(true)
             } else {
                 alert(data.message)
+                setIsNicknameChecked(false)
             }
         } catch (error) {
             alert(error)
+            setIsNicknameChecked(false)
         }
     }
 
@@ -127,6 +131,11 @@ export default function Modify() {
             hasError = true
         }
 
+        if (!isNicknameChecked) {
+            alert('닉네임 중복 확인을 완료해주세요.')
+            return
+        }
+        
         if (hasError) {
             setIsError(true)
             return
@@ -169,70 +178,74 @@ export default function Modify() {
                         <form onSubmit={handleSubmit}>
                             <div>
                                 <table className={styles.table}>
-                                    <tr>
-                                        <th>아이디</th>
-                                        <td>{userId}</td>
-                                    </tr>
-                                    <tr>
-                                        <th className={styles.pwLabel}>새 비밀번호</th>
-                                        <td className={styles.pwInput}>
-                                            <input 
-                                                type="password" 
-                                                className={styles.checkInput}
-                                                placeholder="새 비밀번호"
-                                                value={newPassword}
-                                                onChange={(e) => {setNewPassword(e.target.value)}}
-                                                >
-                                            </input>
-                                            <span className={styles.pwInfo}>영문, 숫자, 특수문자 3가지 조합 8자리 이상</span>
-                                            <span className={styles.pwInfo}>공백 및 4글자 이상의 연속 문자 불가</span>
-                                            {
-                                                passwordError && isError && <p className={styles.error}>비밀번호를 입력해주세요.</p>
-                                            }
-                                            {
-                                                !passwordError && passwordValidError && isError && <p className={styles.error}>비밀번호를 확인해주세요.</p>
-                                            }
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>새 비밀번호 확인</th>
-                                        <td>
-                                            <input 
-                                                type="password" 
-                                                className={styles.checkInput} 
-                                                placeholder="새 비밀번호 확인"
-                                                value={confirmPassword}
-                                                onChange={(e) => {setConfirmPassword(e.target.value)}}>
-                                            </input>
-                                            {
-                                                passwordCheckError && isError && <p className={styles.error}>비밀번호가 일치하지 않습니다.</p>
-                                            }
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>닉네임</th>
-                                        <td className={styles.inputGroup}>
-                                            <input 
-                                                className={`${styles.checkInput} ${styles.nicknameInput}`} 
-                                                value={nickname}
-                                                onChange={(e) => setNickname(e.target.value)}
-                                            ></input>
-                                            <button 
-                                                className={styles.checkBtn}
-                                                onClick={() => checkNickname(nickname)}
-                                                type="button"
-                                            >중복확인</button>
-                                            {
-                                                nicknameError && isError && <p className={styles.error}>닉네임을 입력해주세요.</p>
-                                            }
-                                        </td>
-                                    </tr>
+                                    <tbody>
+                                        <tr>
+                                            <th>아이디</th>
+                                            <td>{userId}</td>
+                                        </tr>
+                                        <tr>
+                                            <th className={styles.pwLabel}>새 비밀번호</th>
+                                            <td className={styles.pwInput}>
+                                                <input 
+                                                    type="password" 
+                                                    className={styles.checkInput}
+                                                    placeholder="새 비밀번호"
+                                                    value={newPassword}
+                                                    onChange={(e) => {setNewPassword(e.target.value)}}
+                                                    >
+                                                </input>
+                                                <span className={styles.pwInfo}>영문, 숫자, 특수문자 3가지 조합 8자리 이상</span>
+                                                <span className={styles.pwInfo}>공백 및 4글자 이상의 연속 문자 불가</span>
+                                                {
+                                                    passwordError && isError && <p className={styles.error}>비밀번호를 입력해주세요.</p>
+                                                }
+                                                {
+                                                    !passwordError && passwordValidError && isError && <p className={styles.error}>비밀번호를 확인해주세요.</p>
+                                                }
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>새 비밀번호 확인</th>
+                                            <td>
+                                                <input 
+                                                    type="password" 
+                                                    className={styles.checkInput} 
+                                                    placeholder="새 비밀번호 확인"
+                                                    value={confirmPassword}
+                                                    onChange={(e) => {setConfirmPassword(e.target.value)}}>
+                                                </input>
+                                                {
+                                                    passwordCheckError && isError && <p className={styles.error}>비밀번호가 일치하지 않습니다.</p>
+                                                }
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>닉네임</th>
+                                            <td className={styles.inputGroup}>
+                                                <input 
+                                                    className={`${styles.checkInput} ${styles.nicknameInput}`} 
+                                                    value={nickname}
+                                                    onChange={(e) => {
+                                                        setNickname(e.target.value)
+                                                        setIsNicknameChecked(false)
+                                                    }}
+                                                ></input>
+                                                <button 
+                                                    className={styles.checkBtn}
+                                                    onClick={() => checkNickname(nickname)}
+                                                    type="button"
+                                                >중복확인</button>
+                                                {
+                                                    nicknameError && isError && <p className={styles.error}>닉네임을 입력해주세요.</p>
+                                                }
+                                            </td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                                 <hr/>
                                 <div className={styles.leaveWrapper}>
-                                    <span className={styles.leaveInfo}>회원탈퇴 후 동일한 아이디로 재가입이 불가합니다.</span>
                                     <Link href="/account/leave">
-                                        <button className={styles.leaveBtn}>회원탈퇴</button>
+                                        <button className={styles.leaveBtn}>회원탈퇴 &gt;</button>
                                     </Link>
                                 </div>
                                 <div className={styles.btnWrapper}>
