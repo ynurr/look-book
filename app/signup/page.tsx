@@ -19,7 +19,7 @@ export default function SignUp() {
     const [passwordValidError, setPasswordValidError] = useState(false)
     const [isIdChecked, setIsIdChecked] = useState(false)
     const [isNicknameChecked, setIsNicknameChecked] = useState(false)
-
+    
     const validatePassword = (password: string) => {
         const minLength = 8
         const hasUpperCase = /[A-Z]/.test(password)
@@ -99,12 +99,28 @@ export default function SignUp() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
 
+        if (!id) {
+            alert('사용할 아이디를 입력해주세요.')
+            return
+        }
+
+        if (!nickname) {
+            alert('사용할 닉네임을 입력해주세요.')
+            return
+        }
+
         if (!isIdChecked) {
             alert('아이디 중복 확인을 완료해주세요.')
             return
         }
+
         if (!isNicknameChecked) {
             alert('닉네임 중복 확인을 완료해주세요.')
+            return
+        }
+        
+        if (!isTermsChecked || !isPrivacyChecked) {
+            alert('이용약관 확인 후 동의해주세요.')
             return
         }
 
@@ -184,7 +200,10 @@ export default function SignUp() {
                                 className={styles.inputField} 
                                 placeholder='아이디를 입력하세요'
                                 value={id}
-                                onChange={(e) => setId(e.target.value)}
+                                onChange={(e) => {
+                                    setId(e.target.value) 
+                                    setIsIdChecked(false)
+                                }}
                             ></input>
                             <button 
                                 className={styles.checkBtn}
@@ -207,7 +226,10 @@ export default function SignUp() {
                             ></input>
                             <button 
                                 className={styles.checkBtn}
-                                onClick={() => checkNickname(nickname)}
+                                onClick={() => {
+                                    checkNickname(nickname)
+                                    setIsNicknameChecked(false)
+                                }}
                                 type="button"
                             >중복확인</button>
                         </div>
