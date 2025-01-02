@@ -2,17 +2,43 @@
 
 import { useState } from 'react'
 import styles from './AccountLeave.module.css'
+import Link from 'next/link';
+import { signOut, useSession } from 'next-auth/react';
 
 export default function Leave() {
+
+    const { data: session } = useSession()
 
     const [isAgree, setIsAgree] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
 
-    const handleSubmit = () => {
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+        
         if (!isAgree) {
             setError('유의사항을 확인하고 동의해주세요.')
         } else {
-            // 회원탈퇴
+            try {
+                const response = await fetch('/api/db/account/leave', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ sub: session?.user.sub })
+                })
+    
+                const result = await response.json()
+    
+                if (response.status === 200) {
+                    alert('회원 탈퇴 되었습니다.')
+                    signOut({ callbackUrl: '/home' })
+                } else {
+                    alert(result.message)
+                }
+            } catch (error) {
+                alert("오류가 발생했습니다.")
+                console.error(error)
+            }
         }
     }
 
@@ -76,7 +102,9 @@ export default function Leave() {
                     className={styles.submitBtn}
                     onClick={handleSubmit}
                 >회원탈퇴</button>
-                <button className={styles.cancelBtn}>돌아가기</button>
+                <Link href={'/home'}>
+                    <button className={styles.cancelBtn}>돌아가기</button>
+                </Link>
             </div>
         </div>
     )
