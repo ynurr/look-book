@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
         const db = (await connectDB).db("lookbook")
         
         const result = await db.collection('reading').updateOne(
-            { _id: new ObjectId(body.sub), book_isbn: body.book_isbn },
+            { user_id: new ObjectId(body.sub), book_isbn: body.book_isbn },
             {
                 $set: {
                     content: body.content,
@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
 
         if (result.upsertedCount > 0 || result.modifiedCount > 0) {
             await db.collection('stat').updateOne(
-                { _id: new ObjectId(body.user_id) },
+                { user_id: new ObjectId(body.sub) },
                 {
                     $inc: { review_count: 1 }, 
                     $set: { updated_at: new Date(Date.now() + 9 * 60 * 60 * 1000) },
