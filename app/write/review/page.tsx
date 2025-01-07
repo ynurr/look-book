@@ -55,6 +55,7 @@ export default function WriteReview() {
 
             if (response.status === 200) {
                 alert('리뷰 작성 성공')
+                window.location.href = '/library/my-review'
             } else {
                 alert(result.message || '리뷰 작성 실패')
             }
