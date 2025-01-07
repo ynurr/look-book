@@ -77,7 +77,13 @@ export default function Detail() {
                                 <div className={styles.wishlistBtn}>위시리스트</div>
                             </div>
                         </div>
-                        <button className={styles.reviewBtn}>후기작성</button>
+                        {book && (
+                            <Link
+                                href={`/write/review?cover=${encodeURIComponent(book.cover)}&title=${encodeURIComponent(book.title)}&author=${encodeURIComponent(book.author)}&isbn13=${book.isbn13}`}
+                            >
+                                <button className={styles.reviewBtn}>리뷰 작성</button>
+                            </Link>
+                        )}
                     </div>
                 </div>
                 <div className={styles.section2}>
