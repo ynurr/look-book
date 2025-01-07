@@ -1,14 +1,58 @@
+'use client'
+
+import { useSession } from "next-auth/react";
 import LeftMenu from "../LeftMenu";
 import styles from './myReview.module.css'
 import { PiStarFill } from "react-icons/pi";
+import { redirect } from "next/navigation";
+import { useEffect, useState } from "react";
+
+interface Review {
+    title: string;
+    cover: string;
+    rating: number;
+    content: string;
+    like_count: number;
+    created_at: string;
+}
 
 export default function Review() {
 
-    const reviews = [
-        { id: 1, title: "제목1", date: "2025.01.01", rating: 3, review: "리뷰내용입니다." },
-        { id: 2, title: "제목2", date: "2025.01.02", rating: 4, review: "리뷰내용입니다." },
-        { id: 3, title: "제목3", date: "2025.01.03", rating: 2, review: "리뷰내용입니다리뷰내용입니다리뷰내용입니다리뷰내용입니다리뷰내용입니다리뷰내용입니다리뷰내용입니다." },
-    ];
+    const { data: session, status } = useSession()
+
+    if (!session && status !== "loading") {
+        redirect('/login');
+    }
+
+    const [reviews, setReviews] = useState<Review[]>([])
+
+    useEffect(() => {
+        if (status === 'authenticated' && session?.user.sub) {
+            const fetchReviews = async() => {
+                try {
+                    const response = await fetch('/api/db/review/list', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ sub: session?.user.sub })
+                    })
+                    
+                    const result = await response.json()
+
+                    if (response.status === 200) {
+                        setReviews(result)
+                    } else {
+                        alert(result.message)
+                    }
+                } catch (error) {
+                    console.error("리뷰 조회 실패", error);
+                }
+            }
+
+            fetchReviews()
+        }
+    }, [session, status])
 
     return (
         <div className={styles.container}>
@@ -21,10 +65,10 @@ export default function Review() {
                 {reviews.map((review) => (
                     <div className={styles.list}>
                         <div className={styles.bookInfo}>
-                            <div className={styles.cover}>커버</div>
+                            <img className={styles.cover} src={review.cover} alt={review.title}/>
                             <div className={styles.bookDetail}>
                                 <span className={styles.title}>{review.title}</span>
-                                <span className={styles.date}>{review.date}</span>
+                                <span className={styles.date}>{review.created_at}</span>
                                 <div className={styles.rating}>
                                     {[...Array(5)].map((_, index) => (
                                         <PiStarFill 
@@ -36,10 +80,10 @@ export default function Review() {
                             </div>
                         </div>
                         <div className={styles.reviewBox}>
-                            <span className={styles.review}>{review.review}</span>
+                            <span className={styles.review}>{review.content}</span>
                         </div>
                         <div className={styles.reactionBox}>
-                            <span className={styles.likeCnt}>💙 0</span>
+                            <span className={styles.likeCnt}>💙 {review.like_count}</span>
                             <span className={styles.commentCnt}>💬 0</span>
                         </div>
                         <div className={styles.hrLine}></div>
