@@ -18,11 +18,22 @@ export async function POST(req: NextRequest) {
         
         const hashedPassword = await bcrypt.hash(body.password, 10)
         body.password = hashedPassword
+        body.created_at = new Date(Date.now() + 9 * 60 * 60 * 1000)
 
-        await db.collection('user').insertOne(body)
+        const result = await db.collection('user').insertOne(body)
+
+        if (result.insertedId) {
+            await db.collection('stat').insertOne({
+                user_id: result.insertedId,
+                book_count: 0,
+                review_count: 0
+            })
+        }
+
         return NextResponse.json({ message: "회원가입 성공" }, { status: 200 })
     } catch (error) {
         console.error(error)
         return NextResponse.json({ message: "실패" }, { status: 500 })
     }
+    
 }
