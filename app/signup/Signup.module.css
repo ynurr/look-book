@@ -27,7 +27,8 @@
 }
 
 .formGroup input:focus {
-    outline: 1px solid #bbbbbb; 
+    outline: none; 
+    border: 1px solid #333333;
 }
 
 .inputGroup {
