@@ -73,16 +73,16 @@ export const options = {
     },
 };
 
-const labels = ['6월', '7월', '8월', '9월', '10월', '11월'];
+const labels = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
 
-let rankColor = ["#e6f5bf", "#e6f5bf", "#e6f5bf", "#e6f5bf", "#e6f5bf", "#cfdffc"];
+let rankColor = ["#e6f5bf", "#e6f5bf", "#e6f5bf", "#e6f5bf", "#e6f5bf", "#e6f5bf", "#e6f5bf", "#e6f5bf", "#e6f5bf", "#e6f5bf", "#e6f5bf", "#cfdffc"];
 
 export const data = {
     labels,
     datasets: [
         {
             label: 'Data 1',
-            data: [5, 2, 3, 8, 5, 21],
+            data: [0, 0, 0, 0, 1, 0, 5, 2, 3, 8, 5, 21],
             backgroundColor: rankColor,
             borderColor: rankColor,
             hoverBackgroundColor: rankColor,
@@ -98,7 +98,7 @@ export default function BarChart() {
                 <Bar 
                     options={options} 
                     data={data} 
-                    height={140} 
+                    height={70} 
                     plugins={[dataLabelPlugin]} 
                 />
             </div>
