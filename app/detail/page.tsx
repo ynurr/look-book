@@ -10,14 +10,20 @@ import { fetchBookDetails, clearBook } from '@/store/slices/detailSlice';
 import { fetchAuthorBooks, Books } from '@/store/slices/authorBooksSlice';
 import { RootState, AppDispatch } from '@/store/store';
 import { PiStarFill } from "react-icons/pi";
+import { fetchWishlist } from '@/store/slices/wishlistSlice';
+import { useSession } from 'next-auth/react';
 
 export default function Detail() {
+
+    const { data: session, status } = useSession()
+
     const dispatch = useDispatch<AppDispatch>();
     const param = useSearchParams();
     const id = param.get('id');
 
     const book = useSelector((state: RootState) => state.detail.book); 
     const authorBooks = useSelector((state: RootState) => state.authorBooks.books || []); 
+    const wishlist = useSelector((state: RootState) => state.wishlist.wishlist);
 
     const [filteredBooks, setFilteredBooks] = useState<Books[]>([]);
     const [isReady, setIsReady] = useState(false);
@@ -45,6 +51,12 @@ export default function Detail() {
             setFilteredBooks([]);
         }
     }, [authorBooks, book?.isbn13]);
+
+    useEffect(() => {
+        dispatch(fetchWishlist(session?.user.sub || ''))
+    }, [id, session?.user.sub, dispatch])
+
+    const isWishlist = wishlist.some((item) => item.isbn === id)
 
     return (
         <div className={styles.container}>
@@ -74,7 +86,11 @@ export default function Detail() {
                                 <p>지금 읽고 싶은 책으로 담아보세요.</p>
                             </div>
                             <div className={styles.btnBox}>
-                                <div className={styles.wishlistBtn}>위시리스트</div>
+                                <div className={styles.wishlistBtn}>
+                                    {
+                                        isWishlist ? '위시리스트❤' : '위시리스트🤍'
+                                    }
+                                </div>
                             </div>
                         </div>
                         {book && (
