@@ -84,7 +84,7 @@ export default function Detail() {
             const result = await dispatch(
                 fetchRemoveWishlist({
                     user_id: session?.user.sub || '',
-                    book_isbn: book?.isbn13 || ''
+                    book_isbn: [book?.isbn13 || '']
                 })
             ).unwrap();
       

@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface Book {
     user_id: string;
-    book_isbn: string;
+    book_isbn: string[];
 }
 
 interface RemoveWishlistState {
