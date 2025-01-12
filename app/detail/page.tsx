@@ -12,6 +12,8 @@ import { RootState, AppDispatch } from '@/store/store';
 import { PiStarFill } from "react-icons/pi";
 import { fetchWishlist } from '@/store/slices/wishlistSlice';
 import { useSession } from 'next-auth/react';
+import { fetchAddWishlist } from '@/store/slices/AddWishlistSlice';
+import { fetchRemoveWishlist } from '@/store/slices/RemoveWishlistSlice';
 
 export default function Detail() {
 
@@ -56,7 +58,42 @@ export default function Detail() {
         dispatch(fetchWishlist(session?.user.sub || ''))
     }, [id, session?.user.sub, dispatch])
 
-    const isWishlist = wishlist.some((item) => item.isbn === id)
+    const isWishlist = wishlist.some((item) => item.isbn === id);
+
+    const handleAddWishlist = async () => {
+        try {
+            const result = await dispatch(
+                fetchAddWishlist({
+                    user_id: session?.user.sub || '',
+                    book_isbn: book?.isbn13 || '',
+                    book_title: book?.title || '',
+                    book_author: book?.author || '',
+                    book_cover: book?.cover || ''
+                })
+            ).unwrap();
+      
+            alert(result.message);
+            dispatch(fetchWishlist(session?.user.sub || ''));
+        } catch (error) {
+            alert('위시리스트 추가 실패');
+        }
+    }
+    
+    const handleRemoveWishlist = async () => {
+        try {
+            const result = await dispatch(
+                fetchRemoveWishlist({
+                    user_id: session?.user.sub || '',
+                    book_isbn: book?.isbn13 || ''
+                })
+            ).unwrap();
+      
+            alert(result.message);
+            dispatch(fetchWishlist(session?.user.sub || ''));
+        } catch (error) {
+            alert('위시리스트 삭제 실패');
+        }
+    }
 
     return (
         <div className={styles.container}>
@@ -86,11 +123,17 @@ export default function Detail() {
                                 <p>지금 읽고 싶은 책으로 담아보세요.</p>
                             </div>
                             <div className={styles.btnBox}>
-                                <div className={styles.wishlistBtn}>
+                                <button onClick={() => {
+                                    if (isWishlist) {
+                                        handleRemoveWishlist()
+                                    } else {
+                                        handleAddWishlist()
+                                    }
+                                }} className={styles.wishlistBtn}>
                                     {
                                         isWishlist ? '위시리스트❤' : '위시리스트🤍'
                                     }
-                                </div>
+                                </button>
                             </div>
                         </div>
                         {book && (
