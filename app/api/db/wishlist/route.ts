@@ -20,6 +20,7 @@ export async function POST(req: NextRequest) {
         }
 
         const data = result.map((i) => ({
+            wish_id: i._id,
             isbn: i.book_isbn,
             title: i.book_title,
             author: i.book_author,

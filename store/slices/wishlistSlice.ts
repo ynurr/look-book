@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { AppDispatch } from "../store"
 
 interface Book {
-    id: string;
+    wish_id: string;
     isbn: string;
     title: string;
     author: string;
@@ -23,13 +23,13 @@ const initialState: WishlistState = {
 
 export const fetchWishlist = createAsyncThunk(
     'wishlist/fetchWishlist', 
-    async (id: string) => {
+    async (sub: string) => {
         const response = await fetch('/api/db/wishlist', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({sub: id})
+        body: JSON.stringify({ sub })
     })
 
     if (!response.ok) {
