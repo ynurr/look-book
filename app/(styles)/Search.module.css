@@ -30,7 +30,7 @@
 }
 
 .title {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     margin: 20px 0 6px;
     word-break: break-word; 
@@ -39,14 +39,14 @@
 
 .author {
     margin: 6px 0;
-    font-size: 14px;
+    font-size: 13px;
     word-break: break-word; 
 }
 
 .info {
     display: flex;
     margin: 6px 0;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .separator {
