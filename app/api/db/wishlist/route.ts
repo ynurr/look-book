@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
         const result = await db.collection("wishlist").find({ user_id: new ObjectId(body.sub) }).toArray();
 
         if (result.length === 0) {
-            return NextResponse.json({ message: "데이터가 존재하지 않습니다." }, { status: 404 });
+            return NextResponse.json([], { status: 200 });
         }
 
         const data = result.map((i) => ({
@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
             cover: i.book_cover,
         }));
 
-        return NextResponse.json( data , { status: 200 })
+        return NextResponse.json( data , { status: 200 });
     } catch (error) {
         console.error(error);
         return NextResponse.json({ message: "서버 오류가 발생했습니다." }, { status: 500 });
