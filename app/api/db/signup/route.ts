@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
         
         const hashedPassword = await bcrypt.hash(body.password, 10)
         body.password = hashedPassword
-        body.created_at = new Date(Date.now() + 9 * 60 * 60 * 1000)
+        body.created_at = new Date()
 
         const result = await db.collection('user').insertOne(body)
 

@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
                     rating: body.rating,
                     status : 2,
                     like_count : 0,
-                    updated_at: new Date(Date.now() + 9 * 60 * 60 * 1000)
+                    updated_at: new Date()
                 },
                 $setOnInsert: {
                     user_id: new ObjectId(body.sub),
@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
                     book_title: body.title,
                     book_cover: body.cover,
                     book_author: body.author,
-                    created_at: new Date(Date.now() + 9 * 60 * 60 * 1000),
+                    created_at: new Date(),
                 },
             },
             { upsert: true }
@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
                 { user_id: new ObjectId(body.sub) },
                 {
                     $inc: { review_count: 1 }, 
-                    $set: { updated_at: new Date(Date.now() + 9 * 60 * 60 * 1000) },
+                    $set: { updated_at: new Date() },
                 }
             )
         }
