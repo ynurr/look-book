@@ -57,37 +57,3 @@
 .hr {
     margin: 0;
 }
-
-.btnBox {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
-    margin-left: auto;
-    gap: 8px;
-}
-
-.btnBox > button {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 4px;
-    width: 80px;
-    cursor: pointer;
-}
-
-.reviewBtn {
-    background-color: #333333;
-    color: white;
-}
-
-.reviewBtn:hover {
-    background-color: #17171b;
-}
-
-.wishBtn {
-    background-color: white;
-}
-
-.wishBtn:hover {
-    background-color: rgb(252, 252, 252);
-}

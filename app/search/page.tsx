@@ -58,10 +58,6 @@ export default function Search() {
                                     <span className={styles.pubDate}>{book.pubDate}</span>
                                 </div>
                             </div>
-                            <div className={styles.btnBox}>
-                                <button className={styles.reviewBtn}>리뷰쓰기</button>
-                                <button className={styles.wishBtn}>위시리스트</button>
-                            </div>
                         </div>
                     </div>
                 ))}
