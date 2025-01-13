@@ -9,6 +9,7 @@ import { fetchWishlist } from '@/store/slices/wishlistSlice';
 import { useSession } from 'next-auth/react';
 import { fetchRemoveWishlist } from '@/store/slices/RemoveWishlistSlice';
 import Pagination from '@/app/(components)/Pagination';
+import Link from 'next/link';
 
 export default function Comment() {
 
@@ -104,9 +105,13 @@ export default function Comment() {
                                         }
                                     }}
                                 />
-                                <img className={styles.cover} src={item.cover} alt={item.title} />
+                                <Link href={`/detail?id=${item.isbn}`}>
+                                    <img className={styles.cover} src={item.cover} alt={item.title} />
+                                </Link>
                                 <div className={styles.info}>
-                                    <span className={styles.title}>{item.title}</span>
+                                    <Link href={`/detail?id=${item.isbn}`}>
+                                        <span className={styles.title}>{item.title}</span>
+                                    </Link>
                                     <span className={styles.author}>{item.author}</span>
                                 </div>
                             </div>
