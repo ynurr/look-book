@@ -80,11 +80,7 @@ export default function Comment() {
                         />
                         <span>전체 선택</span>
                     </div>
-                    <div className={styles.btnBox}>
-                        <button onClick={handleRemoveWishlist} className={styles.deleteBtn}>삭제</button>
-                        <button className={styles.finishBtn}>다읽음</button>
-                        <button className={styles.readingBtn}>읽는중</button>
-                    </div>
+                    <button onClick={handleRemoveWishlist} className={styles.deleteBtn}>삭제</button>
                 </div>
                 <div className={styles.hrLine}></div>
 

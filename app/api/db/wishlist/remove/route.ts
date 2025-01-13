@@ -24,7 +24,7 @@ export async function DELETE(req: NextRequest) {
         if (result.deletedCount > 0) {
             return NextResponse.json({ message: "위시리스트 삭제 성공" }, { status: 200 })
         } else {
-            return NextResponse.json({ message: "이미 삭제되었습니다." }, { status: 999 })
+            return NextResponse.json({ message: "이미 삭제되었습니다." }, { status: 200 })
         }
     } catch (error) {
         console.error(error)
