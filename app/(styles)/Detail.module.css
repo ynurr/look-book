@@ -46,6 +46,7 @@
     align-items: center;
     margin: 12px 0 0px;
     flex-wrap: nowrap;
+    font-size: 14px;
 }
 
 .subInfo > *, .rating > * {
@@ -68,7 +69,9 @@
 }
 
 .date {
-    margin: 6px 0;
+    margin-top: 6px;
+    margin-bottom: 0;
+    font-size: 14px;
 }
 
 .separator {
@@ -83,6 +86,7 @@
     margin: 6px 0;
     padding-bottom: 20px;
     border-bottom: 1px solid #ddd;
+    font-size: 14px;
 }
 
 .rating > span {

@@ -39,7 +39,12 @@
 
 .title {
     font-weight: bold;
-    font-size: 16px;
+    font-size: 14px;
+    display: -webkit-box; 
+    -webkit-box-orient: vertical; 
+    overflow: hidden;
+    -webkit-line-clamp: 2; 
+    line-clamp: 2;
 }
 
 .date {
