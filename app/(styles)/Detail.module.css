@@ -206,7 +206,7 @@
 .bookItem {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 6px;
     width: 120px;
 }
 
@@ -221,8 +221,7 @@
 }
 
 .title2 {
-    font-weight: bold;
-    font-size: 15px;
+    font-size: 14px;
     color: #333;
     display: -webkit-box;
     -webkit-box-orient: vertical; 
