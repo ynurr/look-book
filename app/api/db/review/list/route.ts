@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
     try {
         const db = (await connectDB).db("lookbook")
         
-        const result = await db.collection("reading").find({ user_id: new ObjectId(body.sub), status: 2 }).toArray();
+        const result = await db.collection("reading").find({ user_id: new ObjectId(body.sub), status: 2 }).sort({ created_at: -1 }).toArray();
 
         if (result.length === 0) {
             return NextResponse.json({ message: "데이터가 존재하지 않습니다." }, { status: 404 });
@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
             content: review.content,
             like_count: review.like_count,
             created_at: review.created_at
-                ? format(new Date(review.created_at).toISOString().slice(0, 10), "yyyy.MM.dd")
+                ? format(new Date(new Date(review.created_at).getTime() + 9 * 60 * 60 * 1000).toISOString().slice(0, 10), "yyyy.MM.dd")
                 : "",
         }));
 
