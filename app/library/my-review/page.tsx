@@ -62,8 +62,8 @@ export default function Review() {
                 <h2 className={styles.menuTitle}>나의 리뷰</h2>
                 <div className={styles.line}></div>
 
-                {reviews.map((review) => (
-                    <div className={styles.list}>
+                {reviews.map((review, i) => (
+                    <div className={styles.list} key={i}>
                         <div className={styles.bookInfo}>
                             <img className={styles.cover} src={review.cover} alt={review.title}/>
                             <div className={styles.bookDetail}>
