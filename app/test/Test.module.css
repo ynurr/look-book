@@ -1,0 +1,31 @@
+.scrollContainer {
+    display: flex; /* 수평 정렬을 위한 flex 설정 */
+    overflow-x: auto; /* 수평 스크롤 활성화 */
+    -ms-overflow-style: none; /* Internet Explorer 및 Edge의 스크롤바 숨기기 */
+    scrollbar-width: none; /* Firefox에서 스크롤바 숨기기 */
+}
+
+/* 스크롤바 숨기기 */
+.scrollContainer::-webkit-scrollbar {
+    display: none; /* Chrome, Safari 및 Opera의 스크롤바 숨기기 */
+}
+
+.item {
+    width: 120px; /* 아이템 너비 */
+    height: 180px; /* 아이템 높이 */
+    margin-right: 10px; /* 아이템 간격 */
+    background-color: #f0f0f0; /* 배경색 */
+    border: 1px solid #ccc; /* 테두리 */
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrowButton {
+    background-color: aquamarine;
+    border: none; /* 기본 테두리 제거 */
+    font-size: 24px; /* 아이콘 크기 설정 */
+    cursor: pointer; /* 커서 포인터로 변경 */
+    padding: 10px; /* 좌우 패딩 추가 */
+}
