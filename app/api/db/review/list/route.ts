@@ -13,12 +13,12 @@ export async function POST(req: NextRequest) {
     try {
         const db = (await connectDB).db("lookbook")
         
-        const result = await db.collection("reading").find({ user_id: new ObjectId(body.sub), status: 2 }).sort({ created_at: -1 }).toArray();
+        const result = await db.collection("review").find({ user_id: new ObjectId(body.sub) }).sort({ created_at: -1 }).toArray();
 
         if (result.length === 0) {
-            return NextResponse.json({ message: "데이터가 존재하지 않습니다." }, { status: 404 });
+            return NextResponse.json([], { status: 200 });
         }
-
+        
         const data = result.map((review) => ({
             title: review.book_title,
             cover: review.book_cover,
