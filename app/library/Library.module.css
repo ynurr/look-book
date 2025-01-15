@@ -13,7 +13,7 @@
 
 .statSection {
     display: flex;
-    gap: 20px;
+    gap: 80px;
 }
 
 .statItem {
@@ -36,10 +36,14 @@
     align-items: center;
 }
 
+.barChart {
+    width: 460px;
+    
+}
+
 .progressBar {
-    width: 110px;
+    width: 100px;
     margin-top: 10px;
-    margin-left: 20px;
     font-weight: bold;
     display: flex;
     flex-direction: column;
