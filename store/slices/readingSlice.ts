@@ -1,0 +1,105 @@
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
+interface Book {
+    user_id: string;
+    book_isbn: string[];
+    book_title: string[];
+    book_cover: string[];
+    book_author: string[];
+    status: string;
+}
+
+interface ReadingStatusState {
+    books: Array<{
+        isbn: string;
+        title: string;
+        author: string;
+        cover: string;
+        status: string;
+        review_id?: string;
+        rating: number;
+    }>;
+    loading: boolean;
+    error: string | null;
+}
+
+const initialState: ReadingStatusState = {
+    books: [],
+    loading: false,
+    error: null
+}
+
+export const fetchReadingStatus = createAsyncThunk(
+    'readingStatus/fetchReadingStatus',
+    async (user_id: string) => {
+        const response = await fetch('/api/db/reading/list', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ sub: user_id })
+        });
+
+        if (!response.ok) {
+            throw new Error('상태 변경 실패')
+        }
+
+        const data = await response.json();
+        return data;
+    }
+)
+
+export const fetchUpdateStatus = createAsyncThunk(
+    'readingStatus/fetchUpdateStatus',
+    async (book: Book) => {
+        const response = await fetch('/api/db/reading/modify', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(book)
+        });
+
+        if (!response.ok) {
+            throw new Error('상태 변경 실패');
+        }
+
+        const data = await response.json();
+        return data;
+    }
+)
+
+const readingSlice = createSlice({
+    name: 'readingStatus',
+    initialState,
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchReadingStatus.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(fetchReadingStatus.fulfilled, (state, action) => {
+                state.books = action.payload
+                state.loading = false
+            })
+            .addCase(fetchReadingStatus.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.error.message || '독서현황 조회 실패'
+            });
+        builder
+            .addCase(fetchUpdateStatus.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(fetchUpdateStatus.fulfilled, (state) => {
+                state.loading = false
+            })
+            .addCase(fetchUpdateStatus.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.error.message || '상태 변경 실패'
+            });
+    }
+})
+
+export default readingSlice.reducer

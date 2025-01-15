@@ -1,34 +1,39 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import LeftMenu from '../LeftMenu'
 import styles from './Reading.module.css'
 import { PiStarFill } from "react-icons/pi";
+import { useSession } from 'next-auth/react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/store/store';
+import { fetchReadingStatus } from '@/store/slices/readingSlice';
 
 export default function Reading() {
 
-    const items = [
-        { id: 1, cover: 'cover1', title: '책 제목 1', author: '작가 1', isReview: 'Y', rating: 3 },
-        { id: 2, cover: 'cover2', title: '책 제목 2', author: '작가 2', isReview: 'Y', rating: 5 },
-        { id: 3, cover: 'cover3', title: '책 제목 3', author: '작가 3', isReview: 'N', rating: 0 },
-        { id: 4, cover: 'cover3', title: '책 제목 3', author: '작가 3', isReview: 'N', rating: 0 },
-    ];
+    const { data: session, status } = useSession();
 
-    const [activeTab, setActiveTab] = useState(0)
+    const books = useSelector((state: RootState) => state.readingStatus.books);
+    const dispatch = useDispatch<AppDispatch>();
+
+    useEffect(() => {
+        dispatch(fetchReadingStatus(session?.user.sub || ''))
+    }, [session, dispatch])
+
+    const [activeTab, setActiveTab] = useState(0);
 
     const handleTabClick = (tabName: number) => {
         setActiveTab(tabName)
     }
 
     const [selectAll, setSelectAll] = useState(false);
-    const [selectedItems, setSelectedItems] = useState<number[]>([]);
-
+    const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
     const handleSelectAll = () => {
         if (selectAll) {
             setSelectedItems([])
         } else {
-            setSelectedItems(items.map(item => item.id))
+            setSelectedItems(books.map(item => item.isbn))
         }
         setSelectAll(!selectAll)
     }
@@ -79,67 +84,67 @@ export default function Reading() {
                     <div className={`${styles.tabPane} ${activeTab === 0 ? styles.active : ''}`}>
                         
                         <div className={styles.list}>
-                            {items.map((item) => (
-                                <div className={styles.item} key={item.id}>
-                                    <input 
-                                        type='checkbox'
-                                        checked={selectedItems.includes(item.id)}
-                                        onChange={()=>{
-                                            if (selectedItems.includes(item.id)) {
-                                                setSelectedItems(selectedItems.filter(id => id !== item.id))
-                                            } else {
-                                                setSelectedItems([...selectedItems, item.id])
+                            {activeTab === 0
+                                ? books
+                                    .filter(item => item.status === '1' || item.status === '2') // 다 읽은 책
+                                    .map((item) => (
+                                    <div className={styles.item} key={item.isbn}>
+                                        <input 
+                                            type='checkbox'
+                                            checked={selectedItems.includes(item.isbn)}
+                                            onChange={()=>{
+                                                if (selectedItems.includes(item.isbn)) {
+                                                    setSelectedItems(selectedItems.filter(isbn => isbn !== item.isbn))
+                                                } else {
+                                                    setSelectedItems([...selectedItems, item.isbn])
+                                                }
+                                            }}
+                                        />
+                                        <img className={styles.cover} src={item.cover} alt={item.title} />
+                                        <div className={styles.info}>
+                                            <span className={styles.title}>{item.title}</span>
+                                            <span className={styles.author}>{item.author}</span>
+                                            {
+                                                item.rating > 0 ? (
+                                                    <span className={styles.star}>
+                                                        {[...Array(5)].map((_, index) => (
+                                                            <PiStarFill 
+                                                                key={index}
+                                                                className={index < item.rating ? styles.starFill : styles.star}
+                                                            />
+                                                        ))}
+                                                    </span>
+                                                ) : (
+                                                    <span className={styles.reviewBtn}>리뷰쓰기</span>
+                                                )
                                             }
-                                        }}
-                                    />
-                                    <div className={styles.cover}>{item.cover}</div>
-                                    <div className={styles.info}>
-                                        <span className={styles.title}>{item.title}</span>
-                                        <span className={styles.author}>{item.author}</span>
-                                        {
-                                            item.isReview === 'Y' ? (
-                                                <span className={styles.star}>
-                                                    {[...Array(5)].map((_, index) => (
-                                                        <PiStarFill 
-                                                            key={index}
-                                                            className={index < item.rating ? styles.starFill : styles.star}
-                                                        />
-                                                    ))}
-                                                </span>
-                                            ) : (
-                                                <span className={styles.reviewBtn}>리뷰쓰기</span>
-                                            )
-                                        }
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
-                        </div>
-
-
-                    </div>
-                    <div className={`${styles.tabPane} ${activeTab === 1 ? styles.active : ''}`}>
-                        <div className={styles.list}>
-                            {items.map((item) => (
-                                <div className={styles.item} key={item.id}>
-                                    <input 
-                                        type='checkbox'
-                                        checked={selectedItems.includes(item.id)}
-                                        onChange={()=>{
-                                            if (selectedItems.includes(item.id)) {
-                                                setSelectedItems(selectedItems.filter(id => id !== item.id))
-                                            } else {
-                                                setSelectedItems([...selectedItems, item.id])
-                                            }
-                                        }}
-                                    />
-                                    <div className={styles.cover}>{item.cover}</div>
-                                    <div className={styles.info}>
-                                        <span className={styles.title}>{item.title}</span>
-                                        <span className={styles.author}>{item.author}</span>
-                                        <span className={styles.isRead}>다 읽었나요?</span>
+                                ))
+                            : books
+                                .filter(item => item.status === '0') // 읽고 있는 책
+                                .map((item) => (
+                                    <div className={styles.item} key={item.isbn}>
+                                        <input 
+                                            type='checkbox'
+                                            checked={selectedItems.includes(item.isbn)}
+                                            onChange={()=>{
+                                                if (selectedItems.includes(item.isbn)) {
+                                                    setSelectedItems(selectedItems.filter(isbn => isbn !== item.isbn))
+                                                } else {
+                                                    setSelectedItems([...selectedItems, item.isbn])
+                                                }
+                                            }}
+                                        />
+                                        <img className={styles.cover} src={item.cover} alt={item.title} />
+                                        <div className={styles.info}>
+                                            <span className={styles.title}>{item.title}</span>
+                                            <span className={styles.author}>{item.author}</span>
+                                            <span className={styles.isRead}>다 읽었나요?</span>
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))
+                            }
                         </div>
                     </div>
                 </div>
