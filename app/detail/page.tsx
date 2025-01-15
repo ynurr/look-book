@@ -12,8 +12,8 @@ import { RootState, AppDispatch } from '@/store/store';
 import { PiStarFill } from "react-icons/pi";
 import { fetchWishlist } from '@/store/slices/wishlistSlice';
 import { useSession } from 'next-auth/react';
-import { fetchAddWishlist } from '@/store/slices/AddWishlistSlice';
-import { fetchRemoveWishlist } from '@/store/slices/RemoveWishlistSlice';
+import { fetchAddWishlist } from '@/store/slices/addWishlistSlice';
+import { fetchRemoveWishlist } from '@/store/slices/removeWishlistSlice';
 
 export default function Detail() {
 
