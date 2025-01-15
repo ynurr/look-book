@@ -18,14 +18,12 @@ export async function POST(req: NextRequest) {
     try {
         const db = (await connectDB).db("lookbook")
         
-        const result = await db.collection('reading').updateOne(
-            { user_id: new ObjectId(body.sub), book_isbn: body.book_isbn },
+        const result = await db.collection("review").updateOne(
+            { user_id: new ObjectId(body.sub), book_isbn: body.isbn },
             {
                 $set: {
                     content: body.content,
                     rating: body.rating,
-                    status : 2,
-                    like_count : 0,
                     updated_at: new Date()
                 },
                 $setOnInsert: {
@@ -40,11 +38,34 @@ export async function POST(req: NextRequest) {
             { upsert: true }
         )
 
-        if (result.upsertedCount > 0 || result.modifiedCount > 0) {
-            await db.collection('stat').updateOne(
+        if (result.upsertedCount > 0 || result.matchedCount > 0) {
+            await db.collection("reading").updateOne(
+                { user_id: new ObjectId(body.sub), book_isbn: body.isbn },
+                {
+                    $set: {
+                        status: '2',
+                        updated_at: new Date(),
+                        rating: body.rating,
+                        ...(result.upsertedId && {review_id: result.upsertedId})
+                    },
+                    $setOnInsert: {
+                        user_id: new ObjectId(body.sub),
+                        book_isbn: body.isbn,
+                        book_title: body.title,
+                        book_cover: body.cover,
+                        book_author: body.author,
+                        created_at: new Date(),
+                    }
+                },
+                { upsert: true }
+            )
+        }
+
+        if (result.upsertedCount > 0) {
+            await db.collection("stat").updateOne(
                 { user_id: new ObjectId(body.sub) },
                 {
-                    $inc: { review_count: 1 }, 
+                    $inc: { book_count: 1, review_count: 1 }, 
                     $set: { updated_at: new Date() },
                 }
             )
