@@ -62,33 +62,37 @@ export default function Review() {
                 <h2 className={styles.menuTitle}>나의 리뷰</h2>
                 <div className={styles.line}></div>
 
-                {reviews.map((review, i) => (
-                    <div className={styles.list} key={i}>
-                        <div className={styles.bookInfo}>
-                            <img className={styles.cover} src={review.cover} alt={review.title}/>
-                            <div className={styles.bookDetail}>
-                                <span className={styles.title}>{review.title}</span>
-                                <span className={styles.date}>{review.created_at}</span>
-                                <div className={styles.rating}>
-                                    {[...Array(5)].map((_, index) => (
-                                        <PiStarFill 
-                                            key={index}
-                                            className={index < review.rating ? styles.starFill : styles.star}
-                                        />
-                                    ))}
+                {reviews.length === 0 ?
+                    <p className={styles.noData}>작성된 리뷰가 없습니다.</p>
+                    :
+                    reviews.map((review, i) => (
+                        <div className={styles.list} key={i}>
+                            <div className={styles.bookInfo}>
+                                <img className={styles.cover} src={review.cover} alt={review.title}/>
+                                <div className={styles.bookDetail}>
+                                    <span className={styles.title}>{review.title}</span>
+                                    <span className={styles.date}>{review.created_at}</span>
+                                    <div className={styles.rating}>
+                                        {[...Array(5)].map((_, index) => (
+                                            <PiStarFill 
+                                                key={index}
+                                                className={index < review.rating ? styles.starFill : styles.star}
+                                            />
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
+                            <div className={styles.reviewBox}>
+                                <span className={styles.review}>{review.content}</span>
+                            </div>
+                            <div className={styles.reactionBox}>
+                                <span className={styles.likeCnt}>💙 {review.like_count}</span>
+                                <span className={styles.commentCnt}>💬 0</span>
+                            </div>
+                            <div className={styles.hrLine}></div>
                         </div>
-                        <div className={styles.reviewBox}>
-                            <span className={styles.review}>{review.content}</span>
-                        </div>
-                        <div className={styles.reactionBox}>
-                            <span className={styles.likeCnt}>💙 {review.like_count}</span>
-                            <span className={styles.commentCnt}>💬 0</span>
-                        </div>
-                        <div className={styles.hrLine}></div>
-                    </div>
-                ))}
+                    ))
+                }
             </div>
         </div>
     )
