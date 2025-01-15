@@ -17,7 +17,7 @@ export default function Library() {
         redirect('/login');
     }
 
-    const nickname = session?.user.nickname;
+    const sub = session?.user.sub;
 
     const comments = [
         { commenter: "김도훈", commentTime: "2024-12-04 16:01:18", commentContent: "너무 재밌어요" },
@@ -41,7 +41,8 @@ export default function Library() {
 
     return (
         <div className={styles.container}>
-            <LeftMenu nickname={nickname || ''}/>
+            {/* <LeftMenu sub={sub || ''}/> */}
+            <LeftMenu />
 
             <div className={styles.wrapper}>
                 <div className={styles.statSection}>
@@ -57,11 +58,11 @@ export default function Library() {
                             <ProgressBar />
                         </div>
                     </div>
-                    <div className={styles.statItem}>
+                    {/* <div className={styles.statItem}>
                         <div className={styles.doughnutChart}>
                             <DoughnutChart />
                         </div>
-                    </div>
+                    </div> */}
                 </div>
 
                 <div className={styles.reviewSection}>
