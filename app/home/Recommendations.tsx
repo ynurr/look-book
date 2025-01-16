@@ -19,7 +19,7 @@ export default function Recommendations() {
     useEffect(()=>{
         const fetchBooks = async () => {
             try {
-                const response = await fetch('api/recommend');
+                const response = await fetch('api/external/recommend');
                 if (!response.ok) {
                     throw new Error('API 요청 실패');
                 }
@@ -44,11 +44,10 @@ export default function Recommendations() {
                     </Link>
                     <div className={styles.info}>
                         <Link href={`/detail?id=${book.isbn13}`}>
-                            <h3 className={styles.title}>{book.title}</h3>
+                            <span className={styles.title}>{book.title}</span>
                         </Link>
                         <p className={styles.author}>{book.author}</p>
                         <p className={styles.summary}>{book.description}</p>
-                        <p className={styles.button}>위시리스트</p>
                     </div>
                 </div>
             </div>
