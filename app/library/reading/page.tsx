@@ -18,7 +18,7 @@ export default function Reading() {
     const dispatch = useDispatch<AppDispatch>();
 
     useEffect(() => {
-        if (session?.user.sub) {
+        if (status === "authenticated" && session?.user.sub) {
             dispatch(fetchReadingStatus(session?.user.sub || ''))
         }
     }, [session, dispatch])
