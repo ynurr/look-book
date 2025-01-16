@@ -32,20 +32,24 @@ const initialState: ReadingStatusState = {
 export const fetchReadingStatus = createAsyncThunk(
     'readingStatus/fetchReadingStatus',
     async (user_id: string) => {
-        const response = await fetch('/api/db/reading/list', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ sub: user_id })
-        });
+        try{
+            const response = await fetch('/api/db/reading/list', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ sub: user_id })
+            });
 
-        if (!response.ok) {
-            throw new Error('상태 변경 실패')
+            if (!response.ok) {
+                throw new Error('독서현황 조회 실패')
+            }
+
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.log('Fetch error:', error);
         }
-
-        const data = await response.json();
-        return data;
     }
 )
 
@@ -64,6 +68,26 @@ export const fetchUpdateStatus = createAsyncThunk(
             throw new Error('상태 변경 실패');
         }
 
+        const data = await response.json();
+        return data;
+    }
+)
+
+export const fetchRemoveBook = createAsyncThunk(
+    'readingStatus/fetchRemoveBook',
+    async ({ user_id, book_isbn }: { user_id: string; book_isbn: string[] }) => {
+        const response = await fetch('/api/db/reading/remove', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ user_id, book_isbn })
+        })
+
+        if (!response.ok) {
+            throw new Error('독서현황 삭제 실패');
+        }
+    
         const data = await response.json();
         return data;
     }
@@ -98,6 +122,18 @@ const readingSlice = createSlice({
             .addCase(fetchUpdateStatus.rejected, (state, action) => {
                 state.loading = false
                 state.error = action.error.message || '상태 변경 실패'
+            });
+        builder
+            .addCase(fetchRemoveBook.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(fetchRemoveBook.fulfilled, (state) => {
+                state.loading = false
+            })
+            .addCase(fetchRemoveBook.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.error.message || '독서현황 삭제 실패'
             });
     }
 })
