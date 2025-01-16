@@ -97,6 +97,12 @@
     color: #f15555;
 }
 
+.starIcon {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+}
+
 .reviewCount {
     font-size: 14px;
     color: #5e5e5e;
@@ -128,7 +134,7 @@
     gap: 4px;
 }
 
-.wishlistBtn, .readingBtn, .finishBtn {
+.readingBtn, .finishBtn {
     font-size: 13px;
     background-color: white;
     border: 1px solid #8a8a8a;
@@ -137,17 +143,51 @@
     cursor: pointer;
 }
 
-.reviewBtn {
+.btnBox2 {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.reviewBtnBox {
+    width: 100%;
+    text-align: center;
     background-color: white;
     border-radius: 5px;
-    border: 2px solid #e2e2e2;
-    padding: 10px;
-    font-size: 16px;
-    font-weight: bold;
+    border: 1px solid #dddddd;
+    cursor: pointer;
+}
+
+.reviewBtn {
+    padding: 8px;
+    color: #333;
+    font-weight: 600;
+    border: none;
+    background: none;
+}
+
+.wishlistBtn {
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #dddddd;
+    padding: 8px 10px;
     color: #333;
     cursor: pointer;
-    margin-top: 6px;
-    width: 100%;
+    display: flex;
+    align-items: center; 
+    text-align: center;
+}
+
+.reviewBtnBox:hover, .wishlistBtn:hover {
+    background-color: rgba(252, 252, 252, 0.904);
+}
+
+.heartSolid {
+    color: #eb647e;
+}
+
+.heartRegular, .heartSolid {
+    font-size: 16px;
 }
 
 .section2 {
@@ -304,6 +344,9 @@
 
 .like, .reply {
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
 .textAreaBox {
@@ -451,7 +494,7 @@
 }
 
 .starFill {
-    color: #ffe16f;
+    color: #ffd620;
 }
 
 .star {

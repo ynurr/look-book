@@ -6,6 +6,9 @@ import styles from './myReview.module.css'
 import { PiStarFill } from "react-icons/pi";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
+import { LuThumbsUp } from "react-icons/lu";
+import { RiThumbUpFill } from "react-icons/ri";
+import { FaRegCommentDots } from "react-icons/fa";
 
 interface Review {
     title: string;
@@ -86,8 +89,8 @@ export default function Review() {
                                 <span className={styles.review}>{review.content}</span>
                             </div>
                             <div className={styles.reactionBox}>
-                                <span className={styles.likeCnt}>💙 {review.like_count}</span>
-                                <span className={styles.commentCnt}>💬 0</span>
+                                <span className={styles.likeCnt}><LuThumbsUp /> 0{review.like_count}</span>
+                                <span className={styles.commentCnt}><FaRegCommentDots /> 0</span>
                             </div>
                             <div className={styles.hrLine}></div>
                         </div>

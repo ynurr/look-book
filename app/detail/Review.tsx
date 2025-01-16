@@ -4,6 +4,8 @@ import { useState } from 'react';
 import styles from './../(styles)/Detail.module.css'
 import Pagination from '../(components)/Pagination'
 import { PiStarFill } from "react-icons/pi";
+import { LuThumbsUp } from "react-icons/lu";
+import { RiThumbUpFill } from "react-icons/ri";
 
 export default function Review() {
 
@@ -80,7 +82,8 @@ export default function Review() {
                             <span>{review.content}</span>
                         </div>
                         <div className={styles.reviewActions}>
-                            <span className={styles.like}>💙 0</span>
+                            <span className={styles.like}><LuThumbsUp /> 0</span>
+                            {/* RiThumbUpFill 좋아요 클릭하면 */}
                             <span className={styles.reply} onClick={() => toggleCommentText(review.id)}>댓글 0</span>
                         </div>
                     </div>

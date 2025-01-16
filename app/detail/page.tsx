@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import styles from './../(styles)/Detail.module.css';
 import Review from './Review';
-import { useSearchParams } from 'next/navigation';
+import { redirect, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBookDetails, clearBook } from '@/store/slices/detailSlice';
@@ -14,6 +14,10 @@ import { fetchWishlist } from '@/store/slices/wishlistSlice';
 import { useSession } from 'next-auth/react';
 import { fetchAddWishlist } from '@/store/slices/addWishlistSlice';
 import { fetchRemoveWishlist } from '@/store/slices/removeWishlistSlice';
+import { fetchUpdateStatus } from '@/store/slices/readingSlice';
+import { GoHeart } from "react-icons/go";
+import { GoHeartFill } from "react-icons/go";
+
 
 export default function Detail() {
 
@@ -62,6 +66,9 @@ export default function Detail() {
 
     const handleAddWishlist = async () => {
         try {
+            if (!session && status !== "loading") {
+                redirect('/login');
+            }
             const result = await dispatch(
                 fetchAddWishlist({
                     user_id: session?.user.sub || '',
@@ -81,6 +88,9 @@ export default function Detail() {
     
     const handleRemoveWishlist = async () => {
         try {
+            if (!session && status !== "loading") {
+                redirect('/login');
+            }
             const result = await dispatch(
                 fetchRemoveWishlist({
                     user_id: session?.user.sub || '',
@@ -92,6 +102,25 @@ export default function Detail() {
             dispatch(fetchWishlist(session?.user.sub || ''));
         } catch (error) {
             alert('위시리스트 삭제 실패');
+        }
+    }
+
+    const handleUpdateStatus = async (status: string) => {
+        try {
+            const result = await dispatch(
+                fetchUpdateStatus({
+                    user_id: session?.user.sub || '',
+                    book_isbn: [book?.isbn13 || ''],
+                    book_title: [book?.title || ''],
+                    book_author: [book?.author || ''],
+                    book_cover: [book?.cover || ''],
+                    status: status,
+                })
+            ).unwrap();
+
+            alert(result.message);
+        } catch (error) {
+            alert('독서 상태 변경 실패');
         }
     }
 
@@ -109,7 +138,7 @@ export default function Detail() {
                         </div>
                         <p className={styles.date}>{book?.pubDate}</p>
                         <div className={styles.rating}>
-                            <div>
+                            <div className={styles.starIcon}>
                                 {[...Array(5)].map((_, index) => (
                                     <PiStarFill className={styles.starFill} key={index}/>
                                 ))}
@@ -119,30 +148,34 @@ export default function Detail() {
                         </div>
                         <div className={styles.wishlistBox}>
                             <div className={styles.wishlistContent}>
-                                <p>아직 이 책을 읽어보지 않으셨나요?</p>
-                                <p>지금 읽고 싶은 책으로 담아보세요.</p>
+                                <p>지금 읽고 싶은 책으로 찜해보거나</p>
+                                <p>이미 읽고 있다면 독서 상태를 변경해보세요.</p>
                             </div>
                             <div className={styles.btnBox}>
-                                <button onClick={() => {
-                                    if (isWishlist) {
-                                        handleRemoveWishlist()
-                                    } else {
-                                        handleAddWishlist()
-                                    }
-                                }} className={styles.wishlistBtn}>
-                                    {
-                                        isWishlist ? '위시리스트❤' : '위시리스트🤍'
-                                    }
-                                </button>
+                                <button onClick={() => handleUpdateStatus('0')} className={styles.readingBtn}>읽고 있어요</button>
+                                <button onClick={() => handleUpdateStatus('1')} className={styles.finishBtn}>다 읽었어요</button>
                             </div>
                         </div>
-                        {book && (
-                            <Link
-                                href={`/write/review?cover=${encodeURIComponent(book.cover)}&title=${encodeURIComponent(book.title)}&author=${encodeURIComponent(book.author)}&isbn13=${book.isbn13}`}
-                            >
-                                <button className={styles.reviewBtn}>리뷰 작성</button>
-                            </Link>
-                        )}
+                        <div className={styles.btnBox2}>
+                            <div className={styles.reviewBtnBox}>
+                                {book && (
+                                    <Link
+                                        href={`/write/review?cover=${encodeURIComponent(book.cover)}&title=${encodeURIComponent(book.title)}&author=${encodeURIComponent(book.author)}&isbn13=${book.isbn13}`}
+                                    >
+                                        <button  className={styles.reviewBtn}>리뷰 작성</button>
+                                    </Link>
+                                )}
+                            </div>
+                            <button onClick={() => {
+                                if (isWishlist) {
+                                    handleRemoveWishlist()
+                                } else {
+                                    handleAddWishlist()
+                                }
+                            }} className={styles.wishlistBtn}>
+                                { isWishlist ? <GoHeartFill className={styles.heartSolid} /> : <GoHeart className={styles.heartRegular} /> }
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div className={styles.section2}>

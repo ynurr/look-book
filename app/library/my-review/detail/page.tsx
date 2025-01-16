@@ -4,6 +4,9 @@ import { useState } from 'react'
 import LeftMenu from '../../LeftMenu'
 import styles from './ReviewDetail.module.css'
 import { PiStarFill } from "react-icons/pi";
+import { LuThumbsUp } from "react-icons/lu";
+import { RiThumbUpFill } from "react-icons/ri";
+import { FaRegCommentDots } from "react-icons/fa";
 
 export default function ReviewDetail() {
 
@@ -57,7 +60,7 @@ export default function ReviewDetail() {
                         <span className={styles.review}>리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 리뷰내용입니다 </span>
                     </div>
                     <div className={styles.reactionBox}>
-                        <span className={styles.likeCnt}>💙 0</span>
+                        <span className={styles.likeCnt}><LuThumbsUp /> 0</span>
                     </div>
                     <div className={styles.hrLine}></div>
                     <div className={styles.commentSection}>
@@ -74,7 +77,7 @@ export default function ReviewDetail() {
                                     </div>
                                     <div className={styles.commentLine}>
                                         <span className={styles.comment}>{comment.content}</span>
-                                        <span className={styles.commentBtn} onClick={() => toggleCommentText(comment.id)}>💬</span>
+                                        <FaRegCommentDots className={styles.commentBtn} onClick={() => toggleCommentText(comment.id)}></FaRegCommentDots>
                                     </div>
                                 </div>
 

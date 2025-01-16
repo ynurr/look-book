@@ -80,6 +80,9 @@
 .likeCnt, .commentCnt {
     font-size: 13px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
 .rating {
@@ -87,7 +90,7 @@
 }
 
 .starFill {
-    color: #ffe16f;
+    color: #ffd620;
 }
 
 .star {
