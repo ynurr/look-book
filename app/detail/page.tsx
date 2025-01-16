@@ -17,7 +17,8 @@ import { fetchRemoveWishlist } from '@/store/slices/removeWishlistSlice';
 import { fetchUpdateStatus } from '@/store/slices/readingSlice';
 import { GoHeart } from "react-icons/go";
 import { GoHeartFill } from "react-icons/go";
-
+import { FaBook } from "react-icons/fa";
+import { FaBookOpen } from "react-icons/fa6";
 
 export default function Detail() {
 
@@ -34,6 +35,8 @@ export default function Detail() {
     const [filteredBooks, setFilteredBooks] = useState<Books[]>([]);
     const [isReady, setIsReady] = useState(false);
     
+    const bookStatus: string = '1';
+
     useEffect(() => {
         dispatch(clearBook());
         if (id) {
@@ -59,7 +62,9 @@ export default function Detail() {
     }, [authorBooks, book?.isbn13]);
 
     useEffect(() => {
-        dispatch(fetchWishlist(session?.user.sub || ''))
+        if (status === "authenticated" && session?.user.sub) {
+            dispatch(fetchWishlist(session?.user.sub || ''))
+        }
     }, [id, session?.user.sub, dispatch])
 
     const isWishlist = wishlist.some((item) => item.isbn === id);
@@ -148,12 +153,18 @@ export default function Detail() {
                         </div>
                         <div className={styles.wishlistBox}>
                             <div className={styles.wishlistContent}>
-                                <p>지금 읽고 싶은 책으로 찜해보거나</p>
-                                <p>이미 읽고 있다면 독서 상태를 변경해보세요.</p>
+                                <p>하트를 눌러 위시리스트에 저장하거나</p>
+                                <p>독서 상태를 변경하여 현황을 관리해보세요.</p>
                             </div>
                             <div className={styles.btnBox}>
-                                <button onClick={() => handleUpdateStatus('0')} className={styles.readingBtn}>읽고 있어요</button>
-                                <button onClick={() => handleUpdateStatus('1')} className={styles.finishBtn}>다 읽었어요</button>
+                                <button 
+                                    onClick={() => handleUpdateStatus('0')} 
+                                    className={`${styles.readingBtn} ${bookStatus === '0' ? styles.activeColor : ''}`}
+                                ><FaBookOpen />독서 중</button>
+                                <button 
+                                    onClick={() => handleUpdateStatus('1')} 
+                                    className={`${styles.finishBtn} ${bookStatus === '1' ? styles.activeColor : ''}`}
+                                ><FaBook />독서 완료</button>
                             </div>
                         </div>
                         <div className={styles.btnBox2}>

@@ -131,16 +131,30 @@
 .btnBox {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
 }
 
 .readingBtn, .finishBtn {
     font-size: 13px;
     background-color: white;
-    border: 1px solid #8a8a8a;
+    border: none;
     border-radius: 5px;
     padding: 4px 8px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #999999;
+    font-weight: 500;
+}
+
+.readingBtn:hover, .finishBtn:hover {
+    color: #555;
+}
+
+.activeColor {
+    color: #687fff;
+    pointer-events: none;
 }
 
 .btnBox2 {
