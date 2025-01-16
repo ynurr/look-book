@@ -38,7 +38,7 @@
     display: block;
     line-height: 1.1;
     font-weight: bold;
-    font-size: 26px;
+    font-size: 24px;
 }
 
 .subInfo {
@@ -109,7 +109,7 @@
     justify-content: space-between;
     background-color: #f6f6f7;
     margin: 20px 0;
-    padding: 16px 20px;
+    padding: 14px;
     border-radius: 14px;
 }
  
@@ -124,15 +124,16 @@
 
 .btnBox {
     display: flex;
-    gap: 10px;
+    flex-direction: column;
+    gap: 4px;
 }
 
-.wishlistBtn {
+.wishlistBtn, .readingBtn, .finishBtn {
     font-size: 13px;
     background-color: white;
     border: 1px solid #8a8a8a;
     border-radius: 5px;
-    padding: 4px 10px;
+    padding: 4px 8px;
     cursor: pointer;
 }
 
