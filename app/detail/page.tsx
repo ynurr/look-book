@@ -14,7 +14,7 @@ import { fetchWishlist } from '@/store/slices/wishlistSlice';
 import { useSession } from 'next-auth/react';
 import { fetchAddWishlist } from '@/store/slices/addWishlistSlice';
 import { fetchRemoveWishlist } from '@/store/slices/removeWishlistSlice';
-import { fetchUpdateStatus } from '@/store/slices/readingSlice';
+import { fetchUpdateStatus, fetchUserReadingState } from '@/store/slices/readingSlice';
 import { GoHeart } from "react-icons/go";
 import { GoHeartFill } from "react-icons/go";
 import { FaBook } from "react-icons/fa";
@@ -31,11 +31,10 @@ export default function Detail() {
     const book = useSelector((state: RootState) => state.detail.book); 
     const authorBooks = useSelector((state: RootState) => state.authorBooks.books || []); 
     const wishlist = useSelector((state: RootState) => state.wishlist.wishlist);
+    const userStatus = useSelector((state: RootState) => state.readingStatus.data);
 
     const [filteredBooks, setFilteredBooks] = useState<Books[]>([]);
     const [isReady, setIsReady] = useState(false);
-    
-    const bookStatus: string = '1';
 
     useEffect(() => {
         dispatch(clearBook());
@@ -62,11 +61,12 @@ export default function Detail() {
     }, [authorBooks, book?.isbn13]);
 
     useEffect(() => {
-        if (status === "authenticated" && session?.user.sub) {
+        if (status === "authenticated" && session?.user.sub && book?.isbn13) {
             dispatch(fetchWishlist(session?.user.sub || ''))
+            dispatch(fetchUserReadingState({user_id: session?.user.sub || '', book_isbn: book?.isbn13 || ''}))
         }
-    }, [id, session?.user.sub, dispatch])
-
+    }, [id, session?.user.sub, book?.isbn13, dispatch])
+    
     const isWishlist = wishlist.some((item) => item.isbn === id);
 
     const handleAddWishlist = async () => {
@@ -124,6 +124,7 @@ export default function Detail() {
             ).unwrap();
 
             alert(result.message);
+            dispatch(fetchUserReadingState({user_id: session?.user.sub || '', book_isbn: book?.isbn13 || ''}));
         } catch (error) {
             alert('독서 상태 변경 실패');
         }
@@ -159,11 +160,11 @@ export default function Detail() {
                             <div className={styles.btnBox}>
                                 <button 
                                     onClick={() => handleUpdateStatus('0')} 
-                                    className={`${styles.readingBtn} ${bookStatus === '0' ? styles.activeColor : ''}`}
+                                    className={`${styles.readingBtn} ${userStatus?.status === '0' ? styles.activeColor : ''}`}
                                 ><FaBookOpen />독서 중</button>
                                 <button 
                                     onClick={() => handleUpdateStatus('1')} 
-                                    className={`${styles.finishBtn} ${bookStatus === '1' ? styles.activeColor : ''}`}
+                                    className={`${styles.finishBtn} ${userStatus?.status === '1' ? styles.activeColor : ''}`}
                                 ><FaBook />독서 완료</button>
                             </div>
                         </div>
@@ -172,6 +173,13 @@ export default function Detail() {
                                 {book && (
                                     <Link
                                         href={`/write/review?cover=${encodeURIComponent(book.cover)}&title=${encodeURIComponent(book.title)}&author=${encodeURIComponent(book.author)}&isbn13=${book.isbn13}`}
+                                        onClick={(e) => {
+                                            if (userStatus?.review_id) {
+                                                e.preventDefault(); // 기본 동작 방지
+                                                alert('이미 작성된 리뷰가 있습니다.');
+                                                window.location.href = '/library/my-review';
+                                            }
+                                        }}
                                     >
                                         <button  className={styles.reviewBtn}>리뷰 작성</button>
                                     </Link>

@@ -19,12 +19,17 @@ interface ReadingStatusState {
         review_id?: string;
         rating: number;
     }>;
+    data: {
+        status: string;
+        review_id: string;
+    } | null;
     loading: boolean;
     error: string | null;
 }
 
 const initialState: ReadingStatusState = {
     books: [],
+    data: { status: '', review_id: '' },
     loading: false,
     error: null
 }
@@ -93,6 +98,30 @@ export const fetchRemoveBook = createAsyncThunk(
     }
 )
 
+export const fetchUserReadingState = createAsyncThunk(
+    'readingStatus/fetchUserReadingState',
+    async ({ user_id, book_isbn }: { user_id: string; book_isbn: string }) => {
+        try{
+            const response = await fetch('/api/db/reading/status', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ user_id, book_isbn })
+            });
+
+            if (!response.ok) {
+                throw new Error('독서상태 조회 실패')
+            }
+
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.log('Fetch error:', error);
+        }
+    }
+)
+
 const readingSlice = createSlice({
     name: 'readingStatus',
     initialState,
@@ -134,6 +163,23 @@ const readingSlice = createSlice({
             .addCase(fetchRemoveBook.rejected, (state, action) => {
                 state.loading = false
                 state.error = action.error.message || '독서현황 삭제 실패'
+            });
+        builder
+            .addCase(fetchUserReadingState.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(fetchUserReadingState.fulfilled, (state, action) => {
+                if (!state.data) {
+                    state.data = { status: '', review_id: '' };
+                }
+                state.data.status = action.payload.status;
+                state.data.review_id = action.payload.review_id
+                state.loading = false
+            })
+            .addCase(fetchUserReadingState.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.error.message || '독서상태 조회 실패'
             });
     }
 })
