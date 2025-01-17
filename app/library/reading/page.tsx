@@ -137,7 +137,7 @@ export default function Reading() {
                     {activeTab === 0 && (
                         <div className={styles.list}>
                             {books
-                                .filter(item => item.status === '1' || item.status === '2') // 다 읽은 책
+                                .filter(item => item.status === '1') // 다 읽은 책
                                 .map((item) => (
                                     <div className={styles.item} key={item.isbn}>
                                         <input 

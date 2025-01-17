@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
                 { user_id: new ObjectId(body.sub), book_isbn: body.isbn },
                 {
                     $set: {
-                        status: '2',
+                        status: '1',
                         updated_at: new Date(),
                         rating: body.rating,
                         ...(result.upsertedId && {review_id: result.upsertedId})
