@@ -18,35 +18,27 @@ export async function POST(req: NextRequest) {
     try {
         const db = (await connectDB).db("lookbook")
         
-        const result = await db.collection("review").updateOne(
-            { user_id: new ObjectId(body.sub), book_isbn: body.isbn },
-            {
-                $set: {
-                    content: body.content,
-                    rating: body.rating,
-                    updated_at: new Date()
-                },
-                $setOnInsert: {
-                    user_id: new ObjectId(body.sub),
-                    book_isbn: body.isbn,
-                    book_title: body.title,
-                    book_cover: body.cover,
-                    book_author: body.author,
-                    created_at: new Date(),
-                },
-            },
-            { upsert: true }
-        )
+        const result = await db.collection("review").insertOne({
+            user_id: new ObjectId(body.sub),
+            book_isbn: body.isbn,
+            book_title: body.title,
+            book_cover: body.cover,
+            book_author: body.author,
+            content: body.content,
+            rating: body.rating,
+            like_count: 0,
+            created_at: new Date()
+        })
 
-        if (result.upsertedCount > 0 || result.matchedCount > 0) {
-            await db.collection("reading").updateOne(
+        if (result.insertedId) {
+            const result2 = await db.collection("reading").updateOne(
                 { user_id: new ObjectId(body.sub), book_isbn: body.isbn },
                 {
                     $set: {
                         status: '1',
                         updated_at: new Date(),
                         rating: body.rating,
-                        ...(result.upsertedId && {review_id: result.upsertedId})
+                        review_id: result.insertedId
                     },
                     $setOnInsert: {
                         user_id: new ObjectId(body.sub),
@@ -59,18 +51,26 @@ export async function POST(req: NextRequest) {
                 },
                 { upsert: true }
             )
+            
+            if (result2.upsertedCount > 0) {
+                await db.collection("stat").updateOne(
+                    { user_id: new ObjectId(body.sub) },
+                    {
+                        $inc: { book_count: 1, review_count: 1 }, 
+                        $set: { updated_at: new Date() },
+                    }
+                )
+            } else {
+                await db.collection("stat").updateOne(
+                    { user_id: new ObjectId(body.sub) },
+                    {
+                        $inc: { review_count: 1 }, 
+                        $set: { updated_at: new Date() },
+                    }
+                )
+            }
         }
-
-        if (result.upsertedCount > 0) {
-            await db.collection("stat").updateOne(
-                { user_id: new ObjectId(body.sub) },
-                {
-                    $inc: { book_count: 1, review_count: 1 }, 
-                    $set: { updated_at: new Date() },
-                }
-            )
-        }
-
+            
         return NextResponse.json({ message: "리뷰 작성 성공" }, { status: 200 })
     } catch (error) {
         console.error(error)
