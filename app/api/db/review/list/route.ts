@@ -3,23 +3,26 @@ import { format } from "date-fns";
 import { ObjectId } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest) {
-    const body = await req.json()
+export async function GET(req: NextRequest) {
+    const searchParams = req.nextUrl.searchParams;
+    const user_id = searchParams.get('id');
 
-    if (!body.sub) {
+    if (!user_id) {
         return NextResponse.json({ message: "유효하지 않은 사용자 ID입니다." }, { status: 400 })
     }
 
     try {
         const db = (await connectDB).db("lookbook")
         
-        const result = await db.collection("review").find({ user_id: new ObjectId(body.sub) }).sort({ created_at: -1 }).toArray();
+        const result = await db.collection("review").find({ user_id: new ObjectId(user_id) }).sort({ created_at: -1 }).toArray();
 
         if (result.length === 0) {
             return NextResponse.json([], { status: 200 });
         }
         
         const data = result.map((review) => ({
+            review_id: review._id,
+            isbn: review.book_isbn,
             title: review.book_title,
             cover: review.book_cover,
             rating: review.rating,
