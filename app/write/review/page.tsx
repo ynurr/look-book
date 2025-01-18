@@ -49,18 +49,18 @@ export default function WriteReview() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data)
-            })
+            });
 
-            const result = await response.json()
+            const result = await response.json();
 
             if (response.status === 200) {
-                alert('리뷰 작성 성공')
-                window.location.href = '/library/my-review'
+                alert('리뷰 작성 성공');
+                window.location.href = `/library/reading/detail?id=${session?.user.sub}&isbn=${isbn}`;
             } else {
-                alert(result.message || '리뷰 작성 실패')
+                alert(result.message || '리뷰 작성 실패');
             }
         } catch (error) {
-            alert('리뷰 작성 중 오류가 발생했습니다.')
+            alert('리뷰 작성 중 오류가 발생했습니다.');
         }
     }
 
