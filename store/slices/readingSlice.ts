@@ -2,10 +2,10 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface Book {
     user_id: string;
-    book_isbn: string[];
-    book_title: string[];
-    book_cover: string[];
-    book_author: string[];
+    book_isbn: string;
+    book_title: string;
+    book_cover: string;
+    book_author: string;
     status: string;
 }
 
@@ -80,13 +80,13 @@ export const fetchUpdateStatus = createAsyncThunk(
 
 export const fetchRemoveBook = createAsyncThunk(
     'readingStatus/fetchRemoveBook',
-    async ({ user_id, book_isbn }: { user_id: string; book_isbn: string[] }) => {
+    async ({ user_id, book_isbn, book_status, review_id }: { user_id: string; book_isbn: string; book_status: string; review_id: string }) => {
         const response = await fetch('/api/db/reading/remove', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ user_id, book_isbn })
+            body: JSON.stringify({ user_id, book_isbn, book_status, review_id })
         })
 
         if (!response.ok) {
