@@ -1,0 +1,322 @@
+.container {
+    display: flex;
+    gap: 40px;
+    margin: 60px auto;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 760px;
+}
+
+.btnBox {
+    display: flex;
+    gap: 14px;
+    align-self: flex-end;
+    margin-right: 4px;
+}
+
+.updateBtn, .modifyBtn, .deleteBtn {
+    font-weight: 600;
+    border: none;
+    background: none; 
+    padding: 0;
+    cursor: pointer;
+}
+
+.updateBtn {
+    color: #b9b9b9;
+}
+
+.modifyBtn {
+    color: #b9b9b9;
+}
+
+.deleteBtn {
+    color: #f16d6d;
+}
+
+.updateBtn:hover {
+    color: #687fff;
+}
+
+.modifyBtn:hover {
+    color: #555;
+}
+
+.deleteBtn:hover {
+    color: #db2721;
+}
+
+.line {
+    border-bottom: 2px solid #555;
+    margin-top: 14px;
+}
+
+.bookInfo {
+    display: flex;
+    gap: 20px;
+    padding: 20px 10px;
+}
+
+.bookDetail {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.cover {
+    width: 100px;
+    height: 140px;
+    background-color: bisque;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.author {
+    font-size: 14px;
+}
+
+.statusBox, .dateBox {
+    display: flex;
+    gap: 6px;
+}
+
+.label {
+    font-weight: bold;
+    font-size: 14px;
+    color: #a88af0;
+}
+
+.date, .status {
+    font-size: 14px;
+}
+
+.rating {
+    font-size: 17px;
+}
+
+.reviewBox {
+    padding: 0 10px;
+}
+
+.review {
+    font-size: 14px;
+}
+
+.reactionBox {
+    display: flex;
+    padding: 20px 10px;
+}
+
+.likeCnt {
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.hrLine {
+    border-bottom: 1px solid #ddd;
+    margin: 0 10px;
+}
+
+.commentSection {
+    margin: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.commentBox {
+    display: flex;
+    flex-direction: column;
+}
+
+.commentContent {
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+}
+
+.commentInfo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nickname {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.commentDate, .commentEditBtn, .commentDeleteBtn {
+    font-size: 13px;
+    color: rgb(139, 139, 139);
+}
+
+.comment {
+    font-size: 14px;
+}
+
+.reply {
+    display: flex;
+    flex-direction: column;
+}
+
+.replyBox {
+    display: flex;
+}
+
+.arrowBox {
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+}
+
+.arrow {
+    color: #bebebe;
+    font-weight: 100;
+}
+
+.replyContent {
+    margin-top: 10px;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.commentLine {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.commentBtn {
+    align-self: flex-end;
+    cursor: pointer;
+}
+
+.textAreaBox {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    gap: 10px;
+}
+
+.textarea {
+    height: 80px;
+    width: 100%;
+    resize: none;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    line-height: 1.5;
+}
+
+.textarea:focus {
+    outline: none;
+}
+
+.textAreaBtn {
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
+    width: 100%;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
+.textAreaBtn button {
+    border: none;
+    background-color: #333333;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 13px;
+    color: white;
+}
+
+.textAreaBtn button:first-child {
+    background-color: rgb(238, 238, 238);
+    color: #444;
+}
+
+.textAreaBtn button:hover {
+    background-color: #17171b;
+}
+
+.textAreaBtn button:hover:first-child {
+    background-color: rgb(233, 233, 233);
+}
+
+.starFill {
+    color: #ffd620;
+}
+
+.star {
+    color: #eeeeee;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 250px;
+    padding: 20px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    font-size: 14px;
+    text-align: center;
+    z-index: 1000;
+}
+
+.confirmBtnBox {
+    display: flex;
+    margin-top: 16px;
+    justify-content: center;
+    gap: 20px;
+}
+
+.cancelBtn, .confirmBtn {
+    font-size: 13px;
+    padding: 6px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.cancelBtn {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.confirmBtn {
+    background-color: #f16d6d;
+    color: white;
+}
+
+.reviewBtn {
+    margin-left: 10px;
+    width: 100px;
+    padding: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: white;
+    cursor: pointer;
+}
+
+.reviewBtn:hover {
+    background-color: rgb(250, 250, 250);
+}
