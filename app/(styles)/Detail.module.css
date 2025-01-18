@@ -28,7 +28,7 @@
 }
 
 .info {
-    flex-grow: 1;
+    /* flex-grow: 1; */
     display: flex;
     flex-direction: column;
 }
@@ -161,26 +161,22 @@
     display: flex;
     gap: 8px;
     margin-top: 6px;
+    width: 100%;
 }
 
-.reviewBtnBox {
-    width: 100%;
-    text-align: center;
+.reviewBtn {
+    flex-grow: 1; 
+    padding: 8px;
+    color: #333;
+    font-weight: 600;
     background-color: white;
     border-radius: 5px;
     border: 1px solid #dddddd;
     cursor: pointer;
 }
 
-.reviewBtn {
-    padding: 8px;
-    color: #333;
-    font-weight: 600;
-    border: none;
-    background: none;
-}
-
 .wishlistBtn {
+    flex-shrink: 0; 
     background-color: white;
     border-radius: 5px;
     border: 1px solid #dddddd;

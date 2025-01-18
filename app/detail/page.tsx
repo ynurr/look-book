@@ -169,22 +169,19 @@ export default function Detail() {
                             </div>
                         </div>
                         <div className={styles.btnBox2}>
-                            <div className={styles.reviewBtnBox}>
-                                {book && (
-                                    <Link
-                                        href={`/write/review?cover=${encodeURIComponent(book.cover)}&title=${encodeURIComponent(book.title)}&author=${encodeURIComponent(book.author)}&isbn13=${book.isbn13}`}
-                                        onClick={(e) => {
-                                            if (userStatus?.review_id) {
-                                                e.preventDefault(); // 기본 동작 방지
-                                                alert('이미 작성된 리뷰가 있습니다.');
-                                                window.location.href = '/library/my-review';
-                                            }
-                                        }}
-                                    >
-                                        <button  className={styles.reviewBtn}>리뷰 작성</button>
-                                    </Link>
-                                )}
-                            </div>
+                            <button
+                                onClick={() => {
+                                    if (userStatus?.review_id) {
+                                        alert('이미 작성된 리뷰가 있습니다.');
+                                        window.location.href = `/library/my-review/detail?id=${userStatus?.review_id}`;
+                                    } else if (book) {
+                                        window.location.href = `/write/review?cover=${encodeURIComponent(book.cover ?? '')}&title=${encodeURIComponent(book.title ?? '')}&author=${encodeURIComponent(book.author ?? '')}&isbn13=${book.isbn13 ?? ''}`;
+                                    } else {
+                                        alert('도서 정보가 없습니다.');
+                                    }   
+                                }}
+                                className={styles.reviewBtn}
+                            >리뷰 작성</button>
                             <button onClick={() => {
                                 if (isWishlist) {
                                     handleRemoveWishlist()
