@@ -60,7 +60,10 @@ export default function LeftMenu() {
                 <span className={styles.nickname}>{session?.user.nickname} 님</span>
                 <span className={styles.stat}>리뷰 작성 <span className={styles.redText}>{user.reviewCount}권</span></span>
                 <span className={styles.stat}>지금까지 읽은 책 <span className={styles.redText}>{user.bookCount}권</span></span> 
-                <span className={styles.stat}>마지막 독서 <span className={styles.redText}>{user.lastRead == '0' ? '오늘' : user.lastRead+'일 전'}</span></span> 
+                <span className={styles.stat}>마지막 독서 <span className={styles.redText}>
+                        {user.reviewCount === 0 && user.bookCount === 0 ? '-일 전' :
+                        user.lastRead == '0' ? '오늘' : user.lastRead+'일 전'}</span>
+                </span> 
             </div>
             <div className={styles.menu}>
                 <span className={styles.menuTitle}>내 서재</span>
