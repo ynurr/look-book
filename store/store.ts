@@ -7,7 +7,8 @@ import wishlistSlice from "./slices/wishlistSlice"
 import addWishlistSlice from "./slices/addWishlistSlice"
 import removeWishlistSlice from "./slices/removeWishlistSlice"
 import readingSlice from "./slices/readingSlice"
-
+import reviewSlice from "./slices/reviewSlice"
+import readingDetailSlice from "./slices/readingDetailSlice"
 
 export const store = configureStore({
 	reducer: {
@@ -19,6 +20,8 @@ export const store = configureStore({
 		addWishlist: addWishlistSlice,
 		removeWishlist: removeWishlistSlice,
 		readingStatus: readingSlice,
+		review: reviewSlice,
+		readingDetail: readingDetailSlice,
 	},
 });
 
