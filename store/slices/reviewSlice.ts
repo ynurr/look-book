@@ -15,6 +15,17 @@ interface ReviewState {
     error: string | null;
 }
 
+interface Book {
+    sub: string;
+    isbn: string;
+    title: string;
+    cover: string;
+    author: string;
+    content: string;
+    rating: number;
+    status: string;
+}
+
 const initialState: ReviewState = {
     reviews: [],
     loading: false,
@@ -41,6 +52,30 @@ export const fetchReviewAll = createAsyncThunk(
     }
 )
 
+export const fetchWriteReview = createAsyncThunk(
+    'review/fetchWriteReview',
+    async (book: Book) => {
+        try {
+            const response = await fetch('/api/db/review/write', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(book)
+            });
+    
+            if (!response.ok) {
+                throw new Error('리뷰 작성 실패')
+            }
+    
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.log('Fetch error:', error);
+        }
+    }
+)
+
 const reviewSlice = createSlice({
     name: 'review',
     initialState,
@@ -57,7 +92,18 @@ const reviewSlice = createSlice({
             })
             .addCase(fetchReviewAll.rejected, (state, action) => {
                 state.loading = false
-                state.error = action.error.message || '나의리뷰 조회 실패'
+                state.error = action.error.message || '리뷰 작성 실패'
+            })
+            .addCase(fetchWriteReview.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(fetchWriteReview.fulfilled, (state) => {
+                state.loading = false
+            })
+            .addCase(fetchWriteReview.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.error.message || '리뷰 작성 실패'
             })
     }
 })

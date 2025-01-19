@@ -52,23 +52,15 @@ export async function POST(req: NextRequest) {
                 { upsert: true }
             )
             
-            if (result2.upsertedCount > 0) {
-                await db.collection("stat").updateOne(
-                    { user_id: new ObjectId(body.sub) },
-                    {
-                        $inc: { book_count: 1, review_count: 1 }, 
-                        $set: { updated_at: new Date() },
-                    }
-                )
-            } else {
-                await db.collection("stat").updateOne(
-                    { user_id: new ObjectId(body.sub) },
-                    {
-                        $inc: { review_count: 1 }, 
-                        $set: { updated_at: new Date() },
-                    }
-                )
-            }
+            const count = body.status === '1' ? 0 : 1;
+
+            await db.collection("stat").updateOne(
+                { user_id: new ObjectId(body.sub) },
+                {
+                    $inc: { book_count: count, review_count: 1 }, 
+                    $set: { updated_at: new Date() },
+                }
+            )
         }
             
         return NextResponse.json({ message: "리뷰 작성 성공" }, { status: 200 })

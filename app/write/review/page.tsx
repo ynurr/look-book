@@ -6,20 +6,26 @@ import styles from './WriteReview.module.css'
 import { PiStarFill } from "react-icons/pi";
 import { useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/store/store';
+import { fetchWriteReview } from '@/store/slices/reviewSlice';
 
 export default function WriteReview() {
 
-    const { data: session } = useSession()
+    const { data: session } = useSession();
 
-    const params = useSearchParams()
+    const params = useSearchParams();
 
-    const cover = params.get('cover') || ''
-    const title = params.get('title') || ''
-    const author = params.get('author') || ''
-    const isbn = params.get('isbn13')
+    const cover = params.get('cover') || '';
+    const title = params.get('title') || '';
+    const author = params.get('author') || '';
+    const isbn = params.get('isbn13');
+    const status = params.get('status');
 
-    const [rating, setRating] = useState(0)
-    const [content, setContent] = useState('')
+    const [rating, setRating] = useState(0);
+    const [content, setContent] = useState('');
+
+    const dispatch = useDispatch<AppDispatch>();
 
     const handleSubmit = async () => {
         if (!content) {
@@ -32,33 +38,20 @@ export default function WriteReview() {
             return
         }
 
-        const data = {
-            isbn,
-            title,
-            cover,
-            author,
-            content,
-            rating,
-            sub: session?.user.sub
-        }
-
         try {
-            const response = await fetch('/api/db/review/write', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-
-            const result = await response.json();
-
-            if (response.status === 200) {
-                alert('리뷰 작성 성공');
-                window.location.href = `/library/reading/detail?id=${session?.user.sub}&isbn=${isbn}`;
-            } else {
-                alert(result.message || '리뷰 작성 실패');
-            }
+            const result = await dispatch(fetchWriteReview({
+                sub: session?.user.sub || '',
+                isbn: isbn || '',
+                title: title || '',
+                cover: cover || '',
+                author: author || '',
+                content: content || '',
+                rating: rating || 0,
+                status: status || '',
+            })).unwrap();
+            
+            alert('리뷰 작성 성공');
+            window.location.href = `/library/reading/detail?id=${session?.user.sub}&isbn=${isbn}`;
         } catch (error) {
             alert('리뷰 작성 중 오류가 발생했습니다.');
         }
