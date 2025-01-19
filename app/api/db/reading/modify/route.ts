@@ -44,10 +44,15 @@ export async function PUT(req: NextRequest) {
             { upsert: true }
         )
 
-        if (result.modifiedCount > 0 || result.upsertedCount > 0) {
-             
-            const count = body.status === '1' ? 1 : -1;
+        let count = 0; 
 
+        if (result.upsertedCount > 0) {
+            count = body.status === '1' ? 1 : 0;
+        } else if (result.modifiedCount > 0) {
+            count = body.status === '1' ? 1 : -1;
+        }
+
+        if (result.modifiedCount > 0 || result.upsertedCount > 0) {
             await db.collection("stat").updateOne(
                 { user_id: new ObjectId(body.user_id) },
                 {
@@ -55,9 +60,9 @@ export async function PUT(req: NextRequest) {
                     $set: { updated_at: new Date() },
                 }
             )
-
-            return NextResponse.json({ message: "독서 상태가 변경되었습니다." }, { status: 200 });
         }
+        
+        return NextResponse.json({ message: "독서 상태가 변경되었습니다." }, { status: 200 });
 
     } catch (error) {
         console.error(error)
