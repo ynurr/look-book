@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import { fetchReadingDetail } from '@/store/slices/readingDetailSlice';
 import { fetchRemoveBook, fetchUpdateStatus } from '@/store/slices/readingSlice';
+import Link from 'next/link';
 
 export default function ReviewDetail() {
 
@@ -121,7 +122,20 @@ export default function ReviewDetail() {
                         className={styles.updateBtn}>{reading?.status === '0' ? '독서 완료' : '독서 중'}
                     </button>
                     {
-                        review.review_id !== '' && <button className={styles.modifyBtn}>리뷰수정</button>
+                        review.review_id !== '' && 
+                            <Link href={{
+                                pathname: '/write/review',
+                                query: {
+                                    cover: reading?.cover,
+                                    title: reading?.title,
+                                    author: reading?.author,
+                                    isbn13: reading?.isbn,
+                                    status: reading?.status,
+                                    id: review.review_id
+                                },
+                            }}>
+                                <button className={styles.modifyBtn}>리뷰수정</button>
+                            </Link>
                     }
                     <button onClick={confirmRemove} className={styles.deleteBtn}>삭제</button>
                 </div>
@@ -230,7 +244,18 @@ export default function ReviewDetail() {
                                 </div>
                             </div>
                         ) : (
-                            <button className={styles.reviewBtn}>리뷰 작성</button>
+                            <Link href={{
+                                pathname: '/write/review',
+                                query: {
+                                    cover: reading?.cover,
+                                    title: reading?.title,
+                                    author: reading?.author,
+                                    isbn13: reading?.isbn,
+                                    status: reading?.status,
+                                },
+                            }}>
+                                <button className={styles.reviewBtn}>리뷰 작성하기</button>
+                            </Link>
                         )
                     }
 
