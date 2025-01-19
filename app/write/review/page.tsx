@@ -1,14 +1,14 @@
 'use client'
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import LeftMenu from '../../library/LeftMenu';
 import styles from './WriteReview.module.css'
 import { PiStarFill } from "react-icons/pi";
 import { useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/store/store';
-import { fetchWriteReview } from '@/store/slices/reviewSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/store/store';
+import { fetchEditReview, fetchReviewById, fetchWriteReview } from '@/store/slices/reviewSlice';
 
 export default function WriteReview() {
 
@@ -21,11 +21,27 @@ export default function WriteReview() {
     const author = params.get('author') || '';
     const isbn = params.get('isbn13');
     const status = params.get('status');
+    const review_id = params.get('id') || '';
 
     const [rating, setRating] = useState(0);
     const [content, setContent] = useState('');
+    const [isEdit, setIsEdit] = useState(false); 
 
     const dispatch = useDispatch<AppDispatch>();
+
+    useEffect(() => {
+        if (review_id) {
+            setIsEdit(true);
+            dispatch(fetchReviewById(review_id)).unwrap()
+                .then((data) => {
+                    setRating(data.review.rating || 0);
+                    setContent(data.review.content || '');
+                })
+                .catch((err) => {
+                    console.error('리뷰 조회 중 오류 발생:', err);
+                });
+        }
+    }, [review_id])
 
     const handleSubmit = async () => {
         if (!content) {
@@ -39,18 +55,28 @@ export default function WriteReview() {
         }
 
         try {
-            const result = await dispatch(fetchWriteReview({
-                sub: session?.user.sub || '',
-                isbn: isbn || '',
-                title: title || '',
-                cover: cover || '',
-                author: author || '',
-                content: content || '',
-                rating: rating || 0,
-                status: status || '',
-            })).unwrap();
-            
-            alert('리뷰 작성 성공');
+            if (isEdit) {
+                const result = await dispatch(fetchEditReview({
+                    review_id: review_id,
+                    content: content,
+                    rating: rating,
+                })).unwrap();
+                
+                alert('리뷰 수정 성공');
+            } else {
+                const result = await dispatch(fetchWriteReview({
+                    sub: session?.user.sub || '',
+                    isbn: isbn || '',
+                    title: title || '',
+                    cover: cover || '',
+                    author: author || '',
+                    content: content || '',
+                    rating: rating || 0,
+                    status: status || '',
+                })).unwrap();
+                
+                alert('리뷰 작성 성공');
+            }
             window.location.href = `/library/reading/detail?id=${session?.user.sub}&isbn=${isbn}`;
         } catch (error) {
             alert('리뷰 작성 중 오류가 발생했습니다.');

@@ -11,6 +11,7 @@ interface ReviewState {
         like_count: number;
         created_at: string;
     }>;
+    review: {review_id: string, rating: number, content: string};
     loading: boolean;
     error: string | null;
 }
@@ -28,6 +29,7 @@ interface Book {
 
 const initialState: ReviewState = {
     reviews: [],
+    review: {review_id: '', rating: 0, content: ''},
     loading: false,
     error: null
 }
@@ -76,6 +78,50 @@ export const fetchWriteReview = createAsyncThunk(
     }
 )
 
+export const fetchReviewById = createAsyncThunk(
+    'review/fetchReviewById',
+    async (review_id: string) => {
+        try {
+            const response = await fetch(`/api/db/review/detail?id=${encodeURIComponent(review_id)}`, {
+                method: 'GET'
+            });
+
+            if (!response.ok) {
+                throw new Error('리뷰 조회 실패')
+            }
+
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.log('Fetch error:', error);
+        }
+    }
+)
+
+export const fetchEditReview = createAsyncThunk(
+    'review/fetchEditReview',
+    async ({review_id, content, rating}: {review_id: string, content:string, rating: number}) => {
+        try {
+            const response = await fetch('/api/db/review/edit', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({review_id, content, rating})
+            });
+    
+            if (!response.ok) {
+                throw new Error('리뷰 수정 실패')
+            }
+    
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.log('Fetch error:', error);
+        }
+    }
+)
+
 const reviewSlice = createSlice({
     name: 'review',
     initialState,
@@ -92,7 +138,7 @@ const reviewSlice = createSlice({
             })
             .addCase(fetchReviewAll.rejected, (state, action) => {
                 state.loading = false
-                state.error = action.error.message || '리뷰 작성 실패'
+                state.error = action.error.message || '나의리뷰 조회 실패'
             })
             .addCase(fetchWriteReview.pending, (state) => {
                 state.loading = true
@@ -104,6 +150,29 @@ const reviewSlice = createSlice({
             .addCase(fetchWriteReview.rejected, (state, action) => {
                 state.loading = false
                 state.error = action.error.message || '리뷰 작성 실패'
+            })
+            .addCase(fetchReviewById.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(fetchReviewById.fulfilled, (state, action) => {
+                state.review = action.payload
+                state.loading = false
+            })
+            .addCase(fetchReviewById.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.error.message || '리뷰 조회 실패'
+            })
+            .addCase(fetchEditReview.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(fetchEditReview.fulfilled, (state) => {
+                state.loading = false
+            })
+            .addCase(fetchEditReview.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.error.message || '리뷰 수정 실패'
             })
     }
 })
