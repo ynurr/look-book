@@ -115,10 +115,10 @@ export default function Detail() {
             const result = await dispatch(
                 fetchUpdateStatus({
                     user_id: session?.user.sub || '',
-                    book_isbn: [book?.isbn13 || ''],
-                    book_title: [book?.title || ''],
-                    book_author: [book?.author || ''],
-                    book_cover: [book?.cover || ''],
+                    book_isbn: book?.isbn13 || '',
+                    book_title: book?.title || '',
+                    book_author: book?.author || '',
+                    book_cover: book?.cover || '',
                     status: status,
                 })
             ).unwrap();
@@ -175,7 +175,7 @@ export default function Detail() {
                                         alert('이미 작성된 리뷰가 있습니다.');
                                         window.location.href = `/library/my-review/detail?id=${userStatus?.review_id}`;
                                     } else if (book) {
-                                        window.location.href = `/write/review?cover=${encodeURIComponent(book.cover ?? '')}&title=${encodeURIComponent(book.title ?? '')}&author=${encodeURIComponent(book.author ?? '')}&isbn13=${book.isbn13 ?? ''}`;
+                                        window.location.href = `/write/review?cover=${encodeURIComponent(book.cover ?? '')}&title=${encodeURIComponent(book.title ?? '')}&author=${encodeURIComponent(book.author ?? '')}&isbn13=${book.isbn13 ?? ''}&status=${userStatus?.status ?? ''}`;
                                     } else {
                                         alert('도서 정보가 없습니다.');
                                     }   
