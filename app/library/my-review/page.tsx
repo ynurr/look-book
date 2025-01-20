@@ -44,7 +44,7 @@ export default function Review() {
                     :
                     reviews.map((item, i) => (
                         <div className={styles.list} key={i}>
-                            <Link href={`/library/reading/detail?id=${session?.user.sub}&isbn=${item.isbn}`}>
+                            <Link href={`/library/reading/detail?isbn=${item.isbn}`}>
                                 <div className={styles.bookInfo}>
                                     <img className={styles.cover} src={item.cover} alt={item.title}/>
                                     <div className={styles.bookDetail}>

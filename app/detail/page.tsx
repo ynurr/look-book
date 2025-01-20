@@ -173,7 +173,7 @@ export default function Detail() {
                                 onClick={() => {
                                     if (userStatus?.review_id) {
                                         alert('이미 작성된 리뷰가 있습니다.');
-                                        window.location.href = `/library/reading/detail?id=${session?.user.sub}&isbn=${book?.isbn13}`;
+                                        window.location.href = `/library/reading/detail?isbn=${book?.isbn13}`;
                                     } else if (book) {
                                         window.location.href = `/write/review?cover=${encodeURIComponent(book.cover ?? '')}&title=${encodeURIComponent(book.title ?? '')}&author=${encodeURIComponent(book.author ?? '')}&isbn13=${book.isbn13 ?? ''}&status=${userStatus?.status ?? ''}`;
                                     } else {

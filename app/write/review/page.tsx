@@ -77,7 +77,7 @@ export default function WriteReview() {
                 
                 alert('리뷰 작성 성공');
             }
-            window.location.href = `/library/reading/detail?id=${session?.user.sub}&isbn=${isbn}`;
+            window.location.href = `/library/reading/detail?isbn=${isbn}`;
         } catch (error) {
             alert('리뷰 작성 중 오류가 발생했습니다.');
         }

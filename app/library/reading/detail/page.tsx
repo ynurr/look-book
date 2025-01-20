@@ -19,7 +19,6 @@ export default function ReviewDetail() {
 
     const { data: session, status } = useSession();
     const searchParams = useSearchParams();
-    const userId = searchParams.get('id');
     const isbn = searchParams.get('isbn');
     
     if (!session && status !== "loading") {
@@ -32,10 +31,10 @@ export default function ReviewDetail() {
     const [isDelete, setIsDelete] = useState(false);
     
     useEffect(() => {
-        if (userId && isbn) {
-            dispatch(fetchReadingDetail({user_id: userId, book_isbn: isbn}))
+        if (session?.user.sub && isbn) {
+            dispatch(fetchReadingDetail({user_id: session?.user.sub, book_isbn: isbn}))
         }
-    }, [userId, isbn, dispatch])
+    }, [session?.user.sub, isbn, dispatch])
 
     const handleUpdateStatus = async (status: string) => {
         try {
@@ -51,8 +50,8 @@ export default function ReviewDetail() {
             ).unwrap();
             
             alert(result.message);
-            if (userId && isbn) {
-                dispatch(fetchReadingDetail({user_id: userId, book_isbn: isbn}));
+            if (session?.user.sub && isbn) {
+                dispatch(fetchReadingDetail({user_id: session?.user.sub, book_isbn: isbn}));
             }
         } catch (error) {
             alert('독서 상태 변경 실패');

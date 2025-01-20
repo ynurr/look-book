@@ -63,7 +63,7 @@ export default function Reading() {
                                 .map((item) => (
                                     <Link
                                         key={item.isbn}
-                                        href={`/library/reading/detail?id=${session?.user.sub}&isbn=${item.isbn}`} legacyBehavior>
+                                        href={`/library/reading/detail?isbn=${item.isbn}`} legacyBehavior>
                                         <div className={styles.item}>
                                             <img className={styles.cover} src={item.cover} alt={item.title} />
                                             
@@ -94,7 +94,7 @@ export default function Reading() {
                                 .map((item) => (
                                     <Link 
                                         key={item.isbn}
-                                        href={`/library/reading/detail?id=${session?.user.sub}&isbn=${item.isbn}`} legacyBehavior>
+                                        href={`/library/reading/detail?isbn=${item.isbn}`} legacyBehavior>
                                         <div className={styles.item}>
                                             <img className={styles.cover} src={item.cover} alt={item.title} />
                                             <div className={styles.info}>
