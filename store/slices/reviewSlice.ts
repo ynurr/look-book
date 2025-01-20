@@ -43,7 +43,7 @@ export const fetchReviewAll = createAsyncThunk(
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(user_id)
+                body: JSON.stringify({user_id})
             });
 
             if (!response.ok) {
