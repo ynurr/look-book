@@ -38,8 +38,12 @@ export const fetchReviewAll = createAsyncThunk(
     'review/fetchReviewAll',
     async (user_id: string) => {
         try {
-            const response = await fetch(`/api/db/review/list?id=${encodeURIComponent(user_id)}`, {
-                method: 'GET'
+            const response = await fetch('/api/db/review/list', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user_id)
             });
 
             if (!response.ok) {

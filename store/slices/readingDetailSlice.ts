@@ -41,8 +41,12 @@ export const fetchReadingDetail = createAsyncThunk(
     'readingDetail/fetchReadingDetail',
     async ({user_id, book_isbn}: {user_id: string, book_isbn: string}) => {
         try {
-            const response = await fetch(`/api/db/reading/detail?id=${user_id}&isbn=${book_isbn}`, {
-                method: 'GET'
+            const response = await fetch('/api/db/reading/detail', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({user_id, book_isbn})
             });
 
             if (!response.ok) {

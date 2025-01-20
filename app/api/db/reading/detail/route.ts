@@ -3,27 +3,25 @@ import { format } from "date-fns";
 import { ObjectId } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
-    const searchParams = req.nextUrl.searchParams;
-    const user_id = searchParams.get('id');
-    const book_isbn = searchParams.get('isbn');
+export async function POST(req: NextRequest) {
+    const body = await req.json();
 
-    if (!user_id) {
+    if (!body.user_id) {
         return NextResponse.json({ message: "유효하지 않은 사용자 ID입니다." }, { status: 400 })
-    } else if (!book_isbn) {
+    } else if (!body.book_isbn) {
         return NextResponse.json({ message: "도서 정보가 존재하지 않습니다." }, { status: 400 });
     }
     
     try {
         const db = (await connectDB).db("lookbook");
         
-        const readingResult = await db.collection("reading").findOne({ user_id: new ObjectId(user_id), book_isbn: book_isbn });
+        const readingResult = await db.collection("reading").findOne({ user_id: new ObjectId(body.user_id), book_isbn: body.book_isbn });
         
         if (!readingResult) {
             return NextResponse.json({ message: "독서 정보가 존재하지 않습니다." }, { status: 404 });
         }
         
-        const reviewResult = await db.collection("review").findOne({ user_id: new ObjectId(user_id), book_isbn: book_isbn });
+        const reviewResult = await db.collection("review").findOne({ user_id: new ObjectId(body.user_id), book_isbn: body.book_isbn });
 
         const reading = {
             reading_id: readingResult._id,
