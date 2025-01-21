@@ -12,6 +12,15 @@ interface ReviewState {
         created_at: string;
     }>;
     review: {review_id: string, rating: number, content: string};
+    bookReviews: Array<{
+        review_id: string;
+        content: string;
+        rating: number;
+        like_count: number;
+        date: string;
+        nickname: string;
+    }>;
+    totalCount: number;
     loading: boolean;
     error: string | null;
 }
@@ -30,6 +39,8 @@ interface Book {
 const initialState: ReviewState = {
     reviews: [],
     review: {review_id: '', rating: 0, content: ''},
+    bookReviews: [],
+    totalCount: 0,
     loading: false,
     error: null
 }
@@ -126,6 +137,26 @@ export const fetchEditReview = createAsyncThunk(
     }
 )
 
+export const fetchReviewByBook = createAsyncThunk(
+    'review/fetchReviewByBook',
+    async (isbn: string) => {
+        try {
+            const response = await fetch(`/api/db/review/book?isbn=${isbn}`, {
+                method: 'GET'
+            });
+
+            if (!response.ok) {
+                throw new Error('도서 리뷰 조회 실패')
+            }
+
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.log('Fetch error:', error);
+        }
+    }
+)
+
 const reviewSlice = createSlice({
     name: 'review',
     initialState,
@@ -177,6 +208,19 @@ const reviewSlice = createSlice({
             .addCase(fetchEditReview.rejected, (state, action) => {
                 state.loading = false
                 state.error = action.error.message || '리뷰 수정 실패'
+            })
+            .addCase(fetchReviewByBook.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(fetchReviewByBook.fulfilled, (state, action) => {
+                state.bookReviews = action.payload.data
+                state.totalCount = action.payload.totalCount
+                state.loading = false
+            })
+            .addCase(fetchReviewByBook.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.error.message || '도서 리뷰 조회 실패'
             })
     }
 })

@@ -511,6 +511,16 @@
     color: #eeeeee;
 }
 
+.noData {
+    font-size: 14px;
+    color: #888888;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 30px;
+}
+
 @media (max-width: 860px) {
     .inner {
         padding: 0;

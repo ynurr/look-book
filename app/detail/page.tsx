@@ -228,7 +228,7 @@ export default function Detail() {
                     </div>
                     <div className={styles.hrLine}></div>
                 </div>
-                <Review />
+                <Review isbn={book?.isbn13} />
             </div>
         </div>
     );
