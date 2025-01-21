@@ -65,7 +65,7 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
     };
 
     return (
-        <div className={styles.section4}>
+        <div className={styles.section3}>
             <div className={styles.reviewHeader}>
                 <span className={styles.reviewTitle}>리뷰 ({reviewCount})</span>
                 <div className={styles.align}>

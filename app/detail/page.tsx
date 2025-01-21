@@ -195,24 +195,18 @@ export default function Detail() {
                     </div>
                 </div>
                 <div className={styles.section2}>
-                    <div className={styles.middleNav}>
-                        <a className={styles.active}>책 정보</a>
-                        <a>리뷰 (21)</a>
-                    </div>
-                </div>
-                <div className={styles.section3}>
                     <div>
-                        <p>분야</p>
+                        <p className={styles.label}>분야</p>
                         <span>{book?.categoryName}</span>
                     </div>
                     <div className={styles.hrLine}></div>
                     <div>
-                        <p>소개글</p>
+                        <p className={styles.label}>소개글</p>
                         <span>{book?.description  || '소개글이 등록되어 있지 않습니다.'}</span>
                     </div>
                     <div className={styles.hrLine}></div>
                     <div>
-                        <p>작가의 다른 책</p>
+                        <p className={styles.label}>작가의 다른 책</p>
                         <div className={styles.bookList}>
                             {filteredBooks.map((book: Books, index: number) => (
                                 <div className={styles.bookItem} key={index}>
