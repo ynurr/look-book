@@ -24,6 +24,7 @@
     gap: 20px;
     padding: 20px 10px;
     cursor: pointer;
+    color: #333;
 }
 
 .bookDetail {
@@ -53,6 +54,7 @@
 
 .reviewBox {
     padding: 0 10px;
+    color: #333;
 }
 
 .review {
@@ -75,6 +77,7 @@
     display: flex;
     gap: 10px;
     padding: 10px;
+    color: #333;
 }
 
 .likeCnt, .commentCnt {
