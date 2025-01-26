@@ -86,7 +86,9 @@ export default function Comment() {
 
                 <div className={styles.list}>
                     {wishlist.length === 0 ?
-                        <p className={styles.noData}>아직 위시리스트를 추가하지 않으셨어요.</p>
+                        <div className={styles.noData}>
+                            <span>아직 위시리스트를 추가하지 않으셨어요.</span>
+                        </div>
                         :
                         currentItems.map((item) => (
                             <div className={styles.item} key={item.wish_id}>

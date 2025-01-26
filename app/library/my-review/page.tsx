@@ -40,7 +40,9 @@ export default function Review() {
                 <div className={styles.line}></div>
 
                 {reviews.length === 0 ?
-                    <p className={styles.noData}>작성된 리뷰가 없습니다.</p>
+                    <div className={styles.noData}>
+                        <span>작성된 리뷰가 없습니다.</span>
+                    </div>
                     :
                     reviews.map((item, i) => (
                         <div className={styles.list} key={i}>
