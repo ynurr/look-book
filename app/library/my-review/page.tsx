@@ -28,7 +28,7 @@ export default function Review() {
 
     useEffect(() => {
         if (status === "authenticated" && session?.user.sub) {
-            dispatch(fetchReviewAll(session?.user.sub || ''))
+            dispatch(fetchReviewAll({ user_id: session.user.sub, limit: 0 }))
         }
     }, [session, dispatch])
 

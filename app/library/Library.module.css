@@ -73,7 +73,7 @@
     margin-bottom: 14px;
 }
 
-.reviewItem {
+.reviewItem, .noData {
     box-shadow: 0 0 6px rgba(139, 139, 139, 0.2); 
     border-radius: 20px;
     padding: 20px;
@@ -85,8 +85,14 @@
 }
 
 .bookTitle {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: bold;
+    display: -webkit-box;
+    -webkit-box-orient: vertical; 
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    overflow: hidden; 
+    text-overflow: ellipsis; 
 }
 
 .reviewDate {
@@ -97,8 +103,7 @@
 }
 
 .reviewContent {
-    font-size: 15px;
-    line-height: 1.6;
+    font-size: 14px;
     display: -webkit-box;
     -webkit-box-orient: vertical; 
     -webkit-line-clamp: 6;
@@ -184,4 +189,13 @@
     width: 193px;
     border-bottom: 1px solid #e2e2e2;
     margin: 12px 0;
+}
+
+.noData {
+    font-size: 14px;
+    color: #888888;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }

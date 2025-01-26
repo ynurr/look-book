@@ -8,6 +8,10 @@ import LeftMenu from "./LeftMenu";
 import styles from './Library.module.css'
 import { redirect } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/store/store';
+import { fetchReviewAll } from '@/store/slices/reviewSlice';
+import { useEffect } from 'react';
 
 export default function Library() {
     
@@ -17,7 +21,14 @@ export default function Library() {
         redirect('/login');
     }
 
-    const sub = session?.user.sub;
+    const dispatch = useDispatch<AppDispatch>();
+    const reviews = useSelector((state: RootState) => state.review.reviews || []);
+
+    useEffect(() => {
+        if (status === "authenticated" && session?.user.sub) {
+            dispatch(fetchReviewAll({ user_id: session.user.sub, limit: 3 }))
+        }
+    }, [session, dispatch])
 
     const comments = [
         { commenter: "김도훈", commentTime: "2024-12-04 16:01:18", commentContent: "너무 재밌어요" },
@@ -41,7 +52,6 @@ export default function Library() {
 
     return (
         <div className={styles.container}>
-            {/* <LeftMenu sub={sub || ''}/> */}
             <LeftMenu />
 
             <div className={styles.wrapper}>
@@ -68,13 +78,25 @@ export default function Library() {
                 <div className={styles.reviewSection}>
                     <span className={styles.menuTitle}>내가 쓴 리뷰</span>
                     <div className={styles.reviewsList}>
-                        <div className={styles.reviewItem}>
-                            <span className={styles.bookTitle}>책 제목</span>
-                            <span className={styles.reviewContent}>어쩌구저쩌구 리뷰입니다.</span>
-                            <span className={styles.reviewDate}>2024.11.02</span>
-                        </div>
-                        <div className={styles.reviewItem}></div>
-                        <div className={styles.reviewItem}></div>
+                        {reviews.length === 0 ?
+                            <div className={styles.noData}>
+                                <span>작성된 리뷰가 없습니다.</span>
+                            </div>
+                            :
+                            reviews.map((item) => (
+                                <div className={styles.reviewItem} key={item.review_id}>
+                                    <span className={styles.bookTitle}>{item.title}</span>
+                                    <span className={styles.reviewContent}>{item.content}</span>
+                                    <span className={styles.reviewDate}>{item.created_at}</span>
+                                </div>
+
+                            ))
+                        }
+
+                        {/* <div className={styles.reviewItem}></div>
+                        <div className={styles.reviewItem}></div> */}
+
+
                     </div>
                 </div>
 

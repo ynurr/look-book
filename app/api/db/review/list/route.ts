@@ -13,7 +13,12 @@ export async function POST(req: NextRequest) {
     try {
         const db = (await connectDB).db("lookbook")
         
-        const result = await db.collection("review").find({ user_id: new ObjectId(body.user_id) }).sort({ created_at: -1 }).toArray();
+        const result = await db.collection("review")
+            .find({ user_id: new ObjectId(body.user_id) }, { 
+                sort: { created_at: -1 }, 
+                limit: body.limit 
+            })
+            .toArray();
 
         if (result.length === 0) {
             return NextResponse.json([], { status: 200 });

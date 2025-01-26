@@ -47,14 +47,14 @@ const initialState: ReviewState = {
 
 export const fetchReviewAll = createAsyncThunk(
     'review/fetchReviewAll',
-    async (user_id: string) => {
+    async ({ user_id, limit }: { user_id: string; limit: number }) => {
         try {
             const response = await fetch('/api/db/review/list', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({user_id})
+                body: JSON.stringify({ user_id, limit })
             });
 
             if (!response.ok) {
