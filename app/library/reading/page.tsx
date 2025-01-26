@@ -58,63 +58,75 @@ export default function Reading() {
                 <div className={styles.content}>
                     {activeTab === 0 && (
                         <div className={styles.list}>
-                            {books
-                                .filter(item => item.status === '1') // 다 읽은 책
-                                .map((item) => (
-                                    <Link
-                                        key={item.isbn}
-                                        href={`/library/reading/detail?isbn=${item.isbn}`} legacyBehavior>
-                                        <div className={styles.item}>
-                                            <img className={styles.cover} src={item.cover} alt={item.title} />
-                                            
-                                            <div className={styles.info}>
-                                                <span className={styles.title}>{item.title}</span>
-                                                <span className={styles.author}>{item.author}</span>
-                                                {
-                                                    item.rating > 0 &&
-                                                        <span className={styles.star}>
-                                                            {[...Array(5)].map((_, index) => (
-                                                                <PiStarFill 
-                                                                    key={index}
-                                                                    className={index < item.rating ? styles.starFill : styles.star}
-                                                                />
-                                                            ))}
-                                                        </span>
-                                                }
+                            {books.filter(item => item.status === '1').length === 0 ?
+                                <div className={styles.noData}>
+                                    <span>아직 다 읽은 책이 없습니다.<br />도서의 상세 페이지에서 [독서 완료]를 클릭해 추가해보세요!</span>
+                                </div>
+                                :
+                                books
+                                    .filter(item => item.status === '1') // 다 읽은 책
+                                    .map((item) => (
+                                        <Link
+                                            key={item.isbn}
+                                            href={`/library/reading/detail?isbn=${item.isbn}`} legacyBehavior>
+                                            <div className={styles.item}>
+                                                <img className={styles.cover} src={item.cover} alt={item.title} />
+                                                
+                                                <div className={styles.info}>
+                                                    <span className={styles.title}>{item.title}</span>
+                                                    <span className={styles.author}>{item.author}</span>
+                                                    {
+                                                        item.rating > 0 &&
+                                                            <span className={styles.star}>
+                                                                {[...Array(5)].map((_, index) => (
+                                                                    <PiStarFill 
+                                                                        key={index}
+                                                                        className={index < item.rating ? styles.starFill : styles.star}
+                                                                    />
+                                                                ))}
+                                                            </span>
+                                                    }
+                                                </div>
                                             </div>
-                                        </div>
-                                    </Link>
-                            ))}
+                                        </Link>
+                                    ))
+                            }
                         </div>
                     )}
                     {activeTab === 1 && (
                         <div className={styles.list}>
-                            {books
-                                .filter(item => item.status === '0') // 읽고 있는 책
-                                .map((item) => (
-                                    <Link 
-                                        key={item.isbn}
-                                        href={`/library/reading/detail?isbn=${item.isbn}`} legacyBehavior>
-                                        <div className={styles.item}>
-                                            <img className={styles.cover} src={item.cover} alt={item.title} />
-                                            <div className={styles.info}>
-                                                <span className={styles.title}>{item.title}</span>
-                                                <span className={styles.author}>{item.author}</span>
-                                                {
-                                                    item.rating > 0 &&
-                                                        <span className={styles.star}>
-                                                            {[...Array(5)].map((_, index) => (
-                                                                <PiStarFill 
-                                                                    key={index}
-                                                                    className={index < item.rating ? styles.starFill : styles.star}
-                                                                />
-                                                            ))}
-                                                        </span>
-                                                }
+                            {books.filter(item => item.status === '0').length === 0 ?
+                                <div className={styles.noData}>
+                                    <span>현재 읽고 있는 책이 없습니다.<br />도서의 상세 페이지에서 [독서 중]을 클릭해 추가해보세요!</span>
+                                </div>
+                                :
+                                books
+                                    .filter(item => item.status === '0') // 읽고 있는 책
+                                    .map((item) => (
+                                        <Link 
+                                            key={item.isbn}
+                                            href={`/library/reading/detail?isbn=${item.isbn}`} legacyBehavior>
+                                            <div className={styles.item}>
+                                                <img className={styles.cover} src={item.cover} alt={item.title} />
+                                                <div className={styles.info}>
+                                                    <span className={styles.title}>{item.title}</span>
+                                                    <span className={styles.author}>{item.author}</span>
+                                                    {
+                                                        item.rating > 0 &&
+                                                            <span className={styles.star}>
+                                                                {[...Array(5)].map((_, index) => (
+                                                                    <PiStarFill 
+                                                                        key={index}
+                                                                        className={index < item.rating ? styles.starFill : styles.star}
+                                                                    />
+                                                                ))}
+                                                            </span>
+                                                    }
+                                                </div>
                                             </div>
-                                        </div>
-                                    </Link>
-                            ))}
+                                        </Link>
+                                ))
+                            }
                         </div>
                     )}
                 </div>
