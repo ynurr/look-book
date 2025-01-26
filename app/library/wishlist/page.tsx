@@ -87,7 +87,7 @@ export default function Comment() {
                 <div className={styles.list}>
                     {wishlist.length === 0 ?
                         <div className={styles.noData}>
-                            <span>아직 위시리스트를 추가하지 않으셨어요.</span>
+                            <span>아직 위시리스트에 추가된 책이 없어요.</span>
                         </div>
                         :
                         currentItems.map((item) => (
