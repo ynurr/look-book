@@ -13,6 +13,7 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import { fetchReviewAll } from "@/store/slices/reviewSlice";
+import Pagination from "@/app/(components)/Pagination";
 
 export default function Review() {
 
@@ -31,6 +32,15 @@ export default function Review() {
         }
     }, [session, dispatch])
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const ItemsPerPage = 4;
+    const pageCount = Math.ceil(reviews.length / ItemsPerPage);
+    const currentItems = reviews.slice((currentPage - 1) * ItemsPerPage, currentPage * ItemsPerPage);
+
+    const handlePageChange = (selected: { selected: number }) => {
+        setCurrentPage(selected.selected + 1);
+    };
+
     return (
         <div className={styles.container}>
             <LeftMenu />
@@ -44,7 +54,7 @@ export default function Review() {
                         <span>작성된 리뷰가 없습니다.</span>
                     </div>
                     :
-                    reviews.map((item, i) => (
+                    currentItems.map((item, i) => (
                         <div className={styles.list} key={i}>
                             <Link href={`/library/reading/detail?isbn=${item.isbn}`}>
                                 <div className={styles.bookInfo}>
@@ -74,6 +84,11 @@ export default function Review() {
                         </div>
                     ))
                 }
+                <Pagination
+                    pageCount={pageCount}
+                    onPageChange={handlePageChange}
+                    currentPage={currentPage}
+                />
             </div>
         </div>
     )
