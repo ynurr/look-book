@@ -82,7 +82,6 @@ export default function Detail() {
                 })
             ).unwrap();
       
-            alert(result.message);
             dispatch(fetchWishlist(session?.user.sub || ''));
         } catch (error) {
             alert('위시리스트 추가 실패');
@@ -101,7 +100,6 @@ export default function Detail() {
                 })
             ).unwrap();
       
-            alert(result.message);
             dispatch(fetchWishlist(session?.user.sub || ''));
         } catch (error) {
             alert('위시리스트 삭제 실패');
