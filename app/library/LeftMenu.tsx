@@ -74,7 +74,7 @@ export default function LeftMenu() {
                 <Link href="/library/comment" className={styles.comment}>코멘트</Link>
                 <span className={styles.menuTitle}>고객센터</span>
                 <Link href="/library/inquiry" className={styles.inquiry}>문의하기</Link>
-                <Link href="/library/inquiry-history" className={styles.inquiryHistory}>1:1 문의내역</Link>
+                <Link href="/library/inquiry/history" className={styles.inquiryHistory}>1:1 문의내역</Link>
             </div>
         </div>
     )
