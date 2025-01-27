@@ -69,8 +69,8 @@ export const fetchReviewAll = createAsyncThunk(
     }
 )
 
-export const fetchWriteReview = createAsyncThunk(
-    'review/fetchWriteReview',
+export const addReview = createAsyncThunk(
+    'review/addReview',
     async (book: Book) => {
         try {
             const response = await fetch('/api/db/review/write', {
@@ -113,8 +113,8 @@ export const fetchReviewById = createAsyncThunk(
     }
 )
 
-export const fetchEditReview = createAsyncThunk(
-    'review/fetchEditReview',
+export const updateReview = createAsyncThunk(
+    'review/updateReview',
     async ({review_id, content, rating}: {review_id: string, content:string, rating: number}) => {
         try {
             const response = await fetch('/api/db/review/edit', {
@@ -175,14 +175,14 @@ const reviewSlice = createSlice({
                 state.loading = false
                 state.error = action.error.message || '나의리뷰 조회 실패'
             })
-            .addCase(fetchWriteReview.pending, (state) => {
+            .addCase(addReview.pending, (state) => {
                 state.loading = true
                 state.error = null
             })
-            .addCase(fetchWriteReview.fulfilled, (state) => {
+            .addCase(addReview.fulfilled, (state) => {
                 state.loading = false
             })
-            .addCase(fetchWriteReview.rejected, (state, action) => {
+            .addCase(addReview.rejected, (state, action) => {
                 state.loading = false
                 state.error = action.error.message || '리뷰 작성 실패'
             })
@@ -198,14 +198,14 @@ const reviewSlice = createSlice({
                 state.loading = false
                 state.error = action.error.message || '리뷰 조회 실패'
             })
-            .addCase(fetchEditReview.pending, (state) => {
+            .addCase(updateReview.pending, (state) => {
                 state.loading = true
                 state.error = null
             })
-            .addCase(fetchEditReview.fulfilled, (state) => {
+            .addCase(updateReview.fulfilled, (state) => {
                 state.loading = false
             })
-            .addCase(fetchEditReview.rejected, (state, action) => {
+            .addCase(updateReview.rejected, (state, action) => {
                 state.loading = false
                 state.error = action.error.message || '리뷰 수정 실패'
             })

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import { fetchWishlist } from '@/store/slices/wishlistSlice';
 import { useSession } from 'next-auth/react';
-import { fetchRemoveWishlist } from '@/store/slices/removeWishlistSlice';
+import { deleteWishlist } from '@/store/slices/removeWishlistSlice';
 import Pagination from '@/app/(components)/Pagination';
 import Link from 'next/link';
 
@@ -39,7 +39,7 @@ export default function Comment() {
             .map((item) => item.isbn)
             
             const result = await dispatch(
-                fetchRemoveWishlist({
+                deleteWishlist({
                     user_id: session?.user.sub || '',
                     book_isbn: isbns
                 })

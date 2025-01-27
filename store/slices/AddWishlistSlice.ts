@@ -18,8 +18,8 @@ const initialState: AddWishlistState = {
     error: null
 }
 
-export const fetchAddWishlist = createAsyncThunk(
-    'addWishlist/fetchAddWishlist',
+export const addWishlist = createAsyncThunk(
+    'addWishlist/addWishlist',
     async (book: Book) => {
         const response = await fetch('/api/db/wishlist/add', {
             method: 'POST',
@@ -44,14 +44,14 @@ const addWishlistSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(fetchAddWishlist.pending, (state) => {
+            .addCase(addWishlist.pending, (state) => {
                 state.loading = true
                 state.error = null
             })
-            .addCase(fetchAddWishlist.fulfilled, (state) => {
+            .addCase(addWishlist.fulfilled, (state) => {
                 state.loading = false
             })
-            .addCase(fetchAddWishlist.rejected, (state, action) => {
+            .addCase(addWishlist.rejected, (state, action) => {
                 state.loading = false
                 state.error = action.error.message || '위시리스트 추가 실패'
             })

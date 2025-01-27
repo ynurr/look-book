@@ -12,7 +12,7 @@ import { redirect, useSearchParams } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import { fetchReadingDetail } from '@/store/slices/readingDetailSlice';
-import { fetchRemoveBook, fetchUpdateStatus } from '@/store/slices/readingSlice';
+import { deleteBook, updateBookStatus } from '@/store/slices/readingSlice';
 import Link from 'next/link';
 
 export default function ReviewDetail() {
@@ -39,7 +39,7 @@ export default function ReviewDetail() {
     const handleUpdateStatus = async (status: string) => {
         try {
             const result = await dispatch(
-                fetchUpdateStatus({
+                updateBookStatus({
                     user_id: session?.user.sub || '',
                     book_isbn: reading?.isbn || '',
                     book_title: reading?.title || '',
@@ -60,7 +60,7 @@ export default function ReviewDetail() {
 
     const handleRemoveBook = async () => {
         try {
-            const result = await dispatch(fetchRemoveBook({
+            const result = await dispatch(deleteBook({
                     user_id: session?.user.sub || '',
                     book_isbn: reading?.isbn || '',
                     book_status: reading?.status || '',

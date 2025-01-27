@@ -58,8 +58,8 @@ export const fetchReadingStatus = createAsyncThunk(
     }
 )
 
-export const fetchUpdateStatus = createAsyncThunk(
-    'readingStatus/fetchUpdateStatus',
+export const updateBookStatus = createAsyncThunk(
+    'readingStatus/updateBookStatus',
     async (book: Book) => {
         const response = await fetch('/api/db/reading/modify', {
             method: 'PUT',
@@ -78,8 +78,8 @@ export const fetchUpdateStatus = createAsyncThunk(
     }
 )
 
-export const fetchRemoveBook = createAsyncThunk(
-    'readingStatus/fetchRemoveBook',
+export const deleteBook = createAsyncThunk(
+    'readingStatus/deleteBook',
     async ({ user_id, book_isbn, book_status, review_id }: { user_id: string; book_isbn: string; book_status: string; review_id: string }) => {
         const response = await fetch('/api/db/reading/remove', {
             method: 'DELETE',
@@ -141,26 +141,26 @@ const readingSlice = createSlice({
                 state.error = action.error.message || '독서현황 조회 실패'
             });
         builder
-            .addCase(fetchUpdateStatus.pending, (state) => {
+            .addCase(updateBookStatus.pending, (state) => {
                 state.loading = true
                 state.error = null
             })
-            .addCase(fetchUpdateStatus.fulfilled, (state) => {
+            .addCase(updateBookStatus.fulfilled, (state) => {
                 state.loading = false
             })
-            .addCase(fetchUpdateStatus.rejected, (state, action) => {
+            .addCase(updateBookStatus.rejected, (state, action) => {
                 state.loading = false
                 state.error = action.error.message || '상태 변경 실패'
             });
         builder
-            .addCase(fetchRemoveBook.pending, (state) => {
+            .addCase(deleteBook.pending, (state) => {
                 state.loading = true
                 state.error = null
             })
-            .addCase(fetchRemoveBook.fulfilled, (state) => {
+            .addCase(deleteBook.fulfilled, (state) => {
                 state.loading = false
             })
-            .addCase(fetchRemoveBook.rejected, (state, action) => {
+            .addCase(deleteBook.rejected, (state, action) => {
                 state.loading = false
                 state.error = action.error.message || '독서현황 삭제 실패'
             });

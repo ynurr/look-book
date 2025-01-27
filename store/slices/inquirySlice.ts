@@ -20,8 +20,8 @@ const initialState: InquiryState = {
     error: null
 }
 
-export const fetchWriteInquiry = createAsyncThunk(
-    'inquiry/fetchWriteInquiry',
+export const addInquiry = createAsyncThunk(
+    'inquiry/addInquiry',
     async ({user_id, title, content}: {user_id: string, title: string, content: string}) => {
         try {
             const response = await fetch('/api/db/inquiry/write', {
@@ -95,14 +95,14 @@ const inquirySlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(fetchWriteInquiry.pending, (state) => {
+            .addCase(addInquiry.pending, (state) => {
                 state.loading = true
                 state.error = null
             })
-            .addCase(fetchWriteInquiry.fulfilled, (state) => {
+            .addCase(addInquiry.fulfilled, (state) => {
                 state.loading = false
             })
-            .addCase(fetchWriteInquiry.rejected, (state, action) => {
+            .addCase(addInquiry.rejected, (state, action) => {
                 state.loading = false
                 state.error = action.error.message || '문의 작성 실패'
             })

@@ -5,7 +5,7 @@ import LeftMenu from "../LeftMenu";
 import styles from './Inquiry.module.css'
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
-import { fetchWriteInquiry } from "@/store/slices/inquirySlice";
+import { addInquiry } from "@/store/slices/inquirySlice";
 import { useSession } from "next-auth/react";
 
 export default function Inquiry() {
@@ -28,7 +28,7 @@ export default function Inquiry() {
         }
 
         try {
-            await dispatch(fetchWriteInquiry({
+            await dispatch(addInquiry({
                 user_id: session?.user.sub || '',
                 title,
                 content,

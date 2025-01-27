@@ -8,7 +8,7 @@ import { useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
-import { fetchEditReview, fetchReviewById, fetchWriteReview } from '@/store/slices/reviewSlice';
+import { updateReview, fetchReviewById, addReview } from '@/store/slices/reviewSlice';
 
 export default function WriteReview() {
 
@@ -56,7 +56,7 @@ export default function WriteReview() {
 
         try {
             if (isEdit) {
-                const result = await dispatch(fetchEditReview({
+                const result = await dispatch(updateReview({
                     review_id: review_id,
                     content: content,
                     rating: rating,
@@ -64,7 +64,7 @@ export default function WriteReview() {
                 
                 alert('리뷰 수정 성공');
             } else {
-                const result = await dispatch(fetchWriteReview({
+                const result = await dispatch(addReview({
                     sub: session?.user.sub || '',
                     isbn: isbn || '',
                     title: title || '',

@@ -15,8 +15,8 @@ const initialState: RemoveWishlistState = {
     error: null
 }
 
-export const fetchRemoveWishlist = createAsyncThunk(
-    'removeWishlist/fetchRemoveWishlist',
+export const deleteWishlist = createAsyncThunk(
+    'removeWishlist/deleteWishlist',
     async (book: Book) => {
         const response = await fetch('/api/db/wishlist/remove', {
             method: 'DELETE',
@@ -41,14 +41,14 @@ const removeWishlistSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(fetchRemoveWishlist.pending, (state) => {
+            .addCase(deleteWishlist.pending, (state) => {
                 state.loading = true
                 state.error = null
             })
-            .addCase(fetchRemoveWishlist.fulfilled, (state) => {
+            .addCase(deleteWishlist.fulfilled, (state) => {
                 state.loading = false
             })
-            .addCase(fetchRemoveWishlist.rejected, (state, action) => {
+            .addCase(deleteWishlist.rejected, (state, action) => {
                 state.loading = false
                 state.error = action.error.message || '위시리스트 삭제 실패'
             })

@@ -12,9 +12,9 @@ import { RootState, AppDispatch } from '@/store/store';
 import { PiStarFill } from "react-icons/pi";
 import { fetchWishlist } from '@/store/slices/wishlistSlice';
 import { useSession } from 'next-auth/react';
-import { fetchAddWishlist } from '@/store/slices/addWishlistSlice';
-import { fetchRemoveWishlist } from '@/store/slices/removeWishlistSlice';
-import { fetchUpdateStatus, fetchUserReadingState } from '@/store/slices/readingSlice';
+import { addWishlist } from '@/store/slices/addWishlistSlice';
+import { deleteWishlist } from '@/store/slices/removeWishlistSlice';
+import { updateBookStatus, fetchUserReadingState } from '@/store/slices/readingSlice';
 import { GoHeart } from "react-icons/go";
 import { GoHeartFill } from "react-icons/go";
 import { FaBook } from "react-icons/fa";
@@ -75,7 +75,7 @@ export default function Detail() {
                 redirect('/login');
             }
             const result = await dispatch(
-                fetchAddWishlist({
+                addWishlist({
                     user_id: session?.user.sub || '',
                     book_isbn: book?.isbn13 || '',
                     book_title: book?.title || '',
@@ -97,7 +97,7 @@ export default function Detail() {
                 redirect('/login');
             }
             const result = await dispatch(
-                fetchRemoveWishlist({
+                deleteWishlist({
                     user_id: session?.user.sub || '',
                     book_isbn: [book?.isbn13 || '']
                 })
@@ -113,7 +113,7 @@ export default function Detail() {
     const handleUpdateStatus = async (status: string) => {
         try {
             const result = await dispatch(
-                fetchUpdateStatus({
+                updateBookStatus({
                     user_id: session?.user.sub || '',
                     book_isbn: book?.isbn13 || '',
                     book_title: book?.title || '',
