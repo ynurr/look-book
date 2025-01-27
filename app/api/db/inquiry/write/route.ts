@@ -21,7 +21,8 @@ export async function POST(req: NextRequest) {
             title: body.title,
             content: body.content,
             response: null,
-            created_at: new Date()
+            created_at: new Date(),
+            responded_at: null
         })
 
         if (result.insertedId) {
