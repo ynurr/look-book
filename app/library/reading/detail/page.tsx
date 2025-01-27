@@ -14,6 +14,7 @@ import { AppDispatch, RootState } from '@/store/store';
 import { fetchReadingDetail } from '@/store/slices/readingDetailSlice';
 import { deleteBook, updateBookStatus } from '@/store/slices/readingSlice';
 import Link from 'next/link';
+import { fetchUserLike, updateLike } from '@/store/slices/likeSlice';
 
 export default function ReviewDetail() {
 
@@ -28,13 +29,27 @@ export default function ReviewDetail() {
     const dispatch = useDispatch<AppDispatch>();
     const reading = useSelector((state: RootState) => state.readingDetail.reading);
     const review = useSelector((state: RootState) => state.readingDetail.review);
+    const likeStatus = useSelector((state: RootState) => state.like.isLike);
+    const likeCount = useSelector((state: RootState) => state.like.count);
+    const isInitialized = useSelector((state: RootState) => state.like.initialized);
     const [isDelete, setIsDelete] = useState(false);
+    const [isLiked, setIsLiked] = useState(likeStatus);
     
     useEffect(() => {
         if (session?.user.sub && isbn) {
             dispatch(fetchReadingDetail({user_id: session?.user.sub, book_isbn: isbn}))
         }
     }, [session?.user.sub, isbn, dispatch])
+
+    useEffect(() => {
+        if (session?.user.sub && review.review_id) {
+            dispatch(fetchUserLike({user_id: session?.user.sub, review_id: review.review_id}))
+        }
+    }, [session?.user.sub, review.review_id, dispatch])
+
+    useEffect(() => {
+        setIsLiked(likeStatus);
+    }, [likeStatus]);
 
     const handleUpdateStatus = async (status: string) => {
         try {
@@ -72,6 +87,20 @@ export default function ReviewDetail() {
             window.location.href = '/library/reading';
         } catch (error) {
             alert('독서현황 삭제 실패');
+        }
+    }
+
+    const handleUpdateLike = async () => {
+        try {
+            dispatch(updateLike({
+                user_id: session?.user.sub || '',
+                review_id: review.review_id || '',
+                isLike: !isLiked
+            }))
+
+            setIsLiked(!isLiked);
+        } catch (error) {
+            alert('좋아요 업데이트 실패');
         }
     }
 
@@ -182,7 +211,13 @@ export default function ReviewDetail() {
                                     <span className={styles.review}>{review.content}</span>
                                 </div>
                                 <div className={styles.reactionBox}>
-                                    <span className={styles.likeCnt}><LuThumbsUp />{review.like_count}</span>
+                                    <span 
+                                        className={styles.likeBtn}
+                                        onClick={handleUpdateLike}
+                                    >
+                                        {isLiked ? <RiThumbUpFill className={styles.thumpsUpFill}/> : <LuThumbsUp className={styles.thumpsUp}/>}
+                                        <span className={styles.likeCnt}>{isInitialized ? likeCount : review.like_count}</span>
+                                    </span>
                                 </div>
                                 <div className={styles.hrLine}></div>
                                 <div className={styles.commentSection}>

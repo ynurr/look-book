@@ -113,11 +113,26 @@
     padding: 20px 10px;
 }
 
-.likeCnt {
+.likeBtn {
     font-size: 13px;
     display: flex;
     align-items: center;
     gap: 4px;
+    cursor: pointer;
+}
+
+.likeCnt {
+    color: #aaaaaa;
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.thumpsUp {
+    color: #aaaaaa;
+}
+
+.thumpsUpFill {
+    /* color: #84e781; */
 }
 
 .hrLine {
