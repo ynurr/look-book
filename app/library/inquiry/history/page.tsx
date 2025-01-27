@@ -34,25 +34,31 @@ export default function Inquiry() {
             <div className={styles.wrapper}>
                 <h2 className={styles.menuTitle}>1:1 문의내역</h2>
                 <div className={styles.line}></div>
-                {inquiries.map((item) => (
-                    <div key={item.inquiry_id} className={styles.list}>
-                        <div className={styles.item}>
-                            <Link href={`/library/inquiry/history/${item.inquiry_id}`}>
-                                <span className={styles.title}>{item.title}</span>
-                            </Link>
-                            <span className={styles.date}>{item.created_at}</span>
-                        </div>
-                        <span
-                            className={
-                                item.status === "답변완료"
-                                    ? styles.statusComplete
-                                    : styles.statusPending
-                            }
-                        >
-                            {item.status}
-                        </span>
+                {inquiries.length === 0 ?
+                    <div className={styles.noData}>
+                        <span>문의내역이 존재하지 않습니다.</span>
                     </div>
-                ))}
+                    :
+                    inquiries.map((item) => (
+                        <div key={item.inquiry_id} className={styles.list}>
+                            <div className={styles.item}>
+                                <Link href={`/library/inquiry/history/detail?id=${item.inquiry_id}`}>
+                                    <span className={styles.title}>{item.title}</span>
+                                </Link>
+                                <span className={styles.date}>{item.created_at}</span>
+                            </div>
+                            <span
+                                className={
+                                    item.status === "답변완료"
+                                        ? styles.statusComplete
+                                        : styles.statusPending
+                                }
+                            >
+                                {item.status}
+                            </span>
+                        </div>
+                    ))
+                }
             </div>
         </div>
     );

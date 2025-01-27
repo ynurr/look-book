@@ -58,3 +58,13 @@
     font-weight: 600;
     color: rgb(170, 170, 170);
 }
+
+.noData {
+    font-size: 14px;
+    color: #888888;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 30px;
+}
