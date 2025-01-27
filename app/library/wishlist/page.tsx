@@ -5,9 +5,8 @@ import LeftMenu from '../LeftMenu';
 import styles from './Wishlist.module.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
-import { fetchWishlist } from '@/store/slices/wishlistSlice';
+import { deleteWishlist, fetchWishlist } from '@/store/slices/wishlistSlice';
 import { useSession } from 'next-auth/react';
-import { deleteWishlist } from '@/store/slices/removeWishlistSlice';
 import Pagination from '@/app/(components)/Pagination';
 import Link from 'next/link';
 
