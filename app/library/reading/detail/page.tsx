@@ -30,11 +30,10 @@ export default function ReviewDetail() {
     const reading = useSelector((state: RootState) => state.readingDetail.reading);
     const review = useSelector((state: RootState) => state.readingDetail.review);
     const likeStatus = useSelector((state: RootState) => state.like.isLike);
-    const likeCount = useSelector((state: RootState) => state.like.count);
-    const isInitialized = useSelector((state: RootState) => state.like.initialized);
     const [isDelete, setIsDelete] = useState(false);
     const [isLiked, setIsLiked] = useState(likeStatus);
-    
+    const [likeCount, setLikeCount] = useState(review.like_count);
+
     useEffect(() => {
         if (session?.user.sub && isbn) {
             dispatch(fetchReadingDetail({user_id: session?.user.sub, book_isbn: isbn}))
@@ -95,9 +94,12 @@ export default function ReviewDetail() {
             dispatch(updateLike({
                 user_id: session?.user.sub || '',
                 review_id: review.review_id || '',
+                book_isbn: isbn || '',
                 isLike: !isLiked
             }))
 
+            // setLikeCount((prev) => isLiked ? prev - 1 : prev + 1);
+            setLikeCount(isLiked ? likeCount-1 : likeCount+1)
             setIsLiked(!isLiked);
         } catch (error) {
             alert('좋아요 업데이트 실패');
@@ -218,7 +220,7 @@ export default function ReviewDetail() {
                                         onClick={handleUpdateLike}
                                     >
                                         {isLiked ? <RiThumbUpFill className={styles.thumpsUpFill}/> : <LuThumbsUp className={styles.thumpsUp}/>}
-                                        <span className={styles.likeCnt}>{isInitialized ? likeCount : review.like_count}</span>
+                                        <span className={styles.likeCnt}>{likeCount}</span>
                                     </span>
                                 </div>
                                 <div className={styles.hrLine}></div>
