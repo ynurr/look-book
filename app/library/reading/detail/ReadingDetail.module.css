@@ -63,7 +63,7 @@
 .bookDetail {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 4px;
 }
 
 .cover {
@@ -98,6 +98,7 @@
 
 .rating {
     font-size: 17px;
+    line-height: 0;
 }
 
 .reviewBox {
@@ -215,6 +216,7 @@
 .commentBtn {
     align-self: flex-end;
     cursor: pointer;
+    color: #7c7c7c;
 }
 
 .textAreaBox {

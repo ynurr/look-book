@@ -464,6 +464,7 @@
 .commentBtn {
     align-self: flex-end;
     cursor: pointer;
+    color: #7c7c7c;
 }
 
 .line {
