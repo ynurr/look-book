@@ -9,18 +9,60 @@ import { RiThumbUpFill } from "react-icons/ri";
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import { fetchReviewByBook } from '@/store/slices/reviewSlice';
+import { useSession } from 'next-auth/react';
+import { fetchUserLikeList, updateLike } from '@/store/slices/likeSlice';
 
 export default function Review({ isbn }: { isbn: string | undefined }) {
 
+    const { data: session, status } = useSession();
     const dispatch = useDispatch<AppDispatch>();
     const reviews = useSelector((state: RootState) => (state.review.bookReviews));
     const reviewCount = useSelector((state: RootState) => (state.review.totalCount));
+    const likeIds = useSelector((state: RootState) => (state.like.likeReviewIds));
+    const [localLikeIds, setLocalLikeIds] = useState<string[]>([]);
+    const [localCounts, setLocalCounts] = useState<Record<string, number>>({});
+
 
     useEffect(() => {
-        if (isbn) {
+        if (session?.user.sub && isbn) {
             dispatch(fetchReviewByBook(isbn))
+            dispatch(fetchUserLikeList({user_id: session?.user.sub, book_isbn: isbn}))
         }
-    }, [isbn, dispatch])
+    }, [session?.user.sub, isbn, dispatch])
+
+    useEffect(() => {
+        if (likeIds.length > 0) {
+            setLocalLikeIds(likeIds);
+        }
+    }, [likeIds]);
+
+    const handleUpdateLike = async (review_id: string, currentCount: number) => {
+        try {
+            const isLiked = localLikeIds.length > 0 ? localLikeIds.includes(review_id) : likeIds.includes(review_id);
+
+            setLocalLikeIds((prev) => {
+                const currentIds = prev.length > 0 ? prev : likeIds; 
+                return currentIds.includes(review_id)
+                    ? currentIds.filter((id) => id !== review_id)
+                    : [...currentIds, review_id];
+            });
+
+            setLocalCounts((prev) => ({
+                ...prev,
+                [review_id]: (prev[review_id] ?? currentCount) + (isLiked ? -1 : 1),
+            }));
+
+            dispatch(updateLike({
+                user_id: session?.user.sub || '',
+                review_id: review_id,
+                book_isbn: isbn || '',
+                isLike: !isLiked
+            }))
+
+        } catch (error) {
+            alert('좋아요 업데이트 실패');
+        }
+    }
 
     // const reivews = [
     //     { id: 1, content: "리뷰1", nickname: "User1", date: "2024.12.14", rating: 2 },
@@ -96,8 +138,10 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
                                 <span>{review.content}</span>
                             </div>
                             <div className={styles.reviewActions}>
-                                <span className={styles.like}><LuThumbsUp /> 0</span>
-                                {/* RiThumbUpFill 좋아요 클릭하면 */}
+                                <span className={styles.like} onClick={() => handleUpdateLike(review.review_id, review.like_count)}>
+                                    {localLikeIds.includes(review.review_id) ? <RiThumbUpFill /> : <LuThumbsUp />}
+                                    {localCounts[review.review_id] ?? review.like_count}
+                                </span>
                                 <span className={styles.reply} onClick={() => toggleCommentText(review.review_id)}>댓글 0</span>
                             </div>
                         </div>

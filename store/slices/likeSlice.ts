@@ -2,18 +2,16 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface likeState {
     isLike: boolean;
-    count: number;
+    likeReviewIds: string[];
     loading: boolean;
     error: string | null;
-    initialized: boolean;
 }
 
 const initialState: likeState = {
     isLike: false,
-    count: 0,
+    likeReviewIds: [],
     loading: false,
     error: null,
-    initialized: false
 };
 
 export const fetchUserLike = createAsyncThunk(
@@ -40,16 +38,40 @@ export const fetchUserLike = createAsyncThunk(
     }
 )
 
+export const fetchUserLikeList = createAsyncThunk(
+    'like/fetchUserLikeList',
+    async ({ user_id, book_isbn }: { user_id: string, book_isbn: string }) => {
+        try{
+            const response = await fetch('/api/db/review/like/list', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ user_id, book_isbn })
+            });
+
+            if (!response.ok) {
+                throw new Error('좋아요 조회 실패')
+            }
+
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.log('Fetch error:', error);
+        }
+    }
+)
+
 export const updateLike = createAsyncThunk(
     'like/updateLike',
-    async ({ user_id, review_id, isLike }: { user_id: string, review_id: string; isLike: boolean }) => {
+    async ({ user_id, review_id, book_isbn, isLike }: { user_id: string, review_id: string, book_isbn: string, isLike: boolean }) => {
         try{
             const response = await fetch('/api/db/review/like', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ user_id, review_id, isLike })
+                body: JSON.stringify({ user_id, review_id, book_isbn, isLike })
             });
 
             if (!response.ok) {
@@ -80,16 +102,26 @@ const likeSlice = createSlice({
             })
             .addCase(fetchUserLike.rejected, (state, action) => {
                 state.loading = false
-                state.error = action.error.message || '좋아요 업데이트 실패'
+                state.error = action.error.message || '좋아요 조회 실패'
+            })
+            .addCase(fetchUserLikeList.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(fetchUserLikeList.fulfilled, (state, action) => {
+                state.likeReviewIds = action.payload
+                state.loading = false
+            })
+            .addCase(fetchUserLikeList.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.error.message || '좋아요 조회 실패'
             })
             .addCase(updateLike.pending, (state) => {
                 state.loading = true
                 state.error = null
             })
-            .addCase(updateLike.fulfilled, (state, action) => {
-                state.count = action.payload
+            .addCase(updateLike.fulfilled, (state) => {
                 state.loading = false
-                state.initialized = true
             })
             .addCase(updateLike.rejected, (state, action) => {
                 state.loading = false

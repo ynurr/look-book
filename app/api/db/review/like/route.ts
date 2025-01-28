@@ -9,6 +9,8 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ message: "사용자 정보가 존재하지 않습니다." }, { status: 400 })
     } else if (!body.review_id) {
         return NextResponse.json({ message: "리뷰 정보가 유효하지 않습니다." }, { status: 400 });
+    } else if (!body.book_isbn) {
+        return NextResponse.json({ message: "도서 정보가 유효하지 않습니다." }, { status: 400 });
     } else if (typeof body.isLike !== 'boolean') {
         return NextResponse.json({ message: "좋아요 상태를 확인해주세요." }, { status: 400 });
     }
@@ -32,6 +34,7 @@ export async function POST(req: NextRequest) {
                 await db.collection("like").insertOne({ 
                     user_id: new ObjectId(body.user_id), 
                     review_id: new ObjectId(body.review_id),
+                    book_isbn: body.book_isbn,
                     created_at: new Date()
                 })
             } else {
@@ -41,13 +44,7 @@ export async function POST(req: NextRequest) {
                 })
             }
 
-            const data = await db.collection("review").findOne({ _id: new ObjectId(body.review_id) })
-
-            if (!data) {
-                return NextResponse.json({ message: "리뷰를 찾을 수 없습니다." }, { status: 404 });
-            }
-
-            return NextResponse.json( data.like_count, { status: 200 });
+            return NextResponse.json({ message: "좋아요 업데이트 성공" }, { status: 200 });
         }
         
     } catch (error) {
