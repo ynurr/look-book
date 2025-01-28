@@ -36,7 +36,7 @@ export async function GET(req: NextRequest) {
                                 like_count: 1,
                                 date: {
                                     $dateToString: {
-                                        format: "yyyy.MM.dd",
+                                        format: "%Y.%m.%d",
                                         date: {
                                             $add: ["$created_at", 9 * 60 * 60 * 1000],
                                         },
