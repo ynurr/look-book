@@ -33,6 +33,7 @@ export default function Detail() {
 
     const [filteredBooks, setFilteredBooks] = useState<Books[]>([]);
     const [isReady, setIsReady] = useState(false);
+    const [rating, setRating] = useState({ avgRating: "0.0", totalCount: 0 });
 
     useEffect(() => {
         dispatch(clearBook());
@@ -64,6 +65,23 @@ export default function Detail() {
             dispatch(fetchUserReadingState({user_id: session?.user.sub || '', book_isbn: book?.isbn13 || ''}))
         }
     }, [id, session?.user.sub, book?.isbn13, dispatch])
+
+    useEffect(() => {
+        const fetchRating = async () => {
+            try {
+                const response = await fetch(`/api/db/review/rating?isbn=${book?.isbn13}`, {
+                    method: 'GET'
+                })
+
+                const data = await response.json();
+                setRating(data.data);
+            } catch (error) {
+                console.log('별점 조회 실패')
+            }
+        }
+
+        fetchRating();
+    }, [book?.isbn13])
     
     const isWishlist = wishlist.some((item) => item.isbn === id);
 
@@ -142,11 +160,13 @@ export default function Detail() {
                         <div className={styles.rating}>
                             <div className={styles.starIcon}>
                                 {[...Array(5)].map((_, index) => (
-                                    <PiStarFill className={styles.starFill} key={index}/>
+                                    <PiStarFill
+                                        key={index}
+                                        className={index < Math.round(Number(rating.avgRating)) ? styles.starFill : styles.star}/>
                                 ))}
                             </div>
-                            <span className={styles.ratingAverage}>9.1</span>
-                            <span className={styles.reviewCount}>(3,460)</span>
+                            <span className={styles.ratingAverage}>{rating.avgRating}</span>
+                            <span className={styles.reviewCount}>({rating.totalCount})</span>
                         </div>
                         <div className={styles.wishlistBox}>
                             <div className={styles.wishlistContent}>
