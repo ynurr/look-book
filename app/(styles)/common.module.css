@@ -26,6 +26,17 @@
     margin-bottom: 10px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
+
+.categoryLink {
+    display: inline-flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 20px 0;
+    color: #333; 
+    cursor: pointer;
+}
+
 /* 
 @media (max-width: 1023px) {
     .cover {

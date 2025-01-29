@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '@/store/store';
 import { fetchBookList, Books } from '@/store/slices/listSlice';
+import { IoChevronForward } from 'react-icons/io5';
 
 export default function LatestList() {
     const dispatch = useDispatch<AppDispatch>();
@@ -67,7 +68,7 @@ export default function LatestList() {
 
     return (
         <div className='slider-wrapper latest-slider'>
-            <h1>새로 나온 책</h1>
+            <Link href="/new" className={styles.categoryLink}>화제의 신간<IoChevronForward /></Link>
             <Slider {...settings}>
                 {books.map((book: Books, index: number) => (
                     <div key={index} className='slider-item'>

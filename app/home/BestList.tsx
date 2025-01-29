@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '@/store/store';
 import { fetchBookList, Books } from '@/store/slices/listSlice';
+import { IoChevronForward } from "react-icons/io5";
 
 export default function BestList() {
     const dispatch = useDispatch<AppDispatch>();
@@ -67,7 +68,7 @@ export default function BestList() {
 
     return (
         <div className='slider-wrapper best-slider'>
-            <h1>인기 있는 책</h1>
+            <Link href="/popular" className={styles.categoryLink}>많이 보고 있는 책<IoChevronForward /></Link>
             <Slider {...settings}>
                 {books.map((book: Books, index: number) => (
                     <div key={index} className='slider-item'>
