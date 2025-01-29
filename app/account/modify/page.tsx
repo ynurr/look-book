@@ -81,6 +81,22 @@ export default function Modify() {
     }
 
     const checkNickname = async (nickname: string) => {
+    
+        const cleanedNickname = nickname.trim();
+        const nicknameRegex = /^[가-힣a-zA-Z0-9]+$/;
+
+        if (!nicknameRegex.test(cleanedNickname)) {
+            alert('닉네임은 한글, 영어, 숫자만 사용할 수 있습니다.')
+            setIsNicknameChecked(false);
+            return;
+        }
+    
+        if (cleanedNickname.length > 8) {
+            alert('닉네임은 8자리까지 가능합니다.')
+            setIsNicknameChecked(false);
+            return;
+        }
+
         try {
             const response = await fetch('/api/db/check/nickname', {
                 method: 'POST',
@@ -235,9 +251,13 @@ export default function Modify() {
                                                     onClick={() => checkNickname(nickname)}
                                                     type="button"
                                                 >중복확인</button>
+                                                <span className={styles.pwInfo}>8자리 이하 한글, 영문, 숫자만 가능</span>
                                                 {
                                                     nicknameError && isError && <p className={styles.error}>닉네임을 입력해주세요.</p>
                                                 }
+                                                {/* {
+                                                    nicknameError && isError && <p className={styles.error}>한글, 영어, 숫자 8자리까지만 가능합니다.</p>
+                                                } */}
                                             </td>
                                         </tr>
                                     </tbody>

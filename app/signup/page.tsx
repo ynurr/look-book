@@ -40,6 +40,22 @@ export default function SignUp() {
     }
 
     const checkNickname = async (nickname: string) => {
+
+        const cleanedNickname = nickname.trim();
+        const nicknameRegex = /^[가-힣a-zA-Z0-9]+$/;
+
+        if (!nicknameRegex.test(cleanedNickname)) {
+            alert('닉네임은 한글, 영어, 숫자만 사용할 수 있습니다.')
+            setIsNicknameChecked(false);
+            return;
+        }
+    
+        if (cleanedNickname.length > 8) {
+            alert('닉네임은 8자리까지 가능합니다.')
+            setIsNicknameChecked(false);
+            return;
+        }
+        
         try {
             const response = await fetch('/api/db/check/nickname', {
                 method: 'POST',
