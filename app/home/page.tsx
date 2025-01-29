@@ -3,7 +3,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'next/navigation'
-import RatingList from './RatingList'
 import UserRanking from './UserRanking';
 import Recommendations from './Recommendations';
 import LatestList from './LatestList';
@@ -49,9 +48,6 @@ export default function Main() {
         </section>
         <section className={styles['best-book-list-section']}>
           <BestList />
-        </section>
-        <section className={styles['rating-book-list-section']}>
-          <RatingList />
         </section>
         <section className={styles['latest-book-list-section']}>
           <LatestList />
