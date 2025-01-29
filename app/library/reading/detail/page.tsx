@@ -32,7 +32,7 @@ export default function ReviewDetail() {
     const likeStatus = useSelector((state: RootState) => state.like.isLike);
     const [isDelete, setIsDelete] = useState(false);
     const [isLiked, setIsLiked] = useState(likeStatus);
-    const [likeCount, setLikeCount] = useState(review.like_count);
+    const [likeCount, setLikeCount] = useState(0);
 
     useEffect(() => {
         if (session?.user.sub && isbn) {
@@ -98,13 +98,18 @@ export default function ReviewDetail() {
                 isLike: !isLiked
             }))
 
-            // setLikeCount((prev) => isLiked ? prev - 1 : prev + 1);
             setLikeCount(isLiked ? likeCount-1 : likeCount+1)
             setIsLiked(!isLiked);
         } catch (error) {
             alert('좋아요 업데이트 실패');
         }
     }
+
+    useEffect(() => {
+        if (review.like_count) {
+            setLikeCount(review.like_count);
+        }
+    }, [review.like_count])
 
     const confirmRemove = () => {
         setIsDelete(true);
