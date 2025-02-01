@@ -9,6 +9,7 @@ import reviewSlice from "./slices/reviewSlice"
 import readingDetailSlice from "./slices/readingDetailSlice"
 import inquirySlice from "./slices/inquirySlice"
 import likeSlice from "./slices/likeSlice"
+import commentSlice from "./slices/commentSlice"
 
 export const store = configureStore({
 	reducer: {
@@ -21,7 +22,8 @@ export const store = configureStore({
 		review: reviewSlice,
 		readingDetail: readingDetailSlice,
 		inquiry: inquirySlice,
-		like: likeSlice
+		like: likeSlice,
+		comment: commentSlice
 	},
 });
 

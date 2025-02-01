@@ -339,7 +339,7 @@
 }
 
 .textarea {
-    height: 80px;
+    height: 40px;
     width: 100%;
     resize: none;
     padding: 10px;
@@ -425,11 +425,6 @@
 
 .comment {
     font-size: 14px;
-}
-
-.reply {
-    display: flex;
-    flex-direction: column;
 }
 
 .replyBox {
