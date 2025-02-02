@@ -272,6 +272,15 @@
     margin-right: 4px;
 }
 
+.sort {
+    cursor: pointer;
+}
+
+.active {
+    font-weight: bold;
+    color: #333;
+}
+
 .reviewBox {
     display: flex;
     flex-direction: column;

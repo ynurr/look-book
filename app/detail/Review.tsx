@@ -31,7 +31,7 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
 
     useEffect(() => {
         if (isbn) {
-            dispatch(fetchReviewByBook(isbn))
+            dispatch(fetchReviewByBook({isbn, sort: '0'}))
             dispatch(fetchComments(isbn))
         }
     }, [isbn, dispatch])
@@ -83,7 +83,7 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
     }
 
     const handleSubmit = async (review_id: string, parent_id: string) => {
-        
+
         if (!session?.user.sub) {
             alert('로그인 후 가능합니다.');
             redirect('/login');
@@ -181,16 +181,41 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
         setCurrentPage(selected.selected + 1);
     };
 
+    const [active, setActive] = useState('최신순');
+
+    const handleSortChange = (option: string) => {
+        setActive(option);
+
+        if (isbn) {
+            if (option === '최신순') {
+                dispatch(fetchReviewByBook({ isbn, sort: '0' }));
+            } else if (option === '별점높은순') {
+                dispatch(fetchReviewByBook({ isbn, sort: '1' }));
+            } else if (option === '별점낮은순') {
+                dispatch(fetchReviewByBook({ isbn, sort: '2' }));
+            }
+        }
+    }
+
     return (
         <div className={styles.section3}>
             <div className={styles.reviewHeader}>
                 <span className={styles.reviewTitle}>리뷰 ({reviewCount})</span>
                 <div className={styles.align}>
-                    <span>최신순</span>
+                    <span 
+                        className={`${styles.sort} ${active === '최신순' ? styles.active : ''}`}
+                        onClick={() => handleSortChange('최신순')}
+                        >최신순</span>
                     <span className={styles.separator}>|</span>
-                    <span>별점높은순</span>
+                    <span 
+                        className={`${styles.sort} ${active === '별점높은순' ? styles.active : ''}`}
+                        onClick={() => handleSortChange('별점높은순')}
+                        >별점높은순</span>
                     <span className={styles.separator}>|</span>
-                    <span>별점낮은순</span>
+                    <span 
+                        className={`${styles.sort} ${active === '별점낮은순' ? styles.active : ''}`}
+                        onClick={() => handleSortChange('별점낮은순')}
+                    >별점낮은순</span>
                 </div>
             </div>
             { currentItems.length > 0 ? (

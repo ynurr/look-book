@@ -139,9 +139,9 @@ export const updateReview = createAsyncThunk(
 
 export const fetchReviewByBook = createAsyncThunk(
     'review/fetchReviewByBook',
-    async (isbn: string) => {
+    async ({isbn, sort}: {isbn: string, sort: string}) => {
         try {
-            const response = await fetch(`/api/db/review/book?isbn=${isbn}`, {
+            const response = await fetch(`/api/db/review/book?isbn=${isbn}&sort=${sort}`, {
                 method: 'GET'
             });
 
