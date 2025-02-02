@@ -11,7 +11,7 @@ import { AppDispatch, RootState } from '@/store/store';
 import { fetchReviewByBook } from '@/store/slices/reviewSlice';
 import { useSession } from 'next-auth/react';
 import { fetchUserLikeList, updateLike } from '@/store/slices/likeSlice';
-import { addComment, fetchComments } from '@/store/slices/commentSlice';
+import { addComment, deleteComment, fetchComments } from '@/store/slices/commentSlice';
 import { FaRegCommentDots } from "react-icons/fa";
 
 export default function Review({ isbn }: { isbn: string | undefined }) {
@@ -130,7 +130,20 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
 
         return count;
     };
-        
+    
+    const handleDeleteComment = async (comment_id: string) => {
+        try {
+            dispatch(deleteComment({ // 대댓글도 함께 삭제
+                comment_id: comment_id,
+                user_id: session?.user.sub || ''
+            }))
+            alert('댓글 삭제 성공!');
+            dispatch(fetchComments(isbn || ''));
+        } catch (error) {
+            alert('댓글 삭제 실패');
+        }
+    }
+
     const [isCommentVisible, setIsCommentVisible] = useState<{ [key: string]: boolean }>({});
 
     const toggleCommentText = (id: string) => {
@@ -213,10 +226,12 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
                                             <div className={styles.commentInfo}>
                                                 <span className={styles.nickname}>{comment.nickname}</span>
                                                 <span className={styles.commentDate}>{comment.date}</span>
-                                                {/* 댓글 작성자 본인만 표기 
-                                                <span className={styles.commentEditBtn}>수정</span>
-                                                <span className={styles.commentDeleteBtn}>삭제</span> 
-                                                */}
+                                                {comment.user_id === session?.user.sub &&
+                                                    <>
+                                                        <span className={styles.dot}>·</span>
+                                                        <button className={styles.commentDeleteBtn} onClick={() => handleDeleteComment(comment.comment_id)}>삭제</button> 
+                                                    </>
+                                                }
                                             </div>
                                             <div className={styles.commentLine}>
                                                 <span className={styles.comment}>{comment.content}</span>
@@ -247,10 +262,12 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
                                                             <div className={styles.commentInfo}>
                                                                 <span className={styles.nickname}>{reply.nickname}</span>
                                                                 <span className={styles.commentDate}>{reply.date}</span>
-                                                                {/* 댓글 작성자 본인만 표기 
-                                                                <span className={styles.commentEditBtn}>수정</span>
-                                                                <span className={styles.commentDeleteBtn}>삭제</span> 
-                                                                */}
+                                                                {reply.user_id === session?.user.sub &&
+                                                                    <>
+                                                                        <span className={styles.dot}>·</span>
+                                                                        <span className={styles.commentDeleteBtn} onClick={() => handleDeleteComment(reply._id)}>삭제</span> 
+                                                                    </>
+                                                                }
                                                             </div>
                                                             <div className={styles.commentLine}>
                                                                 <span className={styles.comment}>{reply.content}</span>

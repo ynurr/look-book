@@ -39,7 +39,7 @@ export const addComment = createAsyncThunk(
             const data = await response.json();
             return data;
         } catch (error) {
-            console.log('Fetch error:', error);
+            console.log('Insert error:', error);
         }
     }
 )
@@ -51,15 +51,39 @@ export const fetchComments = createAsyncThunk(
             const response = await fetch(`/api/db/comment?isbn=${isbn}`, {
                 method: 'GET'
             });
-
+            
             if (!response.ok) {
                 throw new Error('댓글 조회 실패')
             }
-
+            
             const data = await response.json();
             return data;
         } catch (error) {
             console.log('Fetch error:', error);
+        }
+    }
+)
+
+export const deleteComment = createAsyncThunk(
+    'comment/deleteComment',
+    async ({comment_id, user_id}: {comment_id: string, user_id: string}) => {
+        try {
+            const response = await fetch('/api/db/comment/delete', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ comment_id, user_id })
+            })
+
+            if (!response.ok) {
+                throw new Error('댓글 삭제 실패')
+            }
+            
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.log('Delete error:', error);
         }
     }
 )
@@ -91,7 +115,18 @@ const commentSlice = createSlice({
             })
             .addCase(fetchComments.rejected, (state, action) => {
                 state.loading = false
-                state.error = action.error.message || '댓글 작성 실패'
+                state.error = action.error.message || '댓글 조회 실패'
+            })
+            .addCase(deleteComment.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(deleteComment.fulfilled, (state) => {
+                state.loading = false
+            })
+            .addCase(deleteComment.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.error.message || '댓글 삭제 실패'
             })
     }
 })
