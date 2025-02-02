@@ -13,6 +13,7 @@ import { useSession } from 'next-auth/react';
 import { fetchUserLikeList, updateLike } from '@/store/slices/likeSlice';
 import { addComment, deleteComment, fetchComments } from '@/store/slices/commentSlice';
 import { FaRegCommentDots } from "react-icons/fa";
+import { redirect } from 'next/navigation';
 
 export default function Review({ isbn }: { isbn: string | undefined }) {
 
@@ -29,10 +30,15 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
     const [commentTree, setCommentTree] = useState<any[]>([]);
 
     useEffect(() => {
-        if (session?.user.sub && isbn) {
+        if (isbn) {
             dispatch(fetchReviewByBook(isbn))
-            dispatch(fetchUserLikeList({user_id: session?.user.sub, book_isbn: isbn}))
             dispatch(fetchComments(isbn))
+        }
+    }, [isbn, dispatch])
+
+    useEffect(() => {
+        if (session?.user.sub && isbn) {
+            dispatch(fetchUserLikeList({user_id: session?.user.sub, book_isbn: isbn}))
         }
     }, [session?.user.sub, isbn, dispatch])
 
@@ -43,6 +49,12 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
     }, [likeIds]);
 
     const handleUpdateLike = async (review_id: string, currentCount: number) => {
+
+        if (!session?.user.sub) {
+            alert('로그인 후 가능합니다.');
+            redirect('/login');
+        }
+        
         try {
             const isLiked = localLikeIds.length > 0 ? localLikeIds.includes(review_id) : likeIds.includes(review_id);
 
@@ -71,6 +83,12 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
     }
 
     const handleSubmit = async (review_id: string, parent_id: string) => {
+        
+        if (!session?.user.sub) {
+            alert('로그인 후 가능합니다.');
+            redirect('/login');
+        }
+        
         try {
             dispatch(addComment({
                 review_id: review_id,

@@ -86,6 +86,12 @@ export default function Detail() {
     const isWishlist = wishlist.some((item) => item.isbn === id);
 
     const handleAddWishlist = async () => {
+        
+        if (!session?.user.sub) {
+            alert('로그인 후 가능합니다.');
+            redirect('/login');
+        }
+        
         try {
             if (!session && status !== "loading") {
                 redirect('/login');
@@ -125,6 +131,12 @@ export default function Detail() {
     }
 
     const handleUpdateStatus = async (status: string) => {
+        
+        if (!session?.user.sub) {
+            alert('로그인 후 가능합니다.');
+            redirect('/login');
+        }
+        
         try {
             const result = await dispatch(
                 updateBookStatus({
@@ -187,6 +199,10 @@ export default function Detail() {
                         <div className={styles.btnBox2}>
                             <button
                                 onClick={() => {
+                                    if (!session?.user.sub) {
+                                        alert('로그인 후 가능합니다.')
+                                        redirect('/login')
+                                    }
                                     if (userStatus?.review_id) {
                                         alert('이미 작성된 리뷰가 있습니다.');
                                         window.location.href = `/library/reading/detail?isbn=${book?.isbn13}`;
