@@ -32,7 +32,7 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
     useEffect(() => {
         if (isbn) {
             dispatch(fetchReviewByBook({isbn, sort: '0'}))
-            dispatch(fetchComments(isbn))
+            dispatch(fetchComments({isbn, id: ''}))
         }
     }, [isbn, dispatch])
 
@@ -99,7 +99,7 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
             })).unwrap();
                 
             alert('댓글 작성 성공!');
-            dispatch(fetchComments(isbn || ''));
+            dispatch(fetchComments({isbn: isbn || '', id: ''}));
             setContent('');
             setContentReply('');
         } catch (error) {
@@ -151,12 +151,12 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
     
     const handleDeleteComment = async (comment_id: string) => {
         try {
-            dispatch(deleteComment({ // 대댓글도 함께 삭제
+            dispatch(deleteComment({
                 comment_id: comment_id,
                 user_id: session?.user.sub || ''
             }))
             alert('댓글 삭제 성공!');
-            dispatch(fetchComments(isbn || ''));
+            dispatch(fetchComments({isbn: isbn || '', id: ''}));
         } catch (error) {
             alert('댓글 삭제 실패');
         }

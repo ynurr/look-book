@@ -15,6 +15,7 @@ import { fetchReadingDetail } from '@/store/slices/readingDetailSlice';
 import { deleteBook, updateBookStatus } from '@/store/slices/readingSlice';
 import Link from 'next/link';
 import { fetchUserLike, updateLike } from '@/store/slices/likeSlice';
+import { addComment, deleteComment, fetchComments } from '@/store/slices/commentSlice';
 
 export default function ReviewDetail() {
 
@@ -33,6 +34,10 @@ export default function ReviewDetail() {
     const [isDelete, setIsDelete] = useState(false);
     const [isLiked, setIsLiked] = useState(likeStatus);
     const [likeCount, setLikeCount] = useState(0);
+    const comments = useSelector((state: RootState) => (state.comment.comments));
+    const [commentTree, setCommentTree] = useState<any[]>([]);
+    const [content, setContent] = useState('');
+    const [contentReply, setContentReply] = useState('');
 
     useEffect(() => {
         if (session?.user.sub && isbn) {
@@ -43,6 +48,7 @@ export default function ReviewDetail() {
     useEffect(() => {
         if (session?.user.sub && review.review_id) {
             dispatch(fetchUserLike({user_id: session?.user.sub, review_id: review.review_id}))
+            dispatch(fetchComments({isbn: '', id: review.review_id}))
         }
     }, [session?.user.sub, review.review_id, dispatch])
 
@@ -124,17 +130,90 @@ export default function ReviewDetail() {
         handleRemoveBook(); 
     }
 
-    const comments = [
-        { id: 1, content: "첫 번째 댓글 내용", nickname: "User1", date: "2025.12.24" },
-        { id: 2, content: "두 번째 댓글 내용", nickname: "User2", date: "2025.12.25" },
-        { id: 3, content: "세 번째 댓글 내용", nickname: "User3", date: "2025.12.26" },
-    ];
-    
-    const replys = [
-        { id: 1, commentId: 1, content: "1 대댓글", nickname: "사용자531", date: "2025.12.30" },
-        { id: 2, commentId: 3, content: "2 대댓글", nickname: "사용자9989", date: "2025.12.30" },
-        { id: 3, commentId: 3, content: "2 대댓글", nickname: "사용자9989", date: "2025.12.31" },
-    ];
+    const handleSubmit = async (review_id: string, parent_id: string) => {
+
+        if (!session?.user.sub) {
+            alert('로그인 후 가능합니다.');
+            redirect('/login');
+        }
+        
+        if ((parent_id && !contentReply) || (!parent_id && !content)) {
+            alert('댓글을 입력해주세요.');
+            return;
+        }
+
+        try {
+            dispatch(addComment({
+                review_id: review_id,
+                book_isbn: isbn || '',
+                user_id: session?.user.sub || '',
+                content: parent_id ? contentReply : content,
+                parent_id: parent_id
+            })).unwrap();
+                
+            alert('댓글 작성 성공!');
+            dispatch(fetchComments({isbn: '', id: review.review_id}));
+            setContent('');
+            setContentReply('');
+        } catch (error) {
+            alert('댓글 작성 실패');
+        }
+    }
+
+    const buildCommentTree = (comments: any) => {
+        const commentMap = new Map();
+
+        comments.forEach((comment: any) => {
+            commentMap.set(comment._id, { ...comment, replies: [] });
+        });
+
+        const tree: any[] = [];
+
+        comments.forEach((comment: any) => {
+            if (comment.parent_id) {
+                const parent = commentMap.get(comment.parent_id);
+                if (parent) {
+                    parent.replies.push(commentMap.get(comment._id));  
+                }
+            } else {
+                tree.push(commentMap.get(comment._id));
+            }
+        });
+        
+        return tree;
+    }
+
+    useEffect(() => {
+        setCommentTree(buildCommentTree(comments));
+    },[comments])
+
+    const getCommentCount = (review_id: string) => {
+        let count = 0;
+
+        commentTree.forEach((comment) => {
+            if (comment.review_id === review_id) {
+                count ++;
+            }
+            if (comment.replies.length > 0) {
+                count += comment.replies.filter((reply: any) => reply.review_id === review_id).length;
+            }
+        })
+
+        return count;
+    };
+
+    const handleDeleteComment = async (comment_id: string) => {
+        try {
+            dispatch(deleteComment({
+                comment_id: comment_id,
+                user_id: session?.user.sub || ''
+            }))
+            alert('댓글 삭제 성공!');
+            dispatch(fetchComments({isbn: '', id: review.review_id}));
+        } catch (error) {
+            alert('댓글 삭제 실패');
+        }
+    }
 
     const [isCommentVisible, setIsCommentVisible] = useState<{ [key: number]: boolean }>({});
 
@@ -227,63 +306,88 @@ export default function ReviewDetail() {
                                         {isLiked ? <RiThumbUpFill className={styles.thumpsUpFill}/> : <LuThumbsUp className={styles.thumpsUp}/>}
                                         <span className={styles.likeCnt}>{likeCount}</span>
                                     </span>
+                                    <span className={styles.reply}>댓글 {getCommentCount(review.review_id)}</span>
+                                </div>
+                                <div>
                                 </div>
                                 <div className={styles.hrLine}></div>
                                 <div className={styles.commentSection}>
-                                    {comments.map((comment) => (
-                                        <div className={styles.commentBox} key={comment.id}>
+                                    {commentTree.map((comment) => (
+                                        <div className={styles.commentBox} key={comment.comment_id}>
                                             <div className={styles.commentContent}>
                                                 <div className={styles.commentInfo}>
                                                     <span className={styles.nickname}>{comment.nickname}</span>
                                                     <span className={styles.commentDate}>{comment.date}</span>
-                                                    {/* 댓글 작성자 본인만 표기 
-                                                    <span className={styles.commentEditBtn}>수정</span>
-                                                    <span className={styles.commentDeleteBtn}>삭제</span> 
-                                                    */}
+                                                    {comment.user_id === session?.user.sub &&
+                                                        <>
+                                                            <span className={styles.dot}>·</span>
+                                                            <button className={styles.commentDeleteBtn} onClick={() => handleDeleteComment(comment.comment_id)}>삭제</button> 
+                                                        </>
+                                                    }
+                                                   
                                                 </div>
                                                 <div className={styles.commentLine}>
                                                     <span className={styles.comment}>{comment.content}</span>
-                                                    <FaRegCommentDots className={styles.commentBtn} onClick={() => toggleCommentText(comment.id)}></FaRegCommentDots>
+                                                    <FaRegCommentDots className={styles.commentBtn} onClick={() => toggleCommentText(comment.comment_id)}></FaRegCommentDots>
                                                 </div>
                                             </div>
 
-                                            {/* 댓글 작성 입력창 */}
-                                            {isCommentVisible[comment.id] && (
+                                            {isCommentVisible[comment.comment_id] && (
                                                 <div className={styles.textAreaBox}>
                                                     <textarea 
                                                         className={styles.textarea} 
                                                         placeholder='200자 이내로 입력해주세요'
                                                         maxLength={200}
+                                                        value={contentReply}
+                                                        onChange={(e) => setContentReply(e.target.value)}
                                                         ></textarea>
                                                     <div className={styles.textAreaBtn}>
-                                                        <button onClick={() => handleCommentCancel(comment.id)}>취소</button>
-                                                        <button>등록</button>
+                                                        <button className={styles.commentCancelBtn} onClick={() => handleCommentCancel(comment.comment_id)}>취소</button>
+                                                        <button className={styles.commentSubmitBtn} onClick={() => handleSubmit(review.review_id, comment.comment_id)}>등록</button>
                                                     </div>
                                                 </div>
                                             )}
                                             
-                                            {replys.filter(reply => reply.commentId === comment.id).map((reply) => (
-                                                <div className={styles.reply} key={reply.id}>
-                                                    <div className={styles.replyBox}>
-                                                        <div className={styles.arrowBox}><span className={styles.arrow}>↳</span></div>
-                                                        <div className={styles.replyContent}>
-                                                            <div className={styles.commentInfo}>
-                                                                <span className={styles.nickname}>{reply.nickname}</span>
-                                                                <span className={styles.commentDate}>{reply.date}</span>
-                                                                {/* 댓글 작성자 본인만 표기 
-                                                                <span className={styles.commentEditBtn}>수정</span>
-                                                                <span className={styles.commentDeleteBtn}>삭제</span> 
-                                                                */}
-                                                            </div>
-                                                            <div className={styles.commentLine}>
-                                                                <span className={styles.comment}>{reply.content}</span>
+                                            {comment.replies && comment.replies.length > 0 && 
+                                                comment.replies.map((reply: any) => {
+                                                    return (
+                                                        <div className={styles.replyBox} key={reply._id}>
+                                                            <div className={styles.arrowBox}><span className={styles.arrow}>↳</span></div>
+                                                            <div className={styles.replyContent}>
+                                                                <div className={styles.commentInfo}>
+                                                                    <span className={styles.nickname}>{reply.nickname}</span>
+                                                                    <span className={styles.commentDate}>{reply.date}</span>
+                                                                    {reply.user_id === session?.user.sub &&
+                                                                        <>
+                                                                            <span className={styles.dot}>·</span>
+                                                                            <span className={styles.commentDeleteBtn} onClick={() => handleDeleteComment(reply._id)}>삭제</span> 
+                                                                        </>
+                                                                    }
+                                                                </div>
+                                                                <div className={styles.commentLine}>
+                                                                    <span className={styles.comment}>{reply.content}</span>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            ))}
+                                                    )
+                                                })
+                                            }
                                         </div>
                                     ))}
+
+                                    <div className={styles.textAreaBox}>
+                                        <textarea 
+                                            className={styles.textarea} 
+                                            placeholder='200자 이내로 입력해주세요'
+                                            maxLength={200}
+                                            value={content}
+                                            onChange={(e) => setContent(e.target.value)}
+                                            ></textarea>
+                                        <div className={styles.textAreaBtn}>
+                                            <button className={styles.commentSubmitBtn} onClick={() => handleSubmit(review.review_id, '')}>등록</button>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         ) : (

@@ -46,9 +46,9 @@ export const addComment = createAsyncThunk(
 
 export const fetchComments = createAsyncThunk(
     'comment/fetchComments',
-    async (isbn: string) => {
+    async ({isbn, id}: {isbn: string, id: string}) => {
         try {
-            const response = await fetch(`/api/db/comment?isbn=${isbn}`, {
+            const response = await fetch(`/api/db/comment?isbn=${isbn}&id=${id}`, {
                 method: 'GET'
             });
             

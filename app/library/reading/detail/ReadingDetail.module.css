@@ -119,6 +119,7 @@
 .reactionBox {
     display: flex;
     padding: 20px 10px;
+    justify-content: space-between;
 }
 
 .likeBtn {
@@ -141,6 +142,10 @@
 
 .thumpsUpFill {
     /* color: #84e781; */
+}
+
+.reply {
+    font-size: 13px;
 }
 
 .hrLine {
@@ -174,21 +179,24 @@
 
 .nickname {
     font-weight: 600;
-    font-size: 14px;
+    font-size: 13px;
 }
 
-.commentDate, .commentEditBtn, .commentDeleteBtn {
-    font-size: 13px;
+.commentDate, .commentEditBtn, .commentDeleteBtn, .dot {
+    font-size: 12px;
     color: rgb(139, 139, 139);
+}
+
+.commentDeleteBtn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    font-size: 12px;
 }
 
 .comment {
     font-size: 14px;
-}
-
-.reply {
-    display: flex;
-    flex-direction: column;
 }
 
 .replyBox {
@@ -262,24 +270,27 @@
 
 .textAreaBtn button {
     border: none;
-    background-color: #333333;
     border-radius: 5px;
     padding: 5px 10px;
     cursor: pointer;
     font-size: 13px;
+}
+
+.commentSubmitBtn {
+    background-color: #333333;
     color: white;
 }
 
-.textAreaBtn button:first-child {
+.commentSubmitBtn:hover {
+    background-color: #17171b;
+}
+
+.commentCancelBtn {
     background-color: rgb(238, 238, 238);
     color: #444;
 }
 
-.textAreaBtn button:hover {
-    background-color: #17171b;
-}
-
-.textAreaBtn button:hover:first-child {
+.commentCancelBtn:hover {
     background-color: rgb(233, 233, 233);
 }
 

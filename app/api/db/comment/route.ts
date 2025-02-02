@@ -1,20 +1,30 @@
 import { connectDB } from "@/util/database";
+import { ObjectId } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
 
     const searchParams = req.nextUrl.searchParams;
     const isbn = searchParams.get('isbn');
+    const review_id = searchParams.get('id');
 
-    if (!isbn) {
-        return NextResponse.json({ message: "도서 정보가 존재하지 않습니다." }, { status: 400 });
+    if (!isbn && !review_id) {
+        return NextResponse.json({ message: "ISBN 또는 리뷰 ID가 필요합니다." }, { status: 400 });
     } 
+    
+    let query = {};
+    
+    if (isbn) {
+        query = { book_isbn: isbn };
+    } else if (review_id) {
+        query = { review_id: new ObjectId(review_id) };
+    }
     
     try {
         const db = (await connectDB).db("lookbook");
 
         const result = await db.collection("comment").aggregate([
-            { $match: { book_isbn: isbn } },
+            { $match: query },
             {
                 $facet: {
                     data: [
