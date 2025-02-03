@@ -67,14 +67,16 @@ export default function LeftMenu() {
             </div>
             <div className={styles.menu}>
                 <span className={styles.menuTitle}>내 서재</span>
-                <Link href="/library/reading" className={styles.reading}>독서 현황</Link>
-                <Link href="/library/wishlist" className={styles.wishlist}>위시리스트</Link>
+                <Link href="/library" className={styles.menuItem}>홈</Link>
+                <Link href="/library/reading" className={styles.menuItem}>독서 현황</Link>
+                <Link href="/library/wishlist" className={styles.menuItem}>위시리스트</Link>
                 <span className={styles.menuTitle}>활동</span>
-                <Link href="/library/my-review" className={styles.myReview}>나의 리뷰</Link>
-                <Link href="/library/comment" className={styles.comment}>코멘트</Link>
+                <Link href="/library/my-review" className={styles.menuItem}>나의 리뷰</Link>
+                <Link href="/library/comment" className={styles.menuItem}>댓글 알림</Link>
+                <Link href="/library/like" className={styles.menuItem}>리뷰 공감 기록</Link>
                 <span className={styles.menuTitle}>고객센터</span>
-                <Link href="/library/inquiry" className={styles.inquiry}>문의하기</Link>
-                <Link href="/library/inquiry/history" className={styles.inquiryHistory}>1:1 문의내역</Link>
+                <Link href="/library/inquiry" className={styles.menuItem}>문의하기</Link>
+                <Link href="/library/inquiry/history" className={styles.menuItem}>1:1 문의내역</Link>
             </div>
         </div>
     )
