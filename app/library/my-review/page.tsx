@@ -7,7 +7,6 @@ import { PiStarFill } from "react-icons/pi";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import { LuThumbsUp } from "react-icons/lu";
-import { RiThumbUpFill } from "react-icons/ri";
 import { FaRegCommentDots } from "react-icons/fa";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,6 +24,7 @@ export default function Review() {
 
     const dispatch = useDispatch<AppDispatch>();
     const reviews = useSelector((state: RootState) => state.review.reviews || []);
+    console.log("📌 reviews:", JSON.stringify(reviews, null, 2));
 
     useEffect(() => {
         if (status === "authenticated" && session?.user.sub) {
@@ -77,7 +77,7 @@ export default function Review() {
                                 </div>
                                 <div className={styles.reactionBox}>
                                     <span className={styles.likeCnt}><LuThumbsUp />{item.like_count}</span>
-                                    <span className={styles.commentCnt}><FaRegCommentDots /> 0</span>
+                                    <span className={styles.commentCnt}><FaRegCommentDots />{item.comment_count}</span>
                                 </div>
                             </Link>
                             <div className={styles.hrLine}></div>

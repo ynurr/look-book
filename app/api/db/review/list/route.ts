@@ -19,11 +19,22 @@ export async function POST(req: NextRequest) {
                 limit: body.limit 
             })
             .toArray();
-
+            
         if (result.length === 0) {
             return NextResponse.json([], { status: 200 });
         }
+
+        const reviewIds = result.map(item => item._id);
         
+        const comments = await db.collection("comment")
+            .aggregate([
+                { $match: { review_id: { $in: reviewIds } } },
+                { $group: { _id: "$review_id", count: { $sum: 1 } } }
+            ])
+            .toArray();
+
+        const commentMap = new Map(comments.map(c => [c._id.toString(), c.count]));
+
         const data = result.map((review) => ({
             review_id: review._id,
             isbn: review.book_isbn,
@@ -32,6 +43,7 @@ export async function POST(req: NextRequest) {
             rating: review.rating,
             content: review.content,
             like_count: review.like_count,
+            comment_count: commentMap.get(review._id.toString()) || 0,
             created_at: review.created_at
                 ? format(new Date(new Date(review.created_at).getTime() + 9 * 60 * 60 * 1000).toISOString().slice(0, 10), "yyyy.MM.dd")
                 : "",

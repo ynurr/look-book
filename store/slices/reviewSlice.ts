@@ -9,6 +9,7 @@ interface ReviewState {
         rating: number;
         content: string;
         like_count: number;
+        comment_count: number;
         created_at: string;
     }>;
     review: {review_id: string, rating: number, content: string};
