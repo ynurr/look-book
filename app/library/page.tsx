@@ -109,41 +109,63 @@ export default function Library() {
                     <div className={styles.summary}>
                         <div className={styles.menuTitle}>리뷰 쓰기</div>
                         <div className={styles.content}>
-                            <Link href={`/library/reading/detail?isbn=${CompletedBook?.book_isbn}`}>
-                                <img className={styles.cover} src={CompletedBook?.book_cover} />
-                            </Link>
-                            <Link href={'/library/reading'}>
-                                <div className={styles.count}>{CompletedCnt > 99 ? "99 +" : `+ ${CompletedCnt === 0 ? 0 : CompletedCnt - 1}`}</div>
-                            </Link>
+                            {CompletedCnt === 0 ?
+                                <div className={styles.noBookData}>
+                                    <span>작성 가능한 책이 없습니다.</span>
+                                </div>
+                                :
+                                <>
+                                <Link href={`/library/reading/detail?isbn=${CompletedBook?.book_isbn}`}>
+                                    <img className={styles.cover} src={CompletedBook?.book_cover} />
+                                </Link>
+                                <Link href={'/library/reading'}>
+                                    <div className={styles.count}>{CompletedCnt > 99 ? "99 +" : `+ ${CompletedCnt === 0 ? 0 : CompletedCnt - 1}`}</div>
+                                </Link>
+                                </>
+                            }
                         </div>
                     </div>
                     <div className={styles.summary}>
                         <div className={styles.menuTitle}>읽고 있는 책</div>
                         <div className={styles.content}>
-                            <Link href={`/library/reading/detail?isbn=${ReadingBook?.book_isbn}`}>
-                                <img className={styles.cover} src={ReadingBook?.book_cover} />
-                            </Link>
-                            <Link href={'/library/reading'}>
-                                <div className={styles.count}>{ReadingCnt > 99 ? "99 +" : `+ ${ReadingCnt === 0 ? 0 : ReadingCnt - 1}`}</div>
-                            </Link>
+                            {ReadingCnt === 0 ?
+                                <div className={styles.noBookData}>
+                                    <span>읽고 있는 책이 없습니다.</span>
+                                </div>
+                                :
+                                <>
+                                <Link href={`/library/reading/detail?isbn=${ReadingBook?.book_isbn}`}>
+                                    <img className={styles.cover} src={ReadingBook?.book_cover} />
+                                </Link>
+                                <Link href={'/library/reading'}>
+                                    <div className={styles.count}>{ReadingCnt > 99 ? "99 +" : `+ ${ReadingCnt === 0 ? 0 : ReadingCnt - 1}`}</div>
+                                </Link>
+                                </>
+                            }
                         </div>
                     </div>
                     <div className={styles.summary}>
                         <div className={styles.menuTitle}>최근 댓글</div>
                         <div className={styles.content}>
                             <div className={styles.commentList}>
-                                {comments.map((comment, index) => (
-                                    <div className={styles.commentItem} key={index}>
-                                        <div className={styles.commentInfo}>
-                                            <span className={styles.commenter}>{formatNickname(comment.nickname)}</span>
-                                            <span className={styles.commentTime}>{formatCommentDate(comment.created_at)}</span>
-                                        </div>
-                                        <span className={styles.commentContent}>{comment.content}</span>
-                                        {
-                                            index < 2 && <div className={styles.hrLine}></div>
-                                        }
+                                {comments.length === 0 ?
+                                    <div className={styles.noCommentData}>
+                                        <span>댓글이 없습니다.</span>
                                     </div>
-                                ))}
+                                    :
+                                    comments.map((comment, index) => (
+                                        <div className={styles.commentItem} key={index}>
+                                            <div className={styles.commentInfo}>
+                                                <span className={styles.commenter}>{formatNickname(comment.nickname)}</span>
+                                                <span className={styles.commentTime}>{formatCommentDate(comment.created_at)}</span>
+                                            </div>
+                                            <span className={styles.commentContent}>{comment.content}</span>
+                                            {
+                                                index < 2 && <div className={styles.hrLine}></div>
+                                            }
+                                        </div>
+                                    ))
+                                }
                             </div>
                         </div>
                     </div>

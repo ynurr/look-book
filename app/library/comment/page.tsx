@@ -48,32 +48,38 @@ export default function Comment() {
             <LeftMenu />
 
             <div className={styles.wrapper}>
-                <h2 className={styles.menuTitle}>코멘트</h2>
+                <h2 className={styles.menuTitle}>댓글 알림</h2>
                 <div className={styles.line}></div>
                
                 <div className={styles.list}>
-                    {comments.map((item, i) => (
-                        <div className={styles.item} key={i}>
-                            <Link href={`/detail?id=${item.isbn}`} legacyBehavior>
-                                <div className={styles.itemWrapper}>
-                                    <div className={styles.box}>
-                                        <span className={styles.title}>{formatBookTitle(item.book_title)}</span>
-                                        <span className={styles.info}>
-                                            {
-                                                item.gubun === "comment" ? "글의 댓글" : "댓글의 답댓글"
-                                            }
-                                        </span>
-                                    </div>
-                                    <span className={styles.content}>{item.content}</span>
-                                    <div className={styles.box}>
-                                        <span className={styles.commenter}>{item.nickname}</span>
-                                        <span>·</span>
-                                        <span className={styles.date}>{formatCommentDate(item.created_at)}</span>
-                                    </div>
-                                </div>
-                            </Link>
+                    {comments.length === 0 ?
+                        <div className={styles.noData}>
+                            <span>댓글 알림이 없습니다. 새로운 댓글이 달리면 알려드릴게요.</span>
                         </div>
-                    ))}
+                        :
+                        comments.map((item, i) => (
+                            <div className={styles.item} key={i}>
+                                <Link href={`/detail?id=${item.isbn}`} legacyBehavior>
+                                    <div className={styles.itemWrapper}>
+                                        <div className={styles.box}>
+                                            <span className={styles.title}>{formatBookTitle(item.book_title)}</span>
+                                            <span className={styles.info}>
+                                                {
+                                                    item.gubun === "comment" ? "글의 댓글" : "댓글의 답댓글"
+                                                }
+                                            </span>
+                                        </div>
+                                        <span className={styles.content}>{item.content}</span>
+                                        <div className={styles.box}>
+                                            <span className={styles.commenter}>{item.nickname}</span>
+                                            <span>·</span>
+                                            <span className={styles.date}>{formatCommentDate(item.created_at)}</span>
+                                        </div>
+                                    </div>
+                                </Link>
+                            </div>
+                        ))
+                    }
                 </div>
             </div>
         </div>

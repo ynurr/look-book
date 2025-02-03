@@ -165,6 +165,7 @@
 .commentList {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .commentItem {
@@ -206,11 +207,15 @@
     margin: 12px 0;
 }
 
-.noData {
+.noData, .noCommentData, .noBookData {
     font-size: 14px;
     color: #888888;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+}
+
+.noBookData {
+    width: 100%;
 }
