@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import { fetchReviewAll } from '@/store/slices/reviewSlice';
 import { useEffect } from 'react';
+import Link from 'next/link';
 
 export default function Library() {
     
@@ -84,11 +85,11 @@ export default function Library() {
                             </div>
                             :
                             reviews.map((item) => (
-                                <div className={styles.reviewItem} key={item.review_id}>
+                                <Link href={`/library/reading/detail?isbn=${item.isbn}`} className={styles.reviewItem} key={item.review_id}>
                                     <span className={styles.bookTitle}>{item.title}</span>
                                     <span className={styles.reviewContent}>{item.content}</span>
                                     <span className={styles.reviewDate}>{item.created_at}</span>
-                                </div>
+                                </Link>
 
                             ))
                         }
