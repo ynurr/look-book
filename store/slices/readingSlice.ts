@@ -9,6 +9,11 @@ interface Book {
     status: string;
 }
 
+interface ReadingBook {
+    book_isbn: string;
+    book_cover: string;
+}
+
 interface ReadingStatusState {
     books: Array<{
         isbn: string;
@@ -23,6 +28,10 @@ interface ReadingStatusState {
         status: string;
         review_id: string;
     } | null;
+    readingBook: ReadingBook | null;
+    completedBook: ReadingBook | null;
+    readingCount: number;
+    completedCount: number;
     loading: boolean;
     error: string | null;
 }
@@ -30,6 +39,10 @@ interface ReadingStatusState {
 const initialState: ReadingStatusState = {
     books: [],
     data: { status: '', review_id: '' },
+    readingBook: null,
+    completedBook: null,
+    readingCount: 0,
+    completedCount: 0,
     loading: false,
     error: null
 }
@@ -122,6 +135,30 @@ export const fetchUserReadingState = createAsyncThunk(
     }
 )
 
+export const fetchReadingBook = createAsyncThunk(
+    'readingStatus/fetchReadingBook',
+    async ({ user_id }: { user_id: string }) => {
+        try {
+            const response = await fetch('/api/db/reading/book', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ user_id })
+            });
+
+            if (!response.ok) {
+                throw new Error('독서상태 조회 실패')
+            }
+
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.log('Fetch error:', error);
+        }
+    }
+)
+
 const readingSlice = createSlice({
     name: 'readingStatus',
     initialState,
@@ -180,6 +217,28 @@ const readingSlice = createSlice({
             .addCase(fetchUserReadingState.rejected, (state, action) => {
                 state.loading = false
                 state.error = action.error.message || '독서상태 조회 실패'
+            })
+            .addCase(fetchReadingBook.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(fetchReadingBook.fulfilled, (state, action) => {
+                if (!action.payload?.result) return;
+            
+                const result = action.payload.result[0]; 
+                if (!result) return;
+                console.log("🍟 action.payload.result Data:", JSON.stringify(result, null, 2));
+
+                const { readingBook = [], completedBook = [], readingCount = [], completedCount = [] } = result;
+                state.readingBook = readingBook.length > 0 ? readingBook[0] : null;
+                state.completedBook = completedBook.length > 0 ? completedBook[0] : null;
+                state.readingCount = readingCount.length > 0 ? readingCount[0].count : 0;
+                state.completedCount = completedCount.length > 0 ? completedCount[0].count : 0;
+                state.loading = false;
+            })
+            .addCase(fetchReadingBook.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.error.message || '독서상태별 도서 조회 실패'
             });
     }
 })

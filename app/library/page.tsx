@@ -13,6 +13,7 @@ import { fetchReviewAll } from '@/store/slices/reviewSlice';
 import { useEffect } from 'react';
 import Link from 'next/link';
 import { fetchCommentList } from '@/store/slices/commentSlice';
+import { fetchReadingBook } from '@/store/slices/readingSlice';
 
 export default function Library() {
     
@@ -25,11 +26,16 @@ export default function Library() {
     const dispatch = useDispatch<AppDispatch>();
     const reviews = useSelector((state: RootState) => state.review.reviews || []);
     const comments = useSelector((state: RootState) => state.comment.commentList || []);
+    const ReadingBook = useSelector((state: RootState) => state.readingStatus.readingBook);
+    const CompletedBook = useSelector((state: RootState) => state.readingStatus.completedBook);
+    const ReadingCnt = useSelector((state: RootState) => state.readingStatus.readingCount);
+    const CompletedCnt = useSelector((state: RootState) => state.readingStatus.completedCount);
 
     useEffect(() => {
         if (status === "authenticated" && session?.user.sub) {
             dispatch(fetchReviewAll({ user_id: session.user.sub, limit: 3 }))
             dispatch(fetchCommentList({ user_id: session.user.sub, limit: 3 }))
+            dispatch(fetchReadingBook({ user_id: session.user.sub }))
         }
     }, [session, dispatch])
 
@@ -101,17 +107,25 @@ export default function Library() {
 
                 <div className={styles.summarySection}>
                     <div className={styles.summary}>
-                        <div className={styles.menuTitle}>리뷰쓰기</div>
+                        <div className={styles.menuTitle}>리뷰 쓰기</div>
                         <div className={styles.content}>
-                            <div className={styles.cover}></div>
-                            <div className={styles.count}>+ 3</div>
+                            <Link href={`/library/reading/detail?isbn=${CompletedBook?.book_isbn}`}>
+                                <img className={styles.cover} src={CompletedBook?.book_cover} />
+                            </Link>
+                            <Link href={'/library/reading'}>
+                                <div className={styles.count}>{CompletedCnt > 99 ? "99 +" : `+ ${CompletedCnt === 0 ? 0 : CompletedCnt - 1}`}</div>
+                            </Link>
                         </div>
                     </div>
                     <div className={styles.summary}>
                         <div className={styles.menuTitle}>읽고 있는 책</div>
                         <div className={styles.content}>
-                            <div className={styles.cover}></div>
-                            <div className={styles.count}>+ 3</div>
+                            <Link href={`/library/reading/detail?isbn=${ReadingBook?.book_isbn}`}>
+                                <img className={styles.cover} src={ReadingBook?.book_cover} />
+                            </Link>
+                            <Link href={'/library/reading'}>
+                                <div className={styles.count}>{ReadingCnt > 99 ? "99 +" : `+ ${ReadingCnt === 0 ? 0 : ReadingCnt - 1}`}</div>
+                            </Link>
                         </div>
                     </div>
                     <div className={styles.summary}>

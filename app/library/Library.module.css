@@ -128,7 +128,7 @@
 .content {
     box-shadow: 0 0 6px rgba(139, 139, 139, 0.2); 
     border-radius: 20px;
-    padding: 20px;
+    padding: 20px 22px;
     height: 210px;
     display: flex;
     align-items: center;
@@ -136,18 +136,30 @@
 }
 
 .cover {
-    background-color: rgb(148, 147, 214);
     height: 160px;
-    width: 120px;
+    width: 110px;
     margin-left: 6px;
+    cursor: pointer;
 }
 
 .count {
-    background-color: rgba(216, 216, 235, 0.466);
-    padding: 10px;
+    background-color: rgba(235, 235, 235, 0.466);
     border-radius: 50%; 
     font-weight: bold;
     color: #555;
+    cursor: pointer;
+    font-size: 14px;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    white-space: nowrap; 
+}
+
+.count:hover {
+    background-color: rgba(224, 224, 224, 0.466);
 }
 
 .commentList {
