@@ -2,7 +2,6 @@
 
 import { isToday, isYesterday, differenceInHours, format } from 'date-fns';
 import BarChart from "./BarChart";
-import DoughnutChart from "./DoughnutChart";
 import ProgressBar from "./ProgressBar";
 import LeftMenu from "./LeftMenu";
 import styles from './Library.module.css'
@@ -13,6 +12,7 @@ import { AppDispatch, RootState } from '@/store/store';
 import { fetchReviewAll } from '@/store/slices/reviewSlice';
 import { useEffect } from 'react';
 import Link from 'next/link';
+import { fetchCommentList } from '@/store/slices/commentSlice';
 
 export default function Library() {
     
@@ -24,31 +24,34 @@ export default function Library() {
 
     const dispatch = useDispatch<AppDispatch>();
     const reviews = useSelector((state: RootState) => state.review.reviews || []);
+    const comments = useSelector((state: RootState) => state.comment.commentList || []);
 
     useEffect(() => {
         if (status === "authenticated" && session?.user.sub) {
             dispatch(fetchReviewAll({ user_id: session.user.sub, limit: 3 }))
+            dispatch(fetchCommentList({ user_id: session.user.sub, limit: 3 }))
         }
     }, [session, dispatch])
 
-    const comments = [
-        { commenter: "김도훈", commentTime: "2024-12-04 16:01:18", commentContent: "너무 재밌어요" },
-        { commenter: "박지훈", commentTime: "2024-12-03 15:45:18", commentContent: "재밌게 봤습니다" },
-        { commenter: "최유정", commentTime: "2024-11-30 12:30:18", commentContent: "감동적이에요" },
-    ];
+    const formatCommentDate = (date: string) => {
+        const newDate = new Date(date).toLocaleString("en-US", { timeZone: "Asia/Seoul" });
+        const now = new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" });
 
-    const formatCommentTime = (commentTime: string) => {
-        const commentDate = new Date(commentTime);
-        const now = new Date();
-
-        if (isToday(commentDate)) {
-            const hour = differenceInHours(now, commentDate);
+        if (isToday(newDate)) {
+            const hour = differenceInHours(now, newDate);
             return `${hour}시간 전`;
-        } else if (isYesterday(commentDate)) {
+        } else if (isYesterday(newDate)) {
             return "어제";
         } else {
-            return format(commentDate, "yyyy-MM-dd");
+            return format(newDate, 'yyyy.MM.dd');
         }
+    };
+
+    const formatNickname = (nickname: string) => {
+        if (nickname.length > 10) {
+            return nickname.slice(0, 10) + '...';
+        }
+        return nickname;
     };
 
     return (
@@ -93,11 +96,6 @@ export default function Library() {
 
                             ))
                         }
-
-                        {/* <div className={styles.reviewItem}></div>
-                        <div className={styles.reviewItem}></div> */}
-
-
                     </div>
                 </div>
 
@@ -123,10 +121,10 @@ export default function Library() {
                                 {comments.map((comment, index) => (
                                     <div className={styles.commentItem} key={index}>
                                         <div className={styles.commentInfo}>
-                                            <span className={styles.commenter}>김도훈</span>
-                                            <span className={styles.commentTime}>{formatCommentTime(comment.commentTime)}</span>
+                                            <span className={styles.commenter}>{formatNickname(comment.nickname)}</span>
+                                            <span className={styles.commentTime}>{formatCommentDate(comment.created_at)}</span>
                                         </div>
-                                        <span className={styles.commentContent}>너무 재밌어요</span>
+                                        <span className={styles.commentContent}>{comment.content}</span>
                                         {
                                             index < 2 && <div className={styles.hrLine}></div>
                                         }

@@ -10,12 +10,22 @@ interface CommentState {
         date: string;
         nickname: string;
     }>;
+    commentList:  Array<{
+        gubun: string;
+        isbn: string;
+        book_title: string;
+        content: string;
+        created_at: string;
+        nickname: string;
+        user_id: string;
+    }>;
     loading: boolean;
     error: string | null;
 }
 
 const initialState: CommentState = {
     comments: [],
+    commentList: [],
     loading: false,
     error: null
 }
@@ -88,6 +98,30 @@ export const deleteComment = createAsyncThunk(
     }
 )
 
+export const fetchCommentList = createAsyncThunk(
+    'comment/fetchCommentList',
+    async ({ user_id, limit }: { user_id: string; limit: number }) => {
+        try {
+            const response = await fetch('/api/db/comment/list', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ user_id, limit })
+            })
+
+            if (!response.ok) {
+                throw new Error('댓글 조회 실패')
+            }
+            
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.log('Delete error:', error);
+        }
+    }
+)
+
 const commentSlice = createSlice({
     name: 'comment',
     initialState,
@@ -127,6 +161,18 @@ const commentSlice = createSlice({
             .addCase(deleteComment.rejected, (state, action) => {
                 state.loading = false
                 state.error = action.error.message || '댓글 삭제 실패'
+            })
+            .addCase(fetchCommentList.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(fetchCommentList.fulfilled, (state, action) => {
+                state.commentList = action.payload.result
+                state.loading = false
+            })
+            .addCase(fetchCommentList.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.error.message || '댓글 조회 실패'
             })
     }
 })

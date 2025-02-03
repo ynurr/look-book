@@ -1,55 +1,26 @@
 'use client'
 
+import { AppDispatch, RootState } from "@/store/store";
 import LeftMenu from "../LeftMenu";
 import styles from './Comment.module.css';
 import { isToday, isYesterday, differenceInHours, format } from 'date-fns';
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-
-interface Comment {
-    gubun: string;
-    isbn: string;
-    book_title: string;
-    content: string;
-    created_at: string;
-    nickname: string;
-    user_id: string;
-}
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCommentList } from "@/store/slices/commentSlice";
 
 export default function Comment() {
 
     const { data: session, status } = useSession();
-    const [comments, setComments] = useState<Comment[]>([]);
+    const dispatch = useDispatch<AppDispatch>();
+    const comments = useSelector((state: RootState) => state.comment.commentList || []);
 
     useEffect(() => {
         if (status === "authenticated" && session?.user.sub) {
-            const fetchComments = async () => {
-                try {
-                    const response = await fetch('/api/db/comment/list', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ user_id: session?.user.sub })
-                    });
-            
-                    if (!response.ok) {
-                        throw new Error('댓글 조회 실패');
-                    }
-            
-                    const data = await response.json();
-                    setComments(data.result);
-            
-                    console.log("📌: " + JSON.stringify(data.result, null, 2));
-                } catch (error) {
-                    console.error('Fetch error:', error);
-                }
-            };
-        
-            fetchComments();
+            dispatch(fetchCommentList({ user_id: session?.user.sub, limit: 0 }));
         }
-    }, [session]);
+    }, [session, dispatch]);
 
     const formatCommentDate = (date: string) => {
         const newDate = new Date(date).toLocaleString("en-US", { timeZone: "Asia/Seoul" });
