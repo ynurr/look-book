@@ -3,6 +3,14 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 interface likeState {
     isLike: boolean;
     likeReviewIds: string[];
+    likeAll: Array<{
+        _id: string;
+        book_isbn: string; 
+        book_title: string;
+        book_author: string; 
+        content: string;
+        rating: number; 
+    }>;
     loading: boolean;
     error: string | null;
 }
@@ -10,6 +18,7 @@ interface likeState {
 const initialState: likeState = {
     isLike: false,
     likeReviewIds: [],
+    likeAll: [],
     loading: false,
     error: null,
 };
@@ -86,6 +95,54 @@ export const updateLike = createAsyncThunk(
     }
 )
 
+export const fetchLikeAll = createAsyncThunk(
+    'like/fetchLikeAll',
+    async ({ user_id }: { user_id: string }) => {
+        try{
+            const response = await fetch('/api/db/like/all', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ user_id })
+            });
+
+            if (!response.ok) {
+                throw new Error('공감 목록 조회 실패')
+            }
+
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.log('Fetch error:', error);
+        }
+    }
+)
+
+export const deleteLike = createAsyncThunk(
+    'like/deleteLike',
+    async ({ user_id, review_id }: { user_id: string, review_id: string }) => {
+        try{
+            const response = await fetch('/api/db/like/delete', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ user_id, review_id })
+            });
+
+            if (!response.ok) {
+                throw new Error('공감 해제 실패')
+            }
+
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.log('Fetch error:', error);
+        }
+    }
+)
+
 const likeSlice = createSlice({
     name: 'like',
     initialState,
@@ -126,6 +183,29 @@ const likeSlice = createSlice({
             .addCase(updateLike.rejected, (state, action) => {
                 state.loading = false
                 state.error = action.error.message || '좋아요 업데이트 실패'
+            })
+            .addCase(fetchLikeAll.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(fetchLikeAll.fulfilled, (state, action) => {
+                state.likeAll = action.payload.result
+                state.loading = false
+            })
+            .addCase(fetchLikeAll.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.error.message || '공감 목록 조회 실패'
+            })
+            .addCase(deleteLike.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(deleteLike.fulfilled, (state) => {
+                state.loading = false
+            })
+            .addCase(deleteLike.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.error.message || '공감 해제 실패'
             });
     },
 });
