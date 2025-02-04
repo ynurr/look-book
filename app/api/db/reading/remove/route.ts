@@ -23,9 +23,8 @@ export async function DELETE(req: NextRequest) {
         if (result.deletedCount > 0) {
 
             if (body.review_id) {
-                await db.collection("review").deleteOne(
-                    { _id: new ObjectId(body.review_id) }
-                );
+                await db.collection("review").deleteOne({ _id: new ObjectId(body.review_id) });
+                await db.collection("like").deleteMany({ review_id: new ObjectId(body.review_id) });
             }
 
             const count = body.book_status === '1' ? -1 : 0;
