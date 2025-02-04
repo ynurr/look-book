@@ -45,6 +45,9 @@ export default function Library() {
 
         if (isToday(newDate)) {
             const hour = differenceInHours(now, newDate);
+            if (hour === 0) {
+                return '조금 전';
+            }
             return `${hour}시간 전`;
         } else if (isYesterday(newDate)) {
             return "어제";
