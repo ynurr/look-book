@@ -18,6 +18,7 @@ export default function Comment() {
     const [selectAll, setSelectAll] = useState(false);
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
     const wishlist = useSelector((state: RootState) => state.wishlist.wishlist);
+    const [isDelete, setIsDelete] = useState(false);
 
     useEffect(() => {
         dispatch(fetchWishlist(session?.user.sub || ''))
@@ -37,20 +38,36 @@ export default function Comment() {
             const isbns = wishlist.filter((item) => selectedItems.includes(item.wish_id))
             .map((item) => item.isbn)
             
-            const result = await dispatch(
+            await dispatch(
                 deleteWishlist({
                     user_id: session?.user.sub || '',
                     book_isbn: isbns
                 })
             ).unwrap();
             
-            alert(result.message);
             setSelectAll(false);
             setCurrentPage(1);
-            dispatch(fetchWishlist(session?.user.sub || ''));
+            await dispatch(fetchWishlist(session?.user.sub || ''));
         } catch (error) {
             alert('위시리스트 삭제 실패');
         }
+    }
+
+    const confirmRemove = () => {
+        if (selectedItems.length === 0) {
+            alert('위시리스트에서 삭제할 도서를 선택해주세요.')
+            return;
+        }
+        setIsDelete(true);
+    }
+
+    const handleConfirmCancel = () => {
+        setIsDelete(false);
+    }
+
+    const handleConfirmProceed = () => {
+        setIsDelete(false);
+        handleRemoveWishlist(); 
     }
 
     const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태 관리
@@ -79,9 +96,19 @@ export default function Comment() {
                         />
                         <span>전체 선택</span>
                     </div>
-                    <button onClick={handleRemoveWishlist} className={styles.deleteBtn}>삭제</button>
+                    <button onClick={confirmRemove} className={styles.deleteBtn}>삭제</button>
                 </div>
                 <div className={styles.hrLine}></div>
+
+                {isDelete && (
+                    <div className={styles.modal}>
+                        <p>선택된 도서를 위시리스트에서 삭제할까요?</p>
+                        <div className={styles.confirmBtnBox}>
+                            <button onClick={handleConfirmCancel} className={styles.cancelBtn}>취소</button>
+                            <button onClick={handleConfirmProceed} className={styles.confirmBtn}>확인</button>
+                        </div>
+                    </div>
+                )}
 
                 <div className={styles.list}>
                     {wishlist.length === 0 ?
