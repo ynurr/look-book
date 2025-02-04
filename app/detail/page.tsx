@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './../(styles)/Detail.module.css';
 import Review from './Review';
 import { redirect, useSearchParams } from 'next/navigation';
@@ -155,6 +155,11 @@ export default function Detail() {
         }
     }
 
+    const reviewSectionRef = useRef<HTMLDivElement>(null);
+    const scrollToReview = () => {
+        reviewSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.inner}>
@@ -169,7 +174,7 @@ export default function Detail() {
                         </div>
                         <p className={styles.date}>{book?.pubDate}</p>
                         <div className={styles.rating}>
-                            <div className={styles.starIcon}>
+                            <div className={styles.starIcon} onClick={scrollToReview}>
                                 {[...Array(5)].map((_, index) => (
                                     <PiStarFill
                                         key={index}
@@ -253,7 +258,9 @@ export default function Detail() {
                     </div>
                     <div className={styles.hrLine}></div>
                 </div>
-                <Review isbn={book?.isbn13} />
+                <div ref={reviewSectionRef}>
+                    <Review isbn={book?.isbn13} />
+                </div>
             </div>
         </div>
     );
