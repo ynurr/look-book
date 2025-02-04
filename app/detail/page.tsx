@@ -36,16 +36,20 @@ export default function Detail() {
     const [rating, setRating] = useState({ avgRating: "0.0", totalCount: 0 });
 
     useEffect(() => {
-        dispatch(clearBook());
-        if (id) {
-            dispatch(fetchBookDetails(id));
-            setIsReady(true);
-        }
+        const fetchData = async () => {
+            dispatch(clearBook());
+            
+            if (id) {
+                await dispatch(fetchBookDetails(id));
+                setIsReady(true);
+            }
+        };
+    
+        fetchData(); 
     }, [id, dispatch]);
 
     useEffect(() => {
         if (book && book.cleanAuthor && isReady) {
-            console.log('현재 author:', book?.cleanAuthor);
             dispatch(fetchAuthorBooks({ keyword: book.cleanAuthor }));
         }
     }, [book, dispatch, isReady]);
@@ -96,17 +100,16 @@ export default function Detail() {
             if (!session && status !== "loading") {
                 redirect('/login');
             }
-            const result = await dispatch(
-                addWishlist({
+            
+            await dispatch(addWishlist({
                     user_id: session?.user.sub || '',
                     book_isbn: book?.isbn13 || '',
                     book_title: book?.title || '',
                     book_author: book?.author || '',
                     book_cover: book?.cover || ''
-                })
-            ).unwrap();
+            }));
       
-            dispatch(fetchWishlist(session?.user.sub || ''));
+            await dispatch(fetchWishlist(session?.user.sub || ''));
         } catch (error) {
             alert('위시리스트 추가 실패');
         }
@@ -117,14 +120,13 @@ export default function Detail() {
             if (!session && status !== "loading") {
                 redirect('/login');
             }
-            const result = await dispatch(
-                deleteWishlist({
+
+            await dispatch(deleteWishlist({
                     user_id: session?.user.sub || '',
                     book_isbn: [book?.isbn13 || '']
-                })
-            ).unwrap();
+            }));
       
-            dispatch(fetchWishlist(session?.user.sub || ''));
+            await dispatch(fetchWishlist(session?.user.sub || ''));
         } catch (error) {
             alert('위시리스트 삭제 실패');
         }
@@ -138,19 +140,16 @@ export default function Detail() {
         }
         
         try {
-            const result = await dispatch(
-                updateBookStatus({
-                    user_id: session?.user.sub || '',
-                    book_isbn: book?.isbn13 || '',
-                    book_title: book?.title || '',
-                    book_author: book?.author || '',
-                    book_cover: book?.cover || '',
-                    status: status,
-                })
-            ).unwrap();
+            await dispatch(updateBookStatus({
+                user_id: session?.user.sub || '',
+                book_isbn: book?.isbn13 || '',
+                book_title: book?.title || '',
+                book_author: book?.author || '',
+                book_cover: book?.cover || '',
+                status: status,
+            }));
 
-            alert(result.message);
-            dispatch(fetchUserReadingState({user_id: session?.user.sub || '', book_isbn: book?.isbn13 || ''}));
+            await dispatch(fetchUserReadingState({user_id: session?.user.sub || '', book_isbn: book?.isbn13 || ''}));
         } catch (error) {
             alert('독서 상태 변경 실패');
         }

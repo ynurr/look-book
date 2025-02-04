@@ -58,8 +58,7 @@ export default function ReviewDetail() {
 
     const handleUpdateStatus = async (status: string) => {
         try {
-            const result = await dispatch(
-                updateBookStatus({
+            await dispatch(updateBookStatus({
                     user_id: session?.user.sub || '',
                     book_isbn: reading?.isbn || '',
                     book_title: reading?.title || '',
@@ -67,9 +66,8 @@ export default function ReviewDetail() {
                     book_author: reading?.author || '',
                     status: status,
                 })
-            ).unwrap();
+            )
             
-            alert(result.message);
             if (session?.user.sub && isbn) {
                 dispatch(fetchReadingDetail({user_id: session?.user.sub, book_isbn: isbn}));
             }
@@ -80,15 +78,14 @@ export default function ReviewDetail() {
 
     const handleRemoveBook = async () => {
         try {
-            const result = await dispatch(deleteBook({
+            await dispatch(deleteBook({
                     user_id: session?.user.sub || '',
                     book_isbn: reading?.isbn || '',
                     book_status: reading?.status || '',
                     review_id: review.review_id || '',
                 })
-            ).unwrap();
+            );
 
-            alert(result.message);
             window.location.href = '/library/reading';
         } catch (error) {
             alert('독서현황 삭제 실패');
@@ -97,7 +94,7 @@ export default function ReviewDetail() {
 
     const handleUpdateLike = async () => {
         try {
-            dispatch(updateLike({
+            await dispatch(updateLike({
                 user_id: session?.user.sub || '',
                 review_id: review.review_id || '',
                 book_isbn: isbn || '',
@@ -143,16 +140,15 @@ export default function ReviewDetail() {
         }
 
         try {
-            dispatch(addComment({
+            await dispatch(addComment({
                 review_id: review_id,
                 book_isbn: isbn || '',
                 user_id: session?.user.sub || '',
                 content: parent_id ? contentReply : content,
                 parent_id: parent_id
-            })).unwrap();
+            }));
                 
-            alert('댓글 작성 성공!');
-            dispatch(fetchComments({isbn: '', id: review.review_id}));
+            await dispatch(fetchComments({isbn: '', id: review.review_id}));
             setContent('');
             setContentReply('');
         } catch (error) {
@@ -204,11 +200,11 @@ export default function ReviewDetail() {
 
     const handleDeleteComment = async (comment_id: string) => {
         try {
-            dispatch(deleteComment({
+            await dispatch(deleteComment({
                 comment_id: comment_id,
                 user_id: session?.user.sub || ''
             }))
-            alert('댓글 삭제 성공!');
+
             dispatch(fetchComments({isbn: '', id: review.review_id}));
         } catch (error) {
             alert('댓글 삭제 실패');

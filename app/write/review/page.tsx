@@ -1,13 +1,12 @@
 'use client'
 
 import { useEffect, useState } from 'react';
-import LeftMenu from '../../library/LeftMenu';
 import styles from './WriteReview.module.css'
 import { PiStarFill } from "react-icons/pi";
 import { useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '@/store/store';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/store/store';
 import { updateReview, fetchReviewById, addReview } from '@/store/slices/reviewSlice';
 
 export default function WriteReview() {
@@ -56,15 +55,13 @@ export default function WriteReview() {
 
         try {
             if (isEdit) {
-                const result = await dispatch(updateReview({
+                await dispatch(updateReview({
                     review_id: review_id,
                     content: content,
                     rating: rating,
-                })).unwrap();
-                
-                alert('리뷰 수정 성공');
+                }));
             } else {
-                const result = await dispatch(addReview({
+                await dispatch(addReview({
                     sub: session?.user.sub || '',
                     isbn: isbn || '',
                     title: title || '',
@@ -73,9 +70,7 @@ export default function WriteReview() {
                     content: content || '',
                     rating: rating || 0,
                     status: status || '',
-                })).unwrap();
-                
-                alert('리뷰 작성 성공');
+                }));
             }
             window.location.href = `/library/reading/detail?isbn=${isbn}`;
         } catch (error) {

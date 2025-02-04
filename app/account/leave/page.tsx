@@ -13,10 +13,10 @@ export default function Leave() {
     const [error, setError] = useState<string>('');
 
     const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault()
+        e.preventDefault();
         
         if (!isAgree) {
-            setError('유의사항을 확인하고 동의해주세요.')
+            setError('유의사항을 확인하고 동의해주세요.');
         } else {
             try {
                 const response = await fetch('/api/db/account/leave', {
@@ -27,17 +27,17 @@ export default function Leave() {
                     body: JSON.stringify({ sub: session?.user.sub })
                 })
     
-                const result = await response.json()
+                const result = await response.json();
     
                 if (response.status === 200) {
-                    alert('회원 탈퇴 되었습니다.')
-                    signOut({ callbackUrl: '/home' })
+                    alert('회원 탈퇴 되었습니다.');
+                    signOut({ callbackUrl: '/home' });
                 } else {
-                    alert(result.message)
+                    alert(result.message);
                 }
             } catch (error) {
-                alert("오류가 발생했습니다.")
-                console.error(error)
+                alert("오류가 발생했습니다.");
+                console.error(error);
             }
         }
     }

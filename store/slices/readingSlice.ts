@@ -227,7 +227,6 @@ const readingSlice = createSlice({
             
                 const result = action.payload.result[0]; 
                 if (!result) return;
-                console.log("🍟 action.payload.result Data:", JSON.stringify(result, null, 2));
 
                 const { readingBook = [], completedBook = [], readingCount = [], completedCount = [] } = result;
                 state.readingBook = readingBook.length > 0 ? readingBook[0] : null;

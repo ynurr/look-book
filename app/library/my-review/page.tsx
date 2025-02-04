@@ -24,7 +24,6 @@ export default function Review() {
 
     const dispatch = useDispatch<AppDispatch>();
     const reviews = useSelector((state: RootState) => state.review.reviews || []);
-    console.log("📌 reviews:", JSON.stringify(reviews, null, 2));
 
     useEffect(() => {
         if (status === "authenticated" && session?.user.sub) {

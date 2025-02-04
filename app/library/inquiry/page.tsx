@@ -11,20 +11,19 @@ import { useSession } from "next-auth/react";
 export default function Inquiry() {
 
     const { data:session } = useSession();
-
     const dispatch = useDispatch<AppDispatch>();
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
     const handleSubmit = async () => {
         if (!title) {
-            alert('문의 제목을 작성해주세요.')
-            return
+            alert('문의 제목을 작성해주세요.');
+            return;
         }
 
         if (!content) {
-            alert('문의 내용을 작성해주세요.')
-            return
+            alert('문의 내용을 작성해주세요.');
+            return;
         }
 
         try {
@@ -32,9 +31,8 @@ export default function Inquiry() {
                 user_id: session?.user.sub || '',
                 title,
                 content,
-            })).unwrap();
+            }));
             
-            alert('문의글 작성 성공');
             window.location.href = '/library/inquiry/history';
         } catch (error) {
             alert('문의글 작성 중 오류가 발생했습니다.');

@@ -38,12 +38,10 @@ export default function Comment() {
             const isbns = wishlist.filter((item) => selectedItems.includes(item.wish_id))
             .map((item) => item.isbn)
             
-            await dispatch(
-                deleteWishlist({
-                    user_id: session?.user.sub || '',
-                    book_isbn: isbns
-                })
-            ).unwrap();
+            await dispatch(deleteWishlist({
+                user_id: session?.user.sub || '',
+                book_isbn: isbns
+            }));
             
             setSelectAll(false);
             setCurrentPage(1);

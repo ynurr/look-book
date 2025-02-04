@@ -33,8 +33,7 @@ export default function Like() {
     const handleCancelLike = async (review_id: string) => {
         try {
             if (session?.user.sub) {
-                await dispatch(deleteLike({ user_id: session?.user.sub, review_id: review_id })).unwrap();
-
+                await dispatch(deleteLike({ user_id: session?.user.sub, review_id: review_id }));
                 await dispatch(fetchLikeAll({ user_id: session.user.sub }));
             }
         } catch (error) {

@@ -11,7 +11,6 @@ import { signOut, useSession } from 'next-auth/react';
 export default function Navbar2() {
 
     const { data: session } = useSession();
-
     const [keyword, setKeyword] = useState<string>('');
     const router = useRouter();
     const currentPath = usePathname();
@@ -22,9 +21,9 @@ export default function Navbar2() {
     };
     
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+        e.preventDefault();
         if (keyword.trim()) {
-            router.push(`/search?q=${encodeURIComponent(keyword.trim())}`)
+            router.push(`/search?q=${encodeURIComponent(keyword.trim())}`);
         }
     }
 

@@ -95,16 +95,15 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
         }
         
         try {
-            dispatch(addComment({
+            await dispatch(addComment({
                 review_id: review_id,
                 book_isbn: isbn || '',
                 user_id: session?.user.sub || '',
                 content: parent_id ? contentReply : content,
                 parent_id: parent_id
-            })).unwrap();
+            }));
                 
-            alert('댓글 작성 성공!');
-            dispatch(fetchComments({isbn: isbn || '', id: ''}));
+            await dispatch(fetchComments({isbn: isbn || '', id: ''}));
             setContent('');
             setContentReply('');
         } catch (error) {
@@ -156,12 +155,12 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
     
     const handleDeleteComment = async (comment_id: string) => {
         try {
-            dispatch(deleteComment({
+            await dispatch(deleteComment({
                 comment_id: comment_id,
                 user_id: session?.user.sub || ''
-            }))
-            alert('댓글 삭제 성공!');
-            dispatch(fetchComments({isbn: isbn || '', id: ''}));
+            }));
+
+            await dispatch(fetchComments({isbn: isbn || '', id: ''}));
         } catch (error) {
             alert('댓글 삭제 실패');
         }

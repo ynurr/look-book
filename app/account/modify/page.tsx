@@ -8,7 +8,6 @@ import { useSession } from "next-auth/react";
 export default function Modify() {
 
     const { data: session } = useSession();
-    
     const [isVerified, setIsVerified] = useState<boolean>(false)
     const [password, setPassword] = useState<string>('')
     const [error, setError] = useState<string>('')
@@ -27,8 +26,8 @@ export default function Modify() {
         e.preventDefault(); 
 
         if (!password) {
-            setError('비밀번호를 입력해주세요.')
-            return
+            setError('비밀번호를 입력해주세요.');
+            return;
         }
 
         const data = {
@@ -45,19 +44,18 @@ export default function Modify() {
                 body: JSON.stringify(data)
             })
 
-            const result = await response.json()
+            const result = await response.json();
 
             if (response.status === 200) {
-                setIsVerified(true)
-                console.log("isVerified 상태:", true);
-                setUserId(result.id)
-                setNickname(result.nickname)
+                setIsVerified(true);
+                setUserId(result.id);
+                setNickname(result.nickname);
             } else {
-                setError(result.message)
+                setError(result.message);
             }
         } catch (error) {
-            alert("사용자 정보 조회 중 오류가 발생했습니다.")
-            console.error(error)
+            alert("사용자 정보 조회 중 오류가 발생했습니다.");
+            console.error(error);
         }
     }
 
@@ -86,13 +84,13 @@ export default function Modify() {
         const nicknameRegex = /^[가-힣a-zA-Z0-9]+$/;
 
         if (!nicknameRegex.test(cleanedNickname)) {
-            alert('닉네임은 한글, 영어, 숫자만 사용할 수 있습니다.')
+            alert('닉네임은 한글, 영어, 숫자만 사용할 수 있습니다.');
             setIsNicknameChecked(false);
             return;
         }
     
         if (cleanedNickname.length > 8) {
-            alert('닉네임은 8자리까지 가능합니다.')
+            alert('닉네임은 8자리까지 가능합니다.');
             setIsNicknameChecked(false);
             return;
         }
@@ -106,55 +104,55 @@ export default function Modify() {
                 body: JSON.stringify({ nickname })
             })
 
-            const data = await response.json()
+            const data = await response.json();
 
             if (response.ok) {
-                alert(data.message)
-                setIsNicknameChecked(true)
+                alert(data.message);
+                setIsNicknameChecked(true);
             } else {
-                alert(data.message)
-                setIsNicknameChecked(false)
+                alert(data.message);
+                setIsNicknameChecked(false);
             }
         } catch (error) {
-            alert(error)
-            setIsNicknameChecked(false)
+            alert(error);
+            setIsNicknameChecked(false);
         }
     }
 
     const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault()
+        e.preventDefault();
 
-        setPasswordError(false)
-        setPasswordCheckError(false)
-        setNickNameError(false)
-        setIsError(false)
-        setPasswordValidError(false)
+        setPasswordError(false);
+        setPasswordCheckError(false);
+        setNickNameError(false);
+        setIsError(false);
+        setPasswordValidError(false);
 
-        let hasError = false
+        let hasError = false;
 
         if (!newPassword) {
-            setPasswordError(true)
-            hasError = true
+            setPasswordError(true);
+            hasError = true;
         }
 
         if (newPassword !== confirmPassword) {
-            setPasswordCheckError(true)
-            hasError = true
+            setPasswordCheckError(true);
+            hasError = true;
         }
     
         if (!validatePassword(newPassword)) {
-            setPasswordValidError(true)
-            hasError = true
+            setPasswordValidError(true);
+            hasError = true;
         }
 
         if (!isNicknameChecked) {
-            alert('닉네임 중복 확인을 완료해주세요.')
-            return
+            alert('닉네임 중복 확인을 완료해주세요.');
+            return;
         }
         
         if (hasError) {
-            setIsError(true)
-            return
+            setIsError(true);
+            return;
         }
 
         const data = {
@@ -172,15 +170,15 @@ export default function Modify() {
                 body: JSON.stringify(data)
             })
 
-            const result = await response.json()
+            const result = await response.json();
 
             if (response.status === 200) {
-                alert('회원정보수정 성공')
+                alert('회원정보수정 성공');
             } else {
-                alert(result.message || '회원정보수정 실패')
+                alert(result.message || '회원정보수정 실패');
             }
         } catch (error) {
-            alert('회원정보수정 중 오류가 발생했습니다.')
+            alert('회원정보수정 중 오류가 발생했습니다.');
         }
     }
     
