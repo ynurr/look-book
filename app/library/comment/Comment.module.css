@@ -14,6 +14,18 @@
     margin-bottom: 0;
 }
 
+.topBox {
+    display: flex;
+    gap: 10px;
+}
+
+.infoMsg {
+    font-size: 13px;
+    color: #f54a4a;
+    align-self: flex-end;
+    margin-bottom: 4px;
+}
+
 .line {
     border-bottom: 3px solid #333;
     margin-top: 14px;

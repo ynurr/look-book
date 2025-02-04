@@ -6,9 +6,10 @@ import styles from './Comment.module.css';
 import { isToday, isYesterday, differenceInHours, format } from 'date-fns';
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCommentList } from "@/store/slices/commentSlice";
+import Pagination from "@/app/(components)/Pagination";
 
 export default function Comment() {
 
@@ -28,6 +29,9 @@ export default function Comment() {
 
         if (isToday(newDate)) {
             const hour = differenceInHours(now, newDate);
+            if (hour === 0) {
+                return '조금 전';
+            }
             return `${hour}시간 전`;
         } else if (isYesterday(newDate)) {
             return "어제";
@@ -43,21 +47,33 @@ export default function Comment() {
         return title;
     };
 
+    const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태 관리
+    const ItemsPerPage = 6;
+    const pageCount = Math.ceil(comments.length / ItemsPerPage);
+    const currentItems = comments.slice((currentPage - 1) * ItemsPerPage, currentPage * ItemsPerPage);
+
+    const handlePageChange = (selected: { selected: number }) => {
+        setCurrentPage(selected.selected + 1);
+    };
+    
     return (
         <div className={styles.container}>
             <LeftMenu />
 
             <div className={styles.wrapper}>
-                <h2 className={styles.menuTitle}>댓글 알림</h2>
+                <div className={styles.topBox}>
+                    <h2 className={styles.menuTitle}>댓글 알림</h2>
+                    <span className={styles.infoMsg}>30일 이내 댓글만 조회됩니다</span>
+                </div>
                 <div className={styles.line}></div>
                
                 <div className={styles.list}>
                     {comments.length === 0 ?
                         <div className={styles.noData}>
-                            <span>댓글 알림이 없습니다. 새로운 댓글이 달리면 알려드릴게요.</span>
+                            <span>댓글 알림이 없습니다.<br />새로운 댓글이 달리면 알려드릴게요.</span>
                         </div>
                         :
-                        comments.map((item, i) => (
+                        currentItems.map((item, i) => (
                             <div className={styles.item} key={i}>
                                 <Link href={`/detail?id=${item.isbn}`} legacyBehavior>
                                     <div className={styles.itemWrapper}>
@@ -65,7 +81,7 @@ export default function Comment() {
                                             <span className={styles.title}>{formatBookTitle(item.book_title)}</span>
                                             <span className={styles.info}>
                                                 {
-                                                    item.gubun === "comment" ? "글의 댓글" : "댓글의 답댓글"
+                                                    item.gubun === "comment" ? "리뷰의 댓글" : "댓글의 답댓글"
                                                 }
                                             </span>
                                         </div>
@@ -80,6 +96,11 @@ export default function Comment() {
                             </div>
                         ))
                     }
+                    <Pagination
+                        pageCount={pageCount}
+                        onPageChange={handlePageChange}
+                        currentPage={currentPage}
+                    />
                 </div>
             </div>
         </div>
