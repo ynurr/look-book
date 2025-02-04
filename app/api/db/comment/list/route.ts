@@ -25,7 +25,9 @@ export async function POST(req: NextRequest) {
             .find({
                 review_id: { $in: reviewIds },
                 created_at: { $gte: lastMonth }
-            }, { limit: body.limit })
+            })
+            .sort({ created_at: -1 })
+            .limit(body.limit)
             .toArray();
 
         const userIds = comments.map(comment => comment.user_id);
