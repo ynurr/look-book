@@ -88,6 +88,11 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
             alert('로그인 후 가능합니다.');
             redirect('/login');
         }
+
+        if ((parent_id && !contentReply) || (!parent_id && !content)) {
+            alert('댓글을 입력해주세요.');
+            return;
+        }
         
         try {
             dispatch(addComment({
