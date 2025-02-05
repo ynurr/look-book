@@ -4,7 +4,7 @@
 }
 
 /* 메인 페이지 : 섹션 */
-.best-book-list-section, .rating-book-list-section, .latest-book-list-section, .ranking-and-recommendations-section {
+.bestBookListSection, .rating-book-list-section, .latestBookListSection, .rankingRecommendationsSection {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,15 +12,15 @@
     margin: 50px auto 0;
 }
 
-.best-book-list-section {
+.bestBookListSection {
     margin-top: 100px;
 }
   
-.search-section {
+.searchSection {
     margin-bottom: 80px;
 }
   
-.ranking-and-recommendations-section {
+.rankingRecommendationsSection {
     gap: 60px;
     display: flex;
     align-items: stretch;
@@ -28,7 +28,7 @@
     margin-bottom: 60px;
 }
   
-.ranking-and-recommendations-section > div {
+.rankingRecommendationsSection > div {
     display: flex; /* 내부 컴포넌트가 div의 전체 높이를 차지 */
 }
 
@@ -44,16 +44,16 @@
     font-weight: 900;
 }
 
-.logo-top {
+.logoTop {
     margin-left: clamp(-30%, -15vw, -40px);
 }
 
-.logo-bottom {
+.logoBottom {
     margin-left: clamp(40px, 15vw, 30%);
 }
 
 /* 메인 페이지 : 검색 창 */
-.search-container {
+.searchContainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -63,7 +63,7 @@
     width: 100%;
 }
 
-.search-icon {
+.searchIcon {
     position: absolute;
     left: 20px;
     color: #9ca3af;
@@ -72,7 +72,7 @@
     padding-right: 15px;
 }
 
-.search-input {
+.input {
     flex-grow: 1;
     padding: 0.8rem 1.2rem;
     border: 2px solid #ddd;
@@ -83,13 +83,13 @@
     caret-color: #a8a8a8;
 }
 
-.search-input::placeholder {
+.input::placeholder {
     color: #a7a7a7;
     padding-left: 3px;
 }
 
 /* 메인 페이지 : 서브 타이틀 */
-.sub-title {
+.subTitle {
     text-align: center;
     margin: 20px 0;
     color: #4b4b4b;
@@ -97,7 +97,7 @@
 
 
 @media (max-width: 1023px) {
-    .best-book-list-section, .rating-book-list-section, .latest-book-list-section, .ranking-and-recommendations-section {
+    .bestBookListSection, .rating-book-list-section, .latestBookListSection, .rankingRecommendationsSection {
         max-width: 800px;
     }
 }

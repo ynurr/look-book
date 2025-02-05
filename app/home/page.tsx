@@ -23,21 +23,21 @@ export default function Main() {
   }
 
   return (
-    <div className={styles['container']}>
+    <div className={styles.container}>
       <main>
         <section>
-          <h1 className={styles['logo']}>
-            <span className={styles['logo-top']}>LOOK</span>
-            <span className={styles['logo-bottom']}>BOOK</span>
+          <h1 className={styles.logo}>
+            <span className={styles.logoTop}>LOOK</span>
+            <span className={styles.logoBottom}>BOOK</span>
           </h1>
         </section>
-        <section className={styles['search-section']}>
-          <p className={styles['sub-title']}>나만의 독서 경험을 기록하고<br/>다양한 독자들의 감상을 살펴보세요</p>
+        <section className={styles.searchSection}>
+          <p className={styles.subTitle}>나만의 독서 경험을 기록하고<br/>다양한 독자들의 감상을 살펴보세요</p>
           <form onSubmit={handleSearch}>
-            <div className={styles['search-container']}>
-              <FontAwesomeIcon icon={faSearch} className={styles['search-icon']} />
+            <div className={styles.searchContainer}>
+              <FontAwesomeIcon icon={faSearch} className={styles.searchIcon} />
                 <input 
-                  className={styles['search-input']} 
+                  className={styles.input} 
                   type="text" 
                   placeholder="책 제목 또는 작가를 입력하세요" 
                   value={keyword}
@@ -46,13 +46,13 @@ export default function Main() {
             </div>
           </form>
         </section>
-        <section className={styles['best-book-list-section']}>
+        <section className={styles.bestBookListSection}>
           <BestList />
         </section>
-        <section className={styles['latest-book-list-section']}>
+        <section className={styles.latestBookListSection}>
           <LatestList />
         </section>
-        <section className={styles['ranking-and-recommendations-section']}>
+        <section className={styles.rankingRecommendationsSection}>
           <div>
             <UserRanking />
           </div>
