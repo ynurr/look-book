@@ -25,92 +25,10 @@ html {
   box-sizing: border-box;
 }
 
-
 *, *:before, *:after {
   box-sizing: inherit;
 }
 
 a {
   text-decoration: none;
-}
-
-/* 메인 페이지 : 책 리스트 슬라이더 */
-.slider-wrapper {
-  position: relative;
-  max-width: 800px;
-  box-sizing: border-box;
-}
-
-.slider-wrapper .slick-slide {
-  padding: 0 8px;
-}
-
-.slider-wrapper .slick-list {
-  margin: 0 -8px;
-}
-
-/* 메인 페이지 : 슬라이더 버튼 */
-.next-button, .prev-button {
-  position: absolute;
-  cursor: pointer;
-  z-index: 9999;
-  background-color: #ffffff94;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  border-radius: 50%; 
-  padding: 8px; 
-  display: inline-flex;
-  justify-content: center; 
-  align-items: center;
-  width: 20px; 
-  height: 40px; 
-  font-size: 20px; 
-  color: #4e4e4e80; 
-}
-
-.next-button:hover, .prev-button:hover {
-  background-color: rgba(255, 255, 255, 0.9); 
-  color: #2e2e2e;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
-  color: #4e4e4ee8;
-}
-
-.next-button {
-  right: -20px; /* 오른쪽으로 이동 */
-  top: 50%; /* 상단에서 50% 위치 */
-  transform: translateY(-50%); /* 중앙 정렬 */
-}
-
-.prev-button {
-  left: -20px; /* 왼쪽으로 이동 */
-  top: 50%; /* 상단에서 50% 위치 */
-  transform: translateY(-50%); /* 중앙 정렬 */
-}
-
-.prev-button.hidden, .next-button.hidden {
-  opacity: 0;
-  pointer-events: none; /* 클릭 이벤트 비활성화 */
-}
-
-.best-slider .next-button {
-  top: 31%; /* 1번 슬라이더 버튼 위치 */
-}
-
-.best-slider .prev-button {
-  top: 31%; /* 1번 슬라이더 버튼 위치 */
-}
-
-.rating-slider .next-button {
-  top: 30%; /* 2, 3번 슬라이더 버튼 위치 */
-}
-
-.rating-slider .prev-button {
-  top: 30%; /* 2, 3번 슬라이더 버튼 위치 */
-}
-
-.latest-slider .next-button {
-  top: 28%; /* 2, 3번 슬라이더 버튼 위치 */
-}
-
-.latest-slider .prev-button {
-  top: 28%; /* 2, 3번 슬라이더 버튼 위치 */
 }

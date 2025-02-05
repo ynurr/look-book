@@ -1,32 +1,3 @@
-/* 슬라이더 책 */
-.title {
-    margin: 0;
-    font-size: 15px;
-    color: black;
-    font-weight: bold;
-    display: -webkit-box; 
-    -webkit-box-orient: vertical; 
-    overflow: hidden;
-    -webkit-line-clamp: 3; 
-    line-clamp: 3;
-}
-  
-.author {
-    margin: 0;
-    color: #666;
-    font-size: 13px;
-    white-space: nowrap; /* 한 줄로 유지 */
-    overflow: hidden; 
-    text-overflow: ellipsis; /* 숨겨진 텍스트 말줄임표로 표시 */
-} 
-  
-.cover {
-    width: 120px;
-    height: 180px; /* 원하는 높이 (2:3 비율 유지) */
-    margin-bottom: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
 .categoryLink {
     display: inline-flex;
     align-items: center;
@@ -37,16 +8,113 @@
     cursor: pointer;
 }
 
-/* 
-@media (max-width: 1023px) {
-    .cover {
-        height: calc((100% / 6) * (210 / 150)); 
-    }
+.scrollWrapper {
+    position: relative;
+    width: 800px;
+    height: 260px;
 }
 
-@media (max-width: 767px) {
-    .cover {
-        height: calc((100% / 3) * (210 / 150)); 
-    }
+/* 스크롤 영역 */
+.scrollContainer {
+    display: flex; 
+    overflow-x: auto; /* 수평 스크롤 활성화 */
+    -ms-overflow-style: none; /* IE 및 Edge 스크롤바 숨기기 */
+    scrollbar-width: none; /* Firefox 스크롤바 숨기기 */
+    gap: 16px; 
+}
+
+/* 스크롤바 숨기기 (Chrome, Safari, Opera) */
+.scrollContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    width: 120px;
+}
+
+.title {
+    margin: 0;
+    font-size: 15px;
+    color: black;
+    font-weight: bold;
+    display: -webkit-box; 
+    -webkit-box-orient: vertical; 
+    overflow: hidden;
+    -webkit-line-clamp: 2; 
+    line-clamp: 2;
+}
+  
+.author {
+    margin: 0;
+    color: #666;
+    font-size: 13px;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
 } 
-*/
+
+.cover {
+    width: 120px;
+    height: 180px; 
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+
+.leftArrow {
+    position: absolute;
+    left: -25px;
+    top: 36%;
+    transform: translateY(-50%);
+    z-index: 10;
+    border: none;
+    cursor: pointer;
+    background-color: #ffffff94;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 50%; 
+    display: inline-flex;
+    justify-content: center; 
+    align-items: center;
+    width: 35px; 
+    height: 35px; 
+    color: #4e4e4e21; 
+}
+
+.rightArrow {
+    position: absolute;
+    right: -25px;
+    top: 36%;
+    transform: translateY(-50%);
+    z-index: 10;
+    border: none;
+    cursor: pointer;
+    background-color: #ffffff94;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 50%; 
+    display: inline-flex;
+    justify-content: center; 
+    align-items: center;
+    width: 35px; 
+    height: 35px; 
+    color: #4e4e4e21; 
+}
+    
+.leftArrow:hover:not(:disabled), .rightArrow:hover:not(:disabled) {
+    background-color: rgba(255, 255, 255, 0.9); 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.leftArrow:disabled, .rightArrow:disabled {
+    cursor: default;
+}
+
+.disabledBtn {
+    color: rgba(221, 221, 221, 0.534);
+}
+
+.activeBtn {
+    color: #333333d7;
+}
