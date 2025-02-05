@@ -241,22 +241,26 @@ export default function Detail() {
                         <span>{book?.description  || '소개글이 등록되어 있지 않습니다.'}</span>
                     </div>
                     <div className={styles.hrLine}></div>
-                    <div>
-                        <p className={styles.label}>작가의 다른 책</p>
-                        <div className={styles.bookList}>
-                            {filteredBooks.map((book: Books, index: number) => (
-                                <div className={styles.bookItem} key={index}>
-                                    <Link href={`/detail?id=${book.isbn13}`}>
-                                        <img className={styles.cover2} src={book.cover} alt={book.title}></img>
-                                    </Link>
-                                    <Link href={`/detail?id=${book.isbn13}`}>
-                                        <span className={styles.title2}>{book.title}</span>
-                                    </Link>
-                                </div>
-                            ))}
+                    {filteredBooks.length > 0 &&
+                    <>
+                        <div>
+                            <p className={styles.label}>작가의 다른 책</p>
+                            <div className={styles.bookList}>
+                                {filteredBooks.map((book: Books, index: number) => (
+                                    <div className={styles.bookItem} key={index}>
+                                        <Link href={`/detail?id=${book.isbn13}`}>
+                                            <img className={styles.cover2} src={book.cover} alt={book.title}></img>
+                                        </Link>
+                                        <Link href={`/detail?id=${book.isbn13}`}>
+                                            <span className={styles.title2}>{book.title}</span>
+                                        </Link>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                    <div className={styles.hrLine}></div>
+                        <div className={styles.hrLine}></div>
+                    </>
+                    }
                 </div>
                 <div ref={reviewSectionRef}>
                     <Review isbn={book?.isbn13} />
