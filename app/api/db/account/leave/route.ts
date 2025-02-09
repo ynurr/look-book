@@ -7,13 +7,21 @@ export async function DELETE(req: NextRequest) {
 
     if (!body.sub) {
         return NextResponse.json({ message: "유효하지 않은 사용자 ID입니다." }, { status: 400 });
+    } else if (!body.reason) {
+        return NextResponse.json({ message: "탈퇴 사유를 선택해주세요." }, { status: 400 });
     }
 
     try {
         const db = (await connectDB).db("lookbook");
 
+        await db.collection("leave").insertOne({
+            user_id: new ObjectId(body.sub),
+            reason: body.reason,
+            created_at: new Date()
+        });
+
         const result = await db.collection("user").deleteOne({ _id: new ObjectId(body.sub) });
-        
+
         if (result.deletedCount === 0) {
             return NextResponse.json({ message: "존재하지 않는 회원입니다." }, { status: 404 });
         } else {
