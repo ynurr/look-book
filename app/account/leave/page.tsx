@@ -1,14 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './AccountLeave.module.css'
 import Link from 'next/link';
 import { signOut, useSession } from 'next-auth/react';
 
 export default function Leave() {
 
-    const { data: session } = useSession()
-
+    const { data: session } = useSession();
     const [isAgree, setIsAgree] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
 
@@ -54,7 +53,7 @@ export default function Leave() {
             <h2>회원탈퇴</h2>
             <div className={styles.warning}>
                 <span className={styles.warningInfo}>
-                    지금 탈퇴하면 <span className={styles.redText}>0권</span>의 데이터가 사라져요. 😥
+                    지금 탈퇴하면 <span className={styles.redText}>모든 리뷰가 사라져요.</span> 😥
                 </span>
                 <span className={styles.warningMsg}>정말 탈퇴하실 건가요? 탈퇴하시는 이유를 알려주세요.</span>
             </div>
