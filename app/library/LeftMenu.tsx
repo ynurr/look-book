@@ -4,66 +4,43 @@ import Link from 'next/link'
 import styles from './LeftMenu.module.css'
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
-import { useEffect, useState } from 'react';
-
-interface User {
-    bookCount: number;
-    reviewCount: number;
-    lastRead: string;
-}
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/store/store';
+import { useEffect } from 'react';
+import { fetchUserStat } from '@/store/slices/statSlice';
 
 export default function LeftMenu() {
     
     const { data: session, status } = useSession();
-
+    const dispatch = useDispatch<AppDispatch>();
+    const goal = useSelector((state: RootState) => state.stat.goal);
+    const bookCount = useSelector((state: RootState) => state.stat.bookCount);
+    
     if (!session && status !== "loading") {
         redirect('/login');
     }
-
-    const [user, setUser] = useState<User>({
-        bookCount: 0,
-        reviewCount: 0,
-        lastRead: '-'
-    })
-
+    
     useEffect(() => {
-        if (status === 'authenticated' && session?.user.sub) {
-            const fetchUserInfo = async() => {
-                try {
-                    const response = await fetch('/api/db/user/stat', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ sub: session?.user.sub })
-                    })
-                    
-                    const result = await response.json()
-
-                    if (response.status === 200) {
-                        setUser(result)
-                    } else {
-                        alert(result.message)
-                    }
-                } catch (error) {
-                    console.error("사용자 조회 실패", error);
-                }
+        if (status === "authenticated" && session?.user.sub) {
+            try {
+                dispatch(fetchUserStat({ user_id: session.user.sub }))
+            } catch (error) {
+                alert('회원 정보 조회 중 오류가 발생했습니다.');
             }
-
-            fetchUserInfo()
         }
-    }, [session, status])
+    }, [session, dispatch])
 
     return (
         <div className={styles.container}>
-            <div className={styles.userInfo}>
+            <div className={styles.profile}>
                 <span className={styles.nickname}>{session?.user.nickname} 님</span>
-                <span className={styles.stat}>리뷰 작성 <span className={styles.redText}>{user.reviewCount}권</span></span>
-                <span className={styles.stat}>지금까지 읽은 책 <span className={styles.redText}>{user.bookCount}권</span></span> 
-                <span className={styles.stat}>마지막 독서 <span className={styles.redText}>
-                        {user.reviewCount === 0 && user.bookCount === 0 ? '-일 전' :
-                        user.lastRead == '0' ? '오늘' : user.lastRead+'일 전'}</span>
-                </span> 
+                <div className={styles.goalBox}>
+                    <span>🎯 독서 목표 : {goal}권</span>
+                    <progress value={bookCount} max={goal} className={styles.progressBar}></progress> 
+                </div>
+                <Link href="/profile/edit" legacyBehavior>
+                    <button className={styles.editBtn}>프로필 수정</button>
+                </Link>
             </div>
             <div className={styles.menu}>
                 <span className={styles.menuTitle}>내 서재</span>

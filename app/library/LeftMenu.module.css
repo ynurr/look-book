@@ -5,12 +5,29 @@
     gap: 40px;
 }
 
-.userInfo {
+.profile {
     box-shadow: 0 0 6px rgba(139, 139, 139, 0.2); 
     border-radius: 20px;
     display: flex;
     flex-direction: column;
     padding: 20px;
+    height: 175px;
+    justify-content: space-between
+}
+
+.goalBox {
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.editBtn {
+    border-radius: 4px;
+    border: 1px solid #dddddd;
+    background: none;
+    cursor: pointer;
+    padding: 8px 0;
 }
 
 .menu {
@@ -21,7 +38,7 @@
     padding: 20px;
     gap: 8px;
     font-size: 15px;
-    height: 570px;
+    height: 557px;
 }
 
 .redText {
@@ -30,8 +47,7 @@
 
 .nickname {
     font-weight: bold;
-    font-size: 24px;
-    margin-bottom: 22px;
+    font-size: 16px;
 }
 
 .stat {
@@ -52,4 +68,31 @@
 .menuItem {
     color: #333;
     text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.progressBar {
+    width: 100%; /* 부모 크기에 맞추기 */
+    max-width: 150px; /* ✅ 특정 크기 이상으로 확장되지 않도록 제한 */
+    height: 10px;
+    display: block; /* ✅ inline 속성으로 인한 스타일 깨짐 방지 */
+    border-radius: 5px;
+    background-color: #e0e0e0; /* 배경색 */
+    overflow: hidden; /* ✅ 값이 넘칠 경우 방지 */
+}
+
+.progressBar::-webkit-progress-bar {
+    background-color: #e0e0e0;
+    border-radius: 5px;
+}
+
+.progressBar::-webkit-progress-value {
+    background-color: #ff5a5a;
+    border-radius: 5px;
+}
+
+.progressBar::-moz-progress-bar {
+    background-color: #ff5a5a;
+    border-radius: 5px;
 }
