@@ -2,7 +2,6 @@
 
 import { isToday, isYesterday, differenceInHours, format } from 'date-fns';
 import BarChart from "./BarChart";
-import ProgressBar from "./ProgressBar";
 import LeftMenu from "./LeftMenu";
 import styles from './Library.module.css'
 import { redirect } from 'next/navigation';
@@ -10,10 +9,11 @@ import { useSession } from 'next-auth/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import { fetchReviewAll } from '@/store/slices/reviewSlice';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { fetchCommentList } from '@/store/slices/commentSlice';
 import { fetchReadingBook } from '@/store/slices/readingSlice';
+import { fetchUserStat } from '@/store/slices/statSlice';
 
 export default function Library() {
     
@@ -30,14 +30,19 @@ export default function Library() {
     const CompletedBook = useSelector((state: RootState) => state.readingStatus.completedBook);
     const ReadingCnt = useSelector((state: RootState) => state.readingStatus.readingCount);
     const CompletedCnt = useSelector((state: RootState) => state.readingStatus.completedCount);
+    const bookCount = useSelector((state: RootState) => state.stat.bookCount);
+    const reviewCount = useSelector((state: RootState) => state.stat.reviewCount);
+    const lastRead = useSelector((state: RootState) => state.stat.lastRead);
 
     useEffect(() => {
         if (status === "authenticated" && session?.user.sub) {
             dispatch(fetchReviewAll({ user_id: session.user.sub, limit: 3 }))
             dispatch(fetchCommentList({ user_id: session.user.sub, limit: 3 }))
             dispatch(fetchReadingBook({ user_id: session.user.sub }))
+            dispatch(fetchUserStat({ user_id: session.user.sub }))
         }
     }, [session, dispatch])
+    
 
     const formatCommentDate = (date: string) => {
         const newDate = new Date(date).toLocaleString("en-US", { timeZone: "Asia/Seoul" });
@@ -69,23 +74,25 @@ export default function Library() {
 
             <div className={styles.wrapper}>
                 <div className={styles.statSection}>
-                    <div className={styles.statItem}>
-                        <span className={styles.graphStat}>지난 달보다 <span className={styles.redText}>0권</span> 더 읽었어요!</span>
+                    <div className={styles.statGroup}>
+                        <span className={styles.statTitle}>독서 활동 통계</span>
+                        <div className={styles.statBox}>
+                            <span className={styles.stat}>✍ 작성한 리뷰 <span className={styles.redText}>{reviewCount}권</span></span>
+                            <span className={styles.stat}>📚 지금까지 읽은 책 <span className={styles.redText}>{bookCount}권</span></span> 
+                            <span className={styles.stat}>👀 마지막 독서 
+                                <span className={styles.redText}>
+                                    {reviewCount === 0 && bookCount === 0 ? 
+                                    ' -일 전' : lastRead == '0' ? ' 오늘' : ' '+lastRead+'일 전'}
+                                </span>
+                            </span> 
+                        </div>
+                    </div>
+                    <div className={styles.statGroup}>
+                        <span className={styles.statTitle}>📈 지난 달보다 <span className={styles.redText}>0권</span> 더 읽었어요!</span>
                         <div className={styles.barChart}>
                             <BarChart />
                         </div>
                     </div>
-                    <div className={styles.statItem}>
-                        <div className={styles.progressBar}>
-                            <span >리뷰 작성률</span>
-                            <ProgressBar />
-                        </div>
-                    </div>
-                    {/* <div className={styles.statItem}>
-                        <div className={styles.doughnutChart}>
-                            <DoughnutChart />
-                        </div>
-                    </div> */}
                 </div>
 
                 <div className={styles.reviewSection}>

@@ -4,24 +4,32 @@ import { useEffect, useState } from "react"
 import styles from './AccountModify.module.css'
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/store/store";
+import { fetchUserProfile } from "@/store/slices/accoutSlice";
 
 export default function Modify() {
 
-    const { data: session } = useSession();
-    const [isVerified, setIsVerified] = useState<boolean>(false)
-    const [password, setPassword] = useState<string>('')
-    const [error, setError] = useState<string>('')
-    const [newPassword, setNewPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
-    const [nickname, setNickname] = useState('')
-    const [passwordError, setPasswordError] = useState(false)
-    const [passwordCheckError, setPasswordCheckError] = useState(false)
-    const [passwordValidError, setPasswordValidError] = useState(false)
-    const [nicknameError, setNickNameError] = useState(false)
-    const [isError, setIsError] = useState(false)
-    const [userId, setUserId] = useState('')
-    const [isNicknameChecked, setIsNicknameChecked] = useState(false)
+    const { data: session, status } = useSession();
+    const [isVerified, setIsVerified] = useState<boolean>(false);
+    const [password, setPassword] = useState<string>('');
+    const [error, setError] = useState<string>('');
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [passwordError, setPasswordError] = useState(false);
+    const [passwordCheckError, setPasswordCheckError] = useState(false);
+    const [passwordValidError, setPasswordValidError] = useState(false);
+    const [isError, setIsError] = useState(false);
+    const [userId, setUserId] = useState('');
+    const dispatch = useDispatch<AppDispatch>();
+    const id = useSelector((state: RootState) => state.account.id);
         
+    useEffect(() => {
+        if (id) {
+            setUserId(id); 
+        }
+    }, [id]);
+
     const handleVerify = async (e: React.FormEvent) => {
         e.preventDefault(); 
 
@@ -30,32 +38,14 @@ export default function Modify() {
             return;
         }
 
-        const data = {
-            sub: session?.user.sub,
-            password
-        }
-
-        try {
-            const response = await fetch('/api/db/account/search', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-
-            const result = await response.json();
-
-            if (response.status === 200) {
+        if (status === "authenticated" && session?.user.sub) {
+            try {
+                await dispatch(fetchUserProfile({ user_id: session?.user.sub, password: password }))
+                
                 setIsVerified(true);
-                setUserId(result.id);
-                setNickname(result.nickname);
-            } else {
-                setError(result.message);
+            } catch (error) {
+                alert('회원 정보 조회 중 발생했습니다.');
             }
-        } catch (error) {
-            alert("사용자 정보 조회 중 오류가 발생했습니다.");
-            console.error(error);
         }
     }
 
@@ -78,53 +68,11 @@ export default function Modify() {
         );
     }
 
-    const checkNickname = async (nickname: string) => {
-    
-        const cleanedNickname = nickname.trim();
-        const nicknameRegex = /^[가-힣a-zA-Z0-9]+$/;
-
-        if (!nicknameRegex.test(cleanedNickname)) {
-            alert('닉네임은 한글, 영어, 숫자만 사용할 수 있습니다.');
-            setIsNicknameChecked(false);
-            return;
-        }
-    
-        if (cleanedNickname.length > 8) {
-            alert('닉네임은 8자리까지 가능합니다.');
-            setIsNicknameChecked(false);
-            return;
-        }
-
-        try {
-            const response = await fetch('/api/db/check/nickname', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ nickname })
-            })
-
-            const data = await response.json();
-
-            if (response.ok) {
-                alert(data.message);
-                setIsNicknameChecked(true);
-            } else {
-                alert(data.message);
-                setIsNicknameChecked(false);
-            }
-        } catch (error) {
-            alert(error);
-            setIsNicknameChecked(false);
-        }
-    }
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         setPasswordError(false);
         setPasswordCheckError(false);
-        setNickNameError(false);
         setIsError(false);
         setPasswordValidError(false);
 
@@ -145,11 +93,6 @@ export default function Modify() {
             hasError = true;
         }
 
-        if (!isNicknameChecked) {
-            alert('닉네임 중복 확인을 완료해주세요.');
-            return;
-        }
-        
         if (hasError) {
             setIsError(true);
             return;
@@ -157,7 +100,6 @@ export default function Modify() {
 
         const data = {
             sub: session?.user.sub,
-            nickname,
             password: newPassword
         }
 
@@ -231,31 +173,6 @@ export default function Modify() {
                                                 {
                                                     passwordCheckError && isError && <p className={styles.error}>비밀번호가 일치하지 않습니다.</p>
                                                 }
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>닉네임</th>
-                                            <td className={styles.inputGroup}>
-                                                <input 
-                                                    className={`${styles.checkInput} ${styles.nicknameInput}`} 
-                                                    value={nickname}
-                                                    onChange={(e) => {
-                                                        setNickname(e.target.value)
-                                                        setIsNicknameChecked(false)
-                                                    }}
-                                                ></input>
-                                                <button 
-                                                    className={styles.checkBtn}
-                                                    onClick={() => checkNickname(nickname)}
-                                                    type="button"
-                                                >중복확인</button>
-                                                <span className={styles.pwInfo}>8자리 이하 한글, 영문, 숫자만 가능</span>
-                                                {
-                                                    nicknameError && isError && <p className={styles.error}>닉네임을 입력해주세요.</p>
-                                                }
-                                                {/* {
-                                                    nicknameError && isError && <p className={styles.error}>한글, 영어, 숫자 8자리까지만 가능합니다.</p>
-                                                } */}
                                             </td>
                                         </tr>
                                     </tbody>
