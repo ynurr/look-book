@@ -10,6 +10,8 @@ import readingDetailSlice from "./slices/readingDetailSlice"
 import inquirySlice from "./slices/inquirySlice"
 import likeSlice from "./slices/likeSlice"
 import commentSlice from "./slices/commentSlice"
+import accountSlice from "./slices/accoutSlice"
+import statSlice from "./slices/statSlice"
 
 export const store = configureStore({
 	reducer: {
@@ -23,7 +25,9 @@ export const store = configureStore({
 		readingDetail: readingDetailSlice,
 		inquiry: inquirySlice,
 		like: likeSlice,
-		comment: commentSlice
+		comment: commentSlice,
+		account: accountSlice,
+		stat: statSlice
 	},
 });
 
