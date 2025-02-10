@@ -7,54 +7,47 @@
 .wrapper {
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    gap: 38px;
     width: 760px;
 }
 
 .statSection {
     display: flex;
-    gap: 80px;
+    gap: 60px;
 }
 
-.statItem {
-    padding-top: 20px;
+.statGroup {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 175px;
 }
 
-.graphStat {
+.statBox {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background-color: #f7f7f7;
+    border-radius: 20px;
+    padding: 20px;
+    width: 240px;
+}
+
+.stat {
+    font-weight: bold;
+}
+
+.statTitle {
     font-weight: bold;
     font-size: 24px;
 }
 
+.barChart {
+    width: 440px;
+}
+
 .redText {
     color: #f75e5e;
-}
-
-.doughnutChart {
-    margin-top: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.barChart {
-    width: 460px;
-    
-}
-
-.progressBar {
-    width: 100px;
-    margin-top: 10px;
-    font-weight: bold;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.progressBar > span {
-    font-weight: 500;
-    font-size: 14px;
-    color: #a5a5a5;
-    margin-bottom: 10px;
 }
 
 .reviewSection {
@@ -70,7 +63,7 @@
 .menuTitle {
     font-weight: bold;
     font-size: 24px;
-    margin-bottom: 14px;
+    margin-bottom: 15px;
 }
 
 .reviewItem, .noData {
