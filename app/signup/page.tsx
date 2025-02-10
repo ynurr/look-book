@@ -19,6 +19,7 @@ export default function SignUp() {
     const [passwordValidError, setPasswordValidError] = useState(false)
     const [isIdChecked, setIsIdChecked] = useState(false)
     const [isNicknameChecked, setIsNicknameChecked] = useState(false)
+    const [goal, setGoal] = useState(0);
     
     const validatePassword = (password: string) => {
         const minLength = 8
@@ -179,7 +180,8 @@ export default function SignUp() {
         const data = {
             id,
             nickname,
-            password
+            password,
+            goal
         }
 
         try {
@@ -282,6 +284,20 @@ export default function SignUp() {
                     {
                         passwordCheckError && isError && <p className={styles.error}>비밀번호가 일치하지 않습니다.</p>
                     }
+                    <div className={styles.formGroup}>
+                        <label>올해 독서 목표</label>
+                        <div className={styles.inputGroup}>
+                            <select 
+                                className={styles.goalSelect}
+                                value={goal}
+                                onChange={(e) => setGoal(Number(e.target.value))}
+                            >
+                                {[...Array(100).keys()].map(i => (
+                                    <option key={i + 1} value={i + 1}>{i + 1}권</option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
                     <div className={styles.formGroup}>
                         <div className={styles.agreementGroup}>
                             <div className={`${styles.checkboxGroup} ${styles.all}`}>

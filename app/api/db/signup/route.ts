@@ -11,6 +11,8 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ message: "비밀번호를 입력해주세요." }, { status: 400 })
     } else if (!body.nickname) {
         return NextResponse.json({ message: "닉네임을 입력해주세요." }, { status: 400 });
+    } else if (!body.goal) {
+        return NextResponse.json({ message: "독서 목표를 설정해주세요." }, { status: 400 });
     }
 
     try {
@@ -25,6 +27,7 @@ export async function POST(req: NextRequest) {
         if (result.insertedId) {
             await db.collection('stat').insertOne({
                 user_id: result.insertedId,
+                goal: body.goal,
                 book_count: 0,
                 review_count: 0
             })
