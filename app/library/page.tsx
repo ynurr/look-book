@@ -42,7 +42,7 @@ export default function Library() {
             dispatch(fetchUserStat({ user_id: session.user.sub }))
         }
     }, [session, dispatch])
-    
+
 
     const formatCommentDate = (date: string) => {
         const newDate = new Date(date).toLocaleString("en-US", { timeZone: "Asia/Seoul" });
@@ -75,7 +75,7 @@ export default function Library() {
             <div className={styles.wrapper}>
                 <div className={styles.statSection}>
                     <div className={styles.statGroup}>
-                        <span className={styles.statTitle}>독서 활동 통계</span>
+                        <span className={styles.statTitle}>📊 독서 리포트</span>
                         <div className={styles.statBox}>
                             <span className={styles.stat}>✍ 작성한 리뷰 <span className={styles.redText}>{reviewCount}권</span></span>
                             <span className={styles.stat}>📚 지금까지 읽은 책 <span className={styles.redText}>{bookCount}권</span></span> 
@@ -88,7 +88,7 @@ export default function Library() {
                         </div>
                     </div>
                     <div className={styles.statGroup}>
-                        <span className={styles.statTitle}>📈 지난 달보다 <span className={styles.redText}>0권</span> 더 읽었어요!</span>
+                        <span className={styles.statTitle}>📈 이번 달 독서량을 확인해보세요!</span>
                         <div className={styles.barChart}>
                             <BarChart />
                         </div>

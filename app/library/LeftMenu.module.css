@@ -6,7 +6,8 @@
 }
 
 .profile {
-    box-shadow: 0 0 6px rgba(139, 139, 139, 0.2); 
+    background-color: #ffffff;
+    border: 2px solid #f1f2f2;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
@@ -24,14 +25,15 @@
 
 .editBtn {
     border-radius: 4px;
-    border: 1px solid #dddddd;
-    background: none;
+    border: none;
+    background-color: #f6f6f7;
     cursor: pointer;
     padding: 8px 0;
 }
 
 .menu {
-    box-shadow: 0 0 6px rgba(139, 139, 139, 0.2); 
+    background-color: #ffffff;
+    border: 2px solid #f1f2f2;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
@@ -66,7 +68,7 @@
 }
 
 .menuItem {
-    color: #333;
+    color: #444;
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
