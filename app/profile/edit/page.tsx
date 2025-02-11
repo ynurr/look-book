@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import styles from './ProfileEdit.module.css'
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { fetchUserProfile } from "@/store/slices/accoutSlice";
+import { checkNicknameDuplication, fetchUserProfile } from "@/store/slices/accoutSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import { fetchUserStat } from "@/store/slices/statSlice";
@@ -58,23 +58,20 @@ export default function ProfileEdit() {
         }
 
         try {
-            const response = await fetch('/api/db/check/nickname', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ nickname })
-            })
+            const result = await dispatch(checkNicknameDuplication({ nickname })).unwrap(); 
+            
+            if (!result) {
+                throw new Error("응답이 올바르지 않습니다.");
+            }
 
-            const data = await response.json();
-
-            if (response.ok) {
-                alert(data.message);
+            if (result.status === 200) {
+                alert(result.message);
                 setIsNicknameChecked(true);
             } else {
-                alert(data.message);
+                alert(result.message);
                 setIsNicknameChecked(false);
             }
+
         } catch (error) {
             alert(error);
             setIsNicknameChecked(false);

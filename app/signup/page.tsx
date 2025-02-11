@@ -2,24 +2,28 @@
 
 import { useState } from 'react'
 import styles from './Signup.module.css'
+import { checkNicknameDuplication } from '@/store/slices/accoutSlice'
+import { AppDispatch } from '@/store/store'
+import { useDispatch } from 'react-redux'
 
 export default function SignUp() {
-    const [id, setId] = useState('')
-    const [nickname, setNickname] = useState('')
-    const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
-    const [idError, setIdError] = useState(false)
-    const [passwordError, setPasswordError] = useState(false)
-    const [passwordCheckError, setPasswordCheckError] = useState(false)
-    const [nicknameError, setNickNameError] = useState(false)
-    const [isError, setIsError] = useState(false)
-    const [isAllChecked, setIsAllChecked] = useState(false)
-    const [isTermsChecked, setIsTermsChecked] = useState(false)
-    const [isPrivacyChecked, setIsPrivacyChecked] = useState(false)
-    const [passwordValidError, setPasswordValidError] = useState(false)
-    const [isIdChecked, setIsIdChecked] = useState(false)
-    const [isNicknameChecked, setIsNicknameChecked] = useState(false)
+    const [id, setId] = useState('');
+    const [nickname, setNickname] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [idError, setIdError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+    const [passwordCheckError, setPasswordCheckError] = useState(false);
+    const [nicknameError, setNickNameError] = useState(false);
+    const [isError, setIsError] = useState(false);
+    const [isAllChecked, setIsAllChecked] = useState(false);
+    const [isTermsChecked, setIsTermsChecked] = useState(false);
+    const [isPrivacyChecked, setIsPrivacyChecked] = useState(false);
+    const [passwordValidError, setPasswordValidError] = useState(false);
+    const [isIdChecked, setIsIdChecked] = useState(false);
+    const [isNicknameChecked, setIsNicknameChecked] = useState(false);
     const [goal, setGoal] = useState(0);
+    const dispatch = useDispatch<AppDispatch>();
     
     const validatePassword = (password: string) => {
         const minLength = 8
@@ -58,23 +62,20 @@ export default function SignUp() {
         }
         
         try {
-            const response = await fetch('/api/db/check/nickname', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ nickname })
-            })
-
-            const data = await response.json()
-
-            if (response.ok) {
-                alert(data.message)
-                setIsNicknameChecked(true)
-            } else {
-                alert(data.message)
-                setIsNicknameChecked(false)
+            const result = await dispatch(checkNicknameDuplication({ nickname })).unwrap(); 
+                        
+            if (!result) {
+                throw new Error("응답이 올바르지 않습니다.");
             }
+
+            if (result.status === 200) {
+                alert(result.message);
+                setIsNicknameChecked(true);
+            } else {
+                alert(result.message);
+                setIsNicknameChecked(false);
+            }
+
         } catch (error) {
             alert(error)
             setIsNicknameChecked(false)
