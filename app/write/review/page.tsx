@@ -59,7 +59,7 @@ export default function WriteReview() {
                     review_id: review_id,
                     content: content,
                     rating: rating,
-                }));
+                })).unwrap();
             } else {
                 await dispatch(addReview({
                     sub: session?.user.sub || '',
@@ -70,7 +70,7 @@ export default function WriteReview() {
                     content: content || '',
                     rating: rating || 0,
                     status: status || '',
-                }));
+                })).unwrap();
             }
             window.location.href = `/library/reading/detail?isbn=${isbn}`;
         } catch (error) {

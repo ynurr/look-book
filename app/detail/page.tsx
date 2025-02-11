@@ -40,7 +40,7 @@ export default function Detail() {
             dispatch(clearBook());
             
             if (id) {
-                await dispatch(fetchBookDetails(id));
+                await dispatch(fetchBookDetails(id)).unwrap();
                 setIsReady(true);
             }
         };
@@ -107,7 +107,7 @@ export default function Detail() {
                     book_title: book?.title || '',
                     book_author: book?.author || '',
                     book_cover: book?.cover || ''
-            }));
+            })).unwrap();
       
             await dispatch(fetchWishlist(session?.user.sub || ''));
         } catch (error) {
@@ -124,7 +124,7 @@ export default function Detail() {
             await dispatch(deleteWishlist({
                     user_id: session?.user.sub || '',
                     book_isbn: [book?.isbn13 || '']
-            }));
+            })).unwrap();
       
             await dispatch(fetchWishlist(session?.user.sub || ''));
         } catch (error) {
@@ -147,7 +147,7 @@ export default function Detail() {
                 book_author: book?.author || '',
                 book_cover: book?.cover || '',
                 status: status,
-            }));
+            })).unwrap();
 
             await dispatch(fetchUserReadingState({user_id: session?.user.sub || '', book_isbn: book?.isbn13 || ''}));
         } catch (error) {

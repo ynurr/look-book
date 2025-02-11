@@ -31,7 +31,7 @@ export default function Inquiry() {
                 user_id: session?.user.sub || '',
                 title,
                 content,
-            }));
+            })).unwrap();
             
             window.location.href = '/library/inquiry/history';
         } catch (error) {

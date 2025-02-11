@@ -41,7 +41,7 @@ export default function Comment() {
             await dispatch(deleteWishlist({
                 user_id: session?.user.sub || '',
                 book_isbn: isbns
-            }));
+            })).unwrap();
             
             setSelectAll(false);
             setCurrentPage(1);

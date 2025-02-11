@@ -40,7 +40,7 @@ export default function Modify() {
 
         if (status === "authenticated" && session?.user.sub) {
             try {
-                await dispatch(fetchUserProfile({ user_id: session?.user.sub, password: password }))
+                await dispatch(fetchUserProfile({ user_id: session?.user.sub, password: password })).unwrap();
                 
                 setIsVerified(true);
             } catch (error) {

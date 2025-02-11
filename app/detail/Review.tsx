@@ -101,9 +101,9 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
                 user_id: session?.user.sub || '',
                 content: parent_id ? contentReply : content,
                 parent_id: parent_id
-            }));
+            })).unwrap();
                 
-            await dispatch(fetchComments({isbn: isbn || '', id: ''}));
+            await dispatch(fetchComments({isbn: isbn || '', id: ''})).unwrap();
             setContent('');
             setContentReply('');
         } catch (error) {
@@ -158,7 +158,7 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
             await dispatch(deleteComment({
                 comment_id: comment_id,
                 user_id: session?.user.sub || ''
-            }));
+            })).unwrap();
 
             await dispatch(fetchComments({isbn: isbn || '', id: ''}));
         } catch (error) {

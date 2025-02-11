@@ -66,7 +66,7 @@ export default function ReviewDetail() {
                     book_author: reading?.author || '',
                     status: status,
                 })
-            )
+            ).unwrap();
             
             if (session?.user.sub && isbn) {
                 dispatch(fetchReadingDetail({user_id: session?.user.sub, book_isbn: isbn}));
@@ -84,7 +84,7 @@ export default function ReviewDetail() {
                     book_status: reading?.status || '',
                     review_id: review.review_id || '',
                 })
-            );
+            ).unwrap();
 
             window.location.href = '/library/reading';
         } catch (error) {
@@ -99,7 +99,7 @@ export default function ReviewDetail() {
                 review_id: review.review_id || '',
                 book_isbn: isbn || '',
                 isLike: !isLiked
-            }))
+            })).unwrap();
 
             setLikeCount(isLiked ? likeCount-1 : likeCount+1)
             setIsLiked(!isLiked);
@@ -146,9 +146,9 @@ export default function ReviewDetail() {
                 user_id: session?.user.sub || '',
                 content: parent_id ? contentReply : content,
                 parent_id: parent_id
-            }));
+            })).unwrap();
                 
-            await dispatch(fetchComments({isbn: '', id: review.review_id}));
+            await dispatch(fetchComments({isbn: '', id: review.review_id})).unwrap();
             setContent('');
             setContentReply('');
         } catch (error) {
@@ -203,7 +203,7 @@ export default function ReviewDetail() {
             await dispatch(deleteComment({
                 comment_id: comment_id,
                 user_id: session?.user.sub || ''
-            }))
+            })).unwrap();
 
             dispatch(fetchComments({isbn: '', id: review.review_id}));
         } catch (error) {
