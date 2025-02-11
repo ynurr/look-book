@@ -30,7 +30,7 @@ export async function PUT(req: NextRequest) {
             {
                 $set: { 
                     status: body.status,
-                    update_at: new Date()
+                    updated_at: new Date()
                     },
                 $setOnInsert: {
                     user_id: new ObjectId(body.user_id),
