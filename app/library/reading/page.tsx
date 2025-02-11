@@ -49,9 +49,9 @@ export default function Reading() {
                             <a className={`${styles.navLink} ${activeTab === 1 ? styles.active : ''}`}>읽고 있는 책</a>
                         </li>
 
-                        <li>
+                        {/* <li>
                             <input className={styles.input} placeholder='나의 도서 검색'></input>
-                        </li>
+                        </li> */}
 
                     </ul>
                 </div>
