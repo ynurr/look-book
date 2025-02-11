@@ -29,6 +29,7 @@
     background-color: #f6f6f7;
     cursor: pointer;
     padding: 8px 0;
+    color: #444;
 }
 
 .menu {
@@ -41,10 +42,6 @@
     gap: 8px;
     font-size: 15px;
     height: 557px;
-}
-
-.redText {
-    color: #f75e5e;
 }
 
 .nickname {
@@ -75,17 +72,17 @@
 }
 
 .progressBar {
-    width: 100%; /* 부모 크기에 맞추기 */
-    max-width: 150px; /* ✅ 특정 크기 이상으로 확장되지 않도록 제한 */
+    width: 100%;
+    max-width: 150px;
     height: 10px;
-    display: block; /* ✅ inline 속성으로 인한 스타일 깨짐 방지 */
+    display: block;
     border-radius: 5px;
-    background-color: #e0e0e0; /* 배경색 */
-    overflow: hidden; /* ✅ 값이 넘칠 경우 방지 */
+    background-color: #e9e9e9;
+    overflow: hidden;
 }
 
 .progressBar::-webkit-progress-bar {
-    background-color: #e0e0e0;
+    background-color: #e9e9e9;
     border-radius: 5px;
 }
 
