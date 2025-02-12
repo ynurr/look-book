@@ -72,6 +72,7 @@ export default function WriteReview() {
                     status: status || '',
                 })).unwrap();
             }
+            alert('리뷰가 등록되었습니다.');
             window.location.href = `/library/reading/detail?isbn=${isbn}`;
         } catch (error) {
             alert('리뷰 작성 중 오류가 발생했습니다.');
