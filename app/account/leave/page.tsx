@@ -92,31 +92,6 @@ export default function Leave() {
                     ))}
                 </form>
             </div>
-            {/* <div className={styles.reasonWrapper}>
-                <form className={styles.reasonForm}>
-                    <label>
-                        <input type="checkbox"/> 더이상 책을 읽지 않아서
-                    </label>
-                    <label>
-                        <input type="checkbox"/> 사이트 이용 불편
-                    </label>
-                    <label>
-                        <input type="checkbox"/> 개인정보 및 보안 우려
-                    </label>
-                    <label>
-                        <input type="checkbox"/> 회원 혜택 부족
-                    </label>
-                    <label>
-                        <input type="checkbox"/> 원하는 책이 없어서
-                    </label>
-                    <label>
-                        <input type="checkbox"/> 다른 사이트가 더 좋아서
-                    </label>
-                    <label>
-                        <input type="checkbox"/> 기타
-                    </label>
-                </form>
-            </div> */}
             <div className={styles.notice}>
                 <span className={styles.noticeTitle}>회원탈퇴 유의사항</span>
                 <ul className={styles.noticeList}>
