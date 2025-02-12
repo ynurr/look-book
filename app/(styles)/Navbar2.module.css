@@ -14,6 +14,7 @@
 
 .content {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -21,7 +22,8 @@
 }
 
 .container {
-    width: 800px;
+    max-width: 800px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -145,4 +147,37 @@
     border: none;
     background: none;
     width: 100%;
+}
+
+.searchMobile {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .searchDesktop {
+        display: none;
+    }
+
+    .searchMobile {
+        display: block; 
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .searchMobile .searchBox {
+        width: 100%;
+    }
+
+    .navbar {
+        height: 100px;
+    }
+
+    .container {
+        padding: 0 4px;
+    }
+
+    .navList a.active { 
+        border-bottom: none;
+        padding-bottom: 0;
+    }
 }

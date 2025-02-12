@@ -1,7 +1,8 @@
 .container {
     display: flex;
     flex-direction: column;
-    width: 800px;
+    max-width: 800px;
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -27,7 +28,8 @@
     color: white;
     cursor: pointer;
     font-weight: 500;
-    transition: background-color 0.3s; 
+    transition: background-color 0.3s;
+    white-space: nowrap;
 }
 
 .btnPw:hover {
@@ -164,4 +166,10 @@
 
 .nicknameInput {
     padding-right: 55px;
+}
+
+@media (max-width: 768px) {
+    .contents {
+        margin-top: 20px;
+    }
 }

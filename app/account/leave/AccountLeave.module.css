@@ -115,3 +115,9 @@
 .cancelBtn:hover {
     background-color: #d84f4f;
 }
+
+@media (max-width: 768px) {
+    .container {
+        margin-top: 30px;
+    }
+}

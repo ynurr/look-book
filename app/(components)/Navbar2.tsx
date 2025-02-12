@@ -46,7 +46,7 @@ export default function Navbar2() {
                         </ul>
                     </div>
                     <div className={styles.rightSection}>
-                        <form onSubmit={handleSearch}>
+                        <form onSubmit={handleSearch} className={styles.searchDesktop}>
                             <div className={styles.searchBox}>
                                 <FontAwesomeIcon icon={faSearch} className={styles.iconSearch} />
                                 <input 
@@ -78,6 +78,19 @@ export default function Navbar2() {
                         </div>
                     </div>
                 </div>
+
+                <form onSubmit={handleSearch} className={styles.searchMobile}>
+                    <div className={styles.searchBox}>
+                        <FontAwesomeIcon icon={faSearch} className={styles.iconSearch} />
+                        <input 
+                            className={styles.search} 
+                            type="text" 
+                            value={keyword}
+                            onChange={(e) => setKeyword(e.target.value)}
+                        />
+                    </div>
+                </form>
+                
             </div>
         </nav>
     )

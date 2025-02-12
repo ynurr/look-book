@@ -1,7 +1,8 @@
 .container {
     display: flex;
     flex-direction: column;
-    width: 800px;
+    max-width: 800px;
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -127,3 +128,9 @@
     outline: none;
     box-shadow: none;
 }    
+
+@media (max-width: 768px) {
+    .contents {
+        margin-top: 20px;
+    }
+}
