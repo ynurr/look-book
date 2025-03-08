@@ -49,3 +49,15 @@
     -webkit-line-clamp: 1; 
     line-clamp: 1;
 }
+
+@media (max-width: 480px) {
+    .item {
+        width: 100px;
+    }
+    
+    .cover {
+        width: 100px;
+        height: 150px;
+    }
+    
+}
