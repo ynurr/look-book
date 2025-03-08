@@ -17,6 +17,7 @@ import { GoHeart } from "react-icons/go";
 import { GoHeartFill } from "react-icons/go";
 import { FaBook } from "react-icons/fa";
 import { FaBookOpen } from "react-icons/fa6";
+import { ScrollMenu } from 'react-horizontal-scrolling-menu';
 
 export default function Detail() {
 
@@ -246,6 +247,7 @@ export default function Detail() {
                         <div>
                             <p className={styles.label}>작가의 다른 책</p>
                             <div className={styles.bookList}>
+                                <ScrollMenu scrollContainerClassName={styles.scrollContainer}>
                                 {filteredBooks.map((book: Books, index: number) => (
                                     <div className={styles.bookItem} key={index}>
                                         <Link href={`/detail?id=${book.isbn13}`}>
@@ -256,6 +258,7 @@ export default function Detail() {
                                         </Link>
                                     </div>
                                 ))}
+                                </ScrollMenu>
                             </div>
                         </div>
                         <div className={styles.hrLine}></div>

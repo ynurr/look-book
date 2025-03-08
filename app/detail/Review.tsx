@@ -28,6 +28,7 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
     const [contentReply, setContentReply] = useState('');
     const comments = useSelector((state: RootState) => (state.comment.comments));
     const [commentTree, setCommentTree] = useState<any[]>([]);
+    const [isExpanded, setIsExpanded] = useState(false);
 
     useEffect(() => {
         if (isbn) {
@@ -238,7 +239,7 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
                                 <span className={styles.nickname}>{review.nickname}</span>
                                 <span className={styles.reviewDate}>{review.date}</span>
                             </div>
-                            <div className={styles.review}>
+                            <div className={`${styles.review} ${isExpanded ? styles.expanded : ""}`} onClick={() => setIsExpanded(true)}>
                                 <span>{review.content}</span>
                             </div>
                             <div className={styles.reviewActions}>
