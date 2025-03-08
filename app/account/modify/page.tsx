@@ -151,6 +151,7 @@ export default function Modify() {
                                                     >
                                                 </input>
                                                 <span className={styles.pwInfo}>영문, 숫자, 특수문자 3가지 조합 8자리 이상</span>
+                                                <br className={styles.br}/>
                                                 <span className={styles.pwInfo}>공백 및 4글자 이상의 연속 문자 불가</span>
                                                 {
                                                     passwordError && isError && <p className={styles.error}>비밀번호를 입력해주세요.</p>

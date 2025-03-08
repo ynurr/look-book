@@ -111,7 +111,7 @@ export default function Leave() {
                     className={styles.submitBtn}
                     onClick={handleSubmit}
                 >회원탈퇴</button>
-                <Link href={'/home'}>
+                <Link href={'/home'} legacyBehavior>
                     <button className={styles.cancelBtn}>돌아가기</button>
                 </Link>
             </div>
