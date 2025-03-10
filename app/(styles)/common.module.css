@@ -8,13 +8,14 @@
     cursor: pointer;
 }
 
+/* 스크롤 영역 */
 .scrollWrapper {
     position: relative;
-    width: 800px;
+    max-width: 800px;
+    width: 100%;
     height: 260px;
 }
 
-/* 스크롤 영역 */
 .scrollContainer {
     display: flex; 
     overflow-x: auto; /* 수평 스크롤 활성화 */
@@ -23,7 +24,6 @@
     gap: 16px; 
 }
 
-/* 스크롤바 숨기기 (Chrome, Safari, Opera) */
 .scrollContainer::-webkit-scrollbar {
     display: none;
 }
@@ -117,4 +117,24 @@
 
 .activeBtn {
     color: #333333d7;
+}
+
+@media (max-width: 870px) {
+    .leftArrow, .rightArrow {
+        display: none;
+    }
+    .scrollWrapper {
+        max-width: calc(100vw - 40px);
+    }
+    .cover {
+        width: 110px;
+        height: 160px; 
+    }
+    .title {
+        font-size: 14px;
+        font-weight: 600;
+    }
+    .item {
+        width: 110px;
+    }
 }

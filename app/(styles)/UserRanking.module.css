@@ -1,7 +1,7 @@
 .box {
     display: flex;
     flex-direction: column;
-    width: 230px;
+    /* width: 230px; */
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -42,7 +42,7 @@
 .list li:last-child .rank,
 .list li:last-child .name,
 .list li:last-child .count {
-    border-bottom: none; /* 마지막 항목의 가로선 제거 (선택적) */
+    border-bottom: none; 
 }
 
 .name, .count {
@@ -58,7 +58,7 @@
 }
 
 .count {
-    text-align: right; /* 책 수를 오른쪽 정렬 */
+    text-align: right; 
     padding: 4px 0;
 }
 

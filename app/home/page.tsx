@@ -24,7 +24,7 @@ export default function Main() {
 
   return (
     <div className={styles.container}>
-      <main>
+      <main className={styles.main}>
         <section>
           <h1 className={styles.logo}>
             <span className={styles.logoTop}>LOOK</span>

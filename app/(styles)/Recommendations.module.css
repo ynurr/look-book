@@ -38,9 +38,9 @@
 .summary {
     font-size: 15px;
     display: -webkit-box;
-    -webkit-line-clamp: 6; /* 웹킷 브라우저용 */
-    line-clamp: 6; /* 표준 속성 */
-    -webkit-box-orient: vertical; /* 텍스트를 6줄로 제한하고 넘치는 부분 숨김 */
+    -webkit-line-clamp: 6; 
+    line-clamp: 6; 
+    -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
     margin: 6px 0;
@@ -53,4 +53,32 @@
     justify-content: center;
     align-items: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .title {
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+    }
+}
+
+@media (max-width: 480px) {
+    .box {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .cover {
+        margin: 0 auto;
+        width: 150px;
+        height: 220px;
+    }
+    .title {
+        font-size: 17px;
+    }
+    .author {
+        font-size: 13px;
+    }
+    .summary {
+        font-size: 14px;
+    }
 }

@@ -3,19 +3,30 @@
     flex-direction: column;
 }
 
+.main {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+}
+
 /* 메인 페이지 : 섹션 */
 .bestBookListSection, .rating-book-list-section, .latestBookListSection, .rankingRecommendationsSection {
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 800px;
     margin: 50px auto 0;
+}
+
+.bestBookListSection, .latestBookListSection {
+    max-width: 800px;
+    width: 100%;
+    justify-content: flex-start;
 }
 
 .bestBookListSection {
     margin-top: 100px;
 }
-  
+
 .searchSection {
     margin-bottom: 80px;
 }
@@ -28,8 +39,8 @@
     margin-bottom: 60px;
 }
   
-.rankingRecommendationsSection > div {
-    display: flex; /* 내부 컴포넌트가 div의 전체 높이를 차지 */
+.rankingRecommendationsSection > div:first-child {
+    max-width: 230px;
 }
 
 /* 메인 페이지 : 타이틀 */
@@ -95,9 +106,24 @@
     color: #4b4b4b;
 }
 
+@media (max-width: 768px) {
+    .rankingRecommendationsSection {
+        flex-direction: column;
+    }
+    .rankingRecommendationsSection > div {
+        margin: 0 auto;
+    }
+    .rankingRecommendationsSection > div:first-child {
+        order: 2;
+        max-width: 768px;
+    }
+    .rankingRecommendationsSection > div:last-child {
+        order: 1;
+    }
+}
 
-@media (max-width: 1023px) {
-    .bestBookListSection, .rating-book-list-section, .latestBookListSection, .rankingRecommendationsSection {
-        max-width: 800px;
+@media (max-width: 480px) {
+    .rankingRecommendationsSection > div:first-child {
+        max-width: 480px;
     }
 }
