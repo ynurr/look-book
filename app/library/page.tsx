@@ -9,11 +9,12 @@ import { useSession } from 'next-auth/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import { fetchReviewAll } from '@/store/slices/reviewSlice';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Link from 'next/link';
 import { fetchCommentList } from '@/store/slices/commentSlice';
 import { fetchReadingBook } from '@/store/slices/readingSlice';
 import { fetchUserStat } from '@/store/slices/statSlice';
+import { FaPen } from "react-icons/fa";
 
 export default function Library() {
     
@@ -33,13 +34,14 @@ export default function Library() {
     const bookCount = useSelector((state: RootState) => state.stat.bookCount);
     const reviewCount = useSelector((state: RootState) => state.stat.reviewCount);
     const lastRead = useSelector((state: RootState) => state.stat.lastRead);
+    const goal = useSelector((state: RootState) => state.stat.goal);
 
     useEffect(() => {
         if (status === "authenticated" && session?.user.sub) {
             dispatch(fetchReviewAll({ user_id: session.user.sub, limit: 3 }))
             dispatch(fetchCommentList({ user_id: session.user.sub, limit: 3 }))
             dispatch(fetchReadingBook({ user_id: session.user.sub }))
-            dispatch(fetchUserStat({ user_id: session.user.sub }))
+            // dispatch(fetchUserStat({ user_id: session.user.sub }))
         }
     }, [session, dispatch])
 
@@ -70,10 +72,12 @@ export default function Library() {
 
     return (
         <div className={styles.container}>
-            <LeftMenu />
-
+            <div className={styles.leftMenu}>
+                <LeftMenu />
+            </div>
             <div className={styles.wrapper}>
                 <div className={styles.statSection}>
+
                     <div className={styles.statGroup}>
                         <span className={styles.statTitle}>📊 독서 리포트</span>
                         <div className={styles.statBox}>
@@ -87,8 +91,60 @@ export default function Library() {
                             </span> 
                         </div>
                     </div>
+
+                    <div className={styles.mobileStatGroup}>
+                        <span className={styles.statTitle}>👋 {session?.user.nickname} 님
+                            <Link href="/profile/edit" legacyBehavior>
+                                <FaPen className={styles.penIcon} />
+                            </Link>
+                        </span>
+                        <div className={styles.statBox}>
+                            <span className={styles.stat}>✍ 작성한 리뷰 <span className={styles.redText}>{reviewCount}권</span></span>
+                            <span className={styles.stat}>📚 지금까지 읽은 책 <span className={styles.redText}>{bookCount}권</span></span>
+                            <span className={styles.stat}>👀 마지막 독서 
+                                <span className={styles.redText}>
+                                    {reviewCount === 0 && bookCount === 0 ? 
+                                    ' -일 전' : lastRead == '0' ? ' 오늘' : ' '+lastRead+'일 전'}
+                                </span>
+                            </span> 
+                            <div className={styles.goalBox}>
+                                <progress value={bookCount} max={goal} className={styles.progressBar}></progress>
+                                <span>{Math.round((bookCount / goal) * 100)}%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className={styles.mobileStatGroup2}>
+                        <span className={styles.statTitle}>📊 독서 리포트</span>
+                        <div className={styles.statBox}>
+                            <div className={styles.profile}>
+                                <span className={styles.nickname}>{session?.user.nickname} 님</span>
+                                <Link href="/profile/edit" legacyBehavior>
+                                    <button className={styles.editBtn}>프로필 수정</button>
+                                </Link>
+                            </div>
+
+                            <div className={styles.goalBox}>
+                                <span>🎯 독서 목표 : {goal}권</span>
+                                <progress value={bookCount} max={goal} className={styles.progressBar}></progress>
+                                <span>{Math.round((bookCount / goal) * 100)}% 달성</span>
+                            </div>
+
+                            <div className={styles.statInner}>
+                                <span className={styles.stat}>✍ 작성한 리뷰 <span className={styles.redText}>{reviewCount}권</span></span>
+                                <span className={styles.stat}>📚 지금까지 읽은 책 <span className={styles.redText}>{bookCount}권</span></span>
+                                <span className={styles.stat}>👀 마지막 독서 
+                                    <span className={styles.redText}>
+                                        {reviewCount === 0 && bookCount === 0 ? 
+                                        ' -일 전' : lastRead == '0' ? ' 오늘' : ' '+lastRead+'일 전'}
+                                    </span>
+                                </span> 
+                            </div>
+                        </div>
+                    </div>
+
                     <div className={styles.statGroup}>
-                        <span className={styles.statTitle}>📈 이번 달 독서량을 확인해보세요!</span>
+                        <span className={styles.statTitle}>📈 월별 독서량을 확인해보세요!</span>
                         <div className={styles.barChart}>
                             <BarChart />
                         </div>

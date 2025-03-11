@@ -2,12 +2,15 @@
     display: flex;
     gap: 40px;
     margin: 60px auto;
+    max-width: 760px;
+    width: 100%;
 }
 
 .wrapper {
     display: flex;
     flex-direction: column;
-    width: 760px;
+    max-width: 760px;
+    width: 100%;
 }
 
 .menuTitle {
@@ -18,7 +21,6 @@
     border-bottom: 3px solid #333;
     margin-top: 14px;
 }
-
 
 .bookInfo {
     display: flex;
@@ -34,16 +36,26 @@
 .cover {
     width: 100px;
     height: 140px;
-    background-color: bisque;
 }
 
 .title {
     font-weight: bold;
     font-size: 16px;
+    display: -webkit-box; 
+    -webkit-box-orient: vertical; 
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
 }
 
 .author {
     font-size: 14px;
+    display: -webkit-box; 
+    -webkit-box-orient: vertical; 
+    overflow: hidden;
+    -webkit-line-clamp: 2; 
+    line-clamp: 2;
+    margin-bottom: 6px;
 }
 
 .selected {
@@ -60,7 +72,6 @@
     margin: 10px;
     resize: none;
     height: 300px;
-    width: 100%; 
     padding: 10px;
     box-sizing: border-box;
     border: 1px solid #ddd;
@@ -102,4 +113,17 @@
 
 .star {
     color: #eeeeee;
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 15px;
+    }
+    .author {
+        font-size: 13px;
+    }
+    .cover {
+        width: 90px;
+        height: 130px;
+    }
 }

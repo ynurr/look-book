@@ -62,7 +62,7 @@ export default function Navbar2() {
                             {isDropdownOpen && (
                                 session ? (
                                     <div className={styles.dropdownMenu}>
-                                        <Link href="/account/modify" className={styles.dropdownItem}>회원정보 수정</Link>
+                                        <Link href="/account/modify" className={styles.dropdownItem}>비밀번호 변경</Link>
                                         <button 
                                             onClick={() => signOut({ callbackUrl: '/home' })} 
                                             className={styles.dropdownItem}>

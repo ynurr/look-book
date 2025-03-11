@@ -44,7 +44,7 @@ export default function LeftMenu() {
             </div>
             <div className={styles.menu}>
                 <span className={styles.menuTitle}>내 서재</span>
-                <Link href="/library" className={styles.menuItem}>홈</Link>
+                <Link href="/library" className={styles.menuItem}>내 서재</Link>
                 <Link href="/library/reading" className={styles.menuItem}>독서 현황</Link>
                 <Link href="/library/wishlist" className={styles.menuItem}>위시리스트</Link>
                 <span className={styles.menuTitle}>활동</span>

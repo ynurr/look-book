@@ -1,0 +1,149 @@
+.navbar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0;
+    background-color: white;
+    border-bottom: 1px solid #b1b1b1;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1000px; 
+    position: relative;
+    padding: 0 30px;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.right {
+    margin-left: auto;
+}
+
+.icon {
+    font-size: 22px;
+    cursor: pointer;
+    color: #333;
+}
+
+.iconUser {
+    color: #333;
+}
+
+.userIconWrapper {
+    position: relative;
+    cursor: pointer;
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: 140%;
+    right: 6px;
+    width: 100px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(75, 75, 75, 0.15);
+    z-index: 1000;
+}
+
+.dropdownItem {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+    cursor: pointer;
+    font-size: 13px;
+    padding: 10px;
+}
+
+.dropdownItem:hover {
+    background-color: #f0f0f0;
+}
+
+.dropdownMenu button {
+    border: none;
+    background: none;
+    width: 100%;
+}
+
+.menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.menuHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 15px 20px;
+    border-bottom: 1px solid #ddd;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    color: #333;
+}
+
+.menuHeader span {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.closeIcon {
+    font-size: 26px;
+    cursor: pointer;
+    color: #333;
+}
+
+.menuList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+    margin-top: 30px;
+    padding-left: 30px;
+}
+
+.menuTitle {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.menuTitle:nth-of-type(2), .menuTitle:nth-of-type(3) {
+    margin-top: 20px;
+}
+
+.menuItem {
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    padding-left: 10px;
+}
+
+.hrLine {
+    border-bottom: 1px solid #ddd;
+    margin-top: 20px;
+    width: 100vw;
+    position: relative;
+    left: -30px;
+}
