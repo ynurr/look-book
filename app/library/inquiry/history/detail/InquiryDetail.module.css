@@ -1,13 +1,15 @@
 .container {
     display: flex;
+    justify-content: center;
     gap: 40px;
-    margin: 60px auto;
+    margin: 60px 0;
 }
 
 .wrapper {
     display: flex;
     flex-direction: column;
-    width: 760px;
+    max-width: 760px;
+    width: 100%;
 }
 
 .menuTitle {
@@ -33,7 +35,7 @@
 
 .inquiryTitle {
     font-size: 20px;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .inquiryDate, .replyDate {
@@ -46,11 +48,41 @@
 }
 
 .reply {
-    font-weight: bold;
+    font-weight: 500;
     text-align: left;
 }
 
 .noData {
     font-size: 14px;
     color: #888888;
+}
+
+@media (max-width: 1000px) {
+    .leftMenu {
+        display: none;
+    }
+    .container {
+        margin: 20px 0;
+    }
+    .inquiryTitle {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin: 0 10px;
+    }
+    .menuTitle {
+        margin-top: 0;
+    }
+    .inquiryTitle {
+        font-size: 16px;
+    }
+    .inquiryDate, .replyDate {
+        font-size: 12px;
+    }
+    .item {
+        margin: 30px 4px;
+    }
 }

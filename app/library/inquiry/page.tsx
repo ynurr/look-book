@@ -41,8 +41,9 @@ export default function Inquiry() {
     
     return (
         <div className={styles.container}>
-            <LeftMenu />
-
+            <div className={styles.leftMenu}>
+                <LeftMenu />
+            </div>
             <div className={styles.wrapper}>
                 <h2 className={styles.menuTitle}>문의하기</h2>
                 <div className={styles.line}></div>

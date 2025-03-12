@@ -329,6 +329,7 @@
     position: relative;
 
 }
+
 .review::after {
     content: "\00A0... 더보기";
     color: #aeb9cc;
@@ -461,7 +462,7 @@
     gap: 10px;
 }
 
-.commentDate, .commentEditBtn, .commentDeleteBtn, .dot {
+.commentDate, .commentDeleteBtn, .dot {
     font-size: 12px;
     color: rgb(139, 139, 139);
 }
@@ -611,5 +612,19 @@
     }
     .title {
         font-size: 18px;
+    }
+    .arrowBox {
+        padding: 0 20px;
+    }
+    .commentInfo {
+        flex-wrap: wrap;
+        margin-bottom: 4px;
+    }
+    .nickname {
+        flex-basis: 100%;
+        margin-bottom: -10px;
+    }
+    .textAreaBtn button {
+        font-size: 12px;
     }
 }

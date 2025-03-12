@@ -58,8 +58,9 @@ export default function Comment() {
     
     return (
         <div className={styles.container}>
-            <LeftMenu />
-
+            <div className={styles.leftMenu}>
+                <LeftMenu />
+            </div>
             <div className={styles.wrapper}>
                 <div className={styles.topBox}>
                     <h2 className={styles.menuTitle}>댓글 알림</h2>

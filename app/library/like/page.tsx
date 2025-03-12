@@ -65,8 +65,9 @@ export default function Like() {
 
     return (
         <div className={styles.container}>
-            <LeftMenu />
-
+            <div className={styles.leftMenu}>
+                <LeftMenu />
+            </div>
             <div className={styles.wrapper}>
                 <h2 className={styles.menuTitle}>리뷰 공감 기록</h2>
                 <div className={styles.line}></div>
