@@ -6,9 +6,10 @@ import styles from './InquiryHistory.module.css';
 import { useSession } from "next-auth/react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchInquiryAll } from "@/store/slices/inquirySlice";
 import { redirect } from "next/navigation";
+import Pagination from "@/app/(components)/Pagination";
 
 export default function Inquiry() {
     
@@ -27,6 +28,15 @@ export default function Inquiry() {
         }
     }, [session, dispatch])
     
+    const [currentPage, setCurrentPage] = useState(1);
+    const ItemsPerPage = 8;
+    const pageCount = Math.ceil(inquiries.length / ItemsPerPage);
+    const currentItems = inquiries.slice((currentPage - 1) * ItemsPerPage, currentPage * ItemsPerPage);
+
+    const handlePageChange = (selected: { selected: number }) => {
+        setCurrentPage(selected.selected + 1);
+    };
+
     return (
         <div className={styles.container}>
             <div className={styles.leftMenu}>
@@ -40,7 +50,7 @@ export default function Inquiry() {
                         <span>문의내역이 존재하지 않습니다.</span>
                     </div>
                     :
-                    inquiries.map((item) => (
+                    currentItems.map((item) => (
                         <div key={item.inquiry_id} className={styles.list}>
                             <div className={styles.item}>
                                 <Link href={`/library/inquiry/history/detail?id=${item.inquiry_id}`}>
@@ -60,6 +70,11 @@ export default function Inquiry() {
                         </div>
                     ))
                 }
+                <Pagination
+                    pageCount={pageCount}
+                    onPageChange={handlePageChange}
+                    currentPage={currentPage}
+                />
             </div>
         </div>
     );

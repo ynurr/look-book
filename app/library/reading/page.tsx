@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import { fetchReadingStatus } from '@/store/slices/readingSlice';
 import Link from 'next/link';
+import Pagination from '@/app/(components)/Pagination';
 
 export default function Reading() {
 
@@ -26,8 +27,19 @@ export default function Reading() {
     const [activeTab, setActiveTab] = useState(0);
 
     const handleTabClick = (tabName: number) => {
-        setActiveTab(tabName)
+        setActiveTab(tabName);
+        setCurrentPage(1);
     }
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const ItemsPerPage = 6;
+    const filteredBooks = books.filter(item => item.status === (activeTab === 0 ? '1' : '0'));
+    const pageCount = Math.ceil(filteredBooks.length / ItemsPerPage);
+    const currentItems = filteredBooks.slice((currentPage - 1) * ItemsPerPage, currentPage * ItemsPerPage);
+
+    const handlePageChange = (selected: { selected: number }) => {
+        setCurrentPage(selected.selected + 1);
+    };
 
     return (
         <div className={styles.container}>
@@ -59,12 +71,12 @@ export default function Reading() {
                 <div className={styles.content}>
                     {activeTab === 0 && (
                         <div className={styles.list}>
-                            {books.filter(item => item.status === '1').length === 0 ?
+                            {filteredBooks.length === 0 ?
                                 <div className={styles.noData}>
                                     <span>아직 다 읽은 책이 없습니다.<br />도서의 상세 페이지에서 [독서 완료]를 클릭해 추가해보세요!</span>
                                 </div>
                                 :
-                                books
+                                currentItems
                                     .filter(item => item.status === '1') // 다 읽은 책
                                     .map((item) => (
                                         <Link
@@ -96,12 +108,12 @@ export default function Reading() {
                     )}
                     {activeTab === 1 && (
                         <div className={styles.list}>
-                            {books.filter(item => item.status === '0').length === 0 ?
+                            {filteredBooks.length === 0 ?
                                 <div className={styles.noData}>
                                     <span>현재 읽고 있는 책이 없습니다.<br />도서의 상세 페이지에서 [독서 중]을 클릭해 추가해보세요!</span>
                                 </div>
                                 :
-                                books
+                                currentItems
                                     .filter(item => item.status === '0') // 읽고 있는 책
                                     .map((item) => (
                                         <Link 
@@ -130,6 +142,11 @@ export default function Reading() {
                             }
                         </div>
                     )}
+                    <Pagination
+                        pageCount={pageCount}
+                        onPageChange={handlePageChange}
+                        currentPage={currentPage}
+                    />
                 </div>
             </div>
         </div>
