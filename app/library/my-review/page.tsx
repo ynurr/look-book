@@ -42,8 +42,9 @@ export default function Review() {
 
     return (
         <div className={styles.container}>
-            <LeftMenu />
-
+            <div className={styles.leftMenu}>
+                <LeftMenu />
+            </div>
             <div className={styles.wrapper}>
                 <h2 className={styles.menuTitle}>나의 리뷰</h2>
                 <div className={styles.line}></div>

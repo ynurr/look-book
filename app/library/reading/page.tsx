@@ -31,8 +31,9 @@ export default function Reading() {
 
     return (
         <div className={styles.container}>
-            <LeftMenu />
-
+            <div className={styles.leftMenu}>
+                <LeftMenu />
+            </div>
             <div className={styles.wrapper}>
                 <h2 className={styles.menuTitle}>독서현황</h2>
                 <div className={styles.tab}>

@@ -79,8 +79,9 @@ export default function Comment() {
 
     return (
         <div className={styles.container}>
-            <LeftMenu />
-
+            <div className={styles.leftMenu}>
+                <LeftMenu />
+            </div>
             <div className={styles.wrapper}>
                 <h2 className={styles.menuTitle}>위시리스트</h2>
                 <div className={styles.line}></div>

@@ -223,8 +223,9 @@ export default function ReviewDetail() {
 
     return (
         <div className={styles.container}>
-            <LeftMenu />
-
+            <div className={styles.leftMenu}>
+                <LeftMenu />
+            </div>
             <div className={styles.wrapper}>
                 <div className={styles.btnBox}>
                     <button
