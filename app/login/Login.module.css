@@ -98,3 +98,9 @@
     font-size: 12px;
     margin: 6px 0 0 6px;
 }
+
+@media (max-width: 480px) {
+    .form {
+        padding: 20px 0;
+    }
+}

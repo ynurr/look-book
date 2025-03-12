@@ -70,10 +70,10 @@
 
 @media (max-width: 480px) {
     .wrapper {
-        padding: 20px 10px;
+        padding: 20px 0;
     }
     .inner {
-        padding: 20px 10px;
+        padding: 20px 4px;
     }
     .contents {
         gap: 20px;
@@ -85,7 +85,7 @@
         flex-direction: column;
     }
     .title {
-        font-size: 15px;
+        font-size: 14px;
         margin: 10px 0 6px;
     }
     .cover {

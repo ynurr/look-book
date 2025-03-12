@@ -22,7 +22,7 @@ export default function SignUp() {
     const [passwordValidError, setPasswordValidError] = useState(false);
     const [isIdChecked, setIsIdChecked] = useState(false);
     const [isNicknameChecked, setIsNicknameChecked] = useState(false);
-    const [goal, setGoal] = useState(0);
+    const [goal, setGoal] = useState(1);
     const dispatch = useDispatch<AppDispatch>();
     
     const validatePassword = (password: string) => {
@@ -83,6 +83,14 @@ export default function SignUp() {
     }
 
     const checkId = async (id: string) => {
+        const idRegex = /^[a-zA-Z0-9]+$/;
+
+        if (!idRegex.test(id)) {
+            alert("아이디는 영어와 숫자만 사용할 수 있습니다.");
+            setIsIdChecked(false);
+            return;
+        }
+        
         try {
             const response = await fetch('/api/db/check/id', {
                 method: 'POST',

@@ -25,7 +25,7 @@ export default function UserRanking() {
     
     return (
         <div>
-            <h1>독서왕 TOP 10</h1>
+            <h1 className={styles.sectionTitle}>독서왕 TOP 10</h1>
             <div className={styles.box}>
                 <ul className={styles.list}>
                     {

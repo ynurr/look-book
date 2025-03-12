@@ -9,6 +9,7 @@
 .inputWrapper {
     display: flex;
     gap: 10px;
+    height: 30px;
 }
 
 .inputPw {
@@ -201,5 +202,19 @@
     }
     .br {
         display: block;
+    }
+}
+
+@media (max-width: 480px) {
+    .table > tbody > tr > th, .table > tbody > tr > td {
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+    .inputPw {
+        width: 100%;
+    }
+    .btnPw {
+        font-size: 13px;
+        padding: 0 16px;
     }
 }

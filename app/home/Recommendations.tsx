@@ -36,7 +36,7 @@ export default function Recommendations() {
 
     return (
         <div>
-            <h1>이런 책은 어때요?</h1>
+            <h1 className={styles.sectionTitle}>이런 책은 어때요?</h1>
             <div className={styles.wrapper}>
                 <div className={styles.box}>
                     <Link href={`/detail?id=${book.isbn13}`}>

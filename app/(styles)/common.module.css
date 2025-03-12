@@ -138,3 +138,9 @@
         width: 110px;
     }
 }
+
+@media (max-width: 480px) {
+    .categoryLink {
+        font-size: 22px;
+    }
+}

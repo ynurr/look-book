@@ -147,4 +147,13 @@
     border-color: #222; 
     outline: none;
     box-shadow: none;
-}    
+}
+
+@media (max-width: 480px) {
+    .form {
+        padding: 20px 0;
+    }
+    .links {
+        font-size: 13px;
+    }
+}
