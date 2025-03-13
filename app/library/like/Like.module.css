@@ -42,7 +42,7 @@
 }
 
 .title {
-    font-weight: bold;
+    font-weight: 600;
     font-size: 14px;
     display: -webkit-box; 
     -webkit-box-orient: vertical; 
@@ -64,6 +64,7 @@
 
 .rating {
     font-size: 15px;
+    margin-left: -1px;
 }
 
 .starFill {
