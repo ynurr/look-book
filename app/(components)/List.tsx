@@ -34,8 +34,8 @@ export default function List({items}: ListProps) {
                     <div className={styles.item} key={item.isbn13}>
                         <Link href={`/detail?id=${item.isbn13}`}>
                             <img className={styles.cover} src={item.cover} alt={item.title}></img>
-                            <div className={styles.title}>{item.title}</div>
-                            <div className={styles.author}>{item.author}</div>
+                            <p className={styles.title}>{item.title}</p>
+                            <p className={styles.author}>{item.author}</p>
                         </Link>
                         {/* <div className={styles.rating}>별점</div> */}
                     </div>

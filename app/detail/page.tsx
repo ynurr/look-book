@@ -232,14 +232,14 @@ export default function Detail() {
                     </div>
                 </div>
                 <div className={styles.section2}>
-                    <div>
+                <div>
                         <p className={styles.label}>분야</p>
-                        <span>{book?.categoryName}</span>
+                        <p className={styles.value}>{book?.categoryName}</p>
                     </div>
                     <div className={styles.hrLine}></div>
                     <div>
                         <p className={styles.label}>소개글</p>
-                        <span>{book?.description  || '소개글이 등록되어 있지 않습니다.'}</span>
+                        <p className={styles.value}>{book?.description  || '소개글이 등록되어 있지 않습니다.'}</p>
                     </div>
                     <div className={styles.hrLine}></div>
                     {filteredBooks.length > 0 &&
@@ -254,7 +254,7 @@ export default function Detail() {
                                             <img className={styles.cover2} src={book.cover} alt={book.title}></img>
                                         </Link>
                                         <Link href={`/detail?id=${book.isbn13}`}>
-                                            <span className={styles.title2}>{book.title}</span>
+                                            <p className={styles.title2}>{book.title}</p>
                                         </Link>
                                     </div>
                                 ))}

@@ -71,7 +71,7 @@ export default function Comment() {
                 <div className={styles.list}>
                     {comments.length === 0 ?
                         <div className={styles.noData}>
-                            <span>댓글 알림이 없습니다.<br />새로운 댓글이 달리면 알려드릴게요.</span>
+                            <p>댓글 알림이 없습니다.<br />새로운 댓글이 달리면 알려드릴게요.</p>
                         </div>
                         :
                         currentItems.map((item, i) => (
@@ -86,7 +86,7 @@ export default function Comment() {
                                                 }
                                             </span>
                                         </div>
-                                        <span className={styles.content}>{item.content}</span>
+                                        <p className={styles.content}>{item.content}</p>
                                         <div className={styles.box}>
                                             <span className={styles.commenter}>{item.nickname}</span>
                                             <span>·</span>

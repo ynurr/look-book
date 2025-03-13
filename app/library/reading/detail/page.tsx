@@ -267,9 +267,9 @@ export default function ReviewDetail() {
                         ) : null}
                         <div className={styles.bookDetail}>
                             <Link href={`/detail?id=${reading?.isbn}`}>
-                                <span className={styles.title}>{reading?.title}</span>
+                                <p className={styles.title}>{reading?.title}</p>
                             </Link>
-                            <span className={styles.author}>{reading?.author}</span>
+                            <p className={styles.author}>{reading?.author}</p>
                             <div className={styles.statusBox}>
                                 <span className={styles.label}>독서 상태</span>
                                 <span className={styles.status}>{reading?.status === '0' ? '독서 중' : '독서 완료'}</span>
@@ -278,14 +278,14 @@ export default function ReviewDetail() {
                                 <span className={styles.label}>리뷰 작성</span>
                                 <span className={styles.date}>{review.created_at ? review.created_at : '-'}</span>
                             </div>
-                            <span className={styles.rating}>
+                            <div className={styles.rating}>
                                 {[...Array(5)].map((_, index) => (
                                     <PiStarFill 
                                         key={index}
                                         className={index < review.rating ? styles.starFill : styles.star}
                                     />
                                 ))}
-                            </span>
+                            </div>
                         </div>
                     </div>
 
@@ -293,7 +293,7 @@ export default function ReviewDetail() {
                         (
                             <div>
                                 <div className={styles.reviewBox}>
-                                    <span className={styles.review}>{review.content}</span>
+                                    <p className={styles.review}>{review.content}</p>
                                 </div>
                                 <div className={styles.reactionBox}>
                                     <span 
@@ -324,7 +324,7 @@ export default function ReviewDetail() {
                                                    
                                                 </div>
                                                 <div className={styles.commentLine}>
-                                                    <span className={styles.comment}>{comment.content}</span>
+                                                    <p className={styles.comment}>{comment.content}</p>
                                                     <FaRegCommentDots className={styles.commentBtn} onClick={() => toggleCommentText(comment.comment_id)}></FaRegCommentDots>
                                                 </div>
                                             </div>

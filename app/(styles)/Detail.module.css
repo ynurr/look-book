@@ -216,6 +216,11 @@
     font-size: 24px;
 }
 
+.value {
+    margin: 0;
+    font-size: 15px;
+}
+
 .scrollContainer {
     display: flex; 
     overflow-x: auto; 
@@ -256,8 +261,8 @@
     line-clamp: 2; 
     line-height: 1.4; 
     max-width: 100%; 
+    margin: 0;
 }
-
 
 /* 리뷰 */
 .reviewHeader {
@@ -308,7 +313,7 @@
     gap: 3px;
 }
 
-.reviewMeta > span {
+.reviewMeta > span, .score {
     margin: 0 40px 0 4px;
     color: #636363;
 }
@@ -319,38 +324,19 @@
 
 .review {
     font-size: 14px;
-    display: -webkit-box;
+    /* display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     line-clamp: 2;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis; */
     max-width: 430px;
     position: relative;
 
 }
 
-.review::after {
-    content: "\00A0... 더보기";
-    color: #aeb9cc;
-    font-size: 12px;
-    font-weight: 500;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    background: white;
-    cursor: pointer;
-}
-
-.expanded {
-    -webkit-line-clamp: unset;
-    overflow: visible;
-    white-space: normal;
-}
-
-.expanded::after {
-    content: "";
-    display: none;
+.review > p {
+    margin: 0;
 }
 
 .expandBtn {
@@ -360,6 +346,7 @@
     font-size: 12px;
     font-weight: 500;
     cursor: pointer;
+    padding: 0;
 }
 
 .reviewActions {

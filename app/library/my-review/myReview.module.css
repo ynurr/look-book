@@ -48,10 +48,12 @@
     overflow: hidden;
     -webkit-line-clamp: 2; 
     line-clamp: 2;
+    margin: 0;
 }
 
 .date {
     font-size: 13px;
+    margin: 0;
 }
 
 .reviewBox {
@@ -68,6 +70,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     cursor: pointer;
+    margin: 0;
 }
 
 .hrLine {

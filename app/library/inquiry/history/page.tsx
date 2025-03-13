@@ -47,16 +47,16 @@ export default function Inquiry() {
                 <div className={styles.line}></div>
                 {inquiries.length === 0 ?
                     <div className={styles.noData}>
-                        <span>문의내역이 존재하지 않습니다.</span>
+                        <p>문의내역이 존재하지 않습니다.</p>
                     </div>
                     :
                     currentItems.map((item) => (
                         <div key={item.inquiry_id} className={styles.list}>
                             <div className={styles.item}>
                                 <Link href={`/library/inquiry/history/detail?id=${item.inquiry_id}`}>
-                                    <span className={styles.title}>{item.title}</span>
+                                    <p className={styles.title}>{item.title}</p>
                                 </Link>
-                                <span className={styles.date}>{item.created_at}</span>
+                                <p className={styles.date}>{item.created_at}</p>
                             </div>
                             <span
                                 className={

@@ -74,10 +74,10 @@ export default function Leave() {
         <div className={styles.container}>
             <h2>회원탈퇴</h2>
             <div className={styles.warning}>
-                <span className={styles.warningInfo}>
+                <p className={styles.warningInfo}>
                     지금 탈퇴하면 <span className={styles.redText}>모든 리뷰가 사라져요.</span> 😥
-                </span>
-                <span className={styles.warningMsg}>정말 탈퇴하실 건가요? 탈퇴하시는 이유를 알려주세요.</span>
+                </p>
+                <p className={styles.warningMsg}>정말 탈퇴하실 건가요? 탈퇴하시는 이유를 알려주세요.</p>
             </div>
             <div className={styles.reasonWrapper}>
                 <form className={styles.reasonForm}>
@@ -93,7 +93,7 @@ export default function Leave() {
                 </form>
             </div>
             <div className={styles.notice}>
-                <span className={styles.noticeTitle}>회원탈퇴 유의사항</span>
+                <p className={styles.noticeTitle}>회원탈퇴 유의사항</p>
                 <ul className={styles.noticeList}>
                     <li>· 탈퇴 시, 사용한 계정 정보가 삭제되며 복구할 수 없습니다.</li>
                     <li>· 작성한 리뷰를 포함하여 모든 데이터가 삭제됩니다.</li>
@@ -102,7 +102,7 @@ export default function Leave() {
             <div className={styles.agreeWrapper}>
                 <div className={styles.checkboxWrapper}>
                     <input type="checkbox" onChange={handleAgreeChange}/>
-                    <span className={styles.agreeMsg}>위 내용을 모두 확인했으며, 동의합니다.</span>
+                    <p className={styles.agreeMsg}>위 내용을 모두 확인했으며, 동의합니다.</p>
                 </div>
                 <p className={styles.errorMsg}>{error}</p>
             </div>

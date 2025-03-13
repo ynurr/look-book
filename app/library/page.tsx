@@ -156,14 +156,14 @@ export default function Library() {
                     <div className={styles.reviewsList}>
                         {reviews.length === 0 ?
                             <div className={styles.noData}>
-                                <span>작성된 리뷰가 없습니다.</span>
+                                <p>작성된 리뷰가 없습니다.</p>
                             </div>
                             :
                             reviews.map((item) => (
                                 <Link href={`/library/reading/detail?isbn=${item.isbn}`} className={styles.reviewItem} key={item.review_id}>
-                                    <span className={styles.bookTitle}>{item.title}</span>
-                                    <span className={styles.reviewContent}>{item.content}</span>
-                                    <span className={styles.reviewDate}>{item.created_at}</span>
+                                    <p className={styles.bookTitle}>{item.title}</p>
+                                    <p className={styles.reviewContent}>{item.content}</p>
+                                    <p className={styles.reviewDate}>{item.created_at}</p>
                                 </Link>
 
                             ))
@@ -177,7 +177,7 @@ export default function Library() {
                         <div className={styles.content}>
                             {CompletedCnt === 0 ?
                                 <div className={styles.noBookData}>
-                                    <span>작성 가능한 책이 없습니다.</span>
+                                    <p>작성 가능한 책이 없습니다.</p>
                                 </div>
                                 :
                                 <>
@@ -196,7 +196,7 @@ export default function Library() {
                         <div className={styles.content}>
                             {ReadingCnt === 0 ?
                                 <div className={styles.noBookData}>
-                                    <span>읽고 있는 책이 없습니다.</span>
+                                    <p>읽고 있는 책이 없습니다.</p>
                                 </div>
                                 :
                                 <>
@@ -216,7 +216,7 @@ export default function Library() {
                             <div className={styles.commentList}>
                                 {comments.length === 0 ?
                                     <div className={styles.noCommentData}>
-                                        <span>댓글이 없습니다.</span>
+                                        <p>댓글이 없습니다.</p>
                                     </div>
                                     :
                                     comments.map((comment, index) => (
@@ -225,7 +225,7 @@ export default function Library() {
                                                 <span className={styles.commenter}>{formatNickname(comment.nickname)}</span>
                                                 <span className={styles.commentTime}>{formatCommentDate(comment.created_at)}</span>
                                             </div>
-                                            <span className={styles.commentContent}>{comment.content}</span>
+                                            <p className={styles.commentContent}>{comment.content}</p>
                                             {
                                                 index < 2 && <div className={styles.hrLine}></div>
                                             }

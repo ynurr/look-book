@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './../(styles)/Detail.module.css'
 import Pagination from '../(components)/Pagination'
 import { PiStarFill } from "react-icons/pi";
@@ -28,7 +28,6 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
     const [contentReply, setContentReply] = useState('');
     const comments = useSelector((state: RootState) => (state.comment.comments));
     const [commentTree, setCommentTree] = useState<any[]>([]);
-    const [isExpanded, setIsExpanded] = useState(false);
 
     useEffect(() => {
         if (isbn) {
@@ -228,19 +227,20 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
                     <div className={styles.reviewBox} key={review.review_id}>
                         <div className={styles.reviewList}>
                             <div className={styles.reviewMeta}>
-                                <span className={styles.score}>
+                                <div className={styles.score}>
                                     {[...Array(5)].map((_, index) => (
                                         <PiStarFill 
                                             key={index}
                                             className={index < review.rating ? styles.starFill : styles.star}
                                         />
                                     ))}
-                                </span>
+                                </div>
                                 <span className={styles.nickname}>{review.nickname}</span>
                                 <span className={styles.reviewDate}>{review.date}</span>
                             </div>
-                            <div className={`${styles.review} ${isExpanded ? styles.expanded : ""}`} onClick={() => setIsExpanded(true)}>
-                                <span>{review.content}</span>
+                            <div className={styles.review}>
+                                <p>{review.content}</p>
+                                <button className={styles.expandBtn}>...더보기</button>
                             </div>
                             <div className={styles.reviewActions}>
                                 <span className={styles.like} onClick={() => handleUpdateLike(review.review_id, review.like_count)}>

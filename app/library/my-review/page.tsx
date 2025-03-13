@@ -51,7 +51,7 @@ export default function Review() {
 
                 {reviews.length === 0 ?
                     <div className={styles.noData}>
-                        <span>작성된 리뷰가 없습니다.</span>
+                        <p>작성된 리뷰가 없습니다.</p>
                     </div>
                     :
                     currentItems.map((item, i) => (
@@ -60,8 +60,8 @@ export default function Review() {
                                 <div className={styles.bookInfo}>
                                     <img className={styles.cover} src={item.cover} alt={item.title}/>
                                     <div className={styles.bookDetail}>
-                                        <span className={styles.title}>{item.title}</span>
-                                        <span className={styles.date}>{item.created_at}</span>
+                                        <p className={styles.title}>{item.title}</p>
+                                        <p className={styles.date}>{item.created_at}</p>
                                         <div className={styles.rating}>
                                             {[...Array(5)].map((_, index) => (
                                                 <PiStarFill 
@@ -73,7 +73,7 @@ export default function Review() {
                                     </div>
                                 </div>
                                 <div className={styles.reviewBox}>
-                                    <span className={styles.review}>{item.content}</span>
+                                    <p className={styles.review}>{item.content}</p>
                                 </div>
                                 <div className={styles.reactionBox}>
                                     <span className={styles.likeCnt}><LuThumbsUp />{item.like_count}</span>

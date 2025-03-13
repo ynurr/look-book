@@ -79,6 +79,7 @@
     font-size: 14px;
     cursor: pointer;
     color: #333;
+    margin: 0;
 }
 
 .title:hover {
@@ -88,6 +89,7 @@
 
 .author, .date, .status, .label {
     font-size: 13px;
+    margin: 0;
 }
 
 .statusBox, .dateBox {
@@ -112,6 +114,7 @@
 
 .review {
     font-size: 14px;
+    margin: 0;
 }
 
 .reactionBox {
@@ -195,6 +198,7 @@
 
 .comment {
     font-size: 14px;
+    margin: 0;
 }
 
 .replyBox {

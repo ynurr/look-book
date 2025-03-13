@@ -44,7 +44,7 @@ export default function Recommendations() {
                     </Link>
                     <div className={styles.info}>
                         <Link href={`/detail?id=${book.isbn13}`}>
-                            <span className={styles.title}>{book.title}</span>
+                            <p className={styles.title}>{book.title}</p>
                         </Link>
                         <p className={styles.author}>{book.author}</p>
                         <p className={styles.summary}>{book.description}</p>

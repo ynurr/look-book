@@ -37,21 +37,21 @@ export default function InquiryDetail() {
                 <div className={styles.line}></div>
                
                 <div className={styles.item}>
-                    <span className={styles.inquiryTitle}>{inquiry.title}</span>
-                    <span className={styles.inquiryDate}>{inquiry.created_at}</span>
+                    <p className={styles.inquiryTitle}>{inquiry.title}</p>
+                    <p className={styles.inquiryDate}>{inquiry.created_at}</p>
                     <div className={styles.hrLine}></div>
-                    <span className={styles.inquiryContent}>{inquiry.content}</span>
+                    <p className={styles.inquiryContent}>{inquiry.content}</p>
                     <div className={styles.hrLine}></div>
-                    <span className={styles.reply}>관리자 답변</span>
+                    <p className={styles.reply}>관리자 답변</p>
                     {
                         inquiry.response ? (
                             <>
-                                <span className={styles.replyContent}>{inquiry.response}</span>
-                                <span className={styles.replyDate}>{inquiry.responded_at}</span>
+                                <p className={styles.replyContent}>{inquiry.response}</p>
+                                <p className={styles.replyDate}>{inquiry.responded_at}</p>
                             </>
                         ) : (
                             <div className={styles.noData}>
-                                <span>아직 답변이 등록되지 않았습니다.</span>
+                                <p>아직 답변이 등록되지 않았습니다.</p>
                             </div>
                         )
                     }

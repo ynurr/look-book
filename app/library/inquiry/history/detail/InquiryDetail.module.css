@@ -28,6 +28,10 @@
     gap: 4px;
 }
 
+.item > p, .noData > p {
+    margin: 0;
+}
+
 .hrLine {
     border-bottom: 1px solid #ddd;
     margin: 30px 0;
@@ -45,6 +49,7 @@
 
 .inquiryContent, .replyContent, .reply {
     font-size: 14px;
+    margin: 0;
 }
 
 .reply {

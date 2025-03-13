@@ -48,11 +48,13 @@
     overflow: hidden;
     -webkit-line-clamp: 2; 
     line-clamp: 2; 
+    margin: 0;
 }
 
 .date {
     font-size: 12px;
     color: #858585;
+    margin: 0;
 }
 
 .statusComplete, .statusPending {

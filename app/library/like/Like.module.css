@@ -49,10 +49,12 @@
     overflow: hidden;
     -webkit-line-clamp: 2; 
     line-clamp: 2;
+    margin: 0;
 }
 
 .content {
     font-size: 14px;
+    margin: 0;
 }
 
 .hrLine {

@@ -74,7 +74,7 @@ export default function Like() {
 
                 {likes.length === 0 ?
                     <div className={styles.noData}>
-                        <span>마음에 드는 리뷰를 발견하면 공감 버튼을 눌러보세요.</span>
+                        <p>마음에 드는 리뷰를 발견하면 공감 버튼을 눌러보세요.</p>
                     </div>
                     :
                     currentItems.map((item, i) => (
@@ -102,8 +102,8 @@ export default function Like() {
                                     </div>
                                     <button onClick={confirmRemove} className={styles.unlikeBtn}>공감 해제</button>
                                 </div>
-                                <span className={styles.title}>{item.book_title}</span>
-                                <span className={styles.content}>{item.content}</span>
+                                <p className={styles.title}>{item.book_title}</p>
+                                <p className={styles.content}>{item.content}</p>
                             </div>
                             <div className={styles.hrLine}></div>
                         </div>
