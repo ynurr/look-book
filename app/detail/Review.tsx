@@ -201,6 +201,29 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
         }
     }
 
+    const refs = useRef<Record<string, HTMLParagraphElement | null>>({});
+    const [isOverflow, setIsOverflow] = useState<Record<string, boolean>>({});
+    const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+
+    useEffect(() => {
+        const newOverflow: Record<string, boolean> = {};
+    
+        currentItems.forEach((review) => {
+            const element = refs.current[review.review_id];
+            if (element) {
+                newOverflow[review.review_id] = element.scrollHeight > 60;
+            }
+        });
+    
+        console.log("초기 isOverflow:", JSON.stringify(isOverflow));
+        console.log("계산된 newOverflow:", JSON.stringify(newOverflow));
+    
+        if (JSON.stringify(newOverflow) !== JSON.stringify(isOverflow)) {
+            console.log("🔄 상태 변경 발생!");
+            setIsOverflow(newOverflow);
+        }
+    }, [currentItems, isOverflow]); 
+    
     return (
         <div className={styles.section3}>
             <div className={styles.reviewHeader}>
@@ -239,8 +262,22 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
                                 <span className={styles.reviewDate}>{review.date}</span>
                             </div>
                             <div className={styles.review}>
-                                <p>{review.content}</p>
-                                <button className={styles.expandBtn}>...더보기</button>
+                                <p 
+                                    ref={(el) => {
+                                        if (el) refs.current[review.review_id] = el;
+                                    }}
+                                    className={`${styles.reviewContent} ${expanded[review.review_id] ? styles.expanded : ''}`}
+                                >
+                                    {review.content}
+                                </p>
+                                {isOverflow[review.review_id] && !expanded[review.review_id] && (
+                                    <button 
+                                        className={styles.expandBtn} 
+                                        onClick={() => setExpanded((prev) => ({ ...prev, [review.review_id]: true }))}
+                                    >
+                                        더보기
+                                    </button>
+                                )}
                             </div>
                             <div className={styles.reviewActions}>
                                 <span className={styles.like} onClick={() => handleUpdateLike(review.review_id, review.like_count)}>
