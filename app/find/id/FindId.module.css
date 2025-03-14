@@ -1,0 +1,94 @@
+.container {
+    max-width: 360px;
+    width: 100%;
+    margin: 60px auto;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 22px;
+    text-align: center;
+}
+
+.wrapper > input {
+    padding: 10px 2px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    outline: none;
+    background: transparent;
+}
+
+.wrapper > input:focus {
+    border-bottom: 1px solid #444;
+}
+
+.label {
+    font-weight: bold;
+    font-size: 15px;
+    margin: 8px 0;
+}
+
+.label:nth-of-type(3) {
+    margin-top: 20px;
+}
+
+.btn {
+    margin-top: 40px;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #333333;
+    color: white;
+    cursor: pointer; 
+}
+
+.btn:hover {
+    background-color: #17171b;
+}
+
+.maskedId {
+    color: rgb(243, 84, 84);
+}
+
+.result {
+    text-align: center;
+    font-weight: bold;
+    margin: 40px 0;
+}
+
+.resultNotFound {
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+    margin: 50px 0;
+}
+
+.signupBtn {
+    margin-top: 30px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer; 
+    background: none;
+    font-weight: 600;
+}
+
+.signupBtn:hover {
+    background: linear-gradient(45deg, #fff5c6, #f1fff1, #ffe4e0, #c7deff);
+    background-size: 400% 400%;
+    animation: gradientAnimation 2s infinite alternate;
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}

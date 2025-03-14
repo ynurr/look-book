@@ -7,6 +7,8 @@ export async function POST(req: NextRequest) {
 
     if (!body.id) {
         return NextResponse.json({ message: "ID를 입력해주세요." }, { status: 400 })
+    } else if (!body.name) {
+        return NextResponse.json({ message: "이름을 입력해주세요." }, { status: 400 })
     } else if (!body.password) {
         return NextResponse.json({ message: "비밀번호를 입력해주세요." }, { status: 400 })
     } else if (!body.nickname) {

@@ -68,9 +68,9 @@ export default function Login() {
                     }
                     <button type="submit" className={styles.loginBtn}>로그인</button>
                     <div className={styles.links}>
-                        <a href="">아이디 찾기</a>
+                        <a href="/find/id">아이디 찾기</a>
                         <span className={styles.separator}>|</span>
-                        <a href="">비밀번호 찾기</a>
+                        <a href="/find/password">비밀번호 찾기</a>
                         <span className={styles.separator}>|</span>
                         <a href="/signup">회원가입</a>
                     </div>

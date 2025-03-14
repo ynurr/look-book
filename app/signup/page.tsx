@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux'
 
 export default function SignUp() {
     const [id, setId] = useState('');
+    const [name, setName] = useState('');
     const [nickname, setNickname] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -90,6 +91,18 @@ export default function SignUp() {
             setIsIdChecked(false);
             return;
         }
+
+        if (id.length < 6) {
+            alert("아이디는 6자 이상이어야 합니다.");
+            setIsIdChecked(false);
+            return;
+        }
+
+        if (id.length > 16) {
+            alert("아이디는 16자 이하여야 합니다.");
+            setIsIdChecked(false);
+            return;
+        }
         
         try {
             const response = await fetch('/api/db/check/id', {
@@ -127,6 +140,11 @@ export default function SignUp() {
 
         if (!id) {
             alert('사용할 아이디를 입력해주세요.')
+            return
+        }
+
+        if (!name) {
+            alert('이름을 입력해주세요.')
             return
         }
 
@@ -188,6 +206,7 @@ export default function SignUp() {
 
         const data = {
             id,
+            name,
             nickname,
             password,
             goal
@@ -242,6 +261,19 @@ export default function SignUp() {
                     {
                         idError && isError && <p className={styles.error}>ID를 입력해주세요.</p>
                     }
+                    <div className={styles.formGroup}>
+                        <label>이름</label>
+                        <div className={styles.inputGroup}>
+                            <input 
+                                className={styles.inputField} 
+                                placeholder='이름을 입력하세요'
+                                value={name}
+                                onChange={(e) => {
+                                    setName(e.target.value) 
+                                }}
+                            ></input>
+                        </div>
+                    </div>
                     <div className={styles.formGroup}>
                         <label>닉네임</label>
                         <div className={styles.inputGroup}>
