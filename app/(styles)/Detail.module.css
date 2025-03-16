@@ -310,7 +310,7 @@
 .reviewMeta {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 7px;
     width: 20%;
 }
 
@@ -326,6 +326,7 @@
 
 .nickname, .reviewDate {
     font-size: 12px;
+    line-height: 1; 
 }
 
 .review {
