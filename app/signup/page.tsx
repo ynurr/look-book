@@ -5,6 +5,7 @@ import styles from './Signup.module.css'
 import { checkNicknameDuplication } from '@/store/slices/accoutSlice'
 import { AppDispatch } from '@/store/store'
 import { useDispatch } from 'react-redux'
+import Link from 'next/link'
 
 export default function SignUp() {
     const [id, setId] = useState('');
@@ -356,6 +357,7 @@ export default function SignUp() {
                                     onChange={(e) => setIsTermsChecked(e.target.checked)}
                                 />
                                 <span>서비스 이용약관 동의 (필수)</span>
+                                <Link href="/terms/service-terms" className={styles.termsBtn}>보기</Link>
                             </div>
                             <div className={`${styles.checkboxGroup} ${styles.privacy}`}>
                                 <input 
@@ -364,6 +366,7 @@ export default function SignUp() {
                                     onChange={(e) => setIsPrivacyChecked(e.target.checked)} 
                                 />
                                 <span>개인정보 처리방짐 동의 (필수)</span>
+                                <Link href="/terms/privacy-policy" className={styles.termsBtn}>보기</Link>
                             </div>
                         </div>
                     </div>
