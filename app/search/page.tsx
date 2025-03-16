@@ -48,8 +48,8 @@ export default function Search() {
                                 <img className={styles.cover} src={book.cover} alt={book.title}></img>
                             </Link>
                             <div className={styles.item}>
-                                <Link href={`/detail?id=${book.isbn13}`}>
-                                    <p className={styles.title}>{book.title}</p>
+                                <Link href={`/detail?id=${book.isbn13}`} className={styles.title}>
+                                    {book.title}
                                 </Link>
                                 <p className={styles.author}>{book.author}</p>
                                 <div className={styles.info}>

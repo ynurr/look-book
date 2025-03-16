@@ -254,7 +254,7 @@ export default function Detail() {
                                             <img className={styles.cover2} src={book.cover} alt={book.title}></img>
                                         </Link>
                                         <Link href={`/detail?id=${book.isbn13}`}>
-                                            <p className={styles.title2}>{book.title}</p>
+                                            <span className={styles.title2}>{book.title}</span>
                                         </Link>
                                     </div>
                                 ))}

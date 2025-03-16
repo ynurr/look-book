@@ -132,8 +132,8 @@ export default function Comment() {
                                     <img className={styles.cover} src={item.cover} alt={item.title} />
                                 </Link>
                                 <div className={styles.info}>
-                                    <Link href={`/detail?id=${item.isbn}`}>
-                                        <p className={styles.title}>{item.title}</p>
+                                    <Link href={`/detail?id=${item.isbn}`} className={styles.title}>
+                                        {item.title}
                                     </Link>
                                     <p className={styles.author}>{item.author}</p>
                                 </div>

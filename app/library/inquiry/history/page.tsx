@@ -53,8 +53,8 @@ export default function Inquiry() {
                     currentItems.map((item) => (
                         <div key={item.inquiry_id} className={styles.list}>
                             <div className={styles.item}>
-                                <Link href={`/library/inquiry/history/detail?id=${item.inquiry_id}`}>
-                                    <p className={styles.title}>{item.title}</p>
+                                <Link href={`/library/inquiry/history/detail?id=${item.inquiry_id}`} className={styles.title}>
+                                    {item.title}
                                 </Link>
                                 <p className={styles.date}>{item.created_at}</p>
                             </div>

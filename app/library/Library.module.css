@@ -93,7 +93,6 @@
     line-clamp: 1;
     overflow: hidden; 
     text-overflow: ellipsis; 
-    margin: 0;
 }
 
 .reviewDate {
@@ -101,7 +100,6 @@
     color: rgb(167, 167, 167);
     align-self: flex-end;
     margin-top: auto;
-    margin-bottom: 0;
 }
 
 .reviewContent {
@@ -112,7 +110,6 @@
     line-clamp: 6;
     overflow: hidden; 
     text-overflow: ellipsis; 
-    margin: 0;
 }
 
 .summarySection {
@@ -349,6 +346,7 @@
         color: #969696;
         font-size: 13px;
         transition: background-color 0.2s ease;
+        text-align: center;
     }
     .editBtn:hover {
         background-color: #e4e4e4;

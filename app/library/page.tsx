@@ -119,8 +119,8 @@ export default function Library() {
                         <div className={styles.statBox}>
                             <div className={styles.profile}>
                                 <span className={styles.nickname}>{session?.user.nickname} 님</span>
-                                <Link href="/profile/edit" legacyBehavior>
-                                    <button className={styles.editBtn}>프로필 수정</button>
+                                <Link href="/profile/edit" className={styles.editBtn}>
+                                    프로필 수정
                                 </Link>
                             </div>
 
@@ -161,9 +161,9 @@ export default function Library() {
                             :
                             reviews.map((item) => (
                                 <Link href={`/library/reading/detail?isbn=${item.isbn}`} className={styles.reviewItem} key={item.review_id}>
-                                    <p className={styles.bookTitle}>{item.title}</p>
-                                    <p className={styles.reviewContent}>{item.content}</p>
-                                    <p className={styles.reviewDate}>{item.created_at}</p>
+                                    <span className={styles.bookTitle}>{item.title}</span>
+                                    <span className={styles.reviewContent}>{item.content}</span>
+                                    <span className={styles.reviewDate}>{item.created_at}</span>
                                 </Link>
 
                             ))

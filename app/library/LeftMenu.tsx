@@ -38,8 +38,8 @@ export default function LeftMenu() {
                     <span>🎯 독서 목표 : {goal}권</span>
                     <progress value={bookCount} max={goal} className={styles.progressBar}></progress> 
                 </div>
-                <Link href="/profile/edit" legacyBehavior>
-                    <button className={styles.editBtn}>프로필 수정</button>
+                <Link href="/profile/edit" className={styles.editBtn}>
+                    프로필 수정
                 </Link>
             </div>
             <div className={styles.menu}>

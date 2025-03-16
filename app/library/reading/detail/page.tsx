@@ -266,8 +266,8 @@ export default function ReviewDetail() {
                             <img src={reading?.cover} alt={reading?.title} className={styles.cover} />
                         ) : null}
                         <div className={styles.bookDetail}>
-                            <Link href={`/detail?id=${reading?.isbn}`}>
-                                <p className={styles.title}>{reading?.title}</p>
+                            <Link href={`/detail?id=${reading?.isbn}`} className={styles.title}>
+                                {reading?.title}
                             </Link>
                             <p className={styles.author}>{reading?.author}</p>
                             <div className={styles.statusBox}>

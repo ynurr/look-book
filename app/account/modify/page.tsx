@@ -180,13 +180,13 @@ export default function Modify() {
                                 </table>
                                 <hr/>
                                 <div className={styles.leaveWrapper}>
-                                    <Link href="/account/leave">
-                                        <button className={styles.leaveBtn}>회원탈퇴 &gt;</button>
+                                    <Link href="/account/leave" className={styles.leaveBtn}>
+                                        회원탈퇴 &gt;
                                     </Link>
                                 </div>
                                 <div className={styles.btnWrapper}>
-                                    <Link href="/home">
-                                        <button className={styles.cancelBtn}>취소</button>
+                                    <Link href="/home" className={styles.cancelBtn}>
+                                        취소
                                     </Link>
                                     <button type="submit" className={styles.submitBtn}>확인</button>
                                 </div>

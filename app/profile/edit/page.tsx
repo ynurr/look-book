@@ -165,8 +165,8 @@ export default function ProfileEdit() {
                     </table>
                     <hr/>
                     <div className={styles.btnWrapper}>
-                        <Link href="/library">
-                            <button className={styles.cancelBtn}>취소</button>
+                        <Link href="/library" className={styles.cancelBtn}>
+                            취소
                         </Link>
                         <button onClick={handleSubmit} className={styles.submitBtn}>확인</button>
                     </div>
