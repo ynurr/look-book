@@ -333,6 +333,8 @@
         flex-direction: column;
         gap: 12px;
         font-weight: 500;
+        width: 23%;
+        text-align: center;
     }
     .barChart {
         width: 100%;
@@ -356,6 +358,7 @@
     .goalBox {
         flex-direction: column;
         font-size: 14px;
+        width: 23%;
     }
     .reviewSection > .menuTitle {
         margin-top: 20px;
@@ -377,6 +380,7 @@
     .goalBox {
         flex-direction: row;
         font-size: 12px;
+        width: 100%;
     }
     .reviewsList {
         flex-direction: column;
