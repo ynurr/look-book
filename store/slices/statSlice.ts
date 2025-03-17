@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface statState {
+    nickname: string;
     goal: number;
     bookCount: number;
     reviewCount: number;
@@ -10,6 +11,7 @@ interface statState {
 }
 
 const initialState: statState = {
+    nickname: '',
     goal: 0,
     bookCount: 0,
     reviewCount: 0, 
@@ -53,6 +55,7 @@ const statSlice = createSlice({
                 state.error = null
             })
             .addCase(fetchUserStat.fulfilled, (state, action) => {
+                state.nickname = action.payload.nickname;
                 state.goal = action.payload.goal;
                 state.bookCount = action.payload.bookCount;
                 state.reviewCount = action.payload.reviewCount;

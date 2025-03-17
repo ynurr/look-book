@@ -35,6 +35,7 @@ export default function Library() {
     const reviewCount = useSelector((state: RootState) => state.stat.reviewCount);
     const lastRead = useSelector((state: RootState) => state.stat.lastRead);
     const goal = useSelector((state: RootState) => state.stat.goal);
+    const nickname = useSelector((state: RootState) => state.stat.nickname);
 
     useEffect(() => {
         if (status === "authenticated" && session?.user.sub) {
@@ -93,7 +94,7 @@ export default function Library() {
                     </div>
 
                     <div className={styles.mobileStatGroup}>
-                        <span className={styles.statTitle}>👋 {session?.user.nickname} 님
+                        <span className={styles.statTitle}>👋 {nickname} 님
                             <Link href="/profile/edit" legacyBehavior>
                                 <FaPen className={styles.penIcon} />
                             </Link>
@@ -118,7 +119,7 @@ export default function Library() {
                         <span className={styles.statTitle}>📊 독서 리포트</span>
                         <div className={styles.statBox}>
                             <div className={styles.profile}>
-                                <span className={styles.nickname}>{session?.user.nickname} 님</span>
+                                <span className={styles.nickname}>{nickname} 님</span>
                                 <Link href="/profile/edit" className={styles.editBtn}>
                                     프로필 수정
                                 </Link>

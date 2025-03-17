@@ -12,21 +12,45 @@ export async function POST(req: NextRequest) {
 
     try {
         const db = (await connectDB).db("lookbook");
-        
-        const userStat = await db.collection("stat").findOne({ user_id: new ObjectId(body.user_id) });
 
-        if (!userStat) {
+        const userStat = await db.collection("stat").aggregate([
+            {
+                $match: { user_id: new ObjectId(body.user_id) }
+            },
+            {
+                $lookup: {
+                    from: "user",
+                    localField: "user_id",
+                    foreignField: "_id",
+                    as: "user_info"
+                }
+            },
+            {
+                $unwind: "$user_info"
+            },
+            {
+                $project: {
+                    _id: 0,
+                    goal: 1,
+                    bookCount: "$book_count",
+                    reviewCount: "$review_count",
+                    lastRead: {
+                        $cond: {
+                            if: { $gt: ["$updated_at", null] },
+                            then: { $dateDiff: { startDate: "$updated_at", endDate: new Date(), unit: "day" } },
+                            else: "-"
+                        }
+                    },
+                    nickname: "$user_info.nickname" 
+                }
+            }
+        ]).toArray();
+
+        if (!userStat.length) {
             return NextResponse.json({ message: "데이터가 존재하지 않습니다." }, { status: 404 });
         }
 
-        const lastRead = userStat.updated_at? differenceInDays(new Date(), new Date(userStat.updated_at)) : "-";
-        
-        return NextResponse.json({
-            goal: userStat.goal,
-            bookCount: userStat.book_count,
-            reviewCount: userStat.review_count,
-            lastRead: lastRead
-        }, { status: 200 });
+        return NextResponse.json( userStat[0] , { status: 200 });
     } catch (error) {
         console.error(error);
         return NextResponse.json({ message: "서버 오류가 발생했습니다." }, { status: 500 });
