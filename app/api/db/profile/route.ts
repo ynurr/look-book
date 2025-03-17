@@ -8,6 +8,8 @@ export async function PUT(req: NextRequest) {
 
     if (!body.user_id) {
         return NextResponse.json({ message: "유효하지 않은 사용자 ID입니다." }, { status: 400 });
+    } else if (!body.name) {
+        return NextResponse.json({ message: "이름을 입력해주세요." }, { status: 400 });
     } else if (!body.nickname) {
         return NextResponse.json({ message: "닉네임을 입력해주세요." }, { status: 400 });
     } else if (!body.goal) {
@@ -19,7 +21,7 @@ export async function PUT(req: NextRequest) {
         
         const result = await db.collection("user").updateOne(
             { _id: new ObjectId(body.user_id) },
-            { $set: { nickname: body.nickname } }
+            { $set: { name: body.name, nickname: body.nickname } }
         )
 
         if (result.matchedCount === 0) {

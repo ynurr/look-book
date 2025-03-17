@@ -14,7 +14,9 @@ export default function ProfileEdit() {
     const { data: session, status } = useSession();
     const dispatch = useDispatch<AppDispatch>();
     const userId = useSelector((state: RootState) => state.account.id);
+    const userName = useSelector((state: RootState) => state.account.name);
     const userNickname = useSelector((state: RootState) => state.account.nickname);
+    const [name, setName] = useState('');
     const [nickname, setNickname] = useState('');
     const [isNicknameChecked, setIsNicknameChecked] = useState(false);
     const userGoal = useSelector((state: RootState) => state.stat.goal);
@@ -24,7 +26,7 @@ export default function ProfileEdit() {
         if (status === "authenticated" && session?.user.sub) {
             try {
                 dispatch(fetchUserProfile({ user_id: session?.user.sub, password: '' }))
-                dispatch(fetchUserStat({ user_id: session.user.sub }))
+                // dispatch(fetchUserStat({ user_id: session.user.sub }))
             } catch (error) {
                 alert('회원 정보 조회 중 오류가 발생했습니다.');
             }
@@ -32,13 +34,16 @@ export default function ProfileEdit() {
     }, [session, dispatch])
 
     useEffect(() => {
+        if (userName) {
+            setName(userName);
+        }
         if (userNickname) {
             setNickname(userNickname);
         }
         if (userGoal) {
             setGoal(userGoal);
         }
-    }, [userNickname, userGoal]); 
+    }, [userName, userNickname, userGoal]); 
 
     const checkNickname = async (nickname: string) => {
     
@@ -99,6 +104,7 @@ export default function ProfileEdit() {
                 },
                 body: JSON.stringify({
                     user_id: session?.user.sub,
+                    name,
                     nickname,
                     goal
                 })
@@ -127,6 +133,18 @@ export default function ProfileEdit() {
                             <tr>
                                 <th>아이디</th>
                                 <td>{userId}</td>
+                            </tr>
+                            <tr>
+                                <th>이름</th>
+                                <td className={styles.inputGroup}>
+                                    <input 
+                                        className={`${styles.checkInput} ${styles.nicknameInput}`} 
+                                        value={name}
+                                        onChange={(e) => {
+                                            setName(e.target.value)
+                                        }}
+                                    ></input>
+                                </td>
                             </tr>
                             <tr>
                                 <th>닉네임</th>

@@ -20,6 +20,10 @@ export async function POST(req: NextRequest) {
         }
 
         if (body.password) {
+            if (!user.password) {
+                return NextResponse.json({ message: "SNS 로그인 계정은 비밀번호 설정이 불가능합니다." }, { status: 400 });
+            }
+            
             const isPasswordMatch = await bcrypt.compare(body.password, user.password);
             
             if (!isPasswordMatch) {
@@ -27,9 +31,9 @@ export async function POST(req: NextRequest) {
             }
         }
             
-        const { id, nickname } = user;
+        const { id, name, nickname } = user;
 
-        return NextResponse.json({ id, nickname }, { status: 200 });
+        return NextResponse.json({ id, name, nickname }, { status: 200 });
     } catch (error) {
         console.error(error);
         return NextResponse.json({ message: "사용자 정보 조회 실패" }, { status: 500 });

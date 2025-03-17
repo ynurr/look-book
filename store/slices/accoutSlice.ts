@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface accountState {
     id: string;
+    name: string;
     nickname: string;
     status: number;
     message: string;
@@ -11,6 +12,7 @@ interface accountState {
 
 const initialState: accountState = {
     id: '',
+    name: '',
     nickname: '',
     status: 0,
     message: '',
@@ -20,7 +22,7 @@ const initialState: accountState = {
 
 export const fetchUserProfile = createAsyncThunk(
     'account/fetchUserProfile',
-    async ({ user_id, password }: { user_id: string, password: string }) => {
+    async ({ user_id, password }: { user_id: string, password: string }, { rejectWithValue }) => {
         try{
             const response = await fetch('/api/db/account/search', {
                 method: 'POST',
@@ -30,11 +32,12 @@ export const fetchUserProfile = createAsyncThunk(
                 body: JSON.stringify({ user_id, password })
             });
 
+            const data = await response.json();
+
             if (!response.ok) {
-                throw new Error('사용자 정보 조회 실패')
+                return rejectWithValue(data); 
             }
 
-            const data = await response.json();
             return data;
         } catch (error) {
             console.log('Fetch error:', error);
@@ -76,6 +79,7 @@ const accountSlice = createSlice({
             })
             .addCase(fetchUserProfile.fulfilled, (state, action) => {
                 state.id = action.payload.id
+                state.name = action.payload.name
                 state.nickname = action.payload.nickname
                 state.loading = false
             })
