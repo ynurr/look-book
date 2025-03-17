@@ -24,7 +24,7 @@ export default function SignUp() {
     const [passwordValidError, setPasswordValidError] = useState(false);
     const [isIdChecked, setIsIdChecked] = useState(false);
     const [isNicknameChecked, setIsNicknameChecked] = useState(false);
-    const [goal, setGoal] = useState(1);
+    const [goal, setGoal] = useState(12);
     const dispatch = useDispatch<AppDispatch>();
     
     const validatePassword = (password: string) => {
