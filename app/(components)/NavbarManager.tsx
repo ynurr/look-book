@@ -1,20 +1,35 @@
-'use client'
+'use client';
 
 import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import Navbar from './Navbar';
 import Navbar2 from './Navbar2';
 import NavbarLibrary from './NavbarLibrary';
 
 export default function NavbarManager() {
-  const pathname = usePathname();
+    const pathname = usePathname();
+    const [isMobile, setIsMobile] = useState(false);
 
-  if (pathname.startsWith('/library')) {
-    return <NavbarLibrary />;
-  }
+    useEffect(() => {
+        const checkScreenSize = () => {
+            setIsMobile(window.innerWidth <= 1000);
+        };
 
-  return (
-    <header>
-      {pathname === '/home' ? <Navbar /> : <Navbar2 />}
-    </header>
-  );
+        checkScreenSize();
+        window.addEventListener('resize', checkScreenSize);
+
+        return () => {
+            window.removeEventListener('resize', checkScreenSize);
+        };
+    }, []);
+
+    if (pathname.startsWith('/library') && isMobile) {
+        return <NavbarLibrary />;
+    }
+
+    return (
+        <header>
+            {pathname === '/home' ? <Navbar /> : <Navbar2 />}
+        </header>
+    );
 }
