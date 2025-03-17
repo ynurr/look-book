@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import styles from './Login.module.css'
 import { signIn } from 'next-auth/react'
+import Image from 'next/image'
 
 export default function Login() {
 
@@ -10,17 +11,15 @@ export default function Login() {
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault()
-        
+    const handleSubmit = async () => {
         if (!id) {
-            setError('아이디를 입력해주세요.')
-            return
+            setError('아이디를 입력해주세요.');
+            return;
         } else if (!password) {
-            setError('비밀번호를 입력해주세요.')
-            return
+            setError('비밀번호를 입력해주세요.');
+            return;
         } 
-        setError('')
+        setError('');
 
         try {
             const result = await signIn("credentials", {
@@ -30,16 +29,25 @@ export default function Login() {
             })
 
             if (result?.error) {
-                setError(result.error)
+                setError(result.error);
             } 
             
             if (result?.status === 200) {
-                alert('로그인 성공')
-                window.location.href = '/home'
+                alert('로그인 성공');
+                window.location.href = '/home';
             }
         } catch (err) {
-            alert("로그인 중 오류가 발생했습니다.")
-            console.error(err)
+            alert("로그인 중 오류가 발생했습니다.");
+            console.error(err);
+        }
+    }
+
+    const handleKakaoLogin = async () => {
+        try {
+            await signIn("kakao", { callbackUrl: "/home" });
+        } catch (err) {
+            alert("카카오 로그인 중 오류가 발생했습니다.");
+            console.error(err);
         }
     }
 
@@ -47,7 +55,7 @@ export default function Login() {
         <div className={styles.container}>
             <div className={styles.form}>
                 <h2 className={styles.title}>로그인</h2>
-                <form onSubmit={handleSubmit}>
+                <div>
                     <div className={styles.formGroup}>
                         <input 
                             className={styles.inputField} 
@@ -66,19 +74,27 @@ export default function Login() {
                     {
                         error && <p className={styles.error}>{error}</p>
                     }
-                    <button type="submit" className={styles.loginBtn}>로그인</button>
-                    <div className={styles.links}>
-                        <a href="/find/id">아이디 찾기</a>
-                        <span className={styles.separator}>|</span>
-                        <a href="/find/password">비밀번호 찾기</a>
-                        <span className={styles.separator}>|</span>
-                        <a href="/signup">회원가입</a>
-                    </div>
-                    <div className={styles.line}>또는</div>
-                    <div className={styles.snsLogin}>
-                        <p>SNS 로그인</p>
-                    </div>
-                </form>
+                    <button onClick={handleSubmit} className={styles.loginBtn}>로그인</button>
+                </div>
+                <div className={styles.links}>
+                    <a href="/find/id">아이디 찾기</a>
+                    <span className={styles.separator}>|</span>
+                    <a href="/find/password">비밀번호 찾기</a>
+                    <span className={styles.separator}>|</span>
+                    <a href="/signup">회원가입</a>
+                </div>
+                <div className={styles.line}>또는</div>
+                <div className={styles.snsLogin}>
+                    <button onClick={handleKakaoLogin} className={styles.kakaoBtn}>
+                        <Image
+                            src="/images/kakao_login.png"
+                            alt="카카오 로그인"
+                            width={300}
+                            height={40}
+                            priority
+                        />
+                    </button>
+                </div>
             </div>
         </div>
     )

@@ -6,8 +6,8 @@
 
 .form {
     width: 100%;
-    max-width: 400px;
-    padding: 20px;
+    max-width: 300px;
+    padding: 20px 0;
 }
 
 .title {
@@ -33,18 +33,41 @@
 
 .loginBtn {
     width: 100%;
+    height: 40px;
     padding: 10px;
-    background-color: #333333;
     border: none;
-    color: #ffffff;
     border-radius: 5px;
     font-size: 14px;
     cursor: pointer;
+}
+
+.loginBtn {
+    background-color: #333333;
+    color: #ffffff;
     margin-top: 20px;
 }
 
 .loginBtn:hover {
     background-color: #17171b;
+}
+
+.kakaoBtn {
+    background: none;
+    border: none;
+    align-items: center;
+    padding: 0;
+}
+
+.kakaoBtn img {
+    width: 100%;
+}
+
+.snsLogin {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .links {
@@ -82,25 +105,8 @@
     margin: 0px 16px;
 }
 
-.snsLogin {
-    text-align: center;
-}
-
-.snsLogin p {
-    margin-bottom: 15px;
-    font-size: 18px;
-    color: #333;
-    font-weight: bold;
-}
-
 .error {
     color: rgb(243, 20, 20);
     font-size: 12px;
     margin: 6px 0 0 6px;
-}
-
-@media (max-width: 480px) {
-    .form {
-        padding: 20px 0;
-    }
 }
