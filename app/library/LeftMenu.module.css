@@ -63,7 +63,7 @@
     font-size: 16px;
 }
 
-.menuTitle:nth-of-type(2), .menuTitle:nth-of-type(3) {
+.menuTitle:nth-of-type(2), .menuTitle:nth-of-type(3), .menuTitle:nth-of-type(4) {
     margin-top: 30px;
 }
 

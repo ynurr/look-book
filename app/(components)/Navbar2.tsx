@@ -1,7 +1,7 @@
 'use client'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import styles from './../(styles)/Navbar2.module.css'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation';
@@ -14,11 +14,6 @@ export default function Navbar2() {
     const [keyword, setKeyword] = useState<string>('');
     const router = useRouter();
     const currentPath = usePathname();
-    const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
-
-    const toggleDropdown = () => {
-        setIsDropdownOpen((prev) => !prev); 
-    };
     
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -57,25 +52,17 @@ export default function Navbar2() {
                                 />
                             </div>
                         </form>
-                        <div className={styles.userIconWrapper} onClick={toggleDropdown}>
-                            <FontAwesomeIcon icon={faUser} className={styles.iconUser} />
-                            {isDropdownOpen && (
-                                session ? (
-                                    <div className={styles.dropdownMenu}>
-                                        <Link href="/account/modify" className={styles.dropdownItem}>비밀번호 변경</Link>
-                                        <button 
-                                            onClick={() => signOut({ callbackUrl: '/home' })} 
-                                            className={styles.dropdownItem}>
-                                            로그아웃
-                                        </button>
-                                    </div>
-                                ) : (
-                                    <div className={styles.dropdownMenu}>
-                                        <Link href="/login" className={styles.dropdownItem}>로그인</Link>
-                                    </div>
-                                )
-                            )}
-                        </div>
+                        {session ? 
+                            (
+                                <button 
+                                    onClick={() => signOut({ callbackUrl: '/home' })} 
+                                    className={styles.btn}>
+                                    로그아웃
+                                </button>
+                            ) : (
+                                <Link href="/login" className={styles.btn}>로그인</Link>
+                            )
+                        }
                     </div>
                 </div>
 

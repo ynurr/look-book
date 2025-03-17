@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import styles from './LeftMenu.module.css'
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
@@ -15,6 +15,7 @@ export default function LeftMenu() {
     const dispatch = useDispatch<AppDispatch>();
     const goal = useSelector((state: RootState) => state.stat.goal);
     const bookCount = useSelector((state: RootState) => state.stat.bookCount);
+    const nickname = useSelector((state: RootState) => state.stat.nickname);
     
     if (!session && status !== "loading") {
         redirect('/login');
@@ -33,7 +34,7 @@ export default function LeftMenu() {
     return (
         <div className={styles.container}>
             <div className={styles.profile}>
-                <span className={styles.nickname}>{session?.user.nickname} 님</span>
+                <span className={styles.nickname}>{nickname} 님</span>
                 <div className={styles.goalBox}>
                     <span>🎯 독서 목표 : {goal}권</span>
                     <progress value={bookCount} max={goal} className={styles.progressBar}></progress> 
@@ -54,6 +55,9 @@ export default function LeftMenu() {
                 <span className={styles.menuTitle}>고객센터</span>
                 <Link href="/library/inquiry" className={styles.menuItem}>문의하기</Link>
                 <Link href="/library/inquiry/history" className={styles.menuItem}>1:1 문의내역</Link>
+                <span className={styles.menuTitle}>계정</span>
+                <Link href="/account/modify" className={styles.menuItem}>비밀번호 변경</Link>
+                <Link href="/account/leave" className={styles.menuItem}>회원탈퇴</Link>
             </div>
         </div>
     )

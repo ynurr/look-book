@@ -2,19 +2,16 @@
 
 import Link from 'next/link';
 import styles from './../(styles)/NavbarLibrary.module.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { MdHome } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoCloseSharp } from "react-icons/io5";
 
 export default function NavbarLibrary() {
-    const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+    const { data: session } = useSession();
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
-    const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
     const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
     const closeMenu = () => {
@@ -31,19 +28,17 @@ export default function NavbarLibrary() {
                     </Link>
                 </div>
                 <div className={styles.right}>
-                    <div className={styles.userIconWrapper} onClick={toggleDropdown}>
-                        <FontAwesomeIcon icon={faUser} className={styles.iconUser} />
-                        {isDropdownOpen && (
-                            <div className={styles.dropdownMenu}>
-                                <Link href="/account/modify" className={styles.dropdownItem} onClick={closeMenu}>비밀번호 변경</Link>
-                                <button 
-                                    onClick={() => { closeMenu(); signOut({ callbackUrl: '/home' }); }} 
-                                    className={styles.dropdownItem}>
-                                    로그아웃
-                                </button>
-                            </div>
-                        )}
-                    </div>
+                    {session ? 
+                        (
+                            <button 
+                                onClick={() => signOut({ callbackUrl: '/home' })} 
+                                className={styles.btn}>
+                                로그아웃
+                            </button>
+                        ) : (
+                            <Link href="/login" className={styles.btn}>로그인</Link>
+                        )
+                    }
                 </div>
             </div>
 
@@ -67,6 +62,10 @@ export default function NavbarLibrary() {
                         <span className={styles.menuTitle}>고객센터</span>
                         <Link href="/library/inquiry" className={styles.menuItem} onClick={closeMenu}>문의하기</Link>
                         <Link href="/library/inquiry/history" className={styles.menuItem} onClick={closeMenu}>1:1 문의내역</Link>
+                        <div className={styles.hrLine}></div>
+                        <span className={styles.menuTitle}>계정</span>
+                        <Link href="/account/modify" className={styles.menuItem} onClick={closeMenu}>비밀번호 변경</Link>
+                        <Link href="/account/leave" className={styles.menuItem} onClick={closeMenu}>회원탈퇴</Link>
                     </nav>
                 </div>
             )}
