@@ -44,7 +44,7 @@ export default function Modify() {
                 
                 setIsVerified(true);
             } catch (error) {
-                alert('회원 정보 조회 중 발생했습니다.');
+                alert((error as any).message);
             }
         }
     }
