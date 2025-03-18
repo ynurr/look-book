@@ -1,0 +1,105 @@
+.container {
+    max-width: 800px;
+    width: 100%;
+    margin: 40px auto;
+}
+
+.backBtn {
+    font-size: 12px;
+    color: #a8a8a8;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+.container h2 {
+    padding: 0 10px;
+    margin-top: 5px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.info p {
+    margin: 0;
+    padding: 0 10px;
+}
+
+.hrLine {
+    border-bottom: 1px solid #ddd;
+    margin: 14px 0;
+}
+
+.title {
+    font-size: 15px;
+    padding: 0 10px;
+}
+
+.date, .replyDate {
+    color: #808080;
+    font-size: 12px;
+}
+
+.content {
+    font-size: 14px;
+    white-space: pre-wrap;
+}
+
+.answered {
+    color: hsl(229, 92%, 62%);
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.pending {
+    color: rgb(255, 103, 103);
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.reply {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.response {
+    font-size: 14px;
+}
+
+.responseBox {
+    display: flex;
+    flex-direction: column;
+}
+
+.textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+}
+
+.textarea:focus {
+    outline: 1px solid #ff9090;
+}
+
+.submitBtn {
+    align-self: flex-end;
+    margin-top: 10px;
+    padding: 8px 15px;
+    border: none;
+    background: #ee4545;
+    color: white;
+    font-size: 13px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submitBtn:hover {
+    background: #f05f5f;
+}

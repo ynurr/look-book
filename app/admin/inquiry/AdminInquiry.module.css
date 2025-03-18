@@ -1,0 +1,71 @@
+.container {
+    max-width: 800px;
+    width: 100%;
+    margin: 20px auto;
+}
+
+.filter {
+    margin-bottom: 20px;
+}
+
+.filter label {
+    font-size: 14px;
+}
+
+.filter select {
+    font-size: 13px;
+    padding: 2px 4px;
+    outline: none;
+}
+
+.filter select option {
+    font-size: 12px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table td, .table th {
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.table th {
+    padding-bottom: 10px;
+    font-size: 15px;
+}
+
+.table td {
+    font-size: 14px;
+    padding: 10px 0;
+}
+
+.link {
+    color: #333;
+    cursor: pointer;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.answered {
+    color: hsl(229, 92%, 62%);
+    font-weight: 600;
+}
+
+.pending {
+    color: rgb(255, 103, 103);
+    font-weight: 600;
+}
+
+.noData {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    font-size: 14px;
+    color: gray;
+}
