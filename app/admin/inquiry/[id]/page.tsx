@@ -5,6 +5,7 @@ import styles from "./AdminInquiryDetail.module.css";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import DeleteModal from "@/app/(components)/DeleteModal";
 
 interface Inquiry {
     inquiry_id: string;
@@ -22,6 +23,7 @@ export default function AdminInquiryDetail() {
     const id = param.get('id');
     const [inquiry, setInquiry] = useState<Inquiry | null>(null);
     const [response, setResponse] = useState('');
+    const [isDelete, setIsDelete] = useState<{ active: boolean }>({ active: false });
 
     useEffect(() => {
         if (status === "authenticated" && session?.user.id !== "admin") {
@@ -70,11 +72,42 @@ export default function AdminInquiryDetail() {
             }
 
             alert("답변이 등록되었습니다.");
+            setResponse('');
             fetchInquiry();
         } catch (error) {
             console.error("답변 등록 실패 "+error);
         }
     };
+
+    const confirmRemove = () => {
+        setIsDelete({ active: true });
+    };
+
+    const handleConfirmCancel = () => {
+        setIsDelete({ active: false });
+    };
+
+    const handleConfirmProceed = async () => {
+        try {
+            const result = await fetch('/api/db/admin/inquiry/delete', {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ id })
+            })
+
+            if (result.status !== 200) {
+                throw new Error("답변 삭제 실패");
+            }
+
+            alert("답변이 삭제되었습니다.");
+            setIsDelete({ active: false });
+            fetchInquiry();
+        } catch (error) {
+            console.log("답변 삭제 실패 " + error);
+        }
+    }
         
     return (
         <div className={styles.container}>
@@ -93,7 +126,7 @@ export default function AdminInquiryDetail() {
                         <>
                         <div className={styles.responseHeader}>
                             <span className={styles.responseLabel}>관리자 답변</span>
-                            <button className={styles.deleteBtn}>삭제</button>
+                            <button className={styles.deleteBtn} onClick={confirmRemove}>삭제</button>
                         </div>
                         <p className={styles.response}>{inquiry.response}</p>
                         <p className={styles.responseDate}>{inquiry.responded_date}</p>
@@ -111,6 +144,13 @@ export default function AdminInquiryDetail() {
                     )
                 }
             </div>
+            {isDelete.active && (
+                <DeleteModal
+                    message="등록된 답변을 삭제하시겠습니까?"
+                    onCancel={handleConfirmCancel}
+                    onConfirm={handleConfirmProceed}
+                />
+            )}
         </div>
     );
 }
