@@ -17,7 +17,8 @@ export default function Like() {
     const { data: session, status } = useSession();
     const dispatch = useDispatch<AppDispatch>();
     const likes = useSelector((state: RootState) => state.like.likeAll || []);
-    const [isDelete, setIsDelete] = useState<{ active: boolean, id: string | null }>({ active: false, id: null });
+    const [isDelete, setIsDelete] = useState(false);
+    const [selectedId, setSelectedId] = useState<string | null>(null);
 
     if (!session && status !== "loading") {
         redirect('/login');
@@ -41,18 +42,21 @@ export default function Like() {
     }
 
     const confirmRemove = (review_id: string) => {
-        setIsDelete({ active: true, id: review_id });
+        setIsDelete(true);
+        setSelectedId(review_id);
     };
-
+    
     const handleConfirmCancel = () => {
-        setIsDelete({ active: false, id: null });
+        setIsDelete(false);
+        setSelectedId(null);
     };
-
+    
     const handleConfirmProceed = () => {
-        if (isDelete.id) {
-            handleCancelLike(isDelete.id);
+        if (selectedId) {
+            handleCancelLike(selectedId);
         }
-        setIsDelete({ active: false, id: null });
+        setIsDelete(false);
+        setSelectedId(null);
     };
     
     const [currentPage, setCurrentPage] = useState(1);
@@ -108,7 +112,7 @@ export default function Like() {
                 />
             </div>
 
-            {isDelete.active && (
+            {isDelete && (
                 <DeleteModal
                     message="선택된 리뷰의 공감을 해제할까요?"
                     onCancel={handleConfirmCancel} 

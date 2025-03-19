@@ -38,7 +38,7 @@ export default function ReviewDetail() {
     const [commentTree, setCommentTree] = useState<any[]>([]);
     const [content, setContent] = useState('');
     const [contentReply, setContentReply] = useState('');
-    const [isDelete, setIsDelete] = useState<{ active: boolean }>({ active: false });
+    const [isDelete, setIsDelete] = useState(false);
 
     useEffect(() => {
         if (session?.user.sub && isbn) {
@@ -116,15 +116,15 @@ export default function ReviewDetail() {
     }, [review.like_count])
 
     const confirmRemove = () => {
-        setIsDelete({ active: true });
+        setIsDelete(true);
     };
     
     const handleConfirmCancel = () => {
-        setIsDelete({ active: false });
+        setIsDelete(false);
     };
     
     const handleConfirmProceed = async () => {
-        setIsDelete({ active: false });
+        setIsDelete(false);
         await handleRemoveBook();
     };
 
@@ -252,13 +252,6 @@ export default function ReviewDetail() {
                     <button onClick={confirmRemove} className={styles.deleteBtn}>삭제</button>
                 </div>
                 <div className={styles.line}></div>
-                {isDelete.active && (
-                    <DeleteModal
-                        message="작성된 리뷰도 함께 삭제되며 복구할 수 없습니다. 내 서재에서 삭제할까요?"
-                        onCancel={handleConfirmCancel} 
-                        onConfirm={handleConfirmProceed}
-                    />
-                )}
                 <div>
                     <div className={styles.bookInfo}>   
                         {reading?.cover ? (
@@ -404,6 +397,13 @@ export default function ReviewDetail() {
 
                 </div>
             </div>
+            {isDelete && (
+                <DeleteModal
+                    message="작성된 리뷰도 함께 삭제되며 복구할 수 없습니다. 내 서재에서 삭제할까요?"
+                    onCancel={handleConfirmCancel} 
+                    onConfirm={handleConfirmProceed}
+                />
+            )}
         </div>
     )
 }

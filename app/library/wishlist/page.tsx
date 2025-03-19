@@ -19,7 +19,7 @@ export default function Comment() {
     const [selectAll, setSelectAll] = useState(false);
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
     const wishlist = useSelector((state: RootState) => state.wishlist.wishlist);
-    const [isDelete, setIsDelete] = useState<{ active: boolean }>({ active: false });
+    const [isDelete, setIsDelete] = useState(false);
 
     useEffect(() => {
         dispatch(fetchWishlist(session?.user.sub || ''))
@@ -58,15 +58,15 @@ export default function Comment() {
             alert('위시리스트에서 삭제할 도서를 선택해주세요.');
             return;
         }
-        setIsDelete({ active: true });
+        setIsDelete(true);
     };
 
     const handleConfirmCancel = () => {
-        setIsDelete({ active: false });
+        setIsDelete(false);
     };
 
     const handleConfirmProceed = () => {
-        setIsDelete({ active: false });
+        setIsDelete(false);
         handleRemoveWishlist();
     };
     
@@ -138,7 +138,7 @@ export default function Comment() {
                     />
                 </div>
             </div>
-            {isDelete.active && (
+            {isDelete && (
                 <DeleteModal
                     message="선택된 도서를 위시리스트에서 삭제할까요?"
                     onCancel={handleConfirmCancel}

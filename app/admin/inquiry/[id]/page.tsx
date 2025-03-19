@@ -23,7 +23,7 @@ export default function AdminInquiryDetail() {
     const id = param.get('id');
     const [inquiry, setInquiry] = useState<Inquiry | null>(null);
     const [response, setResponse] = useState('');
-    const [isDelete, setIsDelete] = useState<{ active: boolean }>({ active: false });
+    const [isDelete, setIsDelete] = useState(false);
 
     useEffect(() => {
         if (status === "authenticated" && session?.user.id !== "admin") {
@@ -80,11 +80,11 @@ export default function AdminInquiryDetail() {
     };
 
     const confirmRemove = () => {
-        setIsDelete({ active: true });
+        setIsDelete(true);
     };
 
     const handleConfirmCancel = () => {
-        setIsDelete({ active: false });
+        setIsDelete(false);
     };
 
     const handleConfirmProceed = async () => {
@@ -102,7 +102,7 @@ export default function AdminInquiryDetail() {
             }
 
             alert("답변이 삭제되었습니다.");
-            setIsDelete({ active: false });
+            setIsDelete(false);
             fetchInquiry();
         } catch (error) {
             console.log("답변 삭제 실패 " + error);
@@ -144,7 +144,7 @@ export default function AdminInquiryDetail() {
                     )
                 }
             </div>
-            {isDelete.active && (
+            {isDelete && (
                 <DeleteModal
                     message="등록된 답변을 삭제하시겠습니까?"
                     onCancel={handleConfirmCancel}
