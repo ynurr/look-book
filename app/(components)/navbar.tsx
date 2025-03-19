@@ -28,12 +28,15 @@ export default function Navbar() {
         <nav className={`${styles.nav} ${isScrolled ? styles.scrolled : ''}`}>
             <Link href="/popular">인기</Link>
             <Link href="/new">신규</Link>
-            <Link href="/library">내 서재</Link>
-            {session ? (
-                <Link href="/account/modify">프로필</Link>
-            ) : (
-                <Link href="/login">로그인</Link>
-            )}
+            {
+                session?.user.id === "admin" ? 
+                <Link href="/admin/inquiry">관리자</Link>
+                :
+                <Link href="/library">내 서재</Link>
+            }
+            {
+                !session && <Link href="/login">로그인</Link>
+            }
         </nav>
     )
 }
