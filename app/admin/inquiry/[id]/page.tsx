@@ -91,9 +91,12 @@ export default function AdminInquiryDetail() {
                     inquiry?.response ?
                     (
                         <>
-                        <p className={styles.reply}>관리자 답변</p>
+                        <div className={styles.responseHeader}>
+                            <span className={styles.responseLabel}>관리자 답변</span>
+                            <button className={styles.deleteBtn}>삭제</button>
+                        </div>
                         <p className={styles.response}>{inquiry.response}</p>
-                        <p className={styles.replyDate}>{inquiry.responded_date}</p>
+                        <p className={styles.responseDate}>{inquiry.responded_date}</p>
                         </>
                     ) : (
                         <div className={styles.responseBox}>
