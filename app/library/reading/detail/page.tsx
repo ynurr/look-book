@@ -1,8 +1,8 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import LeftMenu from '../../LeftMenu'
-import styles from './ReadingDetail.module.css'
+import { useEffect, useState } from 'react';
+import LeftMenu from '../../LeftMenu';
+import styles from './ReadingDetail.module.css';
 import { PiStarFill } from "react-icons/pi";
 import { LuThumbsUp } from "react-icons/lu";
 import { RiThumbUpFill } from "react-icons/ri";
@@ -16,6 +16,7 @@ import { deleteBook, updateBookStatus } from '@/store/slices/readingSlice';
 import Link from 'next/link';
 import { fetchUserLike, updateLike } from '@/store/slices/likeSlice';
 import { addComment, deleteComment, fetchComments } from '@/store/slices/commentSlice';
+import DeleteModal from '@/app/(components)/DeleteModal';
 
 export default function ReviewDetail() {
 
@@ -30,31 +31,31 @@ export default function ReviewDetail() {
     const dispatch = useDispatch<AppDispatch>();
     const reading = useSelector((state: RootState) => state.readingDetail.reading);
     const review = useSelector((state: RootState) => state.readingDetail.review);
-    const likeStatus = useSelector((state: RootState) => state.like.isLike);
-    const [isDelete, setIsDelete] = useState(false);
+    const likeStatus = useSelector((state: RootState) => state.like.isLike);    
     const [isLiked, setIsLiked] = useState(likeStatus);
     const [likeCount, setLikeCount] = useState(0);
     const comments = useSelector((state: RootState) => (state.comment.comments));
     const [commentTree, setCommentTree] = useState<any[]>([]);
     const [content, setContent] = useState('');
     const [contentReply, setContentReply] = useState('');
+    const [isDelete, setIsDelete] = useState<{ active: boolean }>({ active: false });
 
     useEffect(() => {
         if (session?.user.sub && isbn) {
-            dispatch(fetchReadingDetail({user_id: session?.user.sub, book_isbn: isbn}))
+            dispatch(fetchReadingDetail({user_id: session?.user.sub, book_isbn: isbn}));
         }
     }, [session?.user.sub, isbn, dispatch])
 
     useEffect(() => {
         if (session?.user.sub && review.review_id) {
-            dispatch(fetchUserLike({user_id: session?.user.sub, review_id: review.review_id}))
-            dispatch(fetchComments({isbn: '', id: review.review_id}))
+            dispatch(fetchUserLike({user_id: session?.user.sub, review_id: review.review_id}));
+            dispatch(fetchComments({isbn: '', id: review.review_id}));
         }
     }, [session?.user.sub, review.review_id, dispatch])
 
     useEffect(() => {
         setIsLiked(likeStatus);
-    }, [likeStatus]);
+    }, [likeStatus])
 
     const handleUpdateStatus = async (status: string) => {
         try {
@@ -115,17 +116,17 @@ export default function ReviewDetail() {
     }, [review.like_count])
 
     const confirmRemove = () => {
-        setIsDelete(true);
-    }
-
+        setIsDelete({ active: true });
+    };
+    
     const handleConfirmCancel = () => {
-        setIsDelete(false);
-    }
-
-    const handleConfirmProceed = () => {
-        setIsDelete(false);
-        handleRemoveBook(); 
-    }
+        setIsDelete({ active: false });
+    };
+    
+    const handleConfirmProceed = async () => {
+        setIsDelete({ active: false });
+        await handleRemoveBook();
+    };
 
     const handleSubmit = async (review_id: string, parent_id: string) => {
 
@@ -214,11 +215,11 @@ export default function ReviewDetail() {
     const [isCommentVisible, setIsCommentVisible] = useState<{ [key: number]: boolean }>({});
 
     const toggleCommentText = (id: number) => {
-        setIsCommentVisible(prevState => ({ ...prevState, [id]: !prevState[id] }))
+        setIsCommentVisible(prevState => ({ ...prevState, [id]: !prevState[id] }));
     };
 
     const handleCommentCancel = (id: number) => {
-        setIsCommentVisible(prevState => ({ ...prevState, [id]: false }))
+        setIsCommentVisible(prevState => ({ ...prevState, [id]: false }));
     };
 
     return (
@@ -251,14 +252,12 @@ export default function ReviewDetail() {
                     <button onClick={confirmRemove} className={styles.deleteBtn}>삭제</button>
                 </div>
                 <div className={styles.line}></div>
-                {isDelete && (
-                    <div className={styles.modal}>
-                        <p>작성된 리뷰도 함께 삭제되며 복구할 수 없습니다. 내 서재에서 삭제할까요?</p>
-                        <div className={styles.confirmBtnBox}>
-                            <button onClick={handleConfirmCancel} className={styles.cancelBtn}>취소</button>
-                            <button onClick={handleConfirmProceed} className={styles.confirmBtn}>확인</button>
-                        </div>
-                    </div>
+                {isDelete.active && (
+                    <DeleteModal
+                        message="작성된 리뷰도 함께 삭제되며 복구할 수 없습니다. 내 서재에서 삭제할까요?"
+                        onCancel={handleConfirmCancel} 
+                        onConfirm={handleConfirmProceed}
+                    />
                 )}
                 <div>
                     <div className={styles.bookInfo}>   

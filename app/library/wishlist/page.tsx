@@ -9,6 +9,7 @@ import { deleteWishlist, fetchWishlist } from '@/store/slices/wishlistSlice';
 import { useSession } from 'next-auth/react';
 import Pagination from '@/app/(components)/Pagination';
 import Link from 'next/link';
+import DeleteModal from '@/app/(components)/DeleteModal';
 
 export default function Comment() {
 
@@ -18,7 +19,7 @@ export default function Comment() {
     const [selectAll, setSelectAll] = useState(false);
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
     const wishlist = useSelector((state: RootState) => state.wishlist.wishlist);
-    const [isDelete, setIsDelete] = useState(false);
+    const [isDelete, setIsDelete] = useState<{ active: boolean }>({ active: false });
 
     useEffect(() => {
         dispatch(fetchWishlist(session?.user.sub || ''))
@@ -35,8 +36,9 @@ export default function Comment() {
 
     const handleRemoveWishlist = async () => {
         try {
-            const isbns = wishlist.filter((item) => selectedItems.includes(item.wish_id))
-            .map((item) => item.isbn)
+            const isbns = wishlist
+                .filter((item) => selectedItems.includes(item.wish_id))
+                .map((item) => item.isbn)
             
             await dispatch(deleteWishlist({
                 user_id: session?.user.sub || '',
@@ -53,22 +55,22 @@ export default function Comment() {
 
     const confirmRemove = () => {
         if (selectedItems.length === 0) {
-            alert('위시리스트에서 삭제할 도서를 선택해주세요.')
+            alert('위시리스트에서 삭제할 도서를 선택해주세요.');
             return;
         }
-        setIsDelete(true);
-    }
+        setIsDelete({ active: true });
+    };
 
     const handleConfirmCancel = () => {
-        setIsDelete(false);
-    }
+        setIsDelete({ active: false });
+    };
 
     const handleConfirmProceed = () => {
-        setIsDelete(false);
-        handleRemoveWishlist(); 
-    }
-
-    const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태 관리
+        setIsDelete({ active: false });
+        handleRemoveWishlist();
+    };
+    
+    const [currentPage, setCurrentPage] = useState(1);
     const ItemsPerPage = 8;
     const pageCount = Math.ceil(wishlist.length / ItemsPerPage);
     const currentItems = wishlist.slice((currentPage - 1) * ItemsPerPage, currentPage * ItemsPerPage);
@@ -98,17 +100,6 @@ export default function Comment() {
                     <button onClick={confirmRemove} className={styles.deleteBtn}>삭제</button>
                 </div>
                 <div className={styles.hrLine}></div>
-
-                {isDelete && (
-                    <div className={styles.modal}>
-                        <p>선택된 도서를 위시리스트에서 삭제할까요?</p>
-                        <div className={styles.confirmBtnBox}>
-                            <button onClick={handleConfirmCancel} className={styles.cancelBtn}>취소</button>
-                            <button onClick={handleConfirmProceed} className={styles.confirmBtn}>확인</button>
-                        </div>
-                    </div>
-                )}
-
                 <div className={styles.list}>
                     {wishlist.length === 0 ?
                         <div className={styles.noData}>
@@ -147,6 +138,13 @@ export default function Comment() {
                     />
                 </div>
             </div>
+            {isDelete.active && (
+                <DeleteModal
+                    message="선택된 도서를 위시리스트에서 삭제할까요?"
+                    onCancel={handleConfirmCancel}
+                    onConfirm={handleConfirmProceed}
+                />
+            )}
         </div>
     );
 }

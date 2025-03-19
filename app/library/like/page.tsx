@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import LeftMenu from "../LeftMenu";
-import styles from './Like.module.css'
+import styles from './Like.module.css';
 import { PiStarFill } from "react-icons/pi";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -10,23 +10,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import Pagination from "@/app/(components)/Pagination";
 import { deleteLike, fetchLikeAll } from "@/store/slices/likeSlice";
+import DeleteModal from "@/app/(components)/DeleteModal";
 
 export default function Like() {
 
     const { data: session, status } = useSession();
+    const dispatch = useDispatch<AppDispatch>();
+    const likes = useSelector((state: RootState) => state.like.likeAll || []);
+    const [isDelete, setIsDelete] = useState<{ active: boolean, id: string | null }>({ active: false, id: null });
 
     if (!session && status !== "loading") {
         redirect('/login');
     }
 
-    const dispatch = useDispatch<AppDispatch>();
-    const likes = useSelector((state: RootState) => state.like.likeAll || []);
-    const [isDelete, setIsDelete] = useState(false);
-
-
     useEffect(() => {
         if (status === "authenticated" && session?.user.sub) {
-            dispatch(fetchLikeAll({ user_id: session.user.sub }))
+            dispatch(fetchLikeAll({ user_id: session.user.sub }));
         }
     }, [session, dispatch])
 
@@ -41,18 +40,20 @@ export default function Like() {
         }
     }
 
-    const confirmRemove = () => {
-        setIsDelete(true);
-    }
+    const confirmRemove = (review_id: string) => {
+        setIsDelete({ active: true, id: review_id });
+    };
 
     const handleConfirmCancel = () => {
-        setIsDelete(false);
-    }
+        setIsDelete({ active: false, id: null });
+    };
 
-    const handleConfirmProceed = (review_id: string) => {
-        setIsDelete(false);
-        handleCancelLike(review_id); 
-    }
+    const handleConfirmProceed = () => {
+        if (isDelete.id) {
+            handleCancelLike(isDelete.id);
+        }
+        setIsDelete({ active: false, id: null });
+    };
     
     const [currentPage, setCurrentPage] = useState(1);
     const ItemsPerPage = 8;
@@ -79,17 +80,6 @@ export default function Like() {
                     :
                     currentItems.map((item, i) => (
                         <div className={styles.list} key={i}>
-
-                            {isDelete && (
-                            <div className={styles.modal}>
-                                    <p>선택된 리뷰의 공감을 해제할까요?</p>
-                                    <div className={styles.confirmBtnBox}>
-                                        <button onClick={handleConfirmCancel} className={styles.cancelBtn}>취소</button>
-                                        <button onClick={() => handleConfirmProceed(item._id)} className={styles.confirmBtn}>확인</button>
-                                    </div>
-                                </div>
-                            )}
-
                             <div className={styles.detail}>
                                 <div className={styles.actions}>
                                     <div className={styles.rating}>
@@ -100,7 +90,9 @@ export default function Like() {
                                             />
                                         ))}
                                     </div>
-                                    <button onClick={confirmRemove} className={styles.unlikeBtn}>공감 해제</button>
+                                    <button onClick={() => confirmRemove(item._id)} className={styles.unlikeBtn}>
+                                        공감 해제
+                                    </button>
                                 </div>
                                 <p className={styles.title}>{item.book_title}</p>
                                 <p className={styles.content}>{item.content}</p>
@@ -115,6 +107,14 @@ export default function Like() {
                     currentPage={currentPage}
                 />
             </div>
+
+            {isDelete.active && (
+                <DeleteModal
+                    message="선택된 리뷰의 공감을 해제할까요?"
+                    onCancel={handleConfirmCancel} 
+                    onConfirm={handleConfirmProceed}
+                />
+            )}
         </div>
     )
 }
