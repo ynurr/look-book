@@ -1,9 +1,8 @@
 .container {
     display: flex;
+    justify-content: center;
     gap: 40px;
-    margin: 60px auto;
-    max-width: 760px;
-    width: 100%;
+    margin: 20px 0;
 }
 
 .wrapper {
@@ -114,6 +113,15 @@
 
 .star {
     color: #eeeeee;
+}
+
+@media (max-width: 768px) {
+    .menuTitle {
+        margin-top: 0;
+    }
+    .container {
+        margin: 0 10px;
+    }
 }
 
 @media (max-width: 480px) {
