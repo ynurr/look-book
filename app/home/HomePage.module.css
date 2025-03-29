@@ -109,6 +109,7 @@
 @media (max-width: 768px) {
     .rankingRecommendationsSection {
         flex-direction: column;
+        margin-top: 60px;
     }
     .rankingRecommendationsSection > div {
         margin: 0 auto;
