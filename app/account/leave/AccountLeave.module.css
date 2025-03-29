@@ -131,7 +131,12 @@
 }
 
 @media (max-width: 480px) {
-    .btnWrapper {
-        flex-direction: column;
+    .container {
+        margin-top: 0;
+    }
+    .cancelBtn, .submitBtn {
+        width: 100%;
+        text-align: center;
+        padding: 10px 30px;
     }
 }

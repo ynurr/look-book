@@ -97,8 +97,8 @@
 }
 
 .navList a.active { 
-    color: #7c60f5;
-    border-bottom: 3px solid #7c60f5;
+    color: rgb(152, 130, 247);
+    border-bottom: 3px solid rgb(152, 130, 247);
     padding-bottom: 29px;
 }
 
@@ -126,27 +126,28 @@
     .searchDesktop {
         display: none;
     }
-
     .searchMobile {
         display: block; 
         width: 100%;
         margin-top: 10px;
     }
-
     .searchMobile .searchBox {
         width: 100%;
     }
-
     .navbar {
         height: 100px;
     }
-
     .container {
         padding: 0 4px;
     }
-
     .navList a.active { 
         border-bottom: none;
         padding-bottom: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        height: 90px;
     }
 }

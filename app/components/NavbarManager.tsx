@@ -23,7 +23,7 @@ export default function NavbarManager() {
         };
     }, []);
 
-    if (pathname.startsWith('/library') && isMobile) {
+    if ((pathname.startsWith('/library') || pathname.startsWith('/account')) && isMobile) {
         return <NavbarLibrary />;
     }
 

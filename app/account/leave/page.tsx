@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import styles from './AccountLeave.module.css'
 import Link from 'next/link';
 import { signOut, useSession } from 'next-auth/react';
