@@ -16,7 +16,7 @@ import { deleteBook, updateBookStatus } from '@/store/slices/readingSlice';
 import Link from 'next/link';
 import { fetchUserLike, updateLike } from '@/store/slices/likeSlice';
 import { addComment, deleteComment, fetchComments } from '@/store/slices/commentSlice';
-import DeleteModal from '@/app/(components)/DeleteModal';
+import DeleteModal from '@/app/components/DeleteModal';
 
 export default function ReviewDetail() {
 

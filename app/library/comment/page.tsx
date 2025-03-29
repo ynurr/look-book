@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCommentList } from "@/store/slices/commentSlice";
-import Pagination from "@/app/(components)/Pagination";
+import Pagination from "@/app/components/Pagination";
 
 export default function Comment() {
 

@@ -9,7 +9,7 @@ import { AppDispatch, RootState } from "@/store/store";
 import { useEffect, useState } from "react";
 import { fetchInquiryAll } from "@/store/slices/inquirySlice";
 import { redirect } from "next/navigation";
-import Pagination from "@/app/(components)/Pagination";
+import Pagination from "@/app/components/Pagination";
 
 export default function Inquiry() {
     

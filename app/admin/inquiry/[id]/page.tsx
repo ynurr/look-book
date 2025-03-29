@@ -5,7 +5,7 @@ import styles from "./AdminInquiryDetail.module.css";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import DeleteModal from "@/app/(components)/DeleteModal";
+import DeleteModal from "@/app/components/DeleteModal";
 
 interface Inquiry {
     inquiry_id: string;

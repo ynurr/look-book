@@ -7,9 +7,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import { deleteWishlist, fetchWishlist } from '@/store/slices/wishlistSlice';
 import { useSession } from 'next-auth/react';
-import Pagination from '@/app/(components)/Pagination';
+import Pagination from '@/app/components/Pagination';
 import Link from 'next/link';
-import DeleteModal from '@/app/(components)/DeleteModal';
+import DeleteModal from '@/app/components/DeleteModal';
 
 export default function Comment() {
 

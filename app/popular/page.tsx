@@ -1,7 +1,7 @@
 'use client'
 
 import { useDispatch, useSelector } from "react-redux";
-import List from "../(components)/List";
+import List from "../components/List";
 import { RootState, AppDispatch } from '@/store/store';
 import { useEffect } from "react";
 import { fetchBookList } from "@/store/slices/listSlice";

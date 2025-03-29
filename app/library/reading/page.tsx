@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import { fetchReadingStatus } from '@/store/slices/readingSlice';
 import Link from 'next/link';
-import Pagination from '@/app/(components)/Pagination';
+import Pagination from '@/app/components/Pagination';
 
 export default function Reading() {
 

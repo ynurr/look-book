@@ -8,9 +8,9 @@ import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
-import Pagination from "@/app/(components)/Pagination";
+import Pagination from "@/app/components/Pagination";
 import { deleteLike, fetchLikeAll } from "@/store/slices/likeSlice";
-import DeleteModal from "@/app/(components)/DeleteModal";
+import DeleteModal from "@/app/components/DeleteModal";
 
 export default function Like() {
 

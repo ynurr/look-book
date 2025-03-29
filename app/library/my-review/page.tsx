@@ -12,7 +12,7 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import { fetchReviewAll } from "@/store/slices/reviewSlice";
-import Pagination from "@/app/(components)/Pagination";
+import Pagination from "@/app/components/Pagination";
 
 export default function Review() {
 

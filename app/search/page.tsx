@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import { AppDispatch, RootState } from '@/store/store';
 import { useEffect, useState } from 'react';
 import { fetchSearchBooks } from '@/store/slices/searchSlice';
-import Pagination from '../(components)/Pagination';
+import Pagination from '../components/Pagination';
 import Link from 'next/link';
 
 export default function Search() {

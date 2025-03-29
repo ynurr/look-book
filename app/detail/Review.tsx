@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import styles from './Detail.module.css'
-import Pagination from '../(components)/Pagination'
+import Pagination from '../components/Pagination'
 import { PiStarFill } from "react-icons/pi";
 import { LuThumbsUp } from "react-icons/lu";
 import { RiThumbUpFill } from "react-icons/ri";
