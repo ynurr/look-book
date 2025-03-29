@@ -8,7 +8,7 @@ import KakaoProvider from "next-auth/providers/kakao";
 
 const JWT_SECRET = process.env.JWT_SECRET || "default_fallback_secret";
 
-export const authOptions: AuthOptions = {
+const authOptions: AuthOptions = {
     providers: [
         CredentialsProvider({
             name: "Credentials",
