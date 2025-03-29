@@ -115,12 +115,13 @@ export default function Modify() {
             const result = await response.json();
 
             if (response.status === 200) {
-                alert('회원정보수정 성공');
+                alert('비밀번호 변경 성공');
+                window.location.href = '/library';
             } else {
-                alert(result.message || '회원정보수정 실패');
+                alert(result.message || '비밀번호 변경 실패');
             }
         } catch (error) {
-            alert('회원정보수정 중 오류가 발생했습니다.');
+            alert('비밀번호 변경 중 오류가 발생했습니다.');
         }
     }
     
@@ -129,7 +130,7 @@ export default function Modify() {
             {
                 isVerified ? (
                     <div className={styles.contents}>
-                        <h2>회원정보 수정</h2>
+                        <h2>비밀번호 변경</h2>
                         <hr/>
                         <form onSubmit={handleSubmit}>
                             <div>
@@ -179,11 +180,6 @@ export default function Modify() {
                                     </tbody>
                                 </table>
                                 <hr/>
-                                <div className={styles.leaveWrapper}>
-                                    <Link href="/account/leave" className={styles.leaveBtn}>
-                                        회원탈퇴 &gt;
-                                    </Link>
-                                </div>
                                 <div className={styles.btnWrapper}>
                                     <Link href="/home" className={styles.cancelBtn}>
                                         취소

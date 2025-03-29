@@ -85,19 +85,6 @@
     display: none;
 }
 
-.leaveWrapper {
-    display: flex;
-    justify-content: flex-end;
-}
-
-.leaveBtn {
-    font-size: 13px;
-    border: none;
-    background-color: white;
-    cursor: pointer;
-    color: #a5a5a5;
-}
-
 .btnWrapper {
     display: flex;
     gap: 10px;
