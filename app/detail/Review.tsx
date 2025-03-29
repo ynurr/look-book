@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react';
-import styles from './../(styles)/Detail.module.css'
+import styles from './Detail.module.css'
 import Pagination from '../(components)/Pagination'
 import { PiStarFill } from "react-icons/pi";
 import { LuThumbsUp } from "react-icons/lu";

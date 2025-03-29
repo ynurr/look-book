@@ -1,4 +1,4 @@
-import styles from './../(styles)/DeleteModal.module.css';
+import styles from './DeleteModal.module.css';
 
 interface DeleteModalProps {
     message?: string;

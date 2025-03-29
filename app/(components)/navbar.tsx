@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import styles from './../(styles)/Navbar.module.css'
+import styles from './Navbar.module.css'
 import { useSession } from "next-auth/react";
 
 export default function Navbar() {

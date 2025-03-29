@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import styles from './../(styles)/NavbarLibrary.module.css';
+import styles from './NavbarLibrary.module.css';
 import { useState } from 'react';
 import { signOut, useSession } from 'next-auth/react';
 import { MdHome } from "react-icons/md";

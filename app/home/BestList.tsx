@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useContext, useEffect } from 'react'
-import styles from './../(styles)/Common.module.css'
+import styles from './Common.module.css'
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '@/store/store';

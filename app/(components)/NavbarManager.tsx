@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Navbar from './Navbar';
 import Navbar2 from './Navbar2';
-import NavbarLibrary from './NavbarLibrary';
+import NavbarLibrary from '../library/NavbarLibrary';
 
 export default function NavbarManager() {
     const pathname = usePathname();

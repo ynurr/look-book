@@ -1,7 +1,7 @@
 'use client'
 
 import { useDispatch, useSelector } from 'react-redux';
-import styles from '../(styles)/Search.module.css'
+import styles from './Search.module.css'
 import { useSearchParams } from 'next/navigation';
 import { AppDispatch, RootState } from '@/store/store';
 import { useEffect, useState } from 'react';

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import styles from './../(styles)/UserRanking.module.css'
+import styles from './UserRanking.module.css'
 
 export default function UserRanking() {
 

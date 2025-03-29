@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import styles from './../(styles)/Recommendations.module.css'
+import styles from './Recommendations.module.css'
 import Link from 'next/link';
 
 interface Book {

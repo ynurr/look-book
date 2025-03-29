@@ -7,7 +7,7 @@ import UserRanking from './UserRanking';
 import Recommendations from './Recommendations';
 import LatestList from './LatestList';
 import BestList from './BestList';
-import styles from './../(styles)/HomePage.module.css'
+import styles from './HomePage.module.css'
 import { useState } from 'react';
 
 export default function Main() {

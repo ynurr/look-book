@@ -5,7 +5,7 @@ import List from "../(components)/List";
 import { RootState, AppDispatch } from '@/store/store';
 import { useEffect } from "react";
 import { fetchBookList } from "@/store/slices/listSlice";
-import styles from '../(styles)/Popular.module.css'
+import styles from './Popular.module.css'
 
 export default function Popular() {
 

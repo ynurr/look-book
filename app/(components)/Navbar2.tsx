@@ -2,7 +2,7 @@
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import styles from './../(styles)/Navbar2.module.css'
+import styles from './Navbar2.module.css'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useState } from 'react';

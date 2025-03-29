@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import styles from '../(styles)/List.module.css'
+import styles from './List.module.css'
 import { useState } from 'react';
 import Pagination from './Pagination';
 
