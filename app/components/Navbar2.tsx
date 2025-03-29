@@ -27,7 +27,7 @@ export default function Navbar2() {
             <div className={styles.content}>
                 <div className={styles.container}>
                     <div className={styles.leftSection}>
-                        <Link href="/" className={styles.homeLink}>LOOKBOOK</Link>
+                        <Link href="/" className={styles.homeLink}>LOOK<br/>BOOK</Link>
                         <ul className={styles.navList}>
                             <li>
                                 <Link href="/popular" className={`${styles.navItem} ${currentPath === '/popular' ? styles.active : ''}`}>인기</Link> 
@@ -38,7 +38,7 @@ export default function Navbar2() {
                             <li>
                                {
                                     session?.user.id === "admin" ? 
-                                    <Link href="/admin/inquiry">관리자</Link>
+                                    <Link href="/admin/inquiry" className={`${styles.navItem} ${currentPath === '/admin/inquiry' ? styles.active : ''}`}>관리자</Link>
                                     :
                                     <Link href="/library" className={`${styles.navItem} ${currentPath === '/library' ? styles.active : ''}`}>내 서재</Link> 
                                 }

@@ -52,7 +52,7 @@
 .iconSearch {
     position: absolute;
     left: 4px;
-    color: #505050;
+    color: #616161;
     z-index: 2;
     background-color: #f1f3f5;
     padding: 0 10px;
@@ -71,11 +71,12 @@
 }
 
 .homeLink {
-    font-size: 1.2rem;
+    font-size: 14px;
     font-weight: bold;
     text-decoration: none;
     color: #444444;
     margin-right: 20px;
+    line-height: 1;
 }
 
 .navList {
@@ -92,12 +93,12 @@
 
 .navList a {
     text-decoration: none;
-    color: #969696;
+    color: #333;
 }
 
 .navList a.active { 
-    color: #333;
-    border-bottom: 3px solid #333;
+    color: #7c60f5;
+    border-bottom: 3px solid #7c60f5;
     padding-bottom: 29px;
 }
 

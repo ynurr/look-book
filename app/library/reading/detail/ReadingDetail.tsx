@@ -231,7 +231,7 @@ export default function ReadingDetail() {
                 <div className={styles.btnBox}>
                     <button
                         onClick={() => handleUpdateStatus(reading?.status === '0' ? '1' : '0')}
-                        className={styles.updateBtn}>{reading?.status === '0' ? '독서 완료' : '독서 중'}
+                        className={styles.updateBtn}>{reading?.status === '0' ? '독서완료' : '독서중'}
                     </button>
                     {
                         review.review_id !== '' && 
@@ -245,8 +245,10 @@ export default function ReadingDetail() {
                                     status: reading?.status,
                                     id: review.review_id
                                 },
-                            }}>
-                                <button className={styles.modifyBtn}>리뷰수정</button>
+                                }}
+                                className={styles.modifyBtn}
+                            >
+                                수정
                             </Link>
                     }
                     <button onClick={confirmRemove} className={styles.deleteBtn}>삭제</button>

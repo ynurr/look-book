@@ -33,6 +33,11 @@
     align-items: center; 
 }
 
+.selectAll > input, .item > input {
+    margin: 0;
+    margin-right: 6px;
+}
+
 .list {
     display: flex;
     flex-wrap: wrap;
@@ -89,6 +94,8 @@
     cursor: pointer;
     border-radius: 5px;
     border: 1px solid #b9b9b9;
+    color: #f16d6d;
+    padding: 1px 3px;
 }
 
 .hrLine {
@@ -133,5 +140,11 @@
     .cover {
         width: 80px;
         height: 120px;
+    }
+    .topBox {
+        margin: 10px 2px;
+    }
+    .list {
+        margin: 0 2px;
     }
 }

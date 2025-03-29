@@ -619,6 +619,8 @@
         flex: 1;
         justify-content: center;
         text-align: center;
+        padding: 8px;
+        font-size: 14px;
     }
     .title {
         font-size: 18px;
@@ -636,5 +638,11 @@
     }
     .textAreaBtn button {
         font-size: 12px;
+    }
+    .reviewBtn {
+        font-size: 14px;
+    }
+    .heartRegular, .heartSolid {
+        font-size: 18px;
     }
 }

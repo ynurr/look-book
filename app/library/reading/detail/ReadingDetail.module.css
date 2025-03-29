@@ -25,14 +25,11 @@
     background: none; 
     padding: 0;
     cursor: pointer;
+    line-height: 1;
 }
 
-.updateBtn {
-    color: #b9b9b9;
-}
-
-.modifyBtn {
-    color: #b9b9b9;
+.updateBtn, .modifyBtn {
+    color: #333;
 }
 
 .deleteBtn {
@@ -312,6 +309,7 @@
     border: 1px solid #ddd;
     background-color: white;
     cursor: pointer;
+    color: #333;
 }
 
 .reviewBtn:hover {
@@ -361,5 +359,9 @@
     }
     .reviewBtn {
         width: calc(100% - 8px);
+        font-size: 14px;
+    }
+    .updateBtn, .modifyBtn, .deleteBtn {
+        font-size: 14px;
     }
 }
