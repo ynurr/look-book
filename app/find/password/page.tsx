@@ -11,6 +11,16 @@ export default function FindPassword() {
     const [confirmPassword, setConfirmPassword] = useState("");
 
     const handleFindPassword = async () => {
+        if (!id.trim()) {
+            alert("아이디를 입력해주세요.");
+            return;
+        }
+
+        if (!name.trim()) {
+            alert("이름을 입력해주세요.");
+            return;
+        }
+
         const response = await fetch("/api/db/find/password", {
             method: "POST",
             headers: {

@@ -10,6 +10,16 @@ export default function FindId() {
     const [notFound, setNotFound] = useState(false); 
 
     const handleFindId = async () => {
+        if (!name.trim()) {
+            alert("이름을 입력해주세요.");
+            return;
+        }
+
+        if (!nickname.trim()) {
+            alert("닉네임을 입력해주세요.");
+            return;
+        }
+
         const response = await fetch("/api/db/find/id", {
             method: "POST",
             headers: {
@@ -57,7 +67,7 @@ export default function FindId() {
                                 className={styles.signupBtn} 
                                 onClick={() => window.location.href = "/signup"}
                             >
-                                회원가입 하러 가기 🏃‍♂️
+                                회원가입 하러 가기 👉
                             </button>
                         </div>
                     ) : (
