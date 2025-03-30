@@ -329,6 +329,10 @@
     line-height: 1; 
 }
 
+.reviewDate {
+    padding-right: 4px;
+}
+
 .review {
     font-size: 14px;
     width: 60%; 
