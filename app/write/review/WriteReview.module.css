@@ -96,6 +96,7 @@
     cursor: pointer; 
     background-color: #333333;
     color: white;
+    font-size: 14px;
 }
 
 .btn:hover {

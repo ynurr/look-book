@@ -31,6 +31,7 @@
     font-weight: 500;
     transition: background-color 0.3s;
     white-space: nowrap;
+    font-size: 14px;
 }
 
 .btnPw:hover {
@@ -97,7 +98,7 @@
     border-radius: 4px;
     border: none;
     cursor: pointer;
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .submitBtn {
