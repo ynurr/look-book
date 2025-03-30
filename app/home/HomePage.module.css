@@ -24,18 +24,14 @@
 }
 
 .bestBookListSection {
-    margin-top: 100px;
-}
-
-.searchSection {
-    margin-bottom: 80px;
+    margin-top: 80px;
 }
   
 .rankingRecommendationsSection {
     gap: 60px;
     display: flex;
     align-items: stretch;
-    margin-top: 80px;
+    margin-top: 60px;
     margin-bottom: 60px;
 }
   
@@ -85,7 +81,7 @@
 
 .input {
     flex-grow: 1;
-    padding: 0.8rem 1.2rem;
+    padding: 12px 16px;
     border: 2px solid #ddd;
     outline: none;
     transition: border-color 0.3s ease;
@@ -129,5 +125,17 @@
 @media (max-width: 480px) {
     .rankingRecommendationsSection > div:first-child {
         max-width: 480px;
+    }
+    .searchSection {
+        margin-bottom: 0;
+    }
+    .bestBookListSection {
+        margin-top: 60px;
+    }
+    .rating-book-list-section, .latestBookListSection, .rankingRecommendationsSection {
+        margin-top: 30px;
+    }
+    .rankingRecommendationsSection {
+        gap: 40px;
     }
 }
