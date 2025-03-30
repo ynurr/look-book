@@ -9,7 +9,7 @@ interface Inquiry {
     inquiry_id: string;
     title: string;
     date: string;
-    status: "answered" | "pending"; // ✅ 답변 완료 / 미답변 상태
+    status: "answered" | "pending"; // 답변 완료, 미답변
 }
 
 export default function AdminInquiry() {
