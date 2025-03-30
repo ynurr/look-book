@@ -76,6 +76,8 @@
     cursor: pointer; 
     background: none;
     font-weight: 600;
+    font-size: 14px;
+    color: #333;
 }
 
 .signupBtn:hover {
