@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import styles from './NavbarLibrary.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { signOut, useSession } from 'next-auth/react';
 import { MdHome } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -17,6 +17,18 @@ export default function NavbarLibrary() {
     const closeMenu = () => {
         setTimeout(() => setIsMenuOpen(false), 500);
     };
+
+    useEffect(() => {
+        if (isMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+
+        return () => { // cleanup
+            document.body.style.overflow = '';
+        }
+    }, [isMenuOpen])
 
     return (
         <nav className={styles.navbar}>
