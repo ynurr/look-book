@@ -33,7 +33,6 @@ export default function Login() {
             } 
             
             if (result?.status === 200) {
-                alert('로그인 성공');
                 window.location.href = '/home';
             }
         } catch (err) {

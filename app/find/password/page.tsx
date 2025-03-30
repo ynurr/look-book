@@ -22,7 +22,6 @@ export default function FindPassword() {
         const data = await response.json();
 
         if (data.success) {
-            alert('사용자 확인 성공');
             setIsVerified(true);
         } else {
             alert('일치하는 사용자를 찾을 수 없습니다.');
@@ -51,17 +50,17 @@ export default function FindPassword() {
     const handleSubmit = async () => {
 
         if (!password) {
-            alert('새 비밀번호를 입력해주세요');
+            alert('새 비밀번호를 입력해주세요.');
             return;
         }
         
         if (password !== confirmPassword) {
-            alert('새 비밀번호가 일치하지 않습니다');
+            alert('새 비밀번호가 일치하지 않습니다.');
             return;
         }
         
         if (!validatePassword(password)) {
-            alert('새 비밀번호가 올바르지 않습니다');
+            alert('새 비밀번호가 올바르지 않습니다.');
             return;
         }
 
@@ -77,10 +76,10 @@ export default function FindPassword() {
             const result = await response.json();
 
             if (response.status === 200) {
-                alert('비밀번호 변경 성공');
+                alert('비밀번호가 변경되었습니다.');
                 window.location.href = '/login'; 
             } else {
-                alert(result.message || '비밀번호 변경 실패');
+                alert(result.message || '비밀번호 변경에 실패했습니다. 잠시 후 다시 시도해주세요.');
             }
         } catch (error) {
             alert('비밀번호 변경 중 오류가 발생했습니다.');

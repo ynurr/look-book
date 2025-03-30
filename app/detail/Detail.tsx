@@ -112,7 +112,7 @@ export default function Detail() {
       
             await dispatch(fetchWishlist(session?.user.sub || ''));
         } catch (error) {
-            alert('위시리스트 추가 실패');
+            alert('위시리스트 추가에 실패했습니다. 잠시 후 다시 시도해주세요.');
         }
     }
     
@@ -129,7 +129,7 @@ export default function Detail() {
       
             await dispatch(fetchWishlist(session?.user.sub || ''));
         } catch (error) {
-            alert('위시리스트 삭제 실패');
+            alert('위시리스트 삭제에 실패했습니다. 잠시 후 다시 시도해주세요.');
         }
     }
 
@@ -152,7 +152,7 @@ export default function Detail() {
 
             await dispatch(fetchUserReadingState({user_id: session?.user.sub || '', book_isbn: book?.isbn13 || ''}));
         } catch (error) {
-            alert('독서 상태 변경 실패');
+            alert('독서 상태 변경에 실패했습니다. 잠시 후 다시 시도해주세요.');
         }
     }
 

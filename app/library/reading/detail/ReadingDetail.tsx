@@ -73,7 +73,7 @@ export default function ReadingDetail() {
                 dispatch(fetchReadingDetail({user_id: session?.user.sub, book_isbn: isbn}));
             }
         } catch (error) {
-            alert('독서 상태 변경 실패');
+            alert('독서 상태 변경에 실패했습니다.');
         }
     }
 
@@ -89,7 +89,7 @@ export default function ReadingDetail() {
 
             window.location.href = '/library/reading';
         } catch (error) {
-            alert('독서현황 삭제 실패');
+            alert('독서현황 삭제에 실패했습니다.');
         }
     }
 
@@ -105,7 +105,7 @@ export default function ReadingDetail() {
             setLikeCount(isLiked ? likeCount-1 : likeCount+1)
             setIsLiked(!isLiked);
         } catch (error) {
-            alert('좋아요 업데이트 실패');
+            alert('나중에 다시 시도해주세요.');
         }
     }
 
@@ -153,7 +153,7 @@ export default function ReadingDetail() {
             setContent('');
             setContentReply('');
         } catch (error) {
-            alert('댓글 작성 실패');
+            alert('댓글 작성에 실패했습니다.');
         }
     }
 
@@ -208,7 +208,7 @@ export default function ReadingDetail() {
 
             dispatch(fetchComments({isbn: '', id: review.review_id}));
         } catch (error) {
-            alert('댓글 삭제 실패');
+            alert('댓글 삭제에 실패했습니다.');
         }
     }
 

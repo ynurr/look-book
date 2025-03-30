@@ -225,10 +225,10 @@ export default function SignUp() {
             const result = await response.json()
 
             if (response.status === 200) {
-                alert('회원가입 성공')
+                alert('가입이 완료되었습니다! 로그인 후 이용해주세요.')
                 window.location.href = '/login'
             } else {
-                alert(result.message || '회원가입 실패')
+                alert(result.message || '회원가입에 실패했습니다. 잠시 후 다시 시도해주세요.');
             }
         } catch (error) {
             alert('회원가입 중 오류가 발생했습니다.')

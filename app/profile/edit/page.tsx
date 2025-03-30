@@ -115,7 +115,7 @@ export default function ProfileEdit() {
             if (response.status === 200) {
                 window.location.href = '/library'
             } else {
-                alert(result.message || '프로필 수정 실패');
+                alert(result.message || '프로필 수정에 실패했습니다. 잠시 후 다시 시도해주세요.');
             }
         } catch (error) {
             alert('프로필 수정 중 오류가 발생했습니다.');

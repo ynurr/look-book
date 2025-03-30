@@ -78,7 +78,7 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
             }))
 
         } catch (error) {
-            alert('좋아요 업데이트 실패');
+            alert('나중에 다시 시도해주세요.');
         }
     }
 
@@ -107,7 +107,7 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
             setContent('');
             setContentReply('');
         } catch (error) {
-            alert('댓글 작성 실패');
+            alert('댓글 작성에 실패했습니다.');
         }
     }
 
@@ -162,7 +162,7 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
 
             await dispatch(fetchComments({isbn: isbn || '', id: ''}));
         } catch (error) {
-            alert('댓글 삭제 실패');
+            alert('댓글 삭제에 실패했습니다.');
         }
     }
 

@@ -115,10 +115,10 @@ export default function Modify() {
             const result = await response.json();
 
             if (response.status === 200) {
-                alert('비밀번호 변경 성공');
+                alert('비밀번호가 성공적으로 변경되었습니다.');
                 window.location.href = '/library';
             } else {
-                alert(result.message || '비밀번호 변경 실패');
+                alert(result.message || '비밀번호 변경에 실패했습니다. 잠시 후 다시 시도해주세요.');
             }
         } catch (error) {
             alert('비밀번호 변경 중 오류가 발생했습니다.');

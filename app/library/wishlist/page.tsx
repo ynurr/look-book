@@ -49,7 +49,7 @@ export default function Comment() {
             setCurrentPage(1);
             await dispatch(fetchWishlist(session?.user.sub || ''));
         } catch (error) {
-            alert('위시리스트 삭제 실패');
+            alert('위시리스트 삭제에 실패했습니다.');
         }
     }
 

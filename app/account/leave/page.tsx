@@ -52,13 +52,13 @@ export default function Leave() {
             const result = await response.json();
 
             if (response.status === 200) {
-                alert('회원 탈퇴 되었습니다.');
+                alert('회원탈퇴가 완료되었습니다.');
                 signOut({ callbackUrl: '/home' });
             } else {
-                alert(result.message);
+                alert(result.message || '회원탈퇴 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.');
             }
         } catch (error) {
-            alert("오류가 발생했습니다.");
+            alert("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
             console.error(error);
         }
     }
