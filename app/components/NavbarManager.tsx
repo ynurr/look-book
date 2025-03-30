@@ -25,6 +25,7 @@ export default function NavbarManager() {
 
     if ((pathname.startsWith('/library') || 
          pathname.startsWith('/account') || 
+         pathname.startsWith('/profile') || 
          pathname.startsWith('/write'))  
         &&  isMobile) {
         return <NavbarLibrary />;
