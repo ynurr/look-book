@@ -53,11 +53,10 @@
 @media (max-width: 480px) {
     .item {
         width: 100px;
+        margin: 20px 0;
     }
-    
     .cover {
         width: 100px;
         height: 150px;
     }
-    
 }
