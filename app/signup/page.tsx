@@ -299,7 +299,7 @@ export default function SignUp() {
                     }
                     <div className={styles.formGroup}>
                         <label>비밀번호</label>
-                        <input 
+                        <input
                             placeholder='비밀번호를 입력하세요'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}

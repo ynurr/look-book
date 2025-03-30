@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
 }
 
 .form {
@@ -147,7 +146,7 @@
 
 .goalSelect {
     width: 100%;
-    padding: 12px;
+    padding: 13px;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 13px;
@@ -170,5 +169,18 @@
     }
     .links {
         font-size: 13px;
+    }
+    .inputField, .formGroup > input {
+        font-size: 16px;
+    }
+    .inputField {
+        padding-right: 80px !important;
+    }
+    .checkBtn {
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        padding: 8px;
+        font-size: 14px;
     }
 }
