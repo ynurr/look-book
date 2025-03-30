@@ -78,6 +78,7 @@ export default function NavbarLibrary() {
                         <span className={styles.menuTitle}>계정</span>
                         <Link href="/account/modify" className={styles.menuItem} onClick={closeMenu}>비밀번호 변경</Link>
                         <Link href="/account/leave" className={styles.menuItem} onClick={closeMenu}>회원탈퇴</Link>
+                        <div className={styles.menuSpacer} />
                     </nav>
                 </div>
             )}

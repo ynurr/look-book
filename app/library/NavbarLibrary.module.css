@@ -116,3 +116,8 @@
     position: relative;
     left: -30px;
 }
+
+.menuSpacer {
+    height: 100px;
+    flex-shrink: 0;
+}
