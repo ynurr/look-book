@@ -95,3 +95,9 @@
         background-position: 100% 50%;
     }
 }
+
+@media (max-width: 480px) {
+    .wrapper > input {
+        font-size: 16px;
+    }
+}

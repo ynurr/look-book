@@ -641,7 +641,19 @@
         margin-bottom: -10px;
     }
     .textAreaBtn button {
-        font-size: 12px;
+        font-size: 13px;
+    }
+    .textAreaBtn {
+        gap: 6px;
+        margin-right: 10px;
+        margin-bottom: 5px;
+    }
+    .textarea {
+        font-size: 16px;
+    }
+    .textAreaBox {
+        margin-top: 10px;
+        gap: 5px;
     }
     .reviewBtn {
         font-size: 14px;

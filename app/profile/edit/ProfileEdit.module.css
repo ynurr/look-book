@@ -124,12 +124,6 @@
     box-shadow: none;
 }    
 
-@media (max-width: 768px) {
-    .contents {
-        margin-top: 20px;
-    }
-}
-
 @media (max-width: 530px) {
     .table > tbody > tr {
         display: flex;
@@ -163,5 +157,25 @@
     .table > tbody > tr > th, .table > tbody > tr > td {
         padding-left: 4px;
         padding-right: 4px;
+    }
+    .checkInput, .goalSelect {
+        font-size: 16px;
+        padding: 10px;
+    }
+    .table > tbody > tr > td {
+        font-size: 16px;
+    }
+    .cancelBtn, .submitBtn {
+        font-size: 14px;
+        width: 100%;
+        text-align: center;
+    }
+    .checkBtn {
+        font-size: 13px;
+        padding: 7px;
+        top: 29%;
+    }
+    .nicknameInput {
+        padding-right: 70px;
     }
 }
