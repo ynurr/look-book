@@ -35,7 +35,8 @@ export default function Detail() {
     const [filteredBooks, setFilteredBooks] = useState<Books[]>([]);
     const [isReady, setIsReady] = useState(false);
     const [rating, setRating] = useState({ avgRating: "0.0", totalCount: 0 });
-
+    const [localStatus, setLocalStatus] = useState<string | null>(null);
+    
     useEffect(() => {
         const fetchData = async () => {
             dispatch(clearBook());
@@ -139,7 +140,9 @@ export default function Detail() {
             alert('로그인 후 가능합니다.');
             redirect('/login');
         }
-        
+
+        setLocalStatus(status);
+
         try {
             await dispatch(updateBookStatus({
                 user_id: session?.user.sub || '',
@@ -151,8 +154,10 @@ export default function Detail() {
             })).unwrap();
 
             await dispatch(fetchUserReadingState({user_id: session?.user.sub || '', book_isbn: book?.isbn13 || ''}));
+            setLocalStatus(null);
         } catch (error) {
             alert('독서 상태 변경에 실패했습니다. 잠시 후 다시 시도해주세요.');
+            setLocalStatus(null);
         }
     }
 
@@ -190,14 +195,18 @@ export default function Detail() {
                                 <p>하트를 눌러 위시리스트에 저장하거나</p>
                                 <p>독서 상태를 변경하여 현황을 관리해보세요.</p>
                             </div>
-                            <div className={styles.btnBox}>
+                            <div className={styles.btnBox}  key={localStatus ?? userStatus?.status}>
                                 <button 
                                     onClick={() => handleUpdateStatus('0')} 
-                                    className={`${styles.readingBtn} ${userStatus?.status === '0' ? styles.activeColor : ''}`}
+                                    className={`${styles.readingBtn} ${
+                                        (localStatus ?? userStatus?.status) === '0' ? styles.activeColor : ''
+                                    }`}
                                 ><FaBookOpen />독서 중</button>
                                 <button 
                                     onClick={() => handleUpdateStatus('1')} 
-                                    className={`${styles.finishBtn} ${userStatus?.status === '1' ? styles.activeColor : ''}`}
+                                    className={`${styles.finishBtn} ${
+                                        (localStatus ?? userStatus?.status) === '1' ? styles.activeColor : ''
+                                    }`}
                                 ><FaBook />독서 완료</button>
                             </div>
                         </div>
