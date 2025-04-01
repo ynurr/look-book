@@ -111,6 +111,7 @@
 .review {
     font-size: 14px;
     margin: 0;
+    white-space: pre-line;
 }
 
 .reactionBox {
