@@ -25,6 +25,7 @@ export default function WriteReview() {
     const [rating, setRating] = useState(0);
     const [content, setContent] = useState('');
     const [isEdit, setIsEdit] = useState(false); 
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const dispatch = useDispatch<AppDispatch>();
 
@@ -43,14 +44,21 @@ export default function WriteReview() {
     }, [review_id])
 
     const handleSubmit = async () => {
-        if (!content) {
-            alert('리뷰 내용을 작성해주세요.')
-            return
+        if (isSubmitting) {
+            return;
         }
+        setIsSubmitting(true);
 
+        if (!content) {
+            alert('리뷰 내용을 작성해주세요.');
+            setIsSubmitting(false);
+            return;
+        }
+        
         if (rating === 0) {
-            alert('별점을 평가해주세요.')
-            return
+            alert('별점을 평가해주세요.');
+            setIsSubmitting(false);
+            return;
         }
 
         try {
@@ -76,6 +84,7 @@ export default function WriteReview() {
             window.location.href = `/library/reading/detail?isbn=${isbn}`;
         } catch (error) {
             alert('리뷰 작성 중 오류가 발생했습니다.');
+            setIsSubmitting(false);
         }
     }
 
@@ -113,7 +122,11 @@ export default function WriteReview() {
                     onChange={(e) => setContent(e.target.value)}
                 ></textarea>
                 <div className={styles.btnBox}>
-                    <button onClick={handleSubmit} className={styles.btn}>등록</button>
+                    <button 
+                        onClick={handleSubmit} 
+                        className={styles.btn}
+                        disabled={isSubmitting}
+                    >등록</button>
                 </div>
             </div>
         </div>
