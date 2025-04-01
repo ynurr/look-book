@@ -24,8 +24,8 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
     const likeIds = useSelector((state: RootState) => (state.like.likeReviewIds));
     const [localLikeIds, setLocalLikeIds] = useState<string[]>([]);
     const [localCounts, setLocalCounts] = useState<Record<string, number>>({});
-    const [content, setContent] = useState('');
-    const [contentReply, setContentReply] = useState('');
+    const [content, setContent] = useState<Record<string, string>>({});
+    const [contentReply, setContentReply] = useState<Record<string, string>>({});
     const comments = useSelector((state: RootState) => (state.comment.comments));
     const [commentTree, setCommentTree] = useState<any[]>([]);
 
@@ -89,7 +89,7 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
             redirect('/login');
         }
 
-        if ((parent_id && !contentReply) || (!parent_id && !content)) {
+        if ((parent_id && !contentReply[parent_id]) || (!parent_id && !content[review_id])) {
             alert('댓글을 입력해주세요.');
             return;
         }
@@ -99,13 +99,14 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
                 review_id: review_id,
                 book_isbn: isbn || '',
                 user_id: session?.user.sub || '',
-                content: parent_id ? contentReply : content,
+                content: parent_id ? contentReply[parent_id] : content[review_id],
                 parent_id: parent_id
             })).unwrap();
                 
+            setContent((prev) => ({ ...prev, [review_id]: '' }));
+            setContentReply((prev) => ({ ...prev, [parent_id]: '' }));
+            
             await dispatch(fetchComments({isbn: isbn || '', id: ''})).unwrap();
-            setContent('');
-            setContentReply('');
         } catch (error) {
             alert('댓글 작성에 실패했습니다.');
         }
@@ -295,8 +296,13 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
                                     className={styles.textarea} 
                                     placeholder='200자 이내로 입력해주세요'
                                     maxLength={200}
-                                    value={content}
-                                    onChange={(e) => setContent(e.target.value)}
+                                    value={content[review.review_id] || ''}
+                                    onChange={(e) => 
+                                        setContent((prev) => ({
+                                            ...prev,
+                                            [review.review_id]: e.target.value
+                                        }))
+                                    }
                                     ></textarea>
                                 <div className={styles.textAreaBtn}>
                                     <button onClick={() => handleCommentCancel(review.review_id)}>취소</button>
@@ -329,8 +335,14 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
                                                     className={styles.textarea} 
                                                     placeholder='200자 이내로 입력해주세요'
                                                     maxLength={200}
-                                                    value={contentReply}
-                                                    onChange={(e) => setContentReply(e.target.value)}
+                                                    value={contentReply[comment.comment_id] || ''}
+                                                    onChange={(e) => 
+                                                        setContentReply((prev) => ({
+                                                            ...prev,
+                                                            [comment.comment_id]: e.target.value
+                                                        }))
+
+                                                    }
                                                     ></textarea>
                                                 <div className={styles.textAreaBtn}>
                                                     <button onClick={() => handleCommentCancel(comment.comment_id)}>취소</button>
