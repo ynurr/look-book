@@ -29,7 +29,11 @@
     font-size: 14px;
 }
 
-.updateBtn, .modifyBtn {
+.updateBtn {
+    color: #687fff;
+}
+
+.modifyBtn {
     color: #333;
 }
 
@@ -38,7 +42,7 @@
 }
 
 .updateBtn:hover {
-    color: #687fff;
+    color: #4b64f5;
 }
 
 .modifyBtn:hover {
@@ -96,7 +100,7 @@
 
 .label {
     font-weight: bold;
-    color: #a88af0;
+    color: #687fff;
 }
 
 .rating {

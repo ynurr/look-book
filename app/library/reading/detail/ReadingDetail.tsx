@@ -232,7 +232,9 @@ export default function ReadingDetail() {
                 <div className={styles.btnBox}>
                     <button
                         onClick={() => handleUpdateStatus(reading?.status === '0' ? '1' : '0')}
-                        className={styles.updateBtn}>{reading?.status === '0' ? '독서완료' : '독서중'}
+                        className={styles.updateBtn}
+                    >
+                        {reading?.status === '0' ? '독서완료' : '독서중'}
                     </button>
                     {
                         review.review_id !== '' && 
