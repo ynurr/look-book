@@ -18,13 +18,25 @@ export default function List({items}: ListProps) {
 
     const [currentPage, setCurrentPage] = useState(1);
     const ItemsPerPage = 24; 
-
     const pageCount = Math.ceil(items.length / ItemsPerPage);
     const currentItems = items.slice((currentPage - 1) * ItemsPerPage, currentPage * ItemsPerPage);
 
+    const isIOS = () => {
+        return typeof window !== 'undefined' && /iP(hone|ad)/.test(navigator.userAgent);
+    };
+
     const handlePageChange = (selected: { selected: number }) => {
         setCurrentPage(selected.selected + 1);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            if (isIOS()) { // iOS 대응
+                setTimeout(() => {
+                    window.scrollTo({ top: 0, behavior: 'auto' });
+                }, 300)
+            }
+        }, 0)
     }
     
     return (
