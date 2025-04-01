@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './Search.module.css'
 import { useSearchParams } from 'next/navigation';
 import { AppDispatch, RootState } from '@/store/store';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { fetchSearchBooks } from '@/store/slices/searchSlice';
 import Pagination from '../components/Pagination';
 import Link from 'next/link';
@@ -15,12 +15,13 @@ export default function Search() {
     const dispatch = useDispatch<AppDispatch>();
     const books = useSelector((state: RootState) => state.search.books || []);
 
-    const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태 관리
+    const [currentPage, setCurrentPage] = useState(1);
     const ItemsPerPage = 10; 
 
     useEffect(() => {
         if (keyword) {
-            dispatch(fetchSearchBooks({ keyword: keyword }));
+            dispatch(fetchSearchBooks({ keyword }));
+            setCurrentPage(1);
         }
     }, [keyword])
 
@@ -28,8 +29,13 @@ export default function Search() {
         console.log('Fetched books:', books);
     }, [books]);
 
-    const pageCount = Math.ceil(books.length / ItemsPerPage); // 총 페이지 수
-    const currentItems = books.slice((currentPage - 1) * ItemsPerPage, currentPage * ItemsPerPage);
+    const pageCount = Math.ceil(books.length / ItemsPerPage);
+
+    const currentItems = useMemo(() => {
+        const start = (currentPage - 1) * ItemsPerPage;
+        const end = currentPage * ItemsPerPage;
+        return books.slice(start, end);
+    }, [books, currentPage]);
 
     const handlePageChange = (selected: { selected: number }) => {
         setCurrentPage(selected.selected + 1);
@@ -62,6 +68,7 @@ export default function Search() {
                     </div>
                 ))}
                 <Pagination
+                    key={keyword}
                     pageCount={pageCount}
                     onPageChange={handlePageChange}
                     currentPage={currentPage}
