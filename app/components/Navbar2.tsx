@@ -54,6 +54,7 @@ export default function Navbar2() {
                                     type="text" 
                                     value={keyword}
                                     onChange={(e: React. ChangeEvent<HTMLInputElement>) => setKeyword(e.target.value)}
+                                    aria-label="검색어 입력"
                                 />
                             </div>
                         </form>

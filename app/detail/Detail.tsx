@@ -240,13 +240,17 @@ export default function Detail() {
                                 }}
                                 className={styles.reviewBtn}
                             >리뷰 작성</button>
-                            <button onClick={() => {
-                                if (isWishlist) {
-                                    handleRemoveWishlist()
-                                } else {
-                                    handleAddWishlist()
-                                }
-                            }} className={styles.wishlistBtn}>
+                            <button 
+                                onClick={() => {
+                                    if (isWishlist) {
+                                        handleRemoveWishlist()
+                                    } else {
+                                        handleAddWishlist()
+                                    }
+                                }}
+                                className={styles.wishlistBtn}
+                                aria-label="위시리스트 추가"
+                            >
                                 { isWishlist ? <GoHeartFill className={styles.heartSolid} /> : <GoHeart className={styles.heartRegular} /> }
                             </button>
                         </div>

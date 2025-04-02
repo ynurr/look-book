@@ -49,6 +49,7 @@ export default function BestList() {
                 disabled={isFirstItemVisible}
                 onClick={() => visibility.scrollPrev()}
                 className={styles.leftArrow}
+                aria-label="이전 페이지"
             >
             <FaChevronLeft
                 size={10}
@@ -66,6 +67,7 @@ export default function BestList() {
                 disabled={isLastItemVisible}
                 onClick={() => visibility.scrollNext()}
                 className={styles.rightArrow}
+                aria-label="다음 페이지"
             >
             <FaChevronRight
                 size={10}
