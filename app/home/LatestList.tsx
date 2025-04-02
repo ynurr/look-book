@@ -9,6 +9,7 @@ import { fetchBookList, Books } from '@/store/slices/listSlice';
 import { IoChevronForward } from 'react-icons/io5';
 import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import Image from 'next/image';
 
 interface BookItem {
     isbn13: string;
@@ -19,11 +20,18 @@ interface BookItem {
 
 export default function LatestList() {
 
-    const MenuItem: React.FC<{ book: BookItem }> = ({ book }) => {
+    const MenuItem: React.FC<{ book: BookItem, index: number }> = ({ book, index }) => {
         return (
             <div className={styles.item}>
                 <Link href={`/detail?id=${book.isbn13}`} legacyBehavior>
-                    <img className={styles.cover} src={book.cover} alt={book.title} />
+                    <Image
+                        className={styles.cover}
+                        src={book.cover}
+                        alt={book.title}
+                        width={120}
+                        height={180}
+                        priority={index === 0}
+                    />
                 </Link>
                 <Link href={`/detail?id=${book.isbn13}`} className={styles.title} >{book.title}</Link>
                 <p className={styles.author}>{book.author}</p>
@@ -88,7 +96,7 @@ export default function LatestList() {
                     RightArrow={RightArrow}
                 >
                     {books.map((book: Books, index: number) => (
-                        <MenuItem book={book} key={index} />
+                        <MenuItem book={book} key={index} index={index} />
                     ))}
                 </ScrollMenu>
             </div>
