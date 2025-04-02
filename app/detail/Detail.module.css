@@ -25,6 +25,14 @@
     box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.116);
 }
 
+.coverWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 270px;
+    height: 396px;
+}
+
 .info {
     /* flex-grow: 1; */
     display: flex;
@@ -556,7 +564,7 @@
         flex-direction: column;
         padding: 0;
     }
-    .cover {
+    .cover, .coverWrapper {
         margin: 0 auto;
         width: 180px;
         height: 270px;

@@ -173,17 +173,19 @@ export default function Detail() {
         <div className={styles.container}>
             <div className={styles.inner}>
                 <div className={styles.section1}>
-                    {book?.cover ? ( 
-                        <Image
+                    <div className={styles.coverWrapper}>
+                        {book?.cover && (
+                            <Image
                             className={styles.cover}
-                            src={book?.cover}
-                            alt={book?.title}
+                            src={book.cover}
+                            alt={book.title}
                             width={270}
                             height={396}
                             sizes="(max-width: 840px) 180px, 270px"
                             priority
-                        />
-                    ) : null}
+                            />
+                        )}
+                    </div>
                     <div className={styles.info}>
                         <p className={styles.title}>{book?.title}</p>
                         <div className={styles.subInfo}>
