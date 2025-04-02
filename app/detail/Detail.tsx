@@ -181,6 +181,7 @@ export default function Detail() {
                             width={270}
                             height={396}
                             sizes="(max-width: 840px) 180px, 270px"
+                            priority
                         />
                     ) : null}
                     <div className={styles.info}>
