@@ -32,11 +32,6 @@
     flex-direction: column;
 }
 
-.cover {
-    width: 100px;
-    height: 140px;
-}
-
 .title {
     font-weight: bold;
     font-size: 14px;
@@ -131,10 +126,6 @@
     }
     .author {
         font-size: 13px;
-    }
-    .cover {
-        width: 90px;
-        height: 130px;
     }
     .review {
         font-size: 16px;

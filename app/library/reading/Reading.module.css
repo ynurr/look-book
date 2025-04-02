@@ -93,11 +93,6 @@
     flex-direction: column;
 }
 
-.cover {
-    width: 90px;
-    height: 140px;
-}
-
 .title {
     font-size: 13px;
     display: -webkit-box; 

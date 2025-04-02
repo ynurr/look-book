@@ -10,6 +10,7 @@ import { AppDispatch, RootState } from '@/store/store';
 import { fetchReadingStatus } from '@/store/slices/readingSlice';
 import Link from 'next/link';
 import Pagination from '@/app/components/Pagination';
+import Image from 'next/image';
 
 export default function Reading() {
 
@@ -83,8 +84,14 @@ export default function Reading() {
                                             key={item.isbn}
                                             href={`/library/reading/detail?isbn=${item.isbn}`} legacyBehavior>
                                             <div className={styles.item}>
-                                                <img className={styles.cover} src={item.cover} alt={item.title} />
-                                                
+                                                <Image
+                                                    className={styles.cover}
+                                                    src={item.cover}
+                                                    alt={item.title}
+                                                    width={90}
+                                                    height={140}
+                                                    sizes="(max-width: 480px) 80px, 90px"
+                                                />
                                                 <div className={styles.info}>
                                                     <p className={styles.title}>{item.title}</p>
                                                     <p className={styles.author}>{item.author}</p>
@@ -120,7 +127,14 @@ export default function Reading() {
                                             key={item.isbn}
                                             href={`/library/reading/detail?isbn=${item.isbn}`} legacyBehavior>
                                             <div className={styles.item}>
-                                                <img className={styles.cover} src={item.cover} alt={item.title} />
+                                                <Image
+                                                    className={styles.cover}
+                                                    src={item.cover}
+                                                    alt={item.title}
+                                                    width={90}
+                                                    height={140}
+                                                    sizes="(max-width: 480px) 80px, 90px"
+                                                />
                                                 <div className={styles.info}>
                                                     <span className={styles.title}>{item.title}</span>
                                                     <span className={styles.author}>{item.author}</span>

@@ -23,8 +23,6 @@
 }
 
 .cover {
-    width: 120px;
-    height: 180px;
     flex-shrink: 0;
     display: flex;
 }

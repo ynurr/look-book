@@ -18,6 +18,7 @@ import { GoHeartFill } from "react-icons/go";
 import { FaBook } from "react-icons/fa";
 import { FaBookOpen } from "react-icons/fa6";
 import { ScrollMenu } from 'react-horizontal-scrolling-menu';
+import Image from 'next/image';
 
 export default function Detail() {
 
@@ -172,7 +173,16 @@ export default function Detail() {
         <div className={styles.container}>
             <div className={styles.inner}>
                 <div className={styles.section1}>
-                    <img className={styles.cover} src={book?.cover} alt={book?.title}></img>
+                    {book?.cover ? ( 
+                        <Image
+                            className={styles.cover}
+                            src={book?.cover}
+                            alt={book?.title}
+                            width={270}
+                            height={396}
+                            sizes="(max-width: 840px) 180px, 270px"
+                        />
+                    ) : null}
                     <div className={styles.info}>
                         <p className={styles.title}>{book?.title}</p>
                         <div className={styles.subInfo}>
@@ -262,7 +272,14 @@ export default function Detail() {
                                 {filteredBooks.map((book: Books, index: number) => (
                                     <div className={styles.bookItem} key={index}>
                                         <Link href={`/detail?id=${book.isbn13}`}>
-                                            <img className={styles.cover2} src={book.cover} alt={book.title}></img>
+                                            <Image
+                                                className={styles.cover2}
+                                                src={book.cover}
+                                                alt={book.title}
+                                                width={120}
+                                                height={180}
+                                                sizes="(max-width: 480px) 90px, 110px"
+                                            />
                                         </Link>
                                         <Link href={`/detail?id=${book.isbn13}`}>
                                             <span className={styles.title2}>{book.title}</span>

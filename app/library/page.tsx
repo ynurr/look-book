@@ -15,6 +15,7 @@ import { fetchCommentList } from '@/store/slices/commentSlice';
 import { fetchReadingBook } from '@/store/slices/readingSlice';
 import { fetchUserStat } from '@/store/slices/statSlice';
 import { FaPen } from "react-icons/fa";
+import Image from 'next/image';
 
 export default function Library() {
     
@@ -183,7 +184,16 @@ export default function Library() {
                                 :
                                 <>
                                 <Link href={`/library/reading/detail?isbn=${CompletedBook?.book_isbn}`}>
-                                    <img className={styles.cover} src={CompletedBook?.book_cover} />
+                                {CompletedBook?.book_cover ? ( 
+                                    <Image
+                                        className={styles.cover}
+                                        src={CompletedBook?.book_cover}
+                                        alt={"도서 이미지"}
+                                        width={110}
+                                        height={160}
+                                        sizes="(max-width: 480px) 90px, 110px"
+                                        />
+                                ) : null}
                                 </Link>
                                 <Link href={'/library/reading'}>
                                     <div className={styles.count}>{CompletedCnt > 99 ? "99 +" : `+ ${CompletedCnt === 0 ? 0 : CompletedCnt - 1}`}</div>
@@ -202,7 +212,16 @@ export default function Library() {
                                 :
                                 <>
                                 <Link href={`/library/reading/detail?isbn=${ReadingBook?.book_isbn}`}>
-                                    <img className={styles.cover} src={ReadingBook?.book_cover} />
+                                {ReadingBook?.book_cover ? ( 
+                                    <Image
+                                        className={styles.cover}
+                                        src={ReadingBook?.book_cover}
+                                        alt={"도서 이미지"}
+                                        width={110}
+                                        height={160}
+                                        sizes="(max-width: 480px) 90px, 110px"
+                                    />
+                                ) : null}
                                 </Link>
                                 <Link href={'/library/reading'}>
                                     <div className={styles.count}>{ReadingCnt > 99 ? "99 +" : `+ ${ReadingCnt === 0 ? 0 : ReadingCnt - 1}`}</div>

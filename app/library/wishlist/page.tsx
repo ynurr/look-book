@@ -10,6 +10,7 @@ import { useSession } from 'next-auth/react';
 import Pagination from '@/app/components/Pagination';
 import Link from 'next/link';
 import DeleteModal from '@/app/components/DeleteModal';
+import Image from 'next/image';
 
 export default function Comment() {
 
@@ -120,7 +121,14 @@ export default function Comment() {
                                     }}
                                 />
                                 <Link href={`/detail?id=${item.isbn}`}>
-                                    <img className={styles.cover} src={item.cover} alt={item.title} />
+                                    <Image
+                                        className={styles.cover}
+                                        src={item.cover}
+                                        alt={item.title}
+                                        width={90}
+                                        height={140}
+                                        sizes="(max-width: 480px) 80px, 90px"
+                                    />
                                 </Link>
                                 <div className={styles.info}>
                                     <Link href={`/detail?id=${item.isbn}`} className={styles.title}>

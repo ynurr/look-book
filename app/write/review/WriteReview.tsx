@@ -8,6 +8,7 @@ import { useSession } from 'next-auth/react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/store/store';
 import { updateReview, fetchReviewById, addReview } from '@/store/slices/reviewSlice';
+import Image from 'next/image';
 
 export default function WriteReview() {
 
@@ -94,7 +95,13 @@ export default function WriteReview() {
                 <h2 className={styles.menuTitle}>리뷰 쓰기</h2>
                 <div className={styles.line}></div>
                 <div className={styles.bookInfo}>   
-                    <img className={styles.cover} src={cover} alt={title} />
+                    <Image
+                        className={styles.cover}
+                        src={cover}
+                        alt={title}
+                        width={90}
+                        height={130}
+                    />
                     <div className={styles.bookDetail}>
                         <span className={styles.title}>{title}</span>
                         <span className={styles.author}>{author}</span>

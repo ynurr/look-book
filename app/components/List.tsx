@@ -2,6 +2,7 @@ import Link from 'next/link';
 import styles from './List.module.css'
 import { useState } from 'react';
 import Pagination from './Pagination';
+import Image from 'next/image';
 
 interface Book {
     cover: string;
@@ -45,7 +46,14 @@ export default function List({items}: ListProps) {
                 {currentItems.map((item, index) => (
                     <div className={styles.item} key={index}>
                         <Link href={`/detail?id=${item.isbn13}`}>
-                            <img className={styles.cover} src={item.cover} alt={item.title}></img>
+                            <Image
+                                className={styles.cover}
+                                src={item.cover}
+                                alt={item.title}
+                                width={120}
+                                height={180}
+                                sizes="(max-width: 480px) 100px, 120px"
+                            />
                             <p className={styles.title}>{item.title}</p>
                             <p className={styles.author}>{item.author}</p>
                         </Link>

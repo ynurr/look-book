@@ -8,6 +8,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { fetchSearchBooks } from '@/store/slices/searchSlice';
 import Pagination from '../components/Pagination';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Search() {
 
@@ -51,7 +52,14 @@ export default function Search() {
                     <div key={index} className={styles.inner}>
                         <div className={styles.contents}>
                             <Link href={`/detail?id=${book.isbn13}`}>
-                                <img className={styles.cover} src={book.cover} alt={book.title}></img>
+                                <Image
+                                    className={styles.cover}
+                                    src={book.cover}
+                                    alt={book.title}
+                                    width={120}
+                                    height={180}
+                                     sizes="(max-width: 480px) 100px, 120px"
+                                />
                             </Link>
                             <div className={styles.item}>
                                 <Link href={`/detail?id=${book.isbn13}`} className={styles.title}>
