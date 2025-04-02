@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import { fetchReviewAll } from "@/store/slices/reviewSlice";
 import Pagination from "@/app/components/Pagination";
+import Image from "next/image";
 
 export default function Review() {
 
@@ -58,7 +59,13 @@ export default function Review() {
                         <div className={styles.list} key={i}>
                             <Link href={`/library/reading/detail?isbn=${item.isbn}`}>
                                 <div className={styles.bookInfo}>
-                                    <img className={styles.cover} src={item.cover} alt={item.title}/>
+                                    <Image
+                                        className={styles.cover}
+                                        src={item.cover}
+                                        alt={item.title}
+                                        width={60}
+                                        height={80}
+                                    />
                                     <div className={styles.bookDetail}>
                                         <p className={styles.title}>{item.title}</p>
                                         <p className={styles.date}>{item.created_at}</p>

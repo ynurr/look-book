@@ -17,6 +17,7 @@ import Link from 'next/link';
 import { fetchUserLike, updateLike } from '@/store/slices/likeSlice';
 import { addComment, deleteComment, fetchComments } from '@/store/slices/commentSlice';
 import DeleteModal from '@/app/components/DeleteModal';
+import Image from 'next/image';
 
 export default function ReadingDetail() {
 
@@ -260,7 +261,13 @@ export default function ReadingDetail() {
                 <div>
                     <div className={styles.bookInfo}>   
                         {reading?.cover ? (
-                            <img src={reading?.cover} alt={reading?.title} className={styles.cover} />
+                            <Image
+                                className={styles.cover}
+                                src={reading?.cover}
+                                alt={reading?.title}
+                                width={100}
+                                height={140}
+                            />
                         ) : null}
                         <div className={styles.bookDetail}>
                             <Link href={`/detail?id=${reading?.isbn}`} className={styles.title}>
