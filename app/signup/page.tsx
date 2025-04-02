@@ -333,6 +333,7 @@ export default function SignUp() {
                                 className={styles.goalSelect}
                                 value={goal}
                                 onChange={(e) => setGoal(Number(e.target.value))}
+                                aria-label="올해 독서 목표"
                             >
                                 {[...Array(100).keys()].map(i => (
                                     <option key={i + 1} value={i + 1}>{i + 1}권</option>
@@ -347,6 +348,7 @@ export default function SignUp() {
                                     type='checkbox'
                                     checked={isAllChecked} 
                                     onChange={handleAllChecked}
+                                    aria-label="전체 동의"
                                 />
                                 <span>전체 동의</span>
                             </div>
@@ -355,6 +357,7 @@ export default function SignUp() {
                                     type='checkbox'
                                     checked={isTermsChecked}
                                     onChange={(e) => setIsTermsChecked(e.target.checked)}
+                                    aria-label="서비스 이용약관 동의"
                                 />
                                 <span>서비스 이용약관 동의 (필수)</span>
                                 <Link href="/terms/service-terms" className={styles.termsBtn}>보기</Link>
@@ -364,6 +367,7 @@ export default function SignUp() {
                                     type='checkbox'
                                     checked={isPrivacyChecked} 
                                     onChange={(e) => setIsPrivacyChecked(e.target.checked)} 
+                                    aria-label="개인정보 처리방짐 동의"
                                 />
                                 <span>개인정보 처리방짐 동의 (필수)</span>
                                 <Link href="/terms/privacy-policy" className={styles.termsBtn}>보기</Link>
