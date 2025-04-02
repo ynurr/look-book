@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './Detail.module.css';
 import Review from './Review';
-import { redirect, useSearchParams } from 'next/navigation';
+import { redirect, usePathname, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBookDetails, clearBook } from '@/store/slices/detailSlice';
@@ -26,6 +26,8 @@ export default function Detail() {
     const dispatch = useDispatch<AppDispatch>();
     const param = useSearchParams();
     const id = param.get('id');
+    const currentPath = usePathname();
+    const fullPath = `${currentPath}?${param.toString()}`;
 
     const book = useSelector((state: RootState) => state.detail.book); 
     const authorBooks = useSelector((state: RootState) => state.authorBooks.books || []); 
@@ -36,7 +38,7 @@ export default function Detail() {
     const [isReady, setIsReady] = useState(false);
     const [rating, setRating] = useState({ avgRating: "0.0", totalCount: 0 });
     const [localStatus, setLocalStatus] = useState<string | null>(null);
-    
+
     useEffect(() => {
         const fetchData = async () => {
             dispatch(clearBook());
@@ -95,7 +97,7 @@ export default function Detail() {
         
         if (!session?.user.sub) {
             alert('로그인 후 가능합니다.');
-            redirect('/login');
+            redirect(`/login?callbackUrl=${encodeURIComponent(fullPath)}`);
         }
         
         try {
@@ -138,7 +140,7 @@ export default function Detail() {
         
         if (!session?.user.sub) {
             alert('로그인 후 가능합니다.');
-            redirect('/login');
+            redirect(`/login?callbackUrl=${encodeURIComponent(fullPath)}`);
         }
 
         setLocalStatus(status);
@@ -215,7 +217,7 @@ export default function Detail() {
                                 onClick={() => {
                                     if (!session?.user.sub) {
                                         alert('로그인 후 가능합니다.')
-                                        redirect('/login')
+                                        redirect(`/login?callbackUrl=${encodeURIComponent(fullPath)}`);
                                     }
                                     if (userStatus?.review_id) {
                                         alert('이미 작성된 리뷰가 있습니다.');

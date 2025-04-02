@@ -13,20 +13,24 @@ import { useSession } from 'next-auth/react';
 import { fetchUserLikeList, updateLike } from '@/store/slices/likeSlice';
 import { addComment, deleteComment, fetchComments } from '@/store/slices/commentSlice';
 import { FaRegCommentDots } from "react-icons/fa";
-import { redirect } from 'next/navigation';
+import { redirect, usePathname, useSearchParams } from 'next/navigation';
 
 export default function Review({ isbn }: { isbn: string | undefined }) {
 
     const { data: session, status } = useSession();
     const dispatch = useDispatch<AppDispatch>();
+    const param = useSearchParams();
+    const currentPath = usePathname();
+    const fullPath = `${currentPath}?${param.toString()}`;
+
     const reviews = useSelector((state: RootState) => (state.review.bookReviews));
     const reviewCount = useSelector((state: RootState) => (state.review.totalCount));
     const likeIds = useSelector((state: RootState) => (state.like.likeReviewIds));
+    const comments = useSelector((state: RootState) => (state.comment.comments));
     const [localLikeIds, setLocalLikeIds] = useState<string[]>([]);
     const [localCounts, setLocalCounts] = useState<Record<string, number>>({});
     const [content, setContent] = useState<Record<string, string>>({});
     const [contentReply, setContentReply] = useState<Record<string, string>>({});
-    const comments = useSelector((state: RootState) => (state.comment.comments));
     const [commentTree, setCommentTree] = useState<any[]>([]);
 
     useEffect(() => {
@@ -52,7 +56,7 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
 
         if (!session?.user.sub) {
             alert('로그인 후 가능합니다.');
-            redirect('/login');
+            redirect(`/login?callbackUrl=${encodeURIComponent(fullPath)}`);
         }
         
         try {
@@ -86,7 +90,7 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
 
         if (!session?.user.sub) {
             alert('로그인 후 가능합니다.');
-            redirect('/login');
+            redirect(`/login?callbackUrl=${encodeURIComponent(fullPath)}`);
         }
 
         if ((parent_id && !contentReply[parent_id]) || (!parent_id && !content[review_id])) {
