@@ -20,7 +20,7 @@ interface BookItem {
 
 export default function BestList() {
 
-    const MenuItem: React.FC<{ book: BookItem }> = ({ book }) => {
+    const MenuItem: React.FC<{ book: BookItem, index: number }> = ({ book, index }) => {
         return (
             <div className={styles.item}>
                 <Link href={`/detail?id=${book.isbn13}`} legacyBehavior>
@@ -30,6 +30,7 @@ export default function BestList() {
                         alt={book.title}
                         width={120}
                         height={180}
+                        priority={index === 0}
                     />
                 </Link>
                 <Link href={`/detail?id=${book.isbn13}`} className={styles.title} >{book.title}</Link>
@@ -95,7 +96,7 @@ export default function BestList() {
                     RightArrow={RightArrow}
                 >
                     {books.map((book: Books, index: number) => (
-                        <MenuItem book={book} key={index} />
+                        <MenuItem book={book} key={index} index={index} />
                     ))}
                 </ScrollMenu>
             </div>
