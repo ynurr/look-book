@@ -118,6 +118,7 @@
     color: #a3a3a3;
     width: 60px;
     text-align: center;
+    white-space: nowrap;
 }
 
 .searchMobile {
