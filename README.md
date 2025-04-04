@@ -111,9 +111,8 @@ app
 <br/>
 
 ## 트러블 슈팅
-- <작가의 다른 책> 리스트가 이전 페이지의 데이터를 보여주는 이슈
-- 검색어 변경 시 페이지네이션의 현재 페이지가 초기화되지 않는 이슈
-- iOS에서 메뉴 스크롤이 안 되는 이슈
+- [<작가의 다른 책> 리스트가 이전 페이지의 데이터를 보여주는 문제](https://github.com/ynurr/look-book/wiki/-%EC%9E%91%EA%B0%80%EC%9D%98-%EB%8B%A4%EB%A5%B8-%EC%B1%85--%EB%A6%AC%EC%8A%A4%ED%8A%B8%EA%B0%80-%EC%9D%B4%EC%A0%84-%ED%8E%98%EC%9D%B4%EC%A7%80%EC%9D%98-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-%EB%B3%B4%EC%97%AC%EC%A3%BC%EB%8A%94-%EB%AC%B8%EC%A0%9C)
+- [페이지네이션의 현재 페이지가 초기화되지 않는 문제](https://github.com/ynurr/look-book/wiki/%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98%EC%9D%98-%ED%98%84%EC%9E%AC-%ED%8E%98%EC%9D%B4%EC%A7%80%EA%B0%80-%EC%B4%88%EA%B8%B0%ED%99%94%EB%90%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EB%AC%B8%EC%A0%9C)
 <br/>
 
 ## 페이지별 기능 소개
