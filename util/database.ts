@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb'
 
-const url = 'mongodb+srv://admin:qwer1234@cluster0.jd2wo.mongodb.net/lookbook?retryWrites=true&w=majority&appName=Cluster0'
+const url = 'mongodb+srv://'+process.env.MONGODB_CREDENTIALS+'@cluster0.jd2wo.mongodb.net/lookbook?retryWrites=true&w=majority&appName=Cluster0'
 
 const options = {}
 let connectDB: Promise<MongoClient>;
