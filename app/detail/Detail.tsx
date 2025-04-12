@@ -85,7 +85,7 @@ export default function Detail() {
                 const data = await response.json();
                 setRating(data.data);
             } catch (error) {
-                console.log('별점 조회 실패')
+                console.log('별점 조회에 실패했습니다.')
             }
         }
 

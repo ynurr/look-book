@@ -26,10 +26,6 @@ export default function Search() {
         }
     }, [keyword])
 
-    useEffect(() => {
-        console.log('Fetched books:', books);
-    }, [books]);
-
     const pageCount = Math.ceil(books.length / ItemsPerPage);
 
     const currentItems = useMemo(() => {

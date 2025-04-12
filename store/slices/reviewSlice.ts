@@ -89,7 +89,7 @@ export const addReview = createAsyncThunk(
             const data = await response.json();
             return data;
         } catch (error) {
-            console.log('Fetch error:', error);
+            console.log('Insert error:', error);
         }
     }
 )
@@ -133,7 +133,7 @@ export const updateReview = createAsyncThunk(
             const data = await response.json();
             return data;
         } catch (error) {
-            console.log('Fetch error:', error);
+            console.log('Update error:', error);
         }
     }
 )

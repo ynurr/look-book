@@ -16,7 +16,7 @@ export default function UserRanking() {
 
                 setRanking(data.result);
             } catch (error) {
-                console.log('에러')
+                console.log('에러 발생:', error);
             }
         }
 

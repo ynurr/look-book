@@ -138,7 +138,7 @@ export const deleteLike = createAsyncThunk(
             const data = await response.json();
             return data;
         } catch (error) {
-            console.log('Fetch error:', error);
+            console.log('Delete error:', error);
         }
     }
 )

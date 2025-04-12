@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
         const startDateUTC = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 6, 0, 15, 0, 0));
         const endDateUTC = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 0, 14, 59, 59, 999));
 
-        console.log("📅 검색 기간 (UTC):", startDateUTC.toISOString(), " ~ ", endDateUTC.toISOString());
+        // console.log("📅 검색 기간 (UTC):", startDateUTC.toISOString(), " ~ ", endDateUTC.toISOString());
 
         const pipeline = [
             {
@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
 
         const result = await db.collection("reading").aggregate(pipeline).toArray();
 
-        console.log("📊 MongoDB 조회 결과:", result);
+        // console.log("📊 MongoDB 조회 결과:", result);
 
         // 최근 7개월 데이터 생성
         const monthlyData: { [key: string]: number } = {};
@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
             monthlyData[key] = 0;
         }
 
-        console.log("📌 기본 월별 데이터 초기화:", monthlyData);
+        // console.log("📌 기본 월별 데이터 초기화:", monthlyData);
 
         result.forEach(({ _id, count }) => {
             const key = `${_id.year}-${_id.month}`;
@@ -65,14 +65,14 @@ export async function POST(req: NextRequest) {
             }
         });
 
-        console.log("✅ 최종 월별 데이터:", monthlyData);
+        // console.log("✅ 최종 월별 데이터:", monthlyData);
 
         const data = Object.entries(monthlyData).map(([date, count]) => ({
             month: date, 
             count
         }));
 
-        console.log("🚀 API 응답 데이터:", data);
+        // console.log("🚀 API 응답 데이터:", data);
         
         return NextResponse.json(data, { status: 200 });
 

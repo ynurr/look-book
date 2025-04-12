@@ -39,7 +39,7 @@ export const addInquiry = createAsyncThunk(
             const data = await response.json();
             return data;
         } catch (error) {
-            console.log('Fetch error:', error);
+            console.log('Insert error:', error);
         }
     }
 )

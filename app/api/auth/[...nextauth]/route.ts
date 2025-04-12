@@ -58,8 +58,6 @@ const authOptions: AuthOptions = {
                 const existingUser = await db.collection("user").findOne({ sns_id: profile.id });
     
                 if (!existingUser) {
-                    console.log("🆕 [카카오 최초 로그인] 회원가입 진행:", profile);
-    
                     const response = await fetch(`${process.env.NEXTAUTH_URL}/api/db/signup`, {
                         method: 'POST',
                         headers: {
@@ -78,8 +76,6 @@ const authOptions: AuthOptions = {
                         console.error("❌ 회원가입 실패", await response.text());
                         return false;
                     }
-
-                    console.log("✅ [회원가입 완료] 새로운 유저 생성됨:");
                 }
             }
     
@@ -93,14 +89,11 @@ const authOptions: AuthOptions = {
                 token.nickname = user.nickname;
                 token.sub = user.sub;
 
-                console.log("[JWT Callback]: Token created", token);
+                // console.log("[JWT Callback]: Token created", token);
             }
 
             // 카카오 로그인
             if (account?.provider === "kakao") {
-                console.log("🔹 [카카오 로그인] account:", account);
-                console.log("🔹 [카카오 로그인] profile:", profile);
-
                 const db = (await connectDB).db("lookbook");
                 const existingUser = await db.collection("user").findOne({ sns_id: profile.id });
 
@@ -108,12 +101,10 @@ const authOptions: AuthOptions = {
                     token.id = existingUser.id;
                     token.nickname = existingUser.nickname;
                     token.sub = existingUser._id.toString();
-
-                    console.log("[Kakao - JWT Callback]: Token created", token);
                 }
             }
 
-            console.log("[JWT Callback]: Using existing Token", token);
+            // console.log("[JWT Callback]: Using existing Token", token);
 
             return token;
         },        
@@ -124,7 +115,7 @@ const authOptions: AuthOptions = {
                 nickname: token.nickname,
                 sub: token.sub,
             }
-            console.log("[Session Callback]: Session created", session);
+            // console.log("[Session Callback]: Session created", session);
             return session;
         }
     },

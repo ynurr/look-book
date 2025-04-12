@@ -113,7 +113,7 @@ export default function BarChart() {
                     setChartData(sortedData.map((d: any) => d.count));
     
                 } catch (error) {
-                    console.log('에러');
+                    console.log('에러 발생:', error);
                 }
             }
         };

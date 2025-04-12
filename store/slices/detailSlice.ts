@@ -60,7 +60,6 @@ const detailSlice = createSlice({
             .addCase(fetchBookDetails.fulfilled, (state, action) => {
                 state.loading = false;
                 state.book = action.payload;
-                console.log('book 상태 업데이트:', action.payload);
             })
             .addCase(fetchBookDetails.rejected, (state, action) => {
                 state.loading = false;
