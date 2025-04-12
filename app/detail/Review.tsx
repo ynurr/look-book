@@ -220,11 +220,7 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
             }
         });
     
-        console.log("초기 isOverflow:", JSON.stringify(isOverflow));
-        console.log("계산된 newOverflow:", JSON.stringify(newOverflow));
-    
         if (JSON.stringify(newOverflow) !== JSON.stringify(isOverflow)) {
-            console.log("🔄 상태 변경 발생!");
             setIsOverflow(newOverflow);
         }
     }, [currentItems, isOverflow]); 

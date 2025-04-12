@@ -48,7 +48,6 @@ const searchSlice = createSlice({
             .addCase(fetchSearchBooks.fulfilled, (state, action) => {
                 state.loading = false;
                 state.books = action.payload;
-                console.log('list 상태 업데이트:', action.payload);
             })
             .addCase(fetchSearchBooks.rejected, (state, action) => {
                 state.loading = false;
