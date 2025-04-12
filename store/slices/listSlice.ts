@@ -24,7 +24,6 @@ const listSlice = createSlice({
     initialState: {
         bestList: [] as Books[],
         latestList: [] as Books[],
-        ratingList: [] as Books[],
         loading: false,
         error: null as string | null
     },
@@ -40,8 +39,6 @@ const listSlice = createSlice({
                     state.bestList = action.payload;
                 } else if (action.meta.arg.type === 'ItemNewSpecial') {
                     state.latestList = action.payload;
-                } else if (action.meta.arg.type === 'BlogBest') {
-                    state.ratingList = action.payload;
                 }
                 state.loading = false;
             })
