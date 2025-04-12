@@ -61,7 +61,7 @@ export default function Detail() {
 
     useEffect(() => {
         if (authorBooks.length > 0) {
-            const newFilteredBooks = authorBooks.filter((item: Books) => item.isbn13 !== book?.isbn13).slice(0, 5);
+            const newFilteredBooks = authorBooks.filter((item: Books) => item.isbn13 && item.isbn13 !== book?.isbn13).slice(0, 5);
             setFilteredBooks(newFilteredBooks);
         } else {
             setFilteredBooks([]);
