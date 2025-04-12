@@ -33,9 +33,10 @@ export default function Search() {
     const pageCount = Math.ceil(books.length / ItemsPerPage);
 
     const currentItems = useMemo(() => {
+        const validBooks = books.filter(book => book.isbn13);
         const start = (currentPage - 1) * ItemsPerPage;
         const end = currentPage * ItemsPerPage;
-        return books.slice(start, end);
+        return validBooks.slice(start, end);
     }, [books, currentPage]);
 
     const handlePageChange = (selected: { selected: number }) => {
