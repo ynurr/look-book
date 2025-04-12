@@ -81,7 +81,7 @@ export default function BestList() {
     const books = useSelector((state: RootState) => state.list.bestList);
 
     useEffect(() => {
-        dispatch(fetchBookList({ type: 'Bestseller', max: '24', page: '1' }));
+        dispatch(fetchBookList({ type: 'Bestseller', max: '30', page: '1' }));
     }, [dispatch]);
 
     return (
