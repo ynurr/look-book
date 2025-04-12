@@ -7,7 +7,7 @@ export async function GET() {
     QueryType: 'ItemEditorChoice',
     CategoryId: '1',
     MaxResults: '1',
-    start: '1',
+    start: '2',
     SearchTarget: 'Book',
     output: 'js',
     Version: '20131101'
