@@ -4,14 +4,15 @@ import { useState } from 'react'
 import styles from './Login.module.css'
 import { signIn } from 'next-auth/react'
 import Image from 'next/image'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 export default function Login() {
 
+    const router = useRouter();
+    const searchParams = useSearchParams();
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const searchParams = useSearchParams();
     const callbackUrl = searchParams.get('callbackUrl') || '/home';
     
     const handleSubmit = async () => {
@@ -37,7 +38,8 @@ export default function Login() {
             } 
             
             if (result?.status === 200) {
-                window.location.href = result.url || '/home';
+                router.push(result.url || '/home');
+                return;
             }
         } catch (err) {
             alert("로그인 중 오류가 발생했습니다.");

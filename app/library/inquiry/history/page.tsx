@@ -8,16 +8,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import { useEffect, useState } from "react";
 import { fetchInquiryAll } from "@/store/slices/inquirySlice";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Pagination from "@/app/components/Pagination";
 
 export default function Inquiry() {
     
     const { data: session, status } = useSession();
+    const router = useRouter();
 
-    if (!session && status !== "loading") {
-        redirect('/login');
-    }
+    useEffect(() => {
+        if (!session && status !== 'loading') {
+            router.push('/login');
+            return;
+        }
+    }, [session, status, router])
 
     const dispatch = useDispatch<AppDispatch>();
     const inquiries = useSelector((state: RootState) => state.inquiry.inquiries || []);

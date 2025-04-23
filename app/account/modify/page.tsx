@@ -7,10 +7,13 @@ import { useSession } from "next-auth/react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import { fetchUserProfile } from "@/store/slices/accoutSlice";
+import { useRouter } from "next/navigation";
 
 export default function Modify() {
-
+    
     const { data: session, status } = useSession();
+    const dispatch = useDispatch<AppDispatch>();
+    const router = useRouter();
     const [isVerified, setIsVerified] = useState<boolean>(false);
     const [password, setPassword] = useState<string>('');
     const [error, setError] = useState<string>('');
@@ -21,7 +24,6 @@ export default function Modify() {
     const [passwordValidError, setPasswordValidError] = useState(false);
     const [isError, setIsError] = useState(false);
     const [userId, setUserId] = useState('');
-    const dispatch = useDispatch<AppDispatch>();
     const id = useSelector((state: RootState) => state.account.id);
         
     useEffect(() => {
@@ -116,7 +118,7 @@ export default function Modify() {
 
             if (response.status === 200) {
                 alert('비밀번호가 성공적으로 변경되었습니다.');
-                window.location.href = '/library';
+                router.push('/library');
             } else {
                 alert(result.message || '비밀번호 변경에 실패했습니다. 잠시 후 다시 시도해주세요.');
             }

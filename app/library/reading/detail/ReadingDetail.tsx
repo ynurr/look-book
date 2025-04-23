@@ -8,7 +8,7 @@ import { LuThumbsUp } from "react-icons/lu";
 import { RiThumbUpFill } from "react-icons/ri";
 import { FaRegCommentDots } from "react-icons/fa";
 import { useSession } from 'next-auth/react';
-import { redirect, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import { fetchReadingDetail } from '@/store/slices/readingDetailSlice';
@@ -22,14 +22,18 @@ import Image from 'next/image';
 export default function ReadingDetail() {
 
     const { data: session, status } = useSession();
+    const router = useRouter();
     const searchParams = useSearchParams();
-    const isbn = searchParams.get('isbn');
-    
-    if (!session && status !== "loading") {
-        redirect('/login');
-    }
-
     const dispatch = useDispatch<AppDispatch>();
+    const isbn = searchParams.get('isbn');
+
+    useEffect(() => {
+        if (!session && status !== 'loading') {
+            router.push('/login');
+            return;
+        }
+    }, [session, status, router])
+
     const reading = useSelector((state: RootState) => state.readingDetail.reading);
     const review = useSelector((state: RootState) => state.readingDetail.review);
     const likeStatus = useSelector((state: RootState) => state.like.isLike);    
@@ -88,7 +92,8 @@ export default function ReadingDetail() {
                 })
             ).unwrap();
 
-            window.location.href = '/library/reading';
+            router.push('/library/reading');
+            return;
         } catch (error) {
             alert('독서현황 삭제에 실패했습니다.');
         }
@@ -133,7 +138,8 @@ export default function ReadingDetail() {
 
         if (!session?.user.sub) {
             alert('로그인 후 가능합니다.');
-            redirect('/login');
+            router.push('/login');
+            return;
         }
         
         if ((parent_id && !contentReply[parent_id]) || (!parent_id && !content[review_id])) {

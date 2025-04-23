@@ -2,8 +2,8 @@
 
 import Link from 'next/link'
 import styles from './LeftMenu.module.css'
-import { signOut, useSession } from 'next-auth/react';
-import { redirect } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import { useEffect } from 'react';
@@ -12,14 +12,18 @@ import { fetchUserStat } from '@/store/slices/statSlice';
 export default function LeftMenu() {
     
     const { data: session, status } = useSession();
+    const router = useRouter();
     const dispatch = useDispatch<AppDispatch>();
     const goal = useSelector((state: RootState) => state.stat.goal);
     const bookCount = useSelector((state: RootState) => state.stat.bookCount);
     const nickname = useSelector((state: RootState) => state.stat.nickname);
     
-    if (!session && status !== "loading") {
-        redirect('/login');
-    }
+    useEffect(() => {
+        if (!session && status !== 'loading') {
+            router.push('/login');
+            return;
+        }
+    }, [session, status, router])
     
     useEffect(() => {
         if (status === "authenticated" && session?.user.sub) {

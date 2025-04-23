@@ -6,8 +6,12 @@ import { checkNicknameDuplication } from '@/store/slices/accoutSlice'
 import { AppDispatch } from '@/store/store'
 import { useDispatch } from 'react-redux'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 export default function SignUp() {
+
+    const router = useRouter();
+    const dispatch = useDispatch<AppDispatch>();
     const [id, setId] = useState('');
     const [name, setName] = useState('');
     const [nickname, setNickname] = useState('');
@@ -25,7 +29,6 @@ export default function SignUp() {
     const [isIdChecked, setIsIdChecked] = useState(false);
     const [isNicknameChecked, setIsNicknameChecked] = useState(false);
     const [goal, setGoal] = useState(12);
-    const dispatch = useDispatch<AppDispatch>();
     
     const validatePassword = (password: string) => {
         const minLength = 8
@@ -226,7 +229,8 @@ export default function SignUp() {
 
             if (response.status === 200) {
                 alert('가입이 완료되었습니다! 로그인 후 이용해주세요.');
-                window.location.href = '/login?callbackUrl=/home';
+                router.push('/login?callbackUrl=/home');
+                return;
             } else {
                 alert(result.message || '회원가입에 실패했습니다. 잠시 후 다시 시도해주세요.');
             }

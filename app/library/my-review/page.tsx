@@ -4,7 +4,6 @@ import { useSession } from "next-auth/react";
 import LeftMenu from "../LeftMenu";
 import styles from './myReview.module.css'
 import { PiStarFill } from "react-icons/pi";
-import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 import { LuThumbsUp } from "react-icons/lu";
 import { FaRegCommentDots } from "react-icons/fa";
@@ -14,14 +13,19 @@ import { AppDispatch, RootState } from "@/store/store";
 import { fetchReviewAll } from "@/store/slices/reviewSlice";
 import Pagination from "@/app/components/Pagination";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function Review() {
 
     const { data: session, status } = useSession();
+    const router = useRouter();
 
-    if (!session && status !== "loading") {
-        redirect('/login');
-    }
+    useEffect(() => {
+        if (!session && status !== 'loading') {
+            router.push('/login');
+            return;
+        }
+    }, [session, status, router])
 
     const dispatch = useDispatch<AppDispatch>();
     const reviews = useSelector((state: RootState) => state.review.reviews || []);

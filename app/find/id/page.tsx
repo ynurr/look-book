@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 import styles from "./FindId.module.css";
+import { useRouter } from "next/navigation";
 
 export default function FindId() {
+
+    const router = useRouter();
     const [name, setName] = useState("");
     const [nickname, setNickname] = useState("");
     const [maskedId, setMaskedId] = useState<string|null>(null);
@@ -51,7 +54,7 @@ export default function FindId() {
                             </div>
                             <button 
                                 className={styles.btn}
-                                onClick={() => window.location.href = "/login"}
+                                onClick={() => router.push('/login')}
                             >
                                 로그인
                             </button>
@@ -65,7 +68,7 @@ export default function FindId() {
                             </div>
                             <button 
                                 className={styles.signupBtn} 
-                                onClick={() => window.location.href = "/signup"}
+                                onClick={() => router.push('/signup')}
                             >
                                 회원가입 하러 가기 👉
                             </button>

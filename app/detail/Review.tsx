@@ -13,11 +13,12 @@ import { useSession } from 'next-auth/react';
 import { fetchUserLikeList, updateLike } from '@/store/slices/likeSlice';
 import { addComment, deleteComment, fetchComments } from '@/store/slices/commentSlice';
 import { FaRegCommentDots } from "react-icons/fa";
-import { redirect, usePathname, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 export default function Review({ isbn }: { isbn: string | undefined }) {
 
     const { data: session, status } = useSession();
+    const router = useRouter();
     const dispatch = useDispatch<AppDispatch>();
     const param = useSearchParams();
     const currentPath = usePathname();
@@ -56,7 +57,8 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
 
         if (!session?.user.sub) {
             alert('로그인 후 가능합니다.');
-            redirect(`/login?callbackUrl=${encodeURIComponent(fullPath)}`);
+            router.push(`/login?callbackUrl=${encodeURIComponent(fullPath)}`);
+            return;
         }
         
         try {
@@ -90,7 +92,8 @@ export default function Review({ isbn }: { isbn: string | undefined }) {
 
         if (!session?.user.sub) {
             alert('로그인 후 가능합니다.');
-            redirect(`/login?callbackUrl=${encodeURIComponent(fullPath)}`);
+            router.push(`/login?callbackUrl=${encodeURIComponent(fullPath)}`);
+            return;
         }
 
         if ((parent_id && !contentReply[parent_id]) || (!parent_id && !content[review_id])) {

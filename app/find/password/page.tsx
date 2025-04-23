@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 import styles from "./FindPassword.module.css";
+import { useRouter } from "next/navigation";
 
 export default function FindPassword() {
+
+    const router = useRouter();
     const [id, setId] = useState("");
     const [name, setName] = useState("");
     const [isVerified , setIsVerified ] = useState(false);
@@ -87,7 +90,7 @@ export default function FindPassword() {
 
             if (response.status === 200) {
                 alert('비밀번호가 변경되었습니다.');
-                window.location.href = '/login'; 
+                router.push('/login');
             } else {
                 alert(result.message || '비밀번호 변경에 실패했습니다. 잠시 후 다시 시도해주세요.');
             }

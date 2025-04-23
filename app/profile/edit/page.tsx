@@ -8,10 +8,12 @@ import { checkNicknameDuplication, fetchUserProfile } from "@/store/slices/accou
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import { fetchUserStat } from "@/store/slices/statSlice";
+import { useRouter } from "next/navigation";
 
 export default function ProfileEdit() {
 
     const { data: session, status } = useSession();
+    const router = useRouter();
     const dispatch = useDispatch<AppDispatch>();
     const userId = useSelector((state: RootState) => state.account.id);
     const userName = useSelector((state: RootState) => state.account.name);
@@ -113,7 +115,8 @@ export default function ProfileEdit() {
             const result = await response.json();
 
             if (response.status === 200) {
-                window.location.href = '/library'
+                router.push('/library');
+                return;
             } else {
                 alert(result.message || '프로필 수정에 실패했습니다. 잠시 후 다시 시도해주세요.');
             }

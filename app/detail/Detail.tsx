@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './Detail.module.css';
 import Review from './Review';
-import { redirect, usePathname, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBookDetails, clearBook } from '@/store/slices/detailSlice';
@@ -22,8 +22,8 @@ import Image from 'next/image';
 
 export default function Detail() {
 
-    const { data: session, status } = useSession()
-
+    const { data: session, status } = useSession();
+    const router = useRouter();
     const dispatch = useDispatch<AppDispatch>();
     const param = useSearchParams();
     const id = param.get('id');
@@ -98,14 +98,11 @@ export default function Detail() {
         
         if (!session?.user.sub) {
             alert('로그인 후 가능합니다.');
-            redirect(`/login?callbackUrl=${encodeURIComponent(fullPath)}`);
+            router.push(`/login?callbackUrl=${encodeURIComponent(fullPath)}`);
+            return;
         }
         
         try {
-            if (!session && status !== "loading") {
-                redirect('/login');
-            }
-            
             await dispatch(addWishlist({
                     user_id: session?.user.sub || '',
                     book_isbn: book?.isbn13 || '',
@@ -123,7 +120,8 @@ export default function Detail() {
     const handleRemoveWishlist = async () => {
         try {
             if (!session && status !== "loading") {
-                redirect('/login');
+                router.push('/login');
+                return;
             }
 
             await dispatch(deleteWishlist({
@@ -141,7 +139,8 @@ export default function Detail() {
         
         if (!session?.user.sub) {
             alert('로그인 후 가능합니다.');
-            redirect(`/login?callbackUrl=${encodeURIComponent(fullPath)}`);
+            router.push(`/login?callbackUrl=${encodeURIComponent(fullPath)}`);
+            return;
         }
 
         setLocalStatus(status);
@@ -230,13 +229,16 @@ export default function Detail() {
                                 onClick={() => {
                                     if (!session?.user.sub) {
                                         alert('로그인 후 가능합니다.')
-                                        redirect(`/login?callbackUrl=${encodeURIComponent(fullPath)}`);
+                                        router.push(`/login?callbackUrl=${encodeURIComponent(fullPath)}`);
+                                        return;
                                     }
                                     if (userStatus?.review_id) {
                                         alert('이미 작성된 리뷰가 있습니다.');
-                                        window.location.href = `/library/reading/detail?isbn=${book?.isbn13}`;
+                                        router.push(`/library/reading/detail?isbn=${book?.isbn13}`);
+                                        return;
                                     } else if (book) {
-                                        window.location.href = `/write/review?cover=${encodeURIComponent(book.cover ?? '')}&title=${encodeURIComponent(book.title ?? '')}&author=${encodeURIComponent(book.author ?? '')}&isbn13=${book.isbn13 ?? ''}&status=${userStatus?.status ?? ''}`;
+                                        router.push(`/write/review?cover=${encodeURIComponent(book.cover ?? '')}&title=${encodeURIComponent(book.title ?? '')}&author=${encodeURIComponent(book.author ?? '')}&isbn13=${book.isbn13 ?? ''}&status=${userStatus?.status ?? ''}`);
+                                        return;
                                     } else {
                                         alert('도서 정보가 없습니다.');
                                     }   

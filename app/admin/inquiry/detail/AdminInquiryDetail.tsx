@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import styles from "./AdminInquiryDetail.module.css";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import DeleteModal from "@/app/components/DeleteModal";
@@ -19,6 +19,7 @@ interface Inquiry {
 
 export default function AdminInquiryDetail() {
     const { data: session, status } = useSession();
+    const router = useRouter();
     const param = useSearchParams();
     const id = param.get('id');
     const [inquiry, setInquiry] = useState<Inquiry | null>(null);
@@ -28,7 +29,7 @@ export default function AdminInquiryDetail() {
     useEffect(() => {
         if (status === "authenticated" && session?.user.id !== "admin") {
             alert("접근 권한이 없습니다.");
-            window.location.href = "/";
+            router.push('/home');
         }
     }, [session, status]);
 

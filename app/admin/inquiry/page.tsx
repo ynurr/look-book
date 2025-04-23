@@ -4,6 +4,7 @@ import {useState, useEffect} from "react";
 import Link from "next/link";
 import styles from "./AdminInquiry.module.css";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 interface Inquiry {
     inquiry_id: string;
@@ -14,13 +15,14 @@ interface Inquiry {
 
 export default function AdminInquiry() {
     const { data: session, status } = useSession();
+    const router = useRouter();
     const [inquiries, setInquiries] = useState<Inquiry[]>([]);
     const [filter, setFilter] = useState < "all" | "answered" | "pending" > ("all");
 
     useEffect(() => {
         if (status === "authenticated" && session?.user.id !== "admin") {
             alert("접근 권한이 없습니다.");
-            window.location.href = "/";
+            router.push('/home');
         }
     }, [session, status]);
 

@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import LeftMenu from "../LeftMenu";
 import styles from './Like.module.css';
 import { PiStarFill } from "react-icons/pi";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
@@ -15,14 +15,18 @@ import DeleteModal from "@/app/components/DeleteModal";
 export default function Like() {
 
     const { data: session, status } = useSession();
+    const router = useRouter();
     const dispatch = useDispatch<AppDispatch>();
     const likes = useSelector((state: RootState) => state.like.likeAll || []);
     const [isDelete, setIsDelete] = useState(false);
     const [selectedId, setSelectedId] = useState<string | null>(null);
 
-    if (!session && status !== "loading") {
-        redirect('/login');
-    }
+    useEffect(() => {
+        if (!session && status !== 'loading') {
+            router.push('/login');
+            return;
+        }
+    }, [session, status, router])
 
     useEffect(() => {
         if (status === "authenticated" && session?.user.sub) {

@@ -4,7 +4,7 @@ import { isToday, isYesterday, differenceInHours, format } from 'date-fns';
 import BarChart from "./BarChart";
 import LeftMenu from "./LeftMenu";
 import styles from './Library.module.css'
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
@@ -13,17 +13,20 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import { fetchCommentList } from '@/store/slices/commentSlice';
 import { fetchReadingBook } from '@/store/slices/readingSlice';
-import { fetchUserStat } from '@/store/slices/statSlice';
 import { FaPen } from "react-icons/fa";
 import Image from 'next/image';
 
 export default function Library() {
     
     const { data: session, status } = useSession();
+    const router = useRouter();
 
-    if (!session && status !== "loading") {
-        redirect('/login');
-    }
+    useEffect(() => {
+        if (!session && status !== 'loading') {
+            router.push('/login');
+            return;
+        }
+    }, [session, status, router])
 
     const dispatch = useDispatch<AppDispatch>();
     const reviews = useSelector((state: RootState) => state.review.reviews || []);
@@ -43,10 +46,8 @@ export default function Library() {
             dispatch(fetchReviewAll({ user_id: session.user.sub, limit: 3 }))
             dispatch(fetchCommentList({ user_id: session.user.sub, limit: 3 }))
             dispatch(fetchReadingBook({ user_id: session.user.sub }))
-            // dispatch(fetchUserStat({ user_id: session.user.sub }))
         }
     }, [session, dispatch])
-
 
     const formatCommentDate = (date: string) => {
         const newDate = new Date(date).toLocaleString("en-US", { timeZone: "Asia/Seoul" });

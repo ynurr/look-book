@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import styles from './WriteReview.module.css'
 import { PiStarFill } from "react-icons/pi";
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/store/store';
@@ -13,8 +13,9 @@ import Image from 'next/image';
 export default function WriteReview() {
 
     const { data: session } = useSession();
-
+    const router = useRouter();
     const params = useSearchParams();
+    const dispatch = useDispatch<AppDispatch>();
 
     const cover = params.get('cover') || '';
     const title = params.get('title') || '';
@@ -27,8 +28,6 @@ export default function WriteReview() {
     const [content, setContent] = useState('');
     const [isEdit, setIsEdit] = useState(false); 
     const [isSubmitting, setIsSubmitting] = useState(false);
-
-    const dispatch = useDispatch<AppDispatch>();
 
     useEffect(() => {
         if (review_id) {
@@ -82,7 +81,8 @@ export default function WriteReview() {
                 })).unwrap();
             }
             alert('리뷰가 등록되었습니다.');
-            window.location.href = `/library/reading/detail?isbn=${isbn}`;
+            router.push(`/library/reading/detail?isbn=${isbn}`);
+            return;
         } catch (error) {
             alert('리뷰 작성 중 오류가 발생했습니다.');
             setIsSubmitting(false);

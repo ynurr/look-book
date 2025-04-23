@@ -7,10 +7,12 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";
 import { addInquiry } from "@/store/slices/inquirySlice";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Inquiry() {
 
     const { data:session } = useSession();
+    const router = useRouter();
     const dispatch = useDispatch<AppDispatch>();
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
@@ -33,7 +35,8 @@ export default function Inquiry() {
                 content,
             })).unwrap();
             
-            window.location.href = '/library/inquiry/history';
+            router.push('/library/inquiry/history');
+            return;
         } catch (error) {
             alert('문의글 작성 중 오류가 발생했습니다.');
         }

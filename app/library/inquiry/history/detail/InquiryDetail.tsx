@@ -1,6 +1,6 @@
 'use client'
 
-import { redirect, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import LeftMenu from "../../../LeftMenu";
 import styles from './InquiryDetail.module.css';
 import { useEffect } from "react";
@@ -12,14 +12,18 @@ import { useDispatch, useSelector } from "react-redux";
 export default function InquiryDetail() {
     
     const { data: session, status } = useSession();
+    const router = useRouter();
     const dispatch = useDispatch<AppDispatch>();
     const param = useSearchParams();
     const inquiry_id = param.get('id');
     const inquiry = useSelector((state: RootState) => state.inquiry.inquiry);
 
-    if (!session && status !== "loading") {
-        redirect('/login');
-    }
+    useEffect(() => {
+        if (!session && status !== 'loading') {
+            router.push('/login');
+            return;
+        }
+    }, [session, status, router])
 
     useEffect(() => {
         if (inquiry_id) {
