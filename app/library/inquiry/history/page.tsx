@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { fetchInquiryAll } from "@/store/slices/inquirySlice";
 import { useRouter } from "next/navigation";
 import Pagination from "@/app/components/Pagination";
+import { URLS } from '@/util/url';
 
 export default function Inquiry() {
     
@@ -57,7 +58,7 @@ export default function Inquiry() {
                     currentItems.map((item) => (
                         <div key={item.inquiry_id} className={styles.list}>
                             <div className={styles.item}>
-                                <Link href={`/library/inquiry/history/detail?id=${item.inquiry_id}`} className={styles.title}>
+                                <Link href={URLS.library.inquiryDetail(item.inquiry_id)} className={styles.title}>
                                     {item.title}
                                 </Link>
                                 <p className={styles.date}>{item.created_at}</p>

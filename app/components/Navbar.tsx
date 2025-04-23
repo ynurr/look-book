@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import styles from './Navbar.module.css'
 import { useSession } from "next-auth/react";
+import { URLS } from '@/util/url';
 
 export default function Navbar() {
 
@@ -26,16 +27,16 @@ export default function Navbar() {
     
     return (
         <nav className={`${styles.nav} ${isScrolled ? styles.scrolled : ''}`}>
-            <Link href="/popular">인기</Link>
-            <Link href="/new">신규</Link>
+            <Link href={URLS.popular}>인기</Link>
+            <Link href={URLS.new}>신규</Link>
             {
                 session?.user.id === "admin" ? 
-                <Link href="/admin/inquiry">관리자</Link>
+                <Link href={URLS.admin.inquiry}>관리자</Link>
                 :
-                <Link href="/library">내 서재</Link>
+                <Link href={URLS.library.libraryHome}>내 서재</Link>
             }
             {
-                !session && <Link href="/login">로그인</Link>
+                !session && <Link href={URLS.login}>로그인</Link>
             }
         </nav>
     )

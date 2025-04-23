@@ -3,6 +3,7 @@ import styles from './List.module.css'
 import { useState } from 'react';
 import Pagination from './Pagination';
 import Image from 'next/image';
+import { URLS } from '@/util/url';
 
 interface Book {
     cover: string;
@@ -45,7 +46,7 @@ export default function List({items}: ListProps) {
             <div className={styles.contents}>
                 {currentItems.map((item, index) => (
                     <div className={styles.item} key={index}>
-                        <Link href={`/detail?id=${item.isbn13}`}>
+                        <Link href={URLS.book.bookDetail(item.isbn13)}>
                             <Image
                                 className={styles.cover}
                                 src={item.cover}

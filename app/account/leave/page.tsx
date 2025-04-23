@@ -4,6 +4,7 @@ import { useState } from 'react'
 import styles from './AccountLeave.module.css'
 import Link from 'next/link';
 import { signOut, useSession } from 'next-auth/react';
+import { URLS } from '@/util/url';
 
 export default function Leave() {
 
@@ -111,7 +112,7 @@ export default function Leave() {
                     className={styles.submitBtn}
                     onClick={handleSubmit}
                 >회원탈퇴</button>
-                <Link href={'/home'} className={styles.cancelBtn}>
+                <Link href={URLS.home} className={styles.cancelBtn}>
                     돌아가기
                 </Link>
             </div>

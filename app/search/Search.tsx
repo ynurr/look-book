@@ -9,6 +9,7 @@ import { fetchSearchBooks } from '@/store/slices/searchSlice';
 import Pagination from '../components/Pagination';
 import Link from 'next/link';
 import Image from 'next/image';
+import { URLS } from '@/util/url';
 
 export default function Search() {
 
@@ -48,7 +49,7 @@ export default function Search() {
                 {currentItems.map((book, index) => (
                     <div key={index} className={styles.inner}>
                         <div className={styles.contents}>
-                            <Link href={`/detail?id=${book.isbn13}`}>
+                            <Link href={URLS.book.bookDetail(book.isbn13)}>
                                 <Image
                                     className={styles.cover}
                                     src={book.cover}
@@ -59,7 +60,7 @@ export default function Search() {
                                 />
                             </Link>
                             <div className={styles.item}>
-                                <Link href={`/detail?id=${book.isbn13}`} className={styles.title}>
+                                <Link href={URLS.book.bookDetail(book.isbn13)} className={styles.title}>
                                     {book.title}
                                 </Link>
                                 <p className={styles.author}>{book.author}</p>

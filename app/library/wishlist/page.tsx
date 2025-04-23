@@ -11,6 +11,7 @@ import Pagination from '@/app/components/Pagination';
 import Link from 'next/link';
 import DeleteModal from '@/app/components/DeleteModal';
 import Image from 'next/image';
+import { URLS } from '@/util/url';
 
 export default function Comment() {
 
@@ -120,7 +121,7 @@ export default function Comment() {
                                         }
                                     }}
                                 />
-                                <Link href={`/detail?id=${item.isbn}`}>
+                                <Link href={URLS.book.bookDetail(item.isbn)}>
                                     <Image
                                         className={styles.cover}
                                         src={item.cover}
@@ -131,7 +132,7 @@ export default function Comment() {
                                     />
                                 </Link>
                                 <div className={styles.info}>
-                                    <Link href={`/detail?id=${item.isbn}`} className={styles.title}>
+                                    <Link href={URLS.book.bookDetail(item.isbn)} className={styles.title}>
                                         {item.title}
                                     </Link>
                                     <p className={styles.author}>{item.author}</p>

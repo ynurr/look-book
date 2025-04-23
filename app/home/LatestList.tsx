@@ -10,6 +10,7 @@ import { IoChevronForward } from 'react-icons/io5';
 import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu';
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Image from 'next/image';
+import { URLS } from '@/util/url';
 
 interface BookItem {
     isbn13: string;
@@ -23,7 +24,7 @@ export default function LatestList() {
     const MenuItem: React.FC<{ book: BookItem, index: number }> = ({ book, index }) => {
         return (
             <div className={styles.item}>
-                <Link href={`/detail?id=${book.isbn13}`} legacyBehavior>
+                <Link href={URLS.book.bookDetail(book.isbn13)} legacyBehavior>
                     <Image
                         className={styles.cover}
                         src={book.cover}
@@ -33,7 +34,7 @@ export default function LatestList() {
                         priority={index === 0}
                     />
                 </Link>
-                <Link href={`/detail?id=${book.isbn13}`} className={styles.title} >{book.title}</Link>
+                <Link href={URLS.book.bookDetail(book.isbn13)} className={styles.title} >{book.title}</Link>
                 <p className={styles.author}>{book.author}</p>
             </div>
         )
@@ -87,7 +88,7 @@ export default function LatestList() {
     return (
         <div className='slider-wrapper latest-slider'>
             <Link 
-                href="/new" 
+                href={URLS.new} 
                 className={styles.categoryLink}
             >화제의 신간<IoChevronForward />
             </Link>

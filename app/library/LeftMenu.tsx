@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/store/store';
 import { useEffect } from 'react';
 import { fetchUserStat } from '@/store/slices/statSlice';
+import { URLS } from '@/util/url';
 
 export default function LeftMenu() {
     
@@ -43,25 +44,25 @@ export default function LeftMenu() {
                     <span>🎯 독서 목표 : {goal}권</span>
                     <progress value={bookCount} max={goal} className={styles.progressBar}></progress> 
                 </div>
-                <Link href="/profile/edit" className={styles.editBtn}>
+                <Link href={URLS.profile.edit} className={styles.editBtn}>
                     프로필 수정
                 </Link>
             </div>
             <div className={styles.menu}>
                 <span className={styles.menuTitle}>내 서재</span>
-                <Link href="/library" className={styles.menuItem}>내 서재</Link>
-                <Link href="/library/reading" className={styles.menuItem}>독서 현황</Link>
-                <Link href="/library/wishlist" className={styles.menuItem}>위시리스트</Link>
+                <Link href={URLS.library.libraryHome} className={styles.menuItem}>내 서재</Link>
+                <Link href={URLS.library.reading} className={styles.menuItem}>독서 현황</Link>
+                <Link href={URLS.library.wishlist} className={styles.menuItem}>위시리스트</Link>
                 <span className={styles.menuTitle}>활동</span>
-                <Link href="/library/my-review" className={styles.menuItem}>나의 리뷰</Link>
-                <Link href="/library/comment" className={styles.menuItem}>댓글 알림</Link>
-                <Link href="/library/like" className={styles.menuItem}>리뷰 공감 기록</Link>
+                <Link href={URLS.library.myReview} className={styles.menuItem}>나의 리뷰</Link>
+                <Link href={URLS.library.comment} className={styles.menuItem}>댓글 알림</Link>
+                <Link href={URLS.library.like} className={styles.menuItem}>리뷰 공감 기록</Link>
                 <span className={styles.menuTitle}>고객센터</span>
-                <Link href="/library/inquiry" className={styles.menuItem}>문의하기</Link>
-                <Link href="/library/inquiry/history" className={styles.menuItem}>1:1 문의내역</Link>
+                <Link href={URLS.library.inquiry} className={styles.menuItem}>문의하기</Link>
+                <Link href={URLS.library.inquiryHistory} className={styles.menuItem}>1:1 문의내역</Link>
                 <span className={styles.menuTitle}>계정</span>
-                <Link href="/account/modify" className={styles.menuItem}>비밀번호 변경</Link>
-                <Link href="/account/leave" className={styles.menuItem}>회원탈퇴</Link>
+                <Link href={URLS.account.modify} className={styles.menuItem}>비밀번호 변경</Link>
+                <Link href={URLS.account.leave} className={styles.menuItem}>회원탈퇴</Link>
             </div>
         </div>
     )

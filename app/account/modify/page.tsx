@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import { fetchUserProfile } from "@/store/slices/accoutSlice";
 import { useRouter } from "next/navigation";
+import { URLS } from '@/util/url';
 
 export default function Modify() {
     
@@ -183,7 +184,7 @@ export default function Modify() {
                                 </table>
                                 <hr/>
                                 <div className={styles.btnWrapper}>
-                                    <Link href="/home" className={styles.cancelBtn}>
+                                    <Link href={URLS.home} className={styles.cancelBtn}>
                                         취소
                                     </Link>
                                     <button type="submit" className={styles.submitBtn}>확인</button>

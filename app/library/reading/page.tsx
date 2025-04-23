@@ -11,6 +11,7 @@ import { fetchReadingStatus } from '@/store/slices/readingSlice';
 import Link from 'next/link';
 import Pagination from '@/app/components/Pagination';
 import Image from 'next/image';
+import { URLS } from '@/util/url';
 
 export default function Reading() {
 
@@ -82,7 +83,7 @@ export default function Reading() {
                                     .map((item) => (
                                         <Link
                                             key={item.isbn}
-                                            href={`/library/reading/detail?isbn=${item.isbn}`} legacyBehavior>
+                                            href={URLS.library.readingDetail(item.isbn)} legacyBehavior>
                                             <div className={styles.item}>
                                                 <Image
                                                     className={styles.cover}
@@ -125,7 +126,7 @@ export default function Reading() {
                                     .map((item) => (
                                         <Link 
                                             key={item.isbn}
-                                            href={`/library/reading/detail?isbn=${item.isbn}`} legacyBehavior>
+                                            href={URLS.library.readingDetail(item.isbn)} legacyBehavior>
                                             <div className={styles.item}>
                                                 <Image
                                                     className={styles.cover}

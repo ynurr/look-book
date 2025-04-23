@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCommentList } from "@/store/slices/commentSlice";
 import Pagination from "@/app/components/Pagination";
+import { URLS } from '@/util/url';
 
 export default function Comment() {
 
@@ -76,7 +77,7 @@ export default function Comment() {
                         :
                         currentItems.map((item, i) => (
                             <div className={styles.item} key={i}>
-                                <Link href={`/detail?id=${item.isbn}`} legacyBehavior>
+                                <Link href={URLS.book.bookDetail(item.isbn)} legacyBehavior>
                                     <div className={styles.itemWrapper}>
                                         <div className={styles.box}>
                                             <span className={styles.title}>{formatBookTitle(item.book_title)}</span>

@@ -18,6 +18,7 @@ import { fetchUserLike, updateLike } from '@/store/slices/likeSlice';
 import { addComment, deleteComment, fetchComments } from '@/store/slices/commentSlice';
 import DeleteModal from '@/app/components/DeleteModal';
 import Image from 'next/image';
+import { URLS } from '@/util/url';
 
 export default function ReadingDetail() {
 
@@ -244,18 +245,8 @@ export default function ReadingDetail() {
                         {reading?.status === '0' ? '독서완료' : '독서중'}
                     </button>
                     {
-                        review.review_id !== '' && 
-                            <Link href={{
-                                pathname: '/write/review',
-                                query: {
-                                    cover: reading?.cover,
-                                    title: reading?.title,
-                                    author: reading?.author,
-                                    isbn13: reading?.isbn,
-                                    status: reading?.status,
-                                    id: review.review_id
-                                },
-                                }}
+                        review.review_id !== '' && reading &&
+                            <Link href={URLS.review.write(reading.cover, reading.title, reading.author, reading.isbn, reading.status, review.review_id)}
                                 className={styles.modifyBtn}
                             >
                                 수정
@@ -276,9 +267,11 @@ export default function ReadingDetail() {
                             />
                         ) : null}
                         <div className={styles.bookDetail}>
-                            <Link href={`/detail?id=${reading?.isbn}`} className={styles.title}>
-                                {reading?.title}
-                            </Link>
+                            {reading?.isbn && (
+                                <Link href={URLS.book.bookDetail(reading.isbn)} className={styles.title}>
+                                    {reading?.title}
+                                </Link>
+                            )}
                             <p className={styles.author}>{reading?.author}</p>
                             <div className={styles.statusBox}>
                                 <span className={styles.label}>독서 상태</span>
@@ -408,18 +401,12 @@ export default function ReadingDetail() {
                                 </div>
                             </div>
                         ) : (
-                            <Link href={{
-                                pathname: '/write/review',
-                                query: {
-                                    cover: reading?.cover,
-                                    title: reading?.title,
-                                    author: reading?.author,
-                                    isbn13: reading?.isbn,
-                                    status: reading?.status,
-                                },
-                            }}>
-                                <button className={styles.reviewBtn}>리뷰 작성하기</button>
-                            </Link>
+                            reading && (
+
+                                <Link href={URLS.review.write(reading.cover, reading.title, reading.author, reading.isbn, reading.status)}>
+                                    <button className={styles.reviewBtn}>리뷰 작성하기</button>
+                                </Link>
+                            )
                         )
                     }
 

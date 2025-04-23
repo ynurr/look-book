@@ -7,8 +7,8 @@ import { useSession } from "next-auth/react";
 import { checkNicknameDuplication, fetchUserProfile } from "@/store/slices/accoutSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
-import { fetchUserStat } from "@/store/slices/statSlice";
 import { useRouter } from "next/navigation";
+import { URLS } from '@/util/url';
 
 export default function ProfileEdit() {
 
@@ -186,7 +186,7 @@ export default function ProfileEdit() {
                     </table>
                     <hr/>
                     <div className={styles.btnWrapper}>
-                        <Link href="/library" className={styles.cancelBtn}>
+                        <Link href={URLS.library.libraryHome} className={styles.cancelBtn}>
                             취소
                         </Link>
                         <button onClick={handleSubmit} className={styles.submitBtn}>확인</button>

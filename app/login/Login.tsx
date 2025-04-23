@@ -5,6 +5,7 @@ import styles from './Login.module.css'
 import { signIn } from 'next-auth/react'
 import Image from 'next/image'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { URLS } from '@/util/url';
 
 export default function Login() {
 
@@ -82,11 +83,11 @@ export default function Login() {
                     <button onClick={handleSubmit} className={styles.loginBtn}>로그인</button>
                 </div>
                 <div className={styles.links}>
-                    <a href="/find/id">아이디 찾기</a>
+                    <a href={URLS.find.findId}>아이디 찾기</a>
                     <span className={styles.separator}>|</span>
-                    <a href="/find/password">비밀번호 찾기</a>
+                    <a href={URLS.find.findPassword}>비밀번호 찾기</a>
                     <span className={styles.separator}>|</span>
-                    <a href="/signup">회원가입</a>
+                    <a href={URLS.signup}>회원가입</a>
                 </div>
                 <div className={styles.line}>또는</div>
                 <div className={styles.snsLogin}>

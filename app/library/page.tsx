@@ -15,6 +15,7 @@ import { fetchCommentList } from '@/store/slices/commentSlice';
 import { fetchReadingBook } from '@/store/slices/readingSlice';
 import { FaPen } from "react-icons/fa";
 import Image from 'next/image';
+import { URLS } from '@/util/url';
 
 export default function Library() {
     
@@ -97,7 +98,7 @@ export default function Library() {
 
                     <div className={styles.mobileStatGroup}>
                         <span className={styles.statTitle}>👋 {nickname} 님
-                            <Link href="/profile/edit" legacyBehavior>
+                            <Link href={URLS.profile.edit} legacyBehavior>
                                 <FaPen className={styles.penIcon} />
                             </Link>
                         </span>
@@ -122,7 +123,7 @@ export default function Library() {
                         <div className={styles.statBox}>
                             <div className={styles.profile}>
                                 <span className={styles.nickname}>{nickname} 님</span>
-                                <Link href="/profile/edit" className={styles.editBtn}>
+                                <Link href={URLS.profile.edit} className={styles.editBtn}>
                                     프로필 수정
                                 </Link>
                             </div>
@@ -163,7 +164,7 @@ export default function Library() {
                             </div>
                             :
                             reviews.map((item) => (
-                                <Link href={`/library/reading/detail?isbn=${item.isbn}`} className={styles.reviewItem} key={item.review_id}>
+                                <Link href={URLS.library.readingDetail(item.isbn)} className={styles.reviewItem} key={item.review_id}>
                                     <span className={styles.bookTitle}>{item.title}</span>
                                     <span className={styles.reviewContent}>{item.content}</span>
                                     <span className={styles.reviewDate}>{item.created_at}</span>
@@ -184,19 +185,21 @@ export default function Library() {
                                 </div>
                                 :
                                 <>
-                                <Link href={`/library/reading/detail?isbn=${CompletedBook?.book_isbn}`}>
-                                {CompletedBook?.book_cover ? ( 
-                                    <Image
-                                        className={styles.cover}
-                                        src={CompletedBook?.book_cover}
-                                        alt={"도서 이미지"}
-                                        width={110}
-                                        height={160}
-                                        sizes="(max-width: 480px) 90px, 110px"
-                                        />
-                                ) : null}
-                                </Link>
-                                <Link href={'/library/reading'}>
+                                {CompletedBook?.book_isbn && (
+                                    <Link href={URLS.library.readingDetail(CompletedBook.book_isbn)}>
+                                    {CompletedBook?.book_cover ? ( 
+                                        <Image
+                                            className={styles.cover}
+                                            src={CompletedBook?.book_cover}
+                                            alt={"도서 이미지"}
+                                            width={110}
+                                            height={160}
+                                            sizes="(max-width: 480px) 90px, 110px"
+                                            />
+                                    ) : null}
+                                    </Link>
+                                )}
+                                <Link href={URLS.library.reading}>
                                     <div className={styles.count}>{CompletedCnt > 99 ? "99 +" : `+ ${CompletedCnt === 0 ? 0 : CompletedCnt - 1}`}</div>
                                 </Link>
                                 </>
@@ -212,19 +215,21 @@ export default function Library() {
                                 </div>
                                 :
                                 <>
-                                <Link href={`/library/reading/detail?isbn=${ReadingBook?.book_isbn}`}>
-                                {ReadingBook?.book_cover ? ( 
-                                    <Image
+                                {ReadingBook?.book_isbn && (
+                                    <Link href={URLS.library.readingDetail(ReadingBook.book_isbn)}>
+                                    {ReadingBook?.book_cover ? ( 
+                                        <Image
                                         className={styles.cover}
-                                        src={ReadingBook?.book_cover}
-                                        alt={"도서 이미지"}
-                                        width={110}
-                                        height={160}
-                                        sizes="(max-width: 480px) 90px, 110px"
-                                    />
-                                ) : null}
-                                </Link>
-                                <Link href={'/library/reading'}>
+                                            src={ReadingBook?.book_cover}
+                                            alt={"도서 이미지"}
+                                            width={110}
+                                            height={160}
+                                            sizes="(max-width: 480px) 90px, 110px"
+                                        />
+                                    ) : null}
+                                    </Link>
+                                )}
+                                <Link href={URLS.library.reading}>
                                     <div className={styles.count}>{ReadingCnt > 99 ? "99 +" : `+ ${ReadingCnt === 0 ? 0 : ReadingCnt - 1}`}</div>
                                 </Link>
                                 </>

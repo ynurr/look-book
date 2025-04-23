@@ -5,6 +5,7 @@ import Link from "next/link";
 import styles from "./AdminInquiry.module.css";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { URLS } from '@/util/url';
 
 interface Inquiry {
     inquiry_id: string;
@@ -76,7 +77,7 @@ export default function AdminInquiry() {
                             ? (filteredInquiries.map((inquiry) => (
                                 <tr key={inquiry.inquiry_id}>
                                     <td>
-                                        <Link href={`/admin/inquiry/detail?id=${inquiry.inquiry_id}`} className={styles.link}>
+                                        <Link href={URLS.admin.inquiryDetail(inquiry.inquiry_id)} className={styles.link}>
                                             {inquiry.title}
                                         </Link>
                                     </td>

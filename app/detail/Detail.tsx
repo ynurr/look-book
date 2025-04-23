@@ -19,6 +19,7 @@ import { FaBook } from "react-icons/fa";
 import { FaBookOpen } from "react-icons/fa6";
 import { ScrollMenu } from 'react-horizontal-scrolling-menu';
 import Image from 'next/image';
+import { URLS } from '@/util/url';
 
 export default function Detail() {
 
@@ -280,7 +281,7 @@ export default function Detail() {
                                 <ScrollMenu scrollContainerClassName={styles.scrollContainer}>
                                 {filteredBooks.map((book: Books, index: number) => (
                                     <div className={styles.bookItem} key={index}>
-                                        <Link href={`/detail?id=${book.isbn13}`}>
+                                        <Link href={URLS.book.bookDetail(book.isbn13)}>
                                             <Image
                                                 className={styles.cover2}
                                                 src={book.cover}
@@ -290,7 +291,7 @@ export default function Detail() {
                                                 sizes="(max-width: 480px) 90px, 110px"
                                             />
                                         </Link>
-                                        <Link href={`/detail?id=${book.isbn13}`}>
+                                        <Link href={URLS.book.bookDetail(book.isbn13)}>
                                             <span className={styles.title2}>{book.title}</span>
                                         </Link>
                                     </div>

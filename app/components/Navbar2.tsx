@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { signOut, useSession } from 'next-auth/react';
+import { URLS } from '@/util/url';
 
 export default function Navbar2() {
 
@@ -27,20 +28,20 @@ export default function Navbar2() {
             <div className={styles.content}>
                 <div className={styles.container}>
                     <div className={styles.leftSection}>
-                        <Link href="/" className={styles.homeLink}>LOOK<br/>BOOK</Link>
+                        <Link href={URLS.home} className={styles.homeLink}>LOOK<br/>BOOK</Link>
                         <ul className={styles.navList}>
                             <li>
-                                <Link href="/popular" className={`${styles.navItem} ${currentPath === '/popular' ? styles.active : ''}`}>인기</Link> 
+                                <Link href={URLS.popular} className={`${styles.navItem} ${currentPath === '/popular' ? styles.active : ''}`}>인기</Link> 
                             </li>
                             <li>
-                                <Link href="/new" className={`${styles.navItem} ${currentPath === '/new' ? styles.active : ''}`}>신규</Link> 
+                                <Link href={URLS.new} className={`${styles.navItem} ${currentPath === '/new' ? styles.active : ''}`}>신규</Link> 
                             </li>
                             <li>
                                {
                                     session?.user.id === "admin" ? 
-                                    <Link href="/admin/inquiry" className={`${styles.navItem} ${currentPath === '/admin/inquiry' ? styles.active : ''}`}>관리자</Link>
+                                    <Link href={URLS.admin.inquiry} className={`${styles.navItem} ${currentPath === '/admin/inquiry' ? styles.active : ''}`}>관리자</Link>
                                     :
-                                    <Link href="/library" className={`${styles.navItem} ${currentPath === '/library' ? styles.active : ''}`}>내 서재</Link> 
+                                    <Link href={URLS.library.libraryHome} className={`${styles.navItem} ${currentPath === '/library' ? styles.active : ''}`}>내 서재</Link> 
                                 }
                             </li>
                         </ul>
@@ -66,7 +67,7 @@ export default function Navbar2() {
                                     로그아웃
                                 </button>
                             ) : (
-                                <Link href="/login" className={styles.btn}>로그인</Link>
+                                <Link href={URLS.login} className={styles.btn}>로그인</Link>
                             )
                         }
                     </div>

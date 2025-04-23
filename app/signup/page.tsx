@@ -7,6 +7,7 @@ import { AppDispatch } from '@/store/store'
 import { useDispatch } from 'react-redux'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { URLS } from '@/util/url';
 
 export default function SignUp() {
 
@@ -364,7 +365,7 @@ export default function SignUp() {
                                     aria-label="서비스 이용약관 동의"
                                 />
                                 <span>서비스 이용약관 동의 (필수)</span>
-                                <Link href="/terms/service-terms" className={styles.termsBtn}>보기</Link>
+                                <Link href={URLS.terms.service} className={styles.termsBtn}>보기</Link>
                             </div>
                             <div className={`${styles.checkboxGroup} ${styles.privacy}`}>
                                 <input 
@@ -374,14 +375,14 @@ export default function SignUp() {
                                     aria-label="개인정보 처리방짐 동의"
                                 />
                                 <span>개인정보 처리방짐 동의 (필수)</span>
-                                <Link href="/terms/privacy-policy" className={styles.termsBtn}>보기</Link>
+                                <Link href={URLS.terms.privacy} className={styles.termsBtn}>보기</Link>
                             </div>
                         </div>
                     </div>
                     <button type="submit" className={styles.signupBtn}>가입하기</button>
                 </form>
                 <div className={styles.links}>
-                    <a href="/login">이미 계정이 있으신가요? 로그인</a>
+                    <a href={URLS.login}>이미 계정이 있으신가요? 로그인</a>
                 </div>
             </div>
         </div>

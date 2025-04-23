@@ -14,6 +14,7 @@ import { fetchReviewAll } from "@/store/slices/reviewSlice";
 import Pagination from "@/app/components/Pagination";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { URLS } from '@/util/url';
 
 export default function Review() {
 
@@ -61,7 +62,7 @@ export default function Review() {
                     :
                     currentItems.map((item, i) => (
                         <div className={styles.list} key={i}>
-                            <Link href={`/library/reading/detail?isbn=${item.isbn}`}>
+                            <Link href={URLS.library.readingDetail(item.isbn)}>
                                 <div className={styles.bookInfo}>
                                     <Image
                                         className={styles.cover}

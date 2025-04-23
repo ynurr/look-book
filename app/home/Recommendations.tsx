@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import styles from './Recommendations.module.css'
 import Link from 'next/link';
 import Image from 'next/image';
+import { URLS } from '@/util/url';
 
 interface Book {
     title: string;
@@ -40,7 +41,7 @@ export default function Recommendations() {
             <h1 className={styles.sectionTitle}>이런 책은 어때요?</h1>
             <div className={styles.wrapper}>
                 <div className={styles.box}>
-                    <Link href={`/detail?id=${book.isbn13}`}>
+                    <Link href={URLS.book.bookDetail(book.isbn13)}>
                     {book.cover &&
                         <Image
                             className={styles.cover}
@@ -52,7 +53,7 @@ export default function Recommendations() {
                     }
                     </Link>
                     <div className={styles.info}>
-                        <Link href={`/detail?id=${book.isbn13}`}>
+                        <Link href={URLS.book.bookDetail(book.isbn13)}>
                             <span className={styles.title}>{book.title}</span>
                         </Link>
                         <p className={styles.author}>{book.author}</p>

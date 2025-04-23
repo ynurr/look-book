@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import DeleteModal from "@/app/components/DeleteModal";
+import { URLS } from '@/util/url';
 
 interface Inquiry {
     inquiry_id: string;
@@ -112,7 +113,7 @@ export default function AdminInquiryDetail() {
         
     return (
         <div className={styles.container}>
-            <Link href="/admin/inquiry" className={styles.backBtn}>문의내역</Link>
+            <Link href={URLS.admin.inquiry} className={styles.backBtn}>문의내역</Link>
             <h2>문의 상세</h2>
             <div className={styles.info}>
                 <p className={styles.title}>{inquiry?.title}</p>
