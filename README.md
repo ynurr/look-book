@@ -4,6 +4,8 @@
 </p>
 
 - 배포 URL : [https://look-book-nine.vercel.app](https://look-book-nine.vercel.app/)
+- 테스트 ID : test7711
+- 테스트 PASSWORD : xptmxm123*
 <br/>
 
 ## 프로젝트 소개
