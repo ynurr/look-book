@@ -30,13 +30,19 @@
 .rankingRecommendationsSection {
     gap: 60px;
     display: flex;
+    flex-wrap: wrap;
     align-items: stretch;
     margin-top: 60px;
     margin-bottom: 60px;
 }
   
 .rankingRecommendationsSection > div:first-child {
-    max-width: 230px;
+    flex: 0 0 230px;
+}
+
+.rankingRecommendationsSection > div:last-child {
+    flex: 1 1 0;
+    min-width: 0;
 }
 
 /* 메인 페이지 : 타이틀 */
